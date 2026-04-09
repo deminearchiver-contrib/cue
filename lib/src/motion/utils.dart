@@ -1,5 +1,37 @@
 import 'package:flutter/material.dart';
 
+/// Extensions on [int] for convenient duration literals.
+///
+/// Enables shorthand syntax for specifying durations in code:
+/// ```dart
+/// 200.ms   // 200 milliseconds
+/// 2.s      // 2 seconds
+/// ```
+@Deprecated("Use Duration() directly instead.")
+extension DurationExtension on int {
+  /// Returns this value as a duration in milliseconds.
+  @Deprecated("Use Duration() directly instead.")
+  Duration get ms => Duration(milliseconds: this);
+
+  /// Returns this value as a duration in seconds.
+  @Deprecated("Use Duration() directly instead.")
+  Duration get s => Duration(seconds: this);
+}
+
+/// Extensions on [double] for convenient duration literals.
+///
+/// Enables fractional second durations:
+/// ```dart
+/// 0.5.s    // 500 milliseconds
+/// 1.5.s    // 1.5 seconds
+/// ```
+@Deprecated("Use Duration() directly instead.")
+extension DoubleDurationExtension on double {
+  /// Returns this value as a duration in seconds (with fractional precision).
+  @Deprecated("Use Duration() directly instead.")
+  Duration get s => Duration(microseconds: (this * 1e6).round());
+}
+
 /// A factory function that creates [Tween<T>] instances.
 ///
 /// Used to defer tween creation with custom implementations for specific types.
