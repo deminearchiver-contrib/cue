@@ -1,47 +1,32 @@
 {
-    // Use IntelliSense to learn about possible attributes.
-    // Hover to view descriptions of existing attributes.
-    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
-    "version": "0.2.0",
-    "configurations": [
-        {
-            "name": "cue",
-            "request": "launch",
-            "type": "dart"
-        },
-        {
-            "name": "cue (profile mode)",
-            "request": "launch",
-            "type": "dart",
-            "flutterMode": "profile"
-        },
-        {
-            "name": "cue (release mode)",
-            "request": "launch",
-            "type": "dart",
-            "flutterMode": "release"
-        },
-        {
-            "name": "example",
-            "cwd": "example",
-            "request": "launch",
-            "type": "dart",
-            "noDebug": true,
-            "program": "/Users/milad/StudioProjects/cue/example/lib/main.dart"
-        },
-        {
-            "name": "example (profile mode)",
-            "cwd": "example",
-            "request": "launch",
-            "type": "dart",
-            "flutterMode": "profile"
-        },
-        {
-            "name": "example (release mode)",
-            "cwd": "example",
-            "request": "launch",
-            "type": "dart",
-            "flutterMode": "release"
-        }
-    ]
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "cue/example (debug mode)",
+      "request": "launch",
+      "type": "dart",
+      "flutterMode": "debug",
+      "args": [],
+      "cwd": "example",
+      "program": "lib/main.dart"
+    },
+    {
+      "name": "cue/example (profile mode)",
+      "request": "launch",
+      "type": "dart",
+      "flutterMode": "profile",
+      "args": [],
+      "cwd": "example",
+      "program": "lib/main.dart"
+    },
+    {
+      "name": "cue/example (release mode)",
+      "request": "launch",
+      "type": "dart",
+      "flutterMode": "release",
+      "args": [],
+      "cwd": "example",
+      "program": "lib/main.dart"
+    }
+  ]
 }

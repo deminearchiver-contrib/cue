@@ -1,8 +1,10 @@
 name: cue
-description: "Physics-first Flutter animations with a composable, timeline-driven API"
+description: Physics-first Flutter animations with a composable, timeline-driven API.
 version: 0.1.2
 homepage: https://github.com/Milad-Akarie/cue
-topics: 
+repository: https://github.com/Milad-Akarie/cue
+issue_tracker: https://github.com/Milad-Akarie/cue/issues
+topics:
   - animation
   - motion
   - timeline
@@ -10,8 +12,11 @@ topics:
   - effects
 
 environment:
-  sdk: ^3.10.8
-  flutter: ">=1.17.0"
+  sdk: ^3.11.0
+  flutter: ">=3.41.0"
+
+workspace:
+  - example
 
 dependencies:
   flutter:
@@ -20,6 +25,5 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  coverage: ^1.15.0 
-  flutter_lints: ^6.0.0
- 
+  coverage: ^1.15.0
+  deminearchiver_lints: ^2.1.2
