@@ -423,7 +423,7 @@ class _CacheEntry {
 /// avoiding the need to manually construct an Actor with a one-item list.
 ///
 /// Supports both tween-based and [Keyframes]-based construction.
-abstract class SingleActorBase<T> extends StatelessWidget {
+abstract class SingleActorBase<T extends Object?> extends StatelessWidget {
   /// The child widget that the single act will be applied to.
   final Widget child;
 

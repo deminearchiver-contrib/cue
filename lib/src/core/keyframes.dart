@@ -24,7 +24,7 @@ abstract class KeyframeBase<T extends Object?> {
 /// ```dart
 /// .key(100.0, at: 0.5, curve: Curves.easeOut)
 /// ```
-class FKeyframe<T> extends KeyframeBase<T> {
+class FKeyframe<T extends Object?> extends KeyframeBase<T> {
   /// The normalized position (0-1) of this keyframe within the duration.
   final double at;
 
@@ -83,7 +83,7 @@ class FKeyframe<T> extends KeyframeBase<T> {
 /// ```dart
 /// .key(100.0, motion: Spring.smooth())
 /// ```
-class Keyframe<T> extends KeyframeBase<T> {
+class Keyframe<T extends Object?> extends KeyframeBase<T> {
   /// The motion describing how to animate towards this keyframe.
   ///
   /// If not provided, the default motion from [MotionKeyframes.motion] is used.
@@ -141,7 +141,7 @@ class Keyframe<T> extends KeyframeBase<T> {
 ///   .key(150.0, at: 1.0),
 /// ], duration: Duration(seconds: 1))
 /// ```
-sealed class Keyframes<T> {
+sealed class Keyframes<T extends Object?> {
   /// Creates a keyframe sequence with explicit motion timing.
   const factory Keyframes(
     List<Keyframe<T>> frames, {
@@ -175,7 +175,7 @@ sealed class Keyframes<T> {
 ///
 /// Each frame specifies its own [CueMotion] to determine animation timing
 /// from the previous frame. Motions are extracted and applied sequentially.
-final class MotionKeyframes<T> implements Keyframes<T> {
+final class MotionKeyframes<T extends Object?> implements Keyframes<T> {
   /// The ordered list of keyframes with explicit motion.
   final List<Keyframe<T>> frames;
 
@@ -247,7 +247,7 @@ final class MotionKeyframes<T> implements Keyframes<T> {
 /// Frames are positioned using normalized values (0-1). The total [duration]
 /// can be provided inline or inherited. Motion is calculated based on
 /// fractional positions within the duration.
-final class FractionalKeyframes<T> implements Keyframes<T> {
+final class FractionalKeyframes<T extends Object?> implements Keyframes<T> {
   /// The ordered list of keyframes with fractional positioning.
   final List<FKeyframe<T>> frames;
 
@@ -315,9 +315,9 @@ final class FractionalKeyframes<T> implements Keyframes<T> {
     required Duration duration,
   }) {
     // Remove duplicates (keep last) and track curves
-    final Map<double, Curve?> frameCurves = {};
+    final frameCurves = <double, Curve?>{};
 
-    for (int i = 0; i < frames.length; i++) {
+    for (var i = 0; i < frames.length; i++) {
       final frame = frames[i];
       final clampedTime = frame.at.clamp(0.0, 1.0);
       frameCurves[clampedTime] = frame.curve ?? curve;
@@ -326,10 +326,11 @@ final class FractionalKeyframes<T> implements Keyframes<T> {
     // Sort by time
     final sortedTimes = frameCurves.keys.toList()..sort();
 
-    if (sortedTimes.isEmpty || (!includeFirst && sortedTimes.length < 2))
+    if (sortedTimes.isEmpty || (!includeFirst && sortedTimes.length < 2)) {
       return [];
+    }
 
-    final List<CueMotion> motions = [];
+    final motions = <CueMotion>[];
 
     // Add motion to first frame if requested
     if (includeFirst) {
@@ -344,7 +345,7 @@ final class FractionalKeyframes<T> implements Keyframes<T> {
     }
 
     // Add motions between consecutive frames
-    for (int i = 0; i < sortedTimes.length - 1; i++) {
+    for (var i = 0; i < sortedTimes.length - 1; i++) {
       final currentTime = sortedTimes[i];
       final nextTime = sortedTimes[i + 1];
       final weight = nextTime - currentTime;
@@ -426,8 +427,8 @@ class Phase<T extends Object?> {
     }
 
     // Remove duplicates (keep last) and track curves
-    final Map<double, T> uniqueFrames = {};
-    final Map<double, Curve?> frameCurves = {};
+    final uniqueFrames = <double, T>{};
+    final frameCurves = <double, Curve?>{};
 
     // Without an explicit starting value, the first frame is the starting point at t=0.
     if (from == null) {
@@ -435,7 +436,7 @@ class Phase<T extends Object?> {
       frameCurves[0.0] = null;
     }
 
-    for (int i = from == null ? 1 : 0; i < frames.length; i++) {
+    for (var i = from == null ? 1 : 0; i < frames.length; i++) {
       final frame = frames[i];
       final clampedTime = frame.at.clamp(0.0, 1.0);
       uniqueFrames[clampedTime] = frame.value;
@@ -471,8 +472,8 @@ class Phase<T extends Object?> {
       }
     }
 
-    final List<Phase<R>> phases = [];
-    for (int i = 1; i < resolvedFrames.length; i++) {
+    final phases = <Phase<R>>[];
+    for (var i = 1; i < resolvedFrames.length; i++) {
       phases.add(
         Phase(
           begin: transform(resolvedFrames[i - 1].value),
@@ -499,11 +500,9 @@ class Phase<T extends Object?> {
     bool forReverse = false,
     required R Function(T value) transform,
   }) {
-    if (frames.isEmpty) {
-      return [];
-    }
-    final mFrames = List.from(frames);
-    final List<Phase<R>> phases = [];
+    if (frames.isEmpty) return [];
+    final mFrames = List.of(frames);
+    final phases = <Phase<R>>[];
     if (from != null) {
       if (forReverse) {
         mFrames.add(Keyframe(from, motion: CueMotion.none));
@@ -512,7 +511,7 @@ class Phase<T extends Object?> {
       }
     }
 
-    for (int i = 1; i < mFrames.length; i++) {
+    for (var i = 1; i < mFrames.length; i++) {
       final currentFrame = mFrames[i];
       phases.add(
         Phase(

@@ -13,7 +13,7 @@ import 'package:flutter/material.dart';
 ///
 /// **Custom tweens**: Pass a [TweenBuilder] for types that need custom tween logic
 /// (e.g., `ColorTween.new` for colors).
-class CueValueAnimator<T> extends Animation<T>
+class CueValueAnimator<T extends Object?> extends Animation<T>
     with AnimationWithParentMixin<double> {
   /// Internal controller managing the animation timeline.
   final CueController _controller;

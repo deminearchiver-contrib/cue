@@ -444,7 +444,7 @@ enum ReverseBehaviorType {
 /// Key difference from [ReverseBehavior]: `.mirror()` and `.to()` accept only
 /// `delay:` (no `motion:`), because motion is embedded in the keyframes
 /// themselves via [MotionKeyframes] or [FractionalKeyframes].
-class KFReverseBehavior<T> extends ReverseBehaviorBase<T> {
+class KFReverseBehavior<T extends Object?> extends ReverseBehaviorBase<T> {
   /// Play forward keyframes in reverse (default for keyframed acts).
   const KFReverseBehavior.mirror({super.delay})
     : super._(type: ReverseBehaviorType.mirror);
@@ -476,7 +476,7 @@ class KFReverseBehavior<T> extends ReverseBehaviorBase<T> {
 /// The `.mirror()` and `.to()` variants accept both `motion:` (reverse motion
 /// override) and `delay:` (reverse delay). These are the only ways to set
 /// reverse-specific motion/delay on an act.
-class ReverseBehavior<T> extends ReverseBehaviorBase<T> {
+class ReverseBehavior<T extends Object?> extends ReverseBehaviorBase<T> {
   /// Play forward animation in reverse (default for tween acts).
   ///
   /// Parameters:
@@ -517,7 +517,7 @@ class ReverseBehavior<T> extends ReverseBehaviorBase<T> {
 ///
 /// Subtypes: [ReverseBehavior] (for tween acts) and [KFReverseBehavior]
 /// (for keyframed acts).
-class ReverseBehaviorBase<T> {
+class ReverseBehaviorBase<T extends Object?> {
   /// The reverse behavior type.
   final ReverseBehaviorType type;
 
@@ -617,7 +617,7 @@ class ReverseBehaviorBase<T> {
 ///   }
 /// }
 /// ```
-abstract class TweenAct<T> extends TweenActBase<T, T> {
+abstract class TweenAct<T extends Object?> extends TweenActBase<T, T> {
   /// Creates a TweenAct with optional tween or keyframed values.
   @internal
   const TweenAct({
@@ -657,7 +657,7 @@ abstract class TweenAct<T> extends TweenActBase<T, T> {
 /// Holds description of how a value[T] animates between two states.
 ///
 /// if [from] and [to] are the same, this is a constant value (no animation).
-class AnimatableValue<T> {
+class AnimatableValue<T extends Object?> {
   /// The starting value for the animation.
   final T from;
 

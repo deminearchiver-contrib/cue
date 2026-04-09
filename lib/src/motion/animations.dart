@@ -13,7 +13,7 @@ import 'package:flutter/widgets.dart';
 /// - [DeferredCueAnimation]: Deferred animatable setup, used when values need
 ///   normalization before tween building (e.g., animating to `infinity` requires
 ///   normalizing to actual constraints).
-abstract class CueAnimation<T> extends Animation<T>
+abstract class CueAnimation<T extends Object?> extends Animation<T>
     with AnimationWithParentMixin<double> {
   /// The animation track from the Cue timeline.
   @override
@@ -60,7 +60,7 @@ abstract class CueAnimation<T> extends Animation<T>
 }
 
 /// A [CueAnimation] with a fixed, pre-built [CueAnimtable].
-class CueAnimationImpl<T> extends CueAnimation<T> {
+class CueAnimationImpl<T extends Object?> extends CueAnimation<T> {
   /// The animatable driver.
   @override
   final CueAnimtable<T> animtable;
@@ -80,7 +80,8 @@ class CueAnimationImpl<T> extends CueAnimation<T> {
 /// Maps a [CueAnimtable] by transforming its evaluated values.
 ///
 /// Used internally by [CueAnimation.map] to chain value transformations.
-class _MappedCueAnimtable<T, S> extends CueAnimtable<S> {
+class _MappedCueAnimtable<T extends Object?, S extends Object?>
+    extends CueAnimtable<S> {
   /// The source animatable.
   final CueAnimtable<T> parent;
 
@@ -102,7 +103,7 @@ class _MappedCueAnimtable<T, S> extends CueAnimtable<S> {
 /// normalizing to the actual maxConstraints before the tween is built.
 ///
 /// Call [setAnimatable] once values are normalized and the animatable is ready.
-class DeferredCueAnimation<T> extends CueAnimation<T> {
+class DeferredCueAnimation<T extends Object?> extends CueAnimation<T> {
   /// Context used for building tweens.
   ActContext context;
 

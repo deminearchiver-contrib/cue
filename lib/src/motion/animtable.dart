@@ -12,7 +12,7 @@ import 'package:flutter/widgets.dart';
 /// - [DualAnimatable]: Different evaluators for forward vs. reverse
 /// - [ConstantAnimtable]: Constant value regardless of state
 /// - [SegmentedAnimtable]: Phase-based evaluator selection for keyframes
-abstract class CueAnimtable<T> {
+abstract class CueAnimtable<T extends Object?> {
   /// Creates an animatable driver.
   const CueAnimtable();
 
@@ -28,7 +28,7 @@ abstract class CueAnimtable<T> {
 ///
 /// Typically used for single-phase motions that don't need asymmetric
 /// forward/reverse behavior or multi-stage keyframes.
-class TweenAnimtable<T> extends CueAnimtable<T> {
+class TweenAnimtable<T extends Object?> extends CueAnimtable<T> {
   /// The underlying Flutter tween to transform progress values.
   final Animatable<T> tween;
 
@@ -49,7 +49,7 @@ class TweenAnimtable<T> extends CueAnimtable<T> {
 ///
 /// **Use case**: Toggle animations where opening animates differently than closing,
 /// e.g., a button expands smoothly when toggled on but snaps back when toggled off.
-class DualAnimatable<T> extends CueAnimtable<T> {
+class DualAnimatable<T extends Object?> extends CueAnimtable<T> {
   /// The animatable to evaluate when moving forward.
   final CueAnimtable<T> forward;
 
@@ -74,7 +74,7 @@ class DualAnimatable<T> extends CueAnimtable<T> {
 /// Ignores all animation state ([CueTrack] parameters). Useful for acts that
 /// should not animate but need to participate in the animation framework
 /// (e.g., a static color or opacity).
-class ConstantAnimtable<T> extends CueAnimtable<T> {
+class ConstantAnimtable<T extends Object?> extends CueAnimtable<T> {
   /// The constant value to always return.
   final T value;
 
@@ -91,7 +91,7 @@ class ConstantAnimtable<T> extends CueAnimtable<T> {
 /// using the driver's phase, then evaluates through that evaluator.
 ///
 /// **Common use case**: Keyframe animations, where different motions are needed.
-class SegmentedAnimtable<T> extends CueAnimtable<T> {
+class SegmentedAnimtable<T extends Object?> extends CueAnimtable<T> {
   /// List of evaluators, indexed by phase.
   ///
   /// Each element corresponds to one phase. The index must match the
