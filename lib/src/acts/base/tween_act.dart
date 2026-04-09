@@ -10,13 +10,13 @@ import 'package:flutter/material.dart';
 /// Used by [TweenActBase] to normalize or project values before animating.
 /// For example, an enum might be transformed to a numeric offset.
 ///
-/// Called during [CueAnimtable] construction, receiving the [ActContext] so
+/// Called during [CueAnimatable] construction, receiving the [ActContext] so
 /// that the transformation can depend on properties like [ActContext.textDirection].
 typedef ValueTransformer<R, T> = R Function(ActContext context, T value);
 
 /// Base for tween-based and keyframed acts with value transformation.
 ///
-/// [TweenActBase] extends [AnimtableAct] to add support for:
+/// [TweenActBase] extends [AnimatableAct] to add support for:
 /// - **Tween mode**: `from` and `to` values, plus per-frame reverse behavior
 /// - **Keyframed mode**: sequence of keyframes, plus keyframe-based reverse behavior
 /// - **Value transformation**: normalizing stored type `T` into animated type `R`
@@ -28,7 +28,7 @@ typedef ValueTransformer<R, T> = R Function(ActContext context, T value);
 /// - `T` — the value type for this act's `from`, `to`, keyframes, and
 ///   reverse behavior (e.g., `double`, `Offset`, `Color`). Passed to
 ///   [ReverseBehavior.to] and [KFReverseBehavior.to].
-/// - `R` — the animated value type flowing through [CueAnimtable]. Usually
+/// - `R` — the animated value type flowing through [CueAnimatable]. Usually
 ///   `T == R`; they may differ when [transform] normalizes the input
 ///   (e.g., transforming an enum to a numeric range).
 ///
@@ -86,7 +86,7 @@ typedef ValueTransformer<R, T> = R Function(ActContext context, T value);
 /// }
 /// ```
 abstract class TweenActBase<T extends Object?, R extends Object?>
-    extends AnimtableAct<T, R> {
+    extends AnimatableAct<T, R> {
   /// The initial animated value for this tween.
   ///
   /// In tween mode, `from` is the start value. If not provided, the current
@@ -148,7 +148,7 @@ abstract class TweenActBase<T extends Object?, R extends Object?>
 
   /// Transforms a value of type `T` into an animated value of type `R`.
   ///
-  /// Called during [CueAnimtable] construction. For acts where `T == R`,
+  /// Called during [CueAnimatable] construction. For acts where `T == R`,
   /// this is typically an identity function. For acts that normalize their
   /// input (e.g., degrees to radians), override this method.
   R transform(ActContext context, T value);
@@ -252,12 +252,12 @@ abstract class TweenActBase<T extends Object?, R extends Object?>
     );
   }
 
-  /// Builds a [CueAnimtable] from tween or keyframe values.
+  /// Builds a [CueAnimatable] from tween or keyframe values.
   ///
   /// Central method for constructing the animatable based on the input:
-  /// - If `keyframes` is non-null, uses [SegmentedAnimtable] with per-frame
+  /// - If `keyframes` is non-null, uses [SegmentedAnimatable] with per-frame
   ///   phases (either [Phase.resolveMotionFrames] or [Phase.resolveFractionalFrames])
-  /// - If `keyframes` is null, uses a basic [TweenAnimtable] (or [ConstantAnimtable]
+  /// - If `keyframes` is null, uses a basic [TweenAnimatable] (or [ConstantAnimatable]
   ///   if from == to)
   ///
   /// Also applies [transform] to all values, handling the `implicitFrom` case
@@ -271,7 +271,7 @@ abstract class TweenActBase<T extends Object?, R extends Object?>
   ///   of transforming `from` directly (used when animating from current value)
   /// - `forReverse`: if true, mark phases for reverse animation
   /// - `keyframes`: optional keyframes sequence
-  CueAnimtable<R> resolveTween(
+  CueAnimatable<R> resolveTween(
     ActContext context, {
     required T? from,
     required T? to,
@@ -296,7 +296,7 @@ abstract class TweenActBase<T extends Object?, R extends Object?>
             transform: (v) => transform(context, v),
           ),
       };
-      return SegmentedAnimtable([
+      return SegmentedAnimatable([
         for (final phase in phases) createSingleTween(phase.begin, phase.end),
       ]);
     } else {
@@ -306,9 +306,9 @@ abstract class TweenActBase<T extends Object?, R extends Object?>
         'From and to values must be provided when not using keyframes',
       );
       if (effectiveFrom == to) {
-        return ConstantAnimtable<R>(effectiveFrom);
+        return ConstantAnimatable<R>(effectiveFrom);
       } else {
-        return TweenAnimtable<R>(
+        return TweenAnimatable<R>(
           createSingleTween(effectiveFrom, transform(context, to as T)),
         );
       }
@@ -333,7 +333,7 @@ abstract class TweenActBase<T extends Object?, R extends Object?>
   ///   plays it backwards)
   /// - [ReverseBehaviorType.none]: only forward animatable is built (no reverse)
   @override
-  (CueAnimtable<R>, CueAnimtable<R>?) buildTweens(ActContext context) {
+  (CueAnimatable<R>, CueAnimatable<R>?) buildTweens(ActContext context) {
     if (reverse.type == ReverseBehaviorType.exclusive) {
       return (
         resolveTween(
@@ -348,7 +348,7 @@ abstract class TweenActBase<T extends Object?, R extends Object?>
       );
     }
 
-    final animtable = resolveTween(
+    final animatable = resolveTween(
       context,
       from: from,
       iniitalkeyframe: from,
@@ -359,7 +359,7 @@ abstract class TweenActBase<T extends Object?, R extends Object?>
 
     if (reverse.type == ReverseBehaviorType.to) {
       final reverseTo = reverse.to ?? reverse.frames?.lastTarget;
-      final reverseAnimtable = resolveTween(
+      final reverseAnimatable = resolveTween(
         context,
         from: reverseTo,
         to: to,
@@ -367,10 +367,10 @@ abstract class TweenActBase<T extends Object?, R extends Object?>
         keyframes: reverse.frames?.reversed,
         forReverse: true,
       );
-      return (animtable, reverseAnimtable);
+      return (animatable, reverseAnimatable);
     }
 
-    return (animtable, null);
+    return (animatable, null);
   }
 
   @override

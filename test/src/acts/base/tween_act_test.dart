@@ -400,7 +400,7 @@ void main() {
       reverseMotion: reverseMotion,
     );
 
-    test('with null keyframes and from != to returns TweenAnimtable', () {
+    test('with null keyframes and from != to returns TweenAnimatable', () {
       final act = CueTweenBuildHelper<int>(
         from: 10,
         to: 25,
@@ -413,7 +413,7 @@ void main() {
         keyframes: null,
       );
 
-      expect(result, isA<TweenAnimtable<int>>());
+      expect(result, isA<TweenAnimatable<int>>());
     });
 
     test(
@@ -432,7 +432,7 @@ void main() {
         );
 
         // effectiveFrom = transform(5) = 10, to = 10, so they're equal
-        expect(result, isA<TweenAnimtable<int>>());
+        expect(result, isA<TweenAnimatable<int>>());
       },
     );
 
@@ -450,10 +450,10 @@ void main() {
         keyframes: null,
       );
 
-      expect(result, isA<TweenAnimtable<int>>());
+      expect(result, isA<TweenAnimatable<int>>());
     });
 
-    test('with MotionKeyframes returns SegmentedAnimtable', () {
+    test('with MotionKeyframes returns SegmentedAnimatable', () {
       final frames = MotionKeyframes<int>([
         Keyframe(10),
         Keyframe(20),
@@ -471,7 +471,7 @@ void main() {
         keyframes: frames,
       );
 
-      expect(result, isA<SegmentedAnimtable<int>>());
+      expect(result, isA<SegmentedAnimatable<int>>());
     });
 
     test(
@@ -503,12 +503,12 @@ void main() {
           keyframes: frames,
         );
 
-        expect(resultForward, isA<SegmentedAnimtable<int>>());
-        expect(resultReverse, isA<SegmentedAnimtable<int>>());
+        expect(resultForward, isA<SegmentedAnimatable<int>>());
+        expect(resultReverse, isA<SegmentedAnimatable<int>>());
       },
     );
 
-    test('with FractionalKeyframes returns SegmentedAnimtable', () {
+    test('with FractionalKeyframes returns SegmentedAnimatable', () {
       final frames = FractionalKeyframes<int>([
         FKeyframe(10, at: 0.0),
         FKeyframe(20, at: 1.0),
@@ -526,7 +526,7 @@ void main() {
         keyframes: frames,
       );
 
-      expect(result, isA<SegmentedAnimtable<int>>());
+      expect(result, isA<SegmentedAnimatable<int>>());
     });
 
     test('with FractionalKeyframes and forReverse=true', () {
@@ -548,7 +548,7 @@ void main() {
         keyframes: frames,
       );
 
-      expect(result, isA<SegmentedAnimtable<int>>());
+      expect(result, isA<SegmentedAnimatable<int>>());
     });
 
     test('transform is called correctly for non-keyframe path', () {
@@ -565,7 +565,7 @@ void main() {
       );
 
       // transform() doubles the value: 10 -> 20, 25 -> 50
-      expect(result, isA<TweenAnimtable<int>>());
+      expect(result, isA<TweenAnimatable<int>>());
     });
 
     test(
@@ -589,7 +589,7 @@ void main() {
           keyframes: frames,
         );
 
-        expect(result, isA<SegmentedAnimtable<int>>());
+        expect(result, isA<SegmentedAnimatable<int>>());
       },
     );
 
@@ -611,7 +611,7 @@ void main() {
         keyframes: frames,
       );
 
-      expect(result, isA<SegmentedAnimtable<int>>());
+      expect(result, isA<SegmentedAnimatable<int>>());
     });
 
     test('implicitFrom is preferred over explicit from parameter', () {
@@ -628,7 +628,7 @@ void main() {
         keyframes: null,
       );
 
-      expect(result, isA<TweenAnimtable<int>>());
+      expect(result, isA<TweenAnimatable<int>>());
     });
 
     test('TypeError when from and to are both null without keyframes', () {
@@ -662,7 +662,7 @@ void main() {
         keyframes: frames,
       );
 
-      expect(result, isA<SegmentedAnimtable<int>>());
+      expect(result, isA<SegmentedAnimatable<int>>());
     });
   });
 }

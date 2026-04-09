@@ -87,14 +87,14 @@ void main() {
         to: TextStyle(fontSize: 28),
       );
 
-      final (animtable, _) = act.buildTweens(actContext);
+      final (animatable, _) = act.buildTweens(actContext);
 
       track.setProgress(0.5);
 
       final animation = CueAnimationImpl<TextStyle>(
         parent: track,
         token: ReleaseToken(track.config, timeline),
-        animtable: animtable,
+        animatable: animatable,
       );
 
       await tester.pumpWidget(
@@ -117,14 +117,14 @@ void main() {
         to: TextStyle(fontSize: 28),
       );
 
-      final (animtable, _) = act.buildTweens(actContext);
+      final (animatable, _) = act.buildTweens(actContext);
 
       track.setProgress(0);
 
       final animation = CueAnimationImpl<TextStyle>(
         parent: track,
         token: ReleaseToken(track.config, timeline),
-        animtable: animtable,
+        animatable: animatable,
       );
 
       await tester.pumpWidget(
@@ -201,14 +201,14 @@ void main() {
           to: IconThemeData(size: 48),
         );
 
-        final (animtable, _) = act.buildTweens(actContext);
+        final (animatable, _) = act.buildTweens(actContext);
 
         track.setProgress(0.5);
 
         final animation = CueAnimationImpl<IconThemeData>(
           parent: track,
           token: ReleaseToken(track.config, timeline),
-          animtable: animtable,
+          animatable: animatable,
         );
 
         await tester.pumpWidget(
@@ -231,14 +231,14 @@ void main() {
           to: IconThemeData(size: 48),
         );
 
-        final (animtable, _) = act.buildTweens(actContext);
+        final (animatable, _) = act.buildTweens(actContext);
 
         track.setProgress(0);
 
         final animation = CueAnimationImpl<IconThemeData>(
           parent: track,
           token: ReleaseToken(track.config, timeline),
-          animtable: animtable,
+          animatable: animatable,
         );
 
         await tester.pumpWidget(

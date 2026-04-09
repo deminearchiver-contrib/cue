@@ -266,13 +266,13 @@ void main() {
       );
     });
 
-    test('buildTweens returns CueAnimtable', () {
+    test('buildTweens returns CueAnimatable', () {
       const act = CardAct(elevation: AnimatableValue(from: 0.0, to: 8.0));
 
-      final (animtable, reverseAnimtable) = act.buildTweens(actContext);
+      final (animatable, reverseAnimatable) = act.buildTweens(actContext);
 
-      expect(animtable, isA<CueAnimtable<CardProps>>());
-      expect(reverseAnimtable, isNull);
+      expect(animatable, isA<CueAnimatable<CardProps>>());
+      expect(reverseAnimatable, isNull);
     });
 
     test('resolve returns ActContext', () {
@@ -335,14 +335,14 @@ void main() {
     testWidgets('apply wraps child in PhysicalShape', (tester) async {
       const act = CardAct(elevation: AnimatableValue(from: 0.0, to: 8.0));
 
-      final (animtable, _) = act.buildTweens(actContext);
+      final (animatable, _) = act.buildTweens(actContext);
 
       track.setProgress(0.5);
 
       final animation = CueAnimationImpl<CardProps>(
         parent: track,
         token: ReleaseToken(track.config, timeline),
-        animtable: animtable,
+        animatable: animatable,
       );
 
       await tester.pumpWidget(
@@ -362,14 +362,14 @@ void main() {
     testWidgets('apply uses animation value for elevation', (tester) async {
       const act = CardAct(elevation: AnimatableValue(from: 0.0, to: 8.0));
 
-      final (animtable, _) = act.buildTweens(actContext);
+      final (animatable, _) = act.buildTweens(actContext);
 
       track.setProgress(0.5);
 
       final animation = CueAnimationImpl<CardProps>(
         parent: track,
         token: ReleaseToken(track.config, timeline),
-        animtable: animtable,
+        animatable: animatable,
       );
 
       await tester.pumpWidget(
@@ -397,14 +397,14 @@ void main() {
         ),
       );
 
-      final (animtable, _) = act.buildTweens(actContext);
+      final (animatable, _) = act.buildTweens(actContext);
 
       track.setProgress(0.0);
 
       final animation = CueAnimationImpl<CardProps>(
         parent: track,
         token: ReleaseToken(track.config, timeline),
-        animtable: animtable,
+        animatable: animatable,
       );
 
       await tester.pumpWidget(
@@ -426,14 +426,14 @@ void main() {
         margin: AnimatableValue(from: EdgeInsets.zero, to: EdgeInsets.all(16)),
       );
 
-      final (animtable, _) = act.buildTweens(actContext);
+      final (animatable, _) = act.buildTweens(actContext);
 
       track.setProgress(0.0);
 
       final animation = CueAnimationImpl<CardProps>(
         parent: track,
         token: ReleaseToken(track.config, timeline),
-        animtable: animtable,
+        animatable: animatable,
       );
 
       await tester.pumpWidget(
@@ -457,14 +457,14 @@ void main() {
         shape: AnimatableValue.fixed(BeveledRectangleBorder()),
       );
 
-      final (animtable, _) = act.buildTweens(actContext);
+      final (animatable, _) = act.buildTweens(actContext);
 
       track.setProgress(0.0);
 
       final animation = CueAnimationImpl<CardProps>(
         parent: track,
         token: ReleaseToken(track.config, timeline),
-        animtable: animtable,
+        animatable: animatable,
       );
 
       await tester.pumpWidget(
@@ -491,14 +491,14 @@ void main() {
           borderOnForeground: true,
         );
 
-        final (animtable, _) = act.buildTweens(actContext);
+        final (animatable, _) = act.buildTweens(actContext);
 
         track.setProgress(0.0);
 
         final animation = CueAnimationImpl<CardProps>(
           parent: track,
           token: ReleaseToken(track.config, timeline),
-          animtable: animtable,
+          animatable: animatable,
         );
 
         await tester.pumpWidget(
@@ -534,14 +534,14 @@ void main() {
           borderOnForeground: false,
         );
 
-        final (animtable, _) = act.buildTweens(actContext);
+        final (animatable, _) = act.buildTweens(actContext);
 
         track.setProgress(0.0);
 
         final animation = CueAnimationImpl<CardProps>(
           parent: track,
           token: ReleaseToken(track.config, timeline),
-          animtable: animtable,
+          animatable: animatable,
         );
 
         await tester.pumpWidget(
@@ -578,14 +578,14 @@ void main() {
         ),
       );
 
-      final (animtable, _) = act.buildTweens(actContext);
+      final (animatable, _) = act.buildTweens(actContext);
 
       track.setProgress(0.0);
 
       final animation = CueAnimationImpl<CardProps>(
         parent: track,
         token: ReleaseToken(track.config, timeline),
-        animtable: animtable,
+        animatable: animatable,
       );
 
       await tester.pumpWidget(
@@ -613,14 +613,14 @@ void main() {
         ),
       );
 
-      final (animtable, _) = act.buildTweens(actContext);
+      final (animatable, _) = act.buildTweens(actContext);
 
       track.setProgress(0.5);
 
       final animation = CueAnimationImpl<CardProps>(
         parent: track,
         token: ReleaseToken(track.config, timeline),
-        animtable: animtable,
+        animatable: animatable,
       );
 
       await tester.pumpWidget(

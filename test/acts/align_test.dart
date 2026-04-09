@@ -90,14 +90,14 @@ void main() {
 
     testWidgets('apply wraps child in Align widget', (tester) async {
       const act = AlignAct(from: Alignment.topLeft, to: Alignment.bottomRight);
-      final (animtable, _) = act.buildTweens(actContext);
+      final (animatable, _) = act.buildTweens(actContext);
 
       track.setProgress(0.0);
 
       final animation = CueAnimationImpl<Alignment>(
         parent: track,
         token: ReleaseToken(track.config, timeline),
-        animtable: animtable,
+        animatable: animatable,
       );
 
       await tester.pumpWidget(
@@ -116,14 +116,14 @@ void main() {
     testWidgets('apply uses animation value for alignment', (tester) async {
       const act = AlignAct(from: Alignment.topLeft, to: Alignment.bottomRight);
 
-      final (animtable, _) = act.buildTweens(actContext);
+      final (animatable, _) = act.buildTweens(actContext);
 
       track.setProgress(0.5);
 
       final animation = CueAnimationImpl<Alignment>(
         parent: track,
         token: ReleaseToken(track.config, timeline),
-        animtable: animtable,
+        animatable: animatable,
       );
 
       await tester.pumpWidget(

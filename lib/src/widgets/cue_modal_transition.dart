@@ -295,7 +295,7 @@ class _CueModalTransitionState extends State<CueModalTransition> {
       link: _link,
       child: ListenableBuilder(
         listenable: _openModalKey,
-        child: widget.triggerBuilder(context, _showModel),
+        child: widget.triggerBuilder(context, _showModal),
         builder: (context, child) {
           return Visibility.maintain(
             key: _triggerKey,
@@ -309,7 +309,7 @@ class _CueModalTransitionState extends State<CueModalTransition> {
   }
 
   @optionalTypeArgs
-  Future<T?> _showModel<T extends Object>() {
+  Future<T?> _showModal<T extends Object>() {
     final renderBox =
         _triggerKey.currentContext?.findRenderObject() as RenderBox?;
     final triggerOffset = renderBox?.localToGlobal(Offset.zero) ?? Offset.zero;
@@ -322,7 +322,7 @@ class _CueModalTransitionState extends State<CueModalTransition> {
       to: Navigator.of(context, rootNavigator: widget.useRootNavigator).context,
     );
 
-    final model = CueDialogRoute<T>(
+    final modal = CueDialogRoute<T>(
       barrierDismissible: widget.barrierDismissible,
       barrierLabel: widget.barrierLabel,
       barrierColor: widget.barrierColor,
@@ -336,7 +336,7 @@ class _CueModalTransitionState extends State<CueModalTransition> {
       },
       pageBuilder: (context, anim, _) {
         return themes.wrap(
-          _ModelContent(
+          _ModalContent(
             backdrop: widget.backdrop,
             alignment: widget.alignment,
             builder: widget.builder,
@@ -351,12 +351,12 @@ class _CueModalTransitionState extends State<CueModalTransition> {
     return Navigator.of(
       context,
       rootNavigator: widget.useRootNavigator,
-    ).push<T>(model);
+    ).push<T>(modal);
   }
 }
 
-class _ModelContent extends StatelessWidget {
-  const _ModelContent({
+class _ModalContent extends StatelessWidget {
+  const _ModalContent({
     this.backdrop,
     this.alignment,
     required this.builder,

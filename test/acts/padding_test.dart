@@ -66,14 +66,14 @@ void main() {
       testWidgets('wraps child in Padding widget', (tester) async {
         const act = PaddingAct(from: EdgeInsets.zero, to: EdgeInsets.all(20));
 
-        final (animtable, _) = act.buildTweens(actContext);
+        final (animatable, _) = act.buildTweens(actContext);
 
         track.setProgress(0.5);
 
         final animation = CueAnimationImpl<EdgeInsetsGeometry>(
           parent: track,
           token: ReleaseToken(track.config, timeline),
-          animtable: animtable,
+          animatable: animatable,
         );
 
         await tester.pumpWidget(
@@ -97,14 +97,14 @@ void main() {
           to: EdgeInsets.all(20),
         );
 
-        final (animtable, _) = act.buildTweens(actContext);
+        final (animatable, _) = act.buildTweens(actContext);
 
         track.setProgress(0.0);
 
         final animation = CueAnimationImpl<EdgeInsetsGeometry>(
           parent: track,
           token: ReleaseToken(track.config, timeline),
-          animtable: animtable,
+          animatable: animatable,
         );
 
         await tester.pumpWidget(
@@ -128,14 +128,14 @@ void main() {
           to: EdgeInsets.all(20),
         );
 
-        final (animtable, _) = act.buildTweens(actContext);
+        final (animatable, _) = act.buildTweens(actContext);
 
         track.setProgress(1.0);
 
         final animation = CueAnimationImpl<EdgeInsetsGeometry>(
           parent: track,
           token: ReleaseToken(track.config, timeline),
-          animtable: animtable,
+          animatable: animatable,
         );
 
         await tester.pumpWidget(
@@ -156,14 +156,14 @@ void main() {
       testWidgets('interpolates padding at progress 0.5', (tester) async {
         const act = PaddingAct(from: EdgeInsets.all(0), to: EdgeInsets.all(20));
 
-        final (animtable, _) = act.buildTweens(actContext);
+        final (animatable, _) = act.buildTweens(actContext);
 
         track.setProgress(0.5);
 
         final animation = CueAnimationImpl<EdgeInsetsGeometry>(
           parent: track,
           token: ReleaseToken(track.config, timeline),
-          animtable: animtable,
+          animatable: animatable,
         );
 
         await tester.pumpWidget(
@@ -187,14 +187,14 @@ void main() {
           to: EdgeInsets.only(left: 10, top: 20, right: 30, bottom: 40),
         );
 
-        final (animtable, _) = act.buildTweens(actContext);
+        final (animatable, _) = act.buildTweens(actContext);
 
         track.setProgress(0.5);
 
         final animation = CueAnimationImpl<EdgeInsetsGeometry>(
           parent: track,
           token: ReleaseToken(track.config, timeline),
-          animtable: animtable,
+          animatable: animatable,
         );
 
         await tester.pumpWidget(

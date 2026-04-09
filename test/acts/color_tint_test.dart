@@ -119,14 +119,14 @@ void main() {
       ) async {
         const act = ColorTintAct(from: Colors.red, to: Colors.blue);
 
-        final (animtable, _) = act.buildTweens(actContext);
+        final (animatable, _) = act.buildTweens(actContext);
 
         track.setProgress(0.5);
 
         final animation = CueAnimationImpl<Color?>(
           parent: track,
           token: ReleaseToken(track.config, timeline),
-          animtable: animtable,
+          animatable: animatable,
         );
 
         await tester.pumpWidget(
@@ -151,14 +151,14 @@ void main() {
           blendMode: BlendMode.multiply,
         );
 
-        final (animtable, _) = act.buildTweens(actContext);
+        final (animatable, _) = act.buildTweens(actContext);
 
         track.setProgress(0.5);
 
         final animation = CueAnimationImpl<Color?>(
           parent: track,
           token: ReleaseToken(track.config, timeline),
-          animtable: animtable,
+          animatable: animatable,
         );
 
         await tester.pumpWidget(
@@ -178,13 +178,13 @@ void main() {
       testWidgets('animation value affects color filter', (tester) async {
         const act = ColorTintAct(from: Colors.red, to: Colors.blue);
 
-        final (animtable, _) = act.buildTweens(actContext);
+        final (animatable, _) = act.buildTweens(actContext);
 
         track.setProgress(0.0);
         final animation = CueAnimationImpl<Color?>(
           parent: track,
           token: ReleaseToken(track.config, timeline),
-          animtable: animtable,
+          animatable: animatable,
         );
 
         await tester.pumpWidget(
@@ -223,7 +223,7 @@ void main() {
         final animation = CueAnimationImpl<Color?>(
           parent: track,
           token: ReleaseToken(track.config, timeline),
-          animtable: ConstantAnimtable<Color?>(null),
+          animatable: ConstantAnimatable<Color?>(null),
         );
 
         await tester.pumpWidget(

@@ -20,10 +20,10 @@ import 'package:flutter/widgets.dart';
 /// ## Subclass implementation
 ///
 /// Concrete subclasses:
-/// 1. Override [apply] to render the widget (same as for [AnimtableAct])
+/// 1. Override [apply] to render the widget (same as for [AnimatableAct])
 /// 2. Do NOT override [buildTweens] — it throws unconditionally
 /// 3. Call `animation.setAnimatable(...)` when the tween is ready
-abstract class DeferredTweenAct<T extends Object?> extends AnimtableAct<T, T> {
+abstract class DeferredTweenAct<T extends Object?> extends AnimatableAct<T, T> {
   /// Creates a deferred tween act with optional [motion], [delay], and [reverse] behavior.
   const DeferredTweenAct({
     super.motion,
@@ -52,7 +52,7 @@ abstract class DeferredTweenAct<T extends Object?> extends AnimtableAct<T, T> {
   );
 
   @override
-  (CueAnimtable<T>, CueAnimtable<T>?) buildTweens(ActContext context) {
+  (CueAnimatable<T>, CueAnimatable<T>?) buildTweens(ActContext context) {
     throw StateError(
       'DeferredTweenAct does not build a tween directly. It should be used with a DeferredCueAnimation that will set the tween later.',
     );

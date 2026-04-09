@@ -29,16 +29,16 @@ void main() {
           from: const Offset(10, 20),
           to: const Offset(30, 40),
         );
-        final animtableAct = act as AnimtableAct<Offset, Offset>;
+        final animatableAct = act as AnimatableAct<Offset, Offset>;
 
-        final (animtable, _) = animtableAct.buildTweens(actContext);
+        final (animatable, _) = animatableAct.buildTweens(actContext);
 
         track.setProgress(0);
 
         final animation = CueAnimationImpl<Offset>(
           parent: track,
           token: ReleaseToken(track.config, timeline),
-          animtable: animtable,
+          animatable: animatable,
         );
 
         expect(animation.value, const Offset(10, 20));
@@ -46,16 +46,16 @@ void main() {
 
       test('default constructor uses default values', () {
         final act = TranslateAct();
-        final animtableAct = act as AnimtableAct<Offset, Offset>;
+        final animatableAct = act as AnimatableAct<Offset, Offset>;
 
-        final (animtable, _) = animtableAct.buildTweens(actContext);
+        final (animatable, _) = animatableAct.buildTweens(actContext);
 
         track.setProgress(0);
 
         final animation = CueAnimationImpl<Offset>(
           parent: track,
           token: ReleaseToken(track.config, timeline),
-          animtable: animtable,
+          animatable: animatable,
         );
 
         expect(animation.value, Offset.zero);
@@ -73,16 +73,16 @@ void main() {
 
       test('fromX constructor translates on X axis', () {
         final act = TranslateAct.fromX(from: -100, to: 0);
-        final animtableAct = act as AnimtableAct<double, Offset>;
+        final animatableAct = act as AnimatableAct<double, Offset>;
 
-        final (animtable, _) = animtableAct.buildTweens(actContext);
+        final (animatable, _) = animatableAct.buildTweens(actContext);
 
         track.setProgress(0);
 
         final animation = CueAnimationImpl<Offset>(
           parent: track,
           token: ReleaseToken(track.config, timeline),
-          animtable: animtable,
+          animatable: animatable,
         );
 
         expect(animation.value, const Offset(-100, 0));
@@ -103,16 +103,16 @@ void main() {
 
       test('y constructor translates on Y axis', () {
         final act = TranslateAct.y(from: -50, to: 0);
-        final animtableAct = act as AnimtableAct<double, Offset>;
+        final animatableAct = act as AnimatableAct<double, Offset>;
 
-        final (animtable, _) = animtableAct.buildTweens(actContext);
+        final (animatable, _) = animatableAct.buildTweens(actContext);
 
         track.setProgress(0);
 
         final animation = CueAnimationImpl<Offset>(
           parent: track,
           token: ReleaseToken(track.config, timeline),
-          animtable: animtable,
+          animatable: animatable,
         );
 
         expect(animation.value, const Offset(0, -50));
@@ -158,24 +158,24 @@ void main() {
 
       test('constructor accepts delay', () {
         final act = TranslateAct(delay: 100.ms);
-        final animtableAct = act as AnimtableAct<Offset, Offset>;
-        expect(animtableAct.delay, 100.ms);
+        final animatableAct = act as AnimatableAct<Offset, Offset>;
+        expect(animatableAct.delay, 100.ms);
       });
     });
 
     group('apply', () {
       testWidgets('wraps child in TranslateTransition', (tester) async {
         final act = TranslateAct(from: const Offset(-50, 0), to: Offset.zero);
-        final animtableAct = act as AnimtableAct<Offset, Offset>;
+        final animatableAct = act as AnimatableAct<Offset, Offset>;
 
-        final (animtable, _) = animtableAct.buildTweens(actContext);
+        final (animatable, _) = animatableAct.buildTweens(actContext);
 
         track.setProgress(0.5);
 
         final animation = CueAnimationImpl<Offset>(
           parent: track,
           token: ReleaseToken(track.config, timeline),
-          animtable: animtable,
+          animatable: animatable,
         );
 
         await tester.pumpWidget(
@@ -183,7 +183,7 @@ void main() {
             textDirection: TextDirection.ltr,
             child: Builder(
               builder: (context) {
-                return animtableAct.apply(
+                return animatableAct.apply(
                   context,
                   animation,
                   const Text('Test'),

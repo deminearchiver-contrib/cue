@@ -39,14 +39,14 @@ void main() {
           size: Size(100, 200),
         );
 
-        final (animtable, _) = act.buildTweens(actContext);
+        final (animatable, _) = act.buildTweens(actContext);
 
         track.setProgress(0.5);
 
         final animation = CueAnimationImpl<Position>(
           parent: track,
           token: ReleaseToken(track.config, timeline),
-          animtable: animtable,
+          animatable: animatable,
         );
 
         final pos = animation.value;
@@ -74,17 +74,17 @@ void main() {
     });
 
     group('buildTweens', () {
-      test('creates correct animtable', () {
+      test('creates correct animatable', () {
         const act = PositionAct(from: Position(top: 0), to: Position(top: 100));
 
-        final (animtable, _) = act.buildTweens(actContext);
+        final (animatable, _) = act.buildTweens(actContext);
 
         track.setProgress(0);
 
         final animation = CueAnimationImpl<Position>(
           parent: track,
           token: ReleaseToken(track.config, timeline),
-          animtable: animtable,
+          animatable: animatable,
         );
 
         expect(animation.value.top, 0);
@@ -99,14 +99,14 @@ void main() {
           to: Position(top: 100, start: 100, width: 100, height: 100),
         );
 
-        final (animtable, _) = act.buildTweens(actContext);
+        final (animatable, _) = act.buildTweens(actContext);
 
         track.setProgress(0.5);
 
         final animation = CueAnimationImpl<Position>(
           parent: track,
           token: ReleaseToken(track.config, timeline),
-          animtable: animtable,
+          animatable: animatable,
         );
 
         final pos = animation.value;
@@ -124,14 +124,14 @@ void main() {
           to: Position(top: 100, start: 100),
         );
 
-        final (animtable, _) = act.buildTweens(actContext);
+        final (animatable, _) = act.buildTweens(actContext);
 
         track.setProgress(0.5);
 
         final animation = CueAnimationImpl<Position>(
           parent: track,
           token: ReleaseToken(track.config, timeline),
-          animtable: animtable,
+          animatable: animatable,
         );
 
         await tester.pumpWidget(
@@ -205,13 +205,13 @@ void main() {
           relativeTo: Size(100, 100),
         );
 
-        final (animtable, _) = act.buildTweens(actContext);
+        final (animatable, _) = act.buildTweens(actContext);
         track.setProgress(0.5);
 
         final animation = CueAnimationImpl<Position>(
           parent: track,
           token: ReleaseToken(track.config, timeline),
-          animtable: animtable,
+          animatable: animatable,
         );
 
         final pos = animation.value;

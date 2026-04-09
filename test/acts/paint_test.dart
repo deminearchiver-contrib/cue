@@ -75,13 +75,13 @@ void main() {
     });
 
     group('buildTweens', () {
-      test('creates animtable', () {
+      test('creates animatable', () {
         final act = PaintAct(
           painter: Painter.paint((canvas, size, progress) {}),
         );
 
-        final (animtable, _) = act.buildTweens(actContext);
-        expect(animtable, isNotNull);
+        final (animatable, _) = act.buildTweens(actContext);
+        expect(animatable, isNotNull);
       });
     });
 
@@ -91,14 +91,14 @@ void main() {
           painter: Painter.paint((canvas, size, progress) {}),
         );
 
-        final (animtable, _) = act.buildTweens(actContext);
+        final (animatable, _) = act.buildTweens(actContext);
 
         track.setProgress(0.5);
 
         final animation = CueAnimationImpl<double>(
           parent: track,
           token: ReleaseToken(track.config, timeline),
-          animtable: animtable,
+          animatable: animatable,
         );
 
         await tester.pumpWidget(
@@ -122,14 +122,14 @@ void main() {
           paintOnTop: false,
         );
 
-        final (animtable, _) = act.buildTweens(actContext);
+        final (animatable, _) = act.buildTweens(actContext);
 
         track.setProgress(0.5);
 
         final animation = CueAnimationImpl<double>(
           parent: track,
           token: ReleaseToken(track.config, timeline),
-          animtable: animtable,
+          animatable: animatable,
         );
 
         await tester.pumpWidget(
@@ -158,14 +158,14 @@ void main() {
           paintOnTop: true,
         );
 
-        final (animtable, _) = act.buildTweens(actContext);
+        final (animatable, _) = act.buildTweens(actContext);
 
         track.setProgress(0.5);
 
         final animation = CueAnimationImpl<double>(
           parent: track,
           token: ReleaseToken(track.config, timeline),
-          animtable: animtable,
+          animatable: animatable,
         );
 
         await tester.pumpWidget(

@@ -8,19 +8,19 @@ import 'package:flutter/widgets.dart';
 /// asymmetric motion).
 ///
 /// Implementations enable different evaluation strategies:
-/// - [TweenAnimtable]: Standard progress-based interpolation
+/// - [TweenAnimatable]: Standard progress-based interpolation
 /// - [DualAnimatable]: Different evaluators for forward vs. reverse
-/// - [ConstantAnimtable]: Constant value regardless of state
-/// - [SegmentedAnimtable]: Phase-based evaluator selection for keyframes
-abstract class CueAnimtable<T extends Object?> {
+/// - [ConstantAnimatable]: Constant value regardless of state
+/// - [SegmentedAnimatable]: Phase-based evaluator selection for keyframes
+abstract class CueAnimatable<T extends Object?> {
   /// Creates an animatable driver.
-  const CueAnimtable();
+  const CueAnimatable();
 
   /// Evaluates the animated value given the animation track state.
   T evaluate(CueTrack track);
 }
 
-/// An [CueAnimtable] that wraps a standard Flutter [Animatable].
+/// An [CueAnimatable] that wraps a standard Flutter [Animatable].
 ///
 /// Transforms the animation progress ([CueTrack.value]) through the tween,
 /// ignoring Cue-specific state (phase, direction). Suitable for simple,
@@ -28,12 +28,12 @@ abstract class CueAnimtable<T extends Object?> {
 ///
 /// Typically used for single-phase motions that don't need asymmetric
 /// forward/reverse behavior or multi-stage keyframes.
-class TweenAnimtable<T extends Object?> extends CueAnimtable<T> {
+class TweenAnimatable<T extends Object?> extends CueAnimatable<T> {
   /// The underlying Flutter tween to transform progress values.
   final Animatable<T> tween;
 
   /// Creates a tween-based animatable driver.
-  const TweenAnimtable(this.tween);
+  const TweenAnimatable(this.tween);
 
   @override
   T evaluate(CueTrack track) {
@@ -41,7 +41,7 @@ class TweenAnimtable<T extends Object?> extends CueAnimtable<T> {
   }
 }
 
-/// An [CueAnimtable] that selects between forward and reverse animatables.
+/// An [CueAnimatable] that selects between forward and reverse animatables.
 ///
 /// Enables asymmetric animations where the forward (opening/activating) motion
 /// differs from the reverse (closing/deactivating) motion. Selection is based on
@@ -49,12 +49,12 @@ class TweenAnimtable<T extends Object?> extends CueAnimtable<T> {
 ///
 /// **Use case**: Toggle animations where opening animates differently than closing,
 /// e.g., a button expands smoothly when toggled on but snaps back when toggled off.
-class DualAnimatable<T extends Object?> extends CueAnimtable<T> {
+class DualAnimatable<T extends Object?> extends CueAnimatable<T> {
   /// The animatable to evaluate when moving forward.
-  final CueAnimtable<T> forward;
+  final CueAnimatable<T> forward;
 
   /// The animatable to evaluate when moving in reverse.
-  final CueAnimtable<T> reverse;
+  final CueAnimatable<T> reverse;
 
   /// Creates a dual-direction animatable.
   ///
@@ -69,29 +69,29 @@ class DualAnimatable<T extends Object?> extends CueAnimtable<T> {
   }
 }
 
-/// An [CueAnimtable] that always returns a fixed value.
+/// An [CueAnimatable] that always returns a fixed value.
 ///
 /// Ignores all animation state ([CueTrack] parameters). Useful for acts that
 /// should not animate but need to participate in the animation framework
 /// (e.g., a static color or opacity).
-class ConstantAnimtable<T extends Object?> extends CueAnimtable<T> {
+class ConstantAnimatable<T extends Object?> extends CueAnimatable<T> {
   /// The constant value to always return.
   final T value;
 
   /// Creates a fixed-value animatable.
-  const ConstantAnimtable(this.value);
+  const ConstantAnimatable(this.value);
 
   @override
   T evaluate(CueTrack track) => value;
 }
 
-/// An [CueAnimtable] that selects and evaluates an evaluator based on phase.
+/// An [CueAnimatable] that selects and evaluates an evaluator based on phase.
 ///
 /// Maintains a list of evaluators—one per phase. Selects the active evaluator
 /// using the driver's phase, then evaluates through that evaluator.
 ///
 /// **Common use case**: Keyframe animations, where different motions are needed.
-class SegmentedAnimtable<T extends Object?> extends CueAnimtable<T> {
+class SegmentedAnimatable<T extends Object?> extends CueAnimatable<T> {
   /// List of evaluators, indexed by phase.
   ///
   /// Each element corresponds to one phase. The index must match the
@@ -99,7 +99,7 @@ class SegmentedAnimtable<T extends Object?> extends CueAnimtable<T> {
   final List<Animatable<T>> segments;
 
   /// Creates a phase-based evaluator selector.
-  SegmentedAnimtable(this.segments);
+  SegmentedAnimatable(this.segments);
 
   @override
   T evaluate(CueTrack track) {

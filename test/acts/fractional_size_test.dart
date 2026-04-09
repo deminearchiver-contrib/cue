@@ -150,26 +150,26 @@ void main() {
     });
 
     group('buildTweens', () {
-      test('creates animtable with widthFactor', () {
+      test('creates animatable with widthFactor', () {
         const act = FractionalSizeAct(
           widthFactor: AnimatableValue(from: 0.5, to: 1.0),
         );
 
-        final (animtable, _) = act.buildTweens(actContext);
-        expect(animtable, isNotNull);
+        final (animatable, _) = act.buildTweens(actContext);
+        expect(animatable, isNotNull);
       });
 
-      test('creates animtable with multiple properties', () {
+      test('creates animatable with multiple properties', () {
         const act = FractionalSizeAct(
           widthFactor: AnimatableValue(from: 0.5, to: 1.0),
           heightFactor: AnimatableValue(from: 0.5, to: 1.0),
         );
 
-        final (animtable, _) = act.buildTweens(actContext);
-        expect(animtable, isNotNull);
+        final (animatable, _) = act.buildTweens(actContext);
+        expect(animatable, isNotNull);
       });
 
-      test('creates animtable with alignment', () {
+      test('creates animatable with alignment', () {
         const act = FractionalSizeAct(
           widthFactor: AnimatableValue(from: 0.5, to: 1.0),
           alignment: AnimatableValue(
@@ -178,11 +178,11 @@ void main() {
           ),
         );
 
-        final (animtable, _) = act.buildTweens(actContext);
-        expect(animtable, isNotNull);
+        final (animatable, _) = act.buildTweens(actContext);
+        expect(animatable, isNotNull);
       });
 
-      test('creates animtable with all properties', () {
+      test('creates animatable with all properties', () {
         const act = FractionalSizeAct(
           widthFactor: AnimatableValue(from: 0.5, to: 1.0),
           heightFactor: AnimatableValue(from: 0.3, to: 0.8),
@@ -192,19 +192,19 @@ void main() {
           ),
         );
 
-        final (animtable, _) = act.buildTweens(actContext);
-        expect(animtable, isNotNull);
+        final (animatable, _) = act.buildTweens(actContext);
+        expect(animatable, isNotNull);
       });
 
-      test('creates animtable from keyframed constructor', () {
+      test('creates animatable from keyframed constructor', () {
         final frames = Keyframes<FractionalSize>([
           Keyframe(FractionalSize(widthFactor: 0.5)),
           Keyframe(FractionalSize(widthFactor: 1.0)),
         ], motion: .linear(300.ms));
         final act = FractionalSizeAct.keyframed(frames: frames);
 
-        final (animtable, _) = act.buildTweens(actContext);
-        expect(animtable, isNotNull);
+        final (animatable, _) = act.buildTweens(actContext);
+        expect(animatable, isNotNull);
       });
     });
 
@@ -214,14 +214,14 @@ void main() {
           widthFactor: AnimatableValue(from: 0.5, to: 1.0),
         );
 
-        final (animtable, _) = act.buildTweens(actContext);
+        final (animatable, _) = act.buildTweens(actContext);
 
         track.setProgress(0.5);
 
         final animation = CueAnimationImpl<FractionalSize>(
           parent: track,
           token: ReleaseToken(track.config, timeline),
-          animtable: animtable,
+          animatable: animatable,
         );
 
         await tester.pumpWidget(
@@ -244,14 +244,14 @@ void main() {
           widthFactor: AnimatableValue(from: 0.5, to: 1.0),
         );
 
-        final (animtable, _) = act.buildTweens(actContext);
+        final (animatable, _) = act.buildTweens(actContext);
 
         track.setProgress(0.0);
 
         final animation = CueAnimationImpl<FractionalSize>(
           parent: track,
           token: ReleaseToken(track.config, timeline),
-          animtable: animtable,
+          animatable: animatable,
         );
 
         await tester.pumpWidget(
@@ -276,14 +276,14 @@ void main() {
           widthFactor: AnimatableValue(from: 0.5, to: 1.0),
         );
 
-        final (animtable, _) = act.buildTweens(actContext);
+        final (animatable, _) = act.buildTweens(actContext);
 
         track.setProgress(1.0);
 
         final animation = CueAnimationImpl<FractionalSize>(
           parent: track,
           token: ReleaseToken(track.config, timeline),
-          animtable: animtable,
+          animatable: animatable,
         );
 
         await tester.pumpWidget(
@@ -308,14 +308,14 @@ void main() {
           widthFactor: AnimatableValue(from: 0.0, to: 1.0),
         );
 
-        final (animtable, _) = act.buildTweens(actContext);
+        final (animatable, _) = act.buildTweens(actContext);
 
         track.setProgress(0.5);
 
         final animation = CueAnimationImpl<FractionalSize>(
           parent: track,
           token: ReleaseToken(track.config, timeline),
-          animtable: animtable,
+          animatable: animatable,
         );
 
         await tester.pumpWidget(
@@ -341,14 +341,14 @@ void main() {
           heightFactor: AnimatableValue(from: 0.5, to: 1.0),
         );
 
-        final (animtable, _) = act.buildTweens(actContext);
+        final (animatable, _) = act.buildTweens(actContext);
 
         track.setProgress(0.5);
 
         final animation = CueAnimationImpl<FractionalSize>(
           parent: track,
           token: ReleaseToken(track.config, timeline),
-          animtable: animtable,
+          animatable: animatable,
         );
 
         await tester.pumpWidget(
@@ -374,14 +374,14 @@ void main() {
           widthFactor: AnimatableValue(from: 0.5, to: 1.0),
         );
 
-        final (animtable, _) = act.buildTweens(actContext);
+        final (animatable, _) = act.buildTweens(actContext);
 
         track.setProgress(0.5);
 
         final animation = CueAnimationImpl<FractionalSize>(
           parent: track,
           token: ReleaseToken(track.config, timeline),
-          animtable: animtable,
+          animatable: animatable,
         );
 
         await tester.pumpWidget(
@@ -406,14 +406,14 @@ void main() {
           heightFactor: AnimatableValue(from: 0.5, to: 1.0),
         );
 
-        final (animtable, _) = act.buildTweens(actContext);
+        final (animatable, _) = act.buildTweens(actContext);
 
         track.setProgress(0.0);
 
         final animation = CueAnimationImpl<FractionalSize>(
           parent: track,
           token: ReleaseToken(track.config, timeline),
-          animtable: animtable,
+          animatable: animatable,
         );
 
         await tester.pumpWidget(
@@ -438,14 +438,14 @@ void main() {
           heightFactor: AnimatableValue(from: 0.5, to: 1.0),
         );
 
-        final (animtable, _) = act.buildTweens(actContext);
+        final (animatable, _) = act.buildTweens(actContext);
 
         track.setProgress(1.0);
 
         final animation = CueAnimationImpl<FractionalSize>(
           parent: track,
           token: ReleaseToken(track.config, timeline),
-          animtable: animtable,
+          animatable: animatable,
         );
 
         await tester.pumpWidget(
@@ -474,14 +474,14 @@ void main() {
           ),
         );
 
-        final (animtable, _) = act.buildTweens(actContext);
+        final (animatable, _) = act.buildTweens(actContext);
 
         track.setProgress(0.0);
 
         final animation = CueAnimationImpl<FractionalSize>(
           parent: track,
           token: ReleaseToken(track.config, timeline),
-          animtable: animtable,
+          animatable: animatable,
         );
 
         await tester.pumpWidget(
@@ -510,14 +510,14 @@ void main() {
           ),
         );
 
-        final (animtable, _) = act.buildTweens(actContext);
+        final (animatable, _) = act.buildTweens(actContext);
 
         track.setProgress(1.0);
 
         final animation = CueAnimationImpl<FractionalSize>(
           parent: track,
           token: ReleaseToken(track.config, timeline),
-          animtable: animtable,
+          animatable: animatable,
         );
 
         await tester.pumpWidget(

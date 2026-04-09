@@ -231,7 +231,7 @@ class _ParallaxRenderTransform extends RenderProxyBox {
 
     // Avoid division by zero in pathological layouts
     if (childMain == 0) {
-      _driver.setAnimatable(const ConstantAnimtable(Offset.zero));
+      _driver.setAnimatable(const ConstantAnimatable(Offset.zero));
       _lastChildSize = childSize;
       return;
     }

@@ -113,14 +113,14 @@ void main() {
       testWidgets('wraps child in FadeTransition', (tester) async {
         const act = OpacityAct(from: 1.0, to: 0.0);
 
-        final (animtable, _) = act.buildTweens(actContext);
+        final (animatable, _) = act.buildTweens(actContext);
 
         track.setProgress(0.5);
 
         final animation = CueAnimationImpl<double>(
           parent: track,
           token: ReleaseToken(track.config, timeline),
-          animtable: animtable,
+          animatable: animatable,
         );
 
         await tester.pumpWidget(
@@ -141,14 +141,14 @@ void main() {
       testWidgets('FadeTransition uses animation', (tester) async {
         const act = OpacityAct(from: 1.0, to: 0.0);
 
-        final (animtable, _) = act.buildTweens(actContext);
+        final (animatable, _) = act.buildTweens(actContext);
 
         track.setProgress(0.5);
 
         final animation = CueAnimationImpl<double>(
           parent: track,
           token: ReleaseToken(track.config, timeline),
-          animtable: animtable,
+          animatable: animatable,
         );
 
         await tester.pumpWidget(
@@ -168,14 +168,14 @@ void main() {
       testWidgets('animation value affects opacity at start', (tester) async {
         const act = OpacityAct(from: 1.0, to: 0.0);
 
-        final (animtable, _) = act.buildTweens(actContext);
+        final (animatable, _) = act.buildTweens(actContext);
 
         track.setProgress(0.0);
 
         final animation = CueAnimationImpl<double>(
           parent: track,
           token: ReleaseToken(track.config, timeline),
-          animtable: animtable,
+          animatable: animatable,
         );
 
         await tester.pumpWidget(
@@ -192,14 +192,14 @@ void main() {
       testWidgets('animation value affects opacity at end', (tester) async {
         const act = OpacityAct(from: 1.0, to: 0.0);
 
-        final (animtable, _) = act.buildTweens(actContext);
+        final (animatable, _) = act.buildTweens(actContext);
 
         track.setProgress(1.0);
 
         final animation = CueAnimationImpl<double>(
           parent: track,
           token: ReleaseToken(track.config, timeline),
-          animtable: animtable,
+          animatable: animatable,
         );
 
         await tester.pumpWidget(

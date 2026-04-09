@@ -29,16 +29,16 @@ void main() {
           from: const Offset(0.5, 0.5),
           to: const Offset(1, 1),
         );
-        final animtableAct = act as AnimtableAct<Offset, Offset>;
+        final animatableAct = act as AnimatableAct<Offset, Offset>;
 
-        final (animtable, _) = animtableAct.buildTweens(actContext);
+        final (animatable, _) = animatableAct.buildTweens(actContext);
 
         track.setProgress(0);
 
         final animation = CueAnimationImpl<Offset>(
           parent: track,
           token: ReleaseToken(track.config, timeline),
-          animtable: animtable,
+          animatable: animatable,
         );
 
         expect(animation.value, const Offset(0.5, 0.5));
@@ -46,16 +46,16 @@ void main() {
 
       test('default constructor uses default values', () {
         final act = SlideAct();
-        final animtableAct = act as AnimtableAct<Offset, Offset>;
+        final animatableAct = act as AnimatableAct<Offset, Offset>;
 
-        final (animtable, _) = animtableAct.buildTweens(actContext);
+        final (animatable, _) = animatableAct.buildTweens(actContext);
 
         track.setProgress(0);
 
         final animation = CueAnimationImpl<Offset>(
           parent: track,
           token: ReleaseToken(track.config, timeline),
-          animtable: animtable,
+          animatable: animatable,
         );
 
         expect(animation.value, Offset.zero);
@@ -63,16 +63,16 @@ void main() {
 
       test('up constructor slides from bottom to center', () {
         final act = SlideAct.up();
-        final animtableAct = act as AnimtableAct<Offset, Offset>;
+        final animatableAct = act as AnimatableAct<Offset, Offset>;
 
-        final (animtable, _) = animtableAct.buildTweens(actContext);
+        final (animatable, _) = animatableAct.buildTweens(actContext);
 
         track.setProgress(0);
 
         final animation = CueAnimationImpl<Offset>(
           parent: track,
           token: ReleaseToken(track.config, timeline),
-          animtable: animtable,
+          animatable: animatable,
         );
 
         expect(animation.value, const Offset(0, 1));
@@ -84,35 +84,35 @@ void main() {
       test('up constructor with motion', () {
         final customMotion = CueMotion.linear(500.ms);
         final act = SlideAct.up(motion: customMotion);
-        final animtableAct = act as AnimtableAct<Offset, Offset>;
-        expect(animtableAct.motion, customMotion);
+        final animatableAct = act as AnimatableAct<Offset, Offset>;
+        expect(animatableAct.motion, customMotion);
       });
 
       test('up constructor with delay', () {
         final act = SlideAct.up(delay: 100.ms);
-        final animtableAct = act as AnimtableAct<Offset, Offset>;
-        expect(animtableAct.delay, 100.ms);
+        final animatableAct = act as AnimatableAct<Offset, Offset>;
+        expect(animatableAct.delay, 100.ms);
       });
 
       test('up constructor with reverse', () {
         const reverse = ReverseBehavior<Offset>.mirror();
         final act = SlideAct.up(reverse: reverse);
-        final animtableAct = act as AnimtableAct<Offset, Offset>;
-        expect(animtableAct.reverse, reverse);
+        final animatableAct = act as AnimatableAct<Offset, Offset>;
+        expect(animatableAct.reverse, reverse);
       });
 
       test('down constructor slides from top to center', () {
         final act = SlideAct.down();
-        final animtableAct = act as AnimtableAct<Offset, Offset>;
+        final animatableAct = act as AnimatableAct<Offset, Offset>;
 
-        final (animtable, _) = animtableAct.buildTweens(actContext);
+        final (animatable, _) = animatableAct.buildTweens(actContext);
 
         track.setProgress(0);
 
         final animation = CueAnimationImpl<Offset>(
           parent: track,
           token: ReleaseToken(track.config, timeline),
-          animtable: animtable,
+          animatable: animatable,
         );
 
         expect(animation.value, const Offset(0, -1));
@@ -124,35 +124,35 @@ void main() {
       test('down constructor with motion', () {
         final customMotion = CueMotion.linear(500.ms);
         final act = SlideAct.down(motion: customMotion);
-        final animtableAct = act as AnimtableAct<Offset, Offset>;
-        expect(animtableAct.motion, customMotion);
+        final animatableAct = act as AnimatableAct<Offset, Offset>;
+        expect(animatableAct.motion, customMotion);
       });
 
       test('down constructor with delay', () {
         final act = SlideAct.down(delay: 100.ms);
-        final animtableAct = act as AnimtableAct<Offset, Offset>;
-        expect(animtableAct.delay, 100.ms);
+        final animatableAct = act as AnimatableAct<Offset, Offset>;
+        expect(animatableAct.delay, 100.ms);
       });
 
       test('down constructor with reverse', () {
         const reverse = ReverseBehavior<Offset>.mirror();
         final act = SlideAct.down(reverse: reverse);
-        final animtableAct = act as AnimtableAct<Offset, Offset>;
-        expect(animtableAct.reverse, reverse);
+        final animatableAct = act as AnimatableAct<Offset, Offset>;
+        expect(animatableAct.reverse, reverse);
       });
 
       test('fromLeading constructor slides from left to center', () {
         final act = SlideAct.fromLeading();
-        final animtableAct = act as AnimtableAct<Offset, Offset>;
+        final animatableAct = act as AnimatableAct<Offset, Offset>;
 
-        final (animtable, _) = animtableAct.buildTweens(actContext);
+        final (animatable, _) = animatableAct.buildTweens(actContext);
 
         track.setProgress(0);
 
         final animation = CueAnimationImpl<Offset>(
           parent: track,
           token: ReleaseToken(track.config, timeline),
-          animtable: animtable,
+          animatable: animatable,
         );
 
         expect(animation.value, const Offset(-1, 0));
@@ -164,35 +164,35 @@ void main() {
       test('fromLeading constructor with motion', () {
         final customMotion = CueMotion.linear(500.ms);
         final act = SlideAct.fromLeading(motion: customMotion);
-        final animtableAct = act as AnimtableAct<Offset, Offset>;
-        expect(animtableAct.motion, customMotion);
+        final animatableAct = act as AnimatableAct<Offset, Offset>;
+        expect(animatableAct.motion, customMotion);
       });
 
       test('fromLeading constructor with delay', () {
         final act = SlideAct.fromLeading(delay: 100.ms);
-        final animtableAct = act as AnimtableAct<Offset, Offset>;
-        expect(animtableAct.delay, 100.ms);
+        final animatableAct = act as AnimatableAct<Offset, Offset>;
+        expect(animatableAct.delay, 100.ms);
       });
 
       test('fromLeading constructor with reverse', () {
         const reverse = ReverseBehavior<Offset>.mirror();
         final act = SlideAct.fromLeading(reverse: reverse);
-        final animtableAct = act as AnimtableAct<Offset, Offset>;
-        expect(animtableAct.reverse, reverse);
+        final animatableAct = act as AnimatableAct<Offset, Offset>;
+        expect(animatableAct.reverse, reverse);
       });
 
       test('fromTrailing constructor slides from right to center', () {
         final act = SlideAct.fromTrailing();
-        final animtableAct = act as AnimtableAct<Offset, Offset>;
+        final animatableAct = act as AnimatableAct<Offset, Offset>;
 
-        final (animtable, _) = animtableAct.buildTweens(actContext);
+        final (animatable, _) = animatableAct.buildTweens(actContext);
 
         track.setProgress(0);
 
         final animation = CueAnimationImpl<Offset>(
           parent: track,
           token: ReleaseToken(track.config, timeline),
-          animtable: animtable,
+          animatable: animatable,
         );
 
         expect(animation.value, const Offset(1, 0));
@@ -204,21 +204,21 @@ void main() {
       test('fromTrailing constructor with motion', () {
         final customMotion = CueMotion.linear(500.ms);
         final act = SlideAct.fromTrailing(motion: customMotion);
-        final animtableAct = act as AnimtableAct<Offset, Offset>;
-        expect(animtableAct.motion, customMotion);
+        final animatableAct = act as AnimatableAct<Offset, Offset>;
+        expect(animatableAct.motion, customMotion);
       });
 
       test('fromTrailing constructor with delay', () {
         final act = SlideAct.fromTrailing(delay: 100.ms);
-        final animtableAct = act as AnimtableAct<Offset, Offset>;
-        expect(animtableAct.delay, 100.ms);
+        final animatableAct = act as AnimatableAct<Offset, Offset>;
+        expect(animatableAct.delay, 100.ms);
       });
 
       test('fromTrailing constructor with reverse', () {
         const reverse = ReverseBehavior<Offset>.mirror();
         final act = SlideAct.fromTrailing(reverse: reverse);
-        final animtableAct = act as AnimtableAct<Offset, Offset>;
-        expect(animtableAct.reverse, reverse);
+        final animatableAct = act as AnimatableAct<Offset, Offset>;
+        expect(animatableAct.reverse, reverse);
       });
 
       test('keyframed constructor sets frames', () {
@@ -254,16 +254,16 @@ void main() {
 
       test('y constructor slides on Y axis', () {
         final act = SlideAct.y(from: -1, to: 0);
-        final animtableAct = act as AnimtableAct<double, Offset>;
+        final animatableAct = act as AnimatableAct<double, Offset>;
 
-        final (animtable, _) = animtableAct.buildTweens(actContext);
+        final (animatable, _) = animatableAct.buildTweens(actContext);
 
         track.setProgress(0);
 
         final animation = CueAnimationImpl<Offset>(
           parent: track,
           token: ReleaseToken(track.config, timeline),
-          animtable: animtable,
+          animatable: animatable,
         );
 
         expect(animation.value, const Offset(0, -1));
@@ -275,21 +275,21 @@ void main() {
       test('y constructor with motion', () {
         final customMotion = CueMotion.linear(500.ms);
         final act = SlideAct.y(from: -1, to: 0, motion: customMotion);
-        final animtableAct = act as AnimtableAct<double, Offset>;
-        expect(animtableAct.motion, customMotion);
+        final animatableAct = act as AnimatableAct<double, Offset>;
+        expect(animatableAct.motion, customMotion);
       });
 
       test('y constructor with delay', () {
         final act = SlideAct.y(from: -1, to: 0, delay: 100.ms);
-        final animtableAct = act as AnimtableAct<double, Offset>;
-        expect(animtableAct.delay, 100.ms);
+        final animatableAct = act as AnimatableAct<double, Offset>;
+        expect(animatableAct.delay, 100.ms);
       });
 
       test('y constructor with reverse', () {
         const reverse = ReverseBehavior<double>.mirror();
         final act = SlideAct.y(from: -1, to: 0, reverse: reverse);
-        final animtableAct = act as AnimtableAct<double, Offset>;
-        expect(animtableAct.reverse, reverse);
+        final animatableAct = act as AnimatableAct<double, Offset>;
+        expect(animatableAct.reverse, reverse);
       });
 
       test('keyframedY constructor sets frames on Y axis', () {
@@ -325,16 +325,16 @@ void main() {
 
       test('fromX constructor slides on X axis', () {
         final act = SlideAct.x(from: -1, to: 0);
-        final animtableAct = act as AnimtableAct<double, Offset>;
+        final animatableAct = act as AnimatableAct<double, Offset>;
 
-        final (animtable, _) = animtableAct.buildTweens(actContext);
+        final (animatable, _) = animatableAct.buildTweens(actContext);
 
         track.setProgress(0);
 
         final animation = CueAnimationImpl<Offset>(
           parent: track,
           token: ReleaseToken(track.config, timeline),
-          animtable: animtable,
+          animatable: animatable,
         );
 
         expect(animation.value, const Offset(-1, 0));
@@ -346,21 +346,21 @@ void main() {
       test('fromX constructor with motion', () {
         final customMotion = CueMotion.linear(500.ms);
         final act = SlideAct.x(from: -1, to: 0, motion: customMotion);
-        final animtableAct = act as AnimtableAct<double, Offset>;
-        expect(animtableAct.motion, customMotion);
+        final animatableAct = act as AnimatableAct<double, Offset>;
+        expect(animatableAct.motion, customMotion);
       });
 
       test('fromX constructor with delay', () {
         final act = SlideAct.x(from: -1, to: 0, delay: 100.ms);
-        final animtableAct = act as AnimtableAct<double, Offset>;
-        expect(animtableAct.delay, 100.ms);
+        final animatableAct = act as AnimatableAct<double, Offset>;
+        expect(animatableAct.delay, 100.ms);
       });
 
       test('fromX constructor with reverse', () {
         const reverse = ReverseBehavior<double>.mirror();
         final act = SlideAct.x(from: -1, to: 0, reverse: reverse);
-        final animtableAct = act as AnimtableAct<double, Offset>;
-        expect(animtableAct.reverse, reverse);
+        final animatableAct = act as AnimatableAct<double, Offset>;
+        expect(animatableAct.reverse, reverse);
       });
 
       test('keyframedX constructor sets frames on X axis', () {
@@ -396,24 +396,24 @@ void main() {
 
       test('constructor accepts delay', () {
         final act = SlideAct(delay: 100.ms);
-        final animtableAct = act as AnimtableAct<Offset, Offset>;
-        expect(animtableAct.delay, 100.ms);
+        final animatableAct = act as AnimatableAct<Offset, Offset>;
+        expect(animatableAct.delay, 100.ms);
       });
     });
 
     group('apply', () {
       testWidgets('wraps child in SlideTransition', (tester) async {
         final act = SlideAct(from: const Offset(-1, 0), to: Offset.zero);
-        final animtableAct = act as AnimtableAct<Offset, Offset>;
+        final animatableAct = act as AnimatableAct<Offset, Offset>;
 
-        final (animtable, _) = animtableAct.buildTweens(actContext);
+        final (animatable, _) = animatableAct.buildTweens(actContext);
 
         track.setProgress(0.5);
 
         final animation = CueAnimationImpl<Offset>(
           parent: track,
           token: ReleaseToken(track.config, timeline),
-          animtable: animtable,
+          animatable: animatable,
         );
 
         await tester.pumpWidget(
@@ -421,7 +421,7 @@ void main() {
             textDirection: TextDirection.ltr,
             child: Builder(
               builder: (context) {
-                return animtableAct.apply(
+                return animatableAct.apply(
                   context,
                   animation,
                   const Text('Test'),
@@ -478,9 +478,9 @@ void main() {
     group('axis slide effect transform', () {
       test('horizontal axis slide produces X-only offsets', () {
         final act = SlideAct.x(from: -1, to: 0);
-        final animtableAct = act as AnimtableAct<double, Offset>;
+        final animatableAct = act as AnimatableAct<double, Offset>;
 
-        final (animtable, _) = animtableAct.buildTweens(actContext);
+        final (animatable, _) = animatableAct.buildTweens(actContext);
 
         // Test at progress 0.5 to verify transform is applied correctly
         track.setProgress(0.5);
@@ -488,7 +488,7 @@ void main() {
         final animation = CueAnimationImpl<Offset>(
           parent: track,
           token: ReleaseToken(track.config, timeline),
-          animtable: animtable,
+          animatable: animatable,
         );
 
         final value = animation.value;
@@ -501,16 +501,16 @@ void main() {
 
       test('vertical axis slide produces Y-only offsets', () {
         final act = SlideAct.y(from: -1, to: 0);
-        final animtableAct = act as AnimtableAct<double, Offset>;
+        final animatableAct = act as AnimatableAct<double, Offset>;
 
-        final (animtable, _) = animtableAct.buildTweens(actContext);
+        final (animatable, _) = animatableAct.buildTweens(actContext);
 
         track.setProgress(0.5);
 
         final animation = CueAnimationImpl<Offset>(
           parent: track,
           token: ReleaseToken(track.config, timeline),
-          animtable: animtable,
+          animatable: animatable,
         );
 
         final value = animation.value;
@@ -523,15 +523,15 @@ void main() {
 
       test('horizontal axis transforms different values correctly', () {
         final act = SlideAct.x(from: 0.5, to: 1.5);
-        final animtableAct = act as AnimtableAct<double, Offset>;
+        final animatableAct = act as AnimatableAct<double, Offset>;
 
-        final (animtable, _) = animtableAct.buildTweens(actContext);
+        final (animatable, _) = animatableAct.buildTweens(actContext);
 
         track.setProgress(0);
         final animationStart = CueAnimationImpl<Offset>(
           parent: track,
           token: ReleaseToken(track.config, timeline),
-          animtable: animtable,
+          animatable: animatable,
         );
         expect(animationStart.value.dx, closeTo(0.5, 0.01));
         expect(animationStart.value.dy, 0);
@@ -540,7 +540,7 @@ void main() {
         final animationEnd = CueAnimationImpl<Offset>(
           parent: track,
           token: ReleaseToken(track.config, timeline),
-          animtable: animtable,
+          animatable: animatable,
         );
         expect(animationEnd.value.dx, closeTo(1.5, 0.01));
         expect(animationEnd.value.dy, 0);
@@ -548,16 +548,16 @@ void main() {
 
       testWidgets('horizontal axis slide renders correctly', (tester) async {
         final act = SlideAct.x(from: -1, to: 0);
-        final animtableAct = act as AnimtableAct<double, Offset>;
+        final animatableAct = act as AnimatableAct<double, Offset>;
 
-        final (animtable, _) = animtableAct.buildTweens(actContext);
+        final (animatable, _) = animatableAct.buildTweens(actContext);
 
         track.setProgress(0.5);
 
         final animation = CueAnimationImpl<Offset>(
           parent: track,
           token: ReleaseToken(track.config, timeline),
-          animtable: animtable,
+          animatable: animatable,
         );
 
         await tester.pumpWidget(
@@ -565,7 +565,7 @@ void main() {
             textDirection: TextDirection.ltr,
             child: Builder(
               builder: (context) {
-                return animtableAct.apply(
+                return animatableAct.apply(
                   context,
                   animation,
                   const Text('Slide X'),
@@ -581,16 +581,16 @@ void main() {
 
       testWidgets('vertical axis slide renders correctly', (tester) async {
         final act = SlideAct.y(from: -1, to: 0);
-        final animtableAct = act as AnimtableAct<double, Offset>;
+        final animatableAct = act as AnimatableAct<double, Offset>;
 
-        final (animtable, _) = animtableAct.buildTweens(actContext);
+        final (animatable, _) = animatableAct.buildTweens(actContext);
 
         track.setProgress(0.5);
 
         final animation = CueAnimationImpl<Offset>(
           parent: track,
           token: ReleaseToken(track.config, timeline),
-          animtable: animtable,
+          animatable: animatable,
         );
 
         await tester.pumpWidget(
@@ -598,7 +598,7 @@ void main() {
             textDirection: TextDirection.ltr,
             child: Builder(
               builder: (context) {
-                return animtableAct.apply(
+                return animatableAct.apply(
                   context,
                   animation,
                   const Text('Slide Y'),
@@ -616,24 +616,24 @@ void main() {
         final actX = SlideAct.x(from: -1, to: 0);
         final actY = SlideAct.y(from: -1, to: 0);
 
-        final animtableActX = actX as AnimtableAct<double, Offset>;
-        final animtableActY = actY as AnimtableAct<double, Offset>;
+        final animatableActX = actX as AnimatableAct<double, Offset>;
+        final animatableActY = actY as AnimatableAct<double, Offset>;
 
-        final (animtableX, _) = animtableActX.buildTweens(actContext);
-        final (animtableY, _) = animtableActY.buildTweens(actContext);
+        final (animatableX, _) = animatableActX.buildTweens(actContext);
+        final (animatableY, _) = animatableActY.buildTweens(actContext);
 
         track.setProgress(0.5);
 
         final animationX = CueAnimationImpl<Offset>(
           parent: track,
           token: ReleaseToken(track.config, timeline),
-          animtable: animtableX,
+          animatable: animatableX,
         );
 
         final animationY = CueAnimationImpl<Offset>(
           parent: track,
           token: ReleaseToken(track.config, timeline),
-          animtable: animtableY,
+          animatable: animatableY,
         );
 
         expect(

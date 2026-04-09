@@ -2,14 +2,14 @@ import 'package:cue/cue.dart';
 import 'package:cue/src/timeline/track/track.dart';
 import 'package:flutter/widgets.dart';
 
-/// A Flutter [Animation<T>] that drives values via a [CueAnimtable] evaluated
+/// A Flutter [Animation<T>] that drives values via a [CueAnimatable] evaluated
 /// against the Cue timeline track.
 ///
 /// Each [CueAnimation] holds a [ReleaseToken] for track reference counting:
 /// when all clients release their tokens, the track is removed from the timeline.
 ///
 /// Implementations:
-/// - [CueAnimationImpl]: Standard animation with fixed [CueAnimtable].
+/// - [CueAnimationImpl]: Standard animation with fixed [CueAnimatable].
 /// - [DeferredCueAnimation]: Deferred animatable setup, used when values need
 ///   normalization before tween building (e.g., animating to `infinity` requires
 ///   normalizing to actual constraints).
@@ -35,7 +35,7 @@ abstract class CueAnimation<T extends Object?> extends Animation<T>
     return CueAnimationImpl<S>(
       parent: parent,
       token: token,
-      animtable: _MappedCueAnimtable<T, S>(animtable, selector),
+      animatable: _MappedCueAnimatable<T, S>(animatable, selector),
     );
   }
 
@@ -45,13 +45,13 @@ abstract class CueAnimation<T extends Object?> extends Animation<T>
       parent.status == AnimationStatus.dismissed;
 
   /// The animatable driver that interpolates values.
-  CueAnimtable<T> get animtable;
+  CueAnimatable<T> get animatable;
 
   /// The current animation value.
   ///
   /// Computed by evaluating the animatable with the track state.
   @override
-  T get value => animtable.evaluate(parent);
+  T get value => animatable.evaluate(parent);
 
   /// Releases this animation's reference to the track.
   ///
@@ -59,11 +59,11 @@ abstract class CueAnimation<T extends Object?> extends Animation<T>
   void release() => token.release();
 }
 
-/// A [CueAnimation] with a fixed, pre-built [CueAnimtable].
+/// A [CueAnimation] with a fixed, pre-built [CueAnimatable].
 class CueAnimationImpl<T extends Object?> extends CueAnimation<T> {
   /// The animatable driver.
   @override
-  final CueAnimtable<T> animtable;
+  final CueAnimatable<T> animatable;
 
   /// The track reference token.
   @override
@@ -73,22 +73,22 @@ class CueAnimationImpl<T extends Object?> extends CueAnimation<T> {
   CueAnimationImpl({
     required super.parent,
     required this.token,
-    required this.animtable,
+    required this.animatable,
   });
 }
 
-/// Maps a [CueAnimtable] by transforming its evaluated values.
+/// Maps a [CueAnimatable] by transforming its evaluated values.
 ///
 /// Used internally by [CueAnimation.map] to chain value transformations.
-class _MappedCueAnimtable<T extends Object?, S extends Object?>
-    extends CueAnimtable<S> {
+class _MappedCueAnimatable<T extends Object?, S extends Object?>
+    extends CueAnimatable<S> {
   /// The source animatable.
-  final CueAnimtable<T> parent;
+  final CueAnimatable<T> parent;
 
   /// Transformation function applied to each evaluated value.
   final S Function(T value) selector;
 
-  _MappedCueAnimtable(this.parent, this.selector);
+  _MappedCueAnimatable(this.parent, this.selector);
 
   @override
   S evaluate(CueTrack track) {
@@ -121,13 +121,13 @@ class DeferredCueAnimation<T extends Object?> extends CueAnimation<T> {
     required this.token,
   });
 
-  CueAnimtable<T>? _animatable;
+  CueAnimatable<T>? _animatable;
 
   /// The animatable driver.
   ///
   /// Throws [StateError] if not yet set via [setAnimatable].
   @override
-  CueAnimtable<T> get animtable {
+  CueAnimatable<T> get animatable {
     if (_animatable == null) {
       throw StateError('Animatable is not set yet');
     }
@@ -140,7 +140,7 @@ class DeferredCueAnimation<T extends Object?> extends CueAnimation<T> {
   /// Sets the normalized animatable.
   ///
   /// Called once value normalization is complete and the tween is ready.
-  void setAnimatable(CueAnimtable<T>? animatable) {
+  void setAnimatable(CueAnimatable<T>? animatable) {
     _animatable = animatable;
   }
 }

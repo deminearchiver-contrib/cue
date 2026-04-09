@@ -213,16 +213,16 @@ void main() {
     });
 
     group('buildTweens', () {
-      test('creates animtable with color', () {
+      test('creates animatable with color', () {
         const act = DecoratedBoxAct(
           color: AnimatableValue(from: Colors.red, to: Colors.blue),
         );
 
-        final (animtable, _) = act.buildTweens(actContext);
-        expect(animtable, isNotNull);
+        final (animatable, _) = act.buildTweens(actContext);
+        expect(animatable, isNotNull);
       });
 
-      test('creates animtable with multiple properties', () {
+      test('creates animatable with multiple properties', () {
         const act = DecoratedBoxAct(
           color: AnimatableValue(from: Colors.red, to: Colors.blue),
           borderRadius: AnimatableValue(
@@ -231,11 +231,11 @@ void main() {
           ),
         );
 
-        final (animtable, _) = act.buildTweens(actContext);
-        expect(animtable, isNotNull);
+        final (animatable, _) = act.buildTweens(actContext);
+        expect(animatable, isNotNull);
       });
 
-      test('creates animtable with gradient', () {
+      test('creates animatable with gradient', () {
         const act = DecoratedBoxAct(
           gradient: AnimatableValue(
             from: LinearGradient(colors: [Colors.red, Colors.blue]),
@@ -243,11 +243,11 @@ void main() {
           ),
         );
 
-        final (animtable, _) = act.buildTweens(actContext);
-        expect(animtable, isNotNull);
+        final (animatable, _) = act.buildTweens(actContext);
+        expect(animatable, isNotNull);
       });
 
-      test('creates animtable with boxShadow', () {
+      test('creates animatable with boxShadow', () {
         const act = DecoratedBoxAct(
           boxShadow: AnimatableValue(
             from: [],
@@ -255,11 +255,11 @@ void main() {
           ),
         );
 
-        final (animtable, _) = act.buildTweens(actContext);
-        expect(animtable, isNotNull);
+        final (animatable, _) = act.buildTweens(actContext);
+        expect(animatable, isNotNull);
       });
 
-      test('creates animtable with border', () {
+      test('creates animatable with border', () {
         final act = DecoratedBoxAct(
           border: AnimatableValue(
             from: Border(),
@@ -269,11 +269,11 @@ void main() {
           ),
         );
 
-        final (animtable, _) = act.buildTweens(actContext);
-        expect(animtable, isNotNull);
+        final (animatable, _) = act.buildTweens(actContext);
+        expect(animatable, isNotNull);
       });
 
-      test('creates animtable with all properties', () {
+      test('creates animatable with all properties', () {
         const act = DecoratedBoxAct(
           color: AnimatableValue(from: Colors.red, to: Colors.blue),
           borderRadius: AnimatableValue(
@@ -290,8 +290,8 @@ void main() {
           ),
         );
 
-        final (animtable, _) = act.buildTweens(actContext);
-        expect(animtable, isNotNull);
+        final (animatable, _) = act.buildTweens(actContext);
+        expect(animatable, isNotNull);
       });
     });
 
@@ -301,14 +301,14 @@ void main() {
           color: AnimatableValue(from: Colors.red, to: Colors.blue),
         );
 
-        final (animtable, _) = act.buildTweens(actContext);
+        final (animatable, _) = act.buildTweens(actContext);
 
         track.setProgress(0.5);
 
         final animation = CueAnimationImpl<Decoration>(
           parent: track,
           token: ReleaseToken(track.config, timeline),
-          animtable: animtable,
+          animatable: animatable,
         );
 
         await tester.pumpWidget(
@@ -331,14 +331,14 @@ void main() {
           color: AnimatableValue(from: Colors.red, to: Colors.blue),
         );
 
-        final (animtable, _) = act.buildTweens(actContext);
+        final (animatable, _) = act.buildTweens(actContext);
 
         track.setProgress(0.5);
 
         final animation = CueAnimationImpl<Decoration>(
           parent: track,
           token: ReleaseToken(track.config, timeline),
-          animtable: animtable,
+          animatable: animatable,
         );
 
         await tester.pumpWidget(
@@ -364,14 +364,14 @@ void main() {
           position: DecorationPosition.foreground,
         );
 
-        final (animtable, _) = act.buildTweens(actContext);
+        final (animatable, _) = act.buildTweens(actContext);
 
         track.setProgress(0.5);
 
         final animation = CueAnimationImpl<Decoration>(
           parent: track,
           token: ReleaseToken(track.config, timeline),
-          animtable: animtable,
+          animatable: animatable,
         );
 
         await tester.pumpWidget(
@@ -397,14 +397,14 @@ void main() {
           position: DecorationPosition.background,
         );
 
-        final (animtable, _) = act.buildTweens(actContext);
+        final (animatable, _) = act.buildTweens(actContext);
 
         track.setProgress(0.5);
 
         final animation = CueAnimationImpl<Decoration>(
           parent: track,
           token: ReleaseToken(track.config, timeline),
-          animtable: animtable,
+          animatable: animatable,
         );
 
         await tester.pumpWidget(

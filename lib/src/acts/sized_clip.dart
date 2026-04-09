@@ -577,7 +577,7 @@ class _RenderAnimatedSizeClip extends RenderAligningShiftedBox {
       tweenBuilder: (begin, end) => SizeTween(begin: begin, end: end),
     );
 
-    _driver.setAnimatable(builder.buildAnimtable(_driver.context));
+    _driver.setAnimatable(builder.buildAnimatable(_driver.context));
     // Build and cache the animation
     _cachedMaxSize = tween.end ?? Size.zero;
     _cachedMaxSize = _calculateMaxSize(builder);

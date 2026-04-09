@@ -158,7 +158,7 @@ class CueController extends AnimationController {
     return CueAnimationImpl<T>(
       parent: track,
       token: token,
-      animtable: builder.buildAnimtable(context),
+      animatable: builder.buildAnimatable(context),
     );
   }
 
@@ -166,7 +166,7 @@ class CueController extends AnimationController {
   ///
   /// Similar to [tweenTrack] but accepts [Keyframes<T>] instead of a single
   /// from/to pair. Each keyframe defines a segment of the animation, driven
-  /// by [SegmentedSimulation] and evaluated via [SegmentedAnimtable].
+  /// by [SegmentedSimulation] and evaluated via [SegmentedAnimatable].
   /// Release the animation when done via [CueAnimation.release].
   ///
   /// - [frames]: The keyframe sequence to animate through.
@@ -210,7 +210,7 @@ class CueController extends AnimationController {
     return CueAnimationImpl<T>(
       parent: track,
       token: token,
-      animtable: builder.buildAnimtable(context),
+      animatable: builder.buildAnimatable(context),
     );
   }
 

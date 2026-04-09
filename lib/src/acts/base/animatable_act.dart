@@ -4,7 +4,7 @@ import 'package:flutter/widgets.dart';
 
 /// Base implementation of [Act] for tween-based and keyframed acts.
 ///
-/// [AnimtableAct] handles the boilerplate of storing per-act [motion],
+/// [AnimatableAct] handles the boilerplate of storing per-act [motion],
 /// [delay], and [reverse] behavior, and wires up [buildAnimation] and [applyInternal]
 /// so that concrete subclasses only need to implement [buildTweens] and
 /// [apply].
@@ -13,11 +13,11 @@ import 'package:flutter/widgets.dart';
 ///
 /// - `T` — the value type used by [ReverseBehaviorBase], i.e. the Dart type
 ///   passed to `ReverseBehavior.to(T)` or held in `KFReverseBehavior.to(Keyframes<T>)`.
-/// - `R` — the animated value type flowing through [CueAnimtable] and
+/// - `R` — the animated value type flowing through [CueAnimatable] and
 ///   [CueAnimation]. Usually `T == R`; they may differ when the act
 ///   normalises its input before animating (e.g. resolving an enum into a
 ///   numeric range).
-abstract class AnimtableAct<T extends Object?, R extends Object?> extends Act {
+abstract class AnimatableAct<T extends Object?, R extends Object?> extends Act {
   /// Per-act motion override. When non-null, replaces the motion inherited
   /// from [Actor] or [Cue] for this act only.
   final CueMotion? motion;
@@ -34,42 +34,42 @@ abstract class AnimtableAct<T extends Object?, R extends Object?> extends Act {
   final ReverseBehaviorBase<T> reverse;
 
   /// Creates an animatable act with optional [motion], [delay], and [reverse] behavior.
-  const AnimtableAct({
+  const AnimatableAct({
     this.motion,
     this.delay = Duration.zero,
     required this.reverse,
   });
 
-  /// Builds the forward and optional reverse [CueAnimtable]s for this act.
+  /// Builds the forward and optional reverse [CueAnimatable]s for this act.
   ///
   /// Returns a pair `(forward, reverse?)`. When the second element is non-null
   /// it is used as the animatable for the reverse pass instead of the forward
   /// one played backwards.
   ///
   /// Subclasses implement this method to produce their tweens or keyframe
-  /// animatables. [buildAnimation] and [buildAnimtable] both delegate here.
-  (CueAnimtable<R>, CueAnimtable<R>?) buildTweens(ActContext context);
+  /// animatables. [buildAnimation] and [buildAnimatable] both delegate here.
+  (CueAnimatable<R>, CueAnimatable<R>?) buildTweens(ActContext context);
 
   /// Assembles the forward and reverse animatables into a single
-  /// [CueAnimtable], wrapping them in a [DualAnimatable] when a separate
+  /// [CueAnimatable], wrapping them in a [DualAnimatable] when a separate
   /// reverse animatable is present.
   ///
   /// Used by parts of the system that operate outside the timeline —
   /// for example [SizedBoxAct] and [SizedClipAct] drive their own internal
   /// controller and call this directly instead of going through
   /// [buildAnimation].
-  CueAnimtable<R> buildAnimtable(ActContext context) {
-    final (animtable, reverseAnimatable) = buildTweens(context);
+  CueAnimatable<R> buildAnimatable(ActContext context) {
+    final (animatable, reverseAnimatable) = buildTweens(context);
     if (reverseAnimatable != null) {
-      return DualAnimatable(forward: animtable, reverse: reverseAnimatable);
+      return DualAnimatable(forward: animatable, reverse: reverseAnimatable);
     } else {
-      return animtable;
+      return animatable;
     }
   }
 
   @override
   CueAnimation<R> buildAnimation(CueTimeline timline, ActContext context) {
-    final (animtable, reverseAnimtable) = buildTweens(context);
+    final (animatable, reverseAnimatable) = buildTweens(context);
     final (track, token) = timline.obtainTrack(
       TrackConfig(
         motion: context.motion,
@@ -77,13 +77,13 @@ abstract class AnimtableAct<T extends Object?, R extends Object?> extends Act {
         reverseType: reverse.type,
       ),
     );
-    CueAnimtable<R> effectiveAnimatable = reverseAnimtable == null
-        ? animtable
-        : DualAnimatable(forward: animtable, reverse: reverseAnimtable);
+    CueAnimatable<R> effectiveAnimatable = reverseAnimatable == null
+        ? animatable
+        : DualAnimatable(forward: animatable, reverse: reverseAnimatable);
     return CueAnimationImpl<R>(
       parent: track,
       token: token,
-      animtable: effectiveAnimatable,
+      animatable: effectiveAnimatable,
     );
   }
 
@@ -116,7 +116,7 @@ abstract class AnimtableAct<T extends Object?, R extends Object?> extends Act {
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
     if (other.runtimeType != runtimeType) return false;
-    return other is AnimtableAct<R, T> &&
+    return other is AnimatableAct<R, T> &&
         other.motion == motion &&
         other.delay == delay &&
         other.reverse == reverse;

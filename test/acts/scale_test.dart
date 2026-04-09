@@ -95,14 +95,14 @@ void main() {
       testWidgets('wraps child in ScaleTransition', (tester) async {
         const act = ScaleAct(from: 1.0, to: 0.5);
 
-        final (animtable, _) = act.buildTweens(actContext);
+        final (animatable, _) = act.buildTweens(actContext);
 
         track.setProgress(0.5);
 
         final animation = CueAnimationImpl<double>(
           parent: track,
           token: ReleaseToken(track.config, timeline),
-          animtable: animtable,
+          animatable: animatable,
         );
 
         await tester.pumpWidget(
@@ -123,14 +123,14 @@ void main() {
       testWidgets('ScaleTransition uses animation', (tester) async {
         const act = ScaleAct(from: 1.0, to: 0.5);
 
-        final (animtable, _) = act.buildTweens(actContext);
+        final (animatable, _) = act.buildTweens(actContext);
 
         track.setProgress(0.5);
 
         final animation = CueAnimationImpl<double>(
           parent: track,
           token: ReleaseToken(track.config, timeline),
-          animtable: animtable,
+          animatable: animatable,
         );
 
         await tester.pumpWidget(
@@ -153,14 +153,14 @@ void main() {
       testWidgets('uses default alignment when not specified', (tester) async {
         const act = ScaleAct(from: 1.0, to: 0.5);
 
-        final (animtable, _) = act.buildTweens(actContext);
+        final (animatable, _) = act.buildTweens(actContext);
 
         track.setProgress(0.5);
 
         final animation = CueAnimationImpl<double>(
           parent: track,
           token: ReleaseToken(track.config, timeline),
-          animtable: animtable,
+          animatable: animatable,
         );
 
         await tester.pumpWidget(
@@ -183,14 +183,14 @@ void main() {
       testWidgets('uses specified alignment', (tester) async {
         const act = ScaleAct(from: 1.0, to: 0.5, alignment: Alignment.topLeft);
 
-        final (animtable, _) = act.buildTweens(actContext);
+        final (animatable, _) = act.buildTweens(actContext);
 
         track.setProgress(0.5);
 
         final animation = CueAnimationImpl<double>(
           parent: track,
           token: ReleaseToken(track.config, timeline),
-          animtable: animtable,
+          animatable: animatable,
         );
 
         await tester.pumpWidget(
@@ -217,14 +217,14 @@ void main() {
           alignment: AlignmentDirectional.centerStart,
         );
 
-        final (animtable, _) = act.buildTweens(actContext);
+        final (animatable, _) = act.buildTweens(actContext);
 
         track.setProgress(0.5);
 
         final animation = CueAnimationImpl<double>(
           parent: track,
           token: ReleaseToken(track.config, timeline),
-          animtable: animtable,
+          animatable: animatable,
         );
 
         await tester.pumpWidget(
@@ -247,14 +247,14 @@ void main() {
       testWidgets('animation value affects scale at start', (tester) async {
         const act = ScaleAct(from: 1.0, to: 0.5);
 
-        final (animtable, _) = act.buildTweens(actContext);
+        final (animatable, _) = act.buildTweens(actContext);
 
         track.setProgress(0.0);
 
         final animation = CueAnimationImpl<double>(
           parent: track,
           token: ReleaseToken(track.config, timeline),
-          animtable: animtable,
+          animatable: animatable,
         );
 
         await tester.pumpWidget(
@@ -274,14 +274,14 @@ void main() {
       testWidgets('animation value affects scale at end', (tester) async {
         const act = ScaleAct(from: 1.0, to: 0.5);
 
-        final (animtable, _) = act.buildTweens(actContext);
+        final (animatable, _) = act.buildTweens(actContext);
 
         track.setProgress(1.0);
 
         final animation = CueAnimationImpl<double>(
           parent: track,
           token: ReleaseToken(track.config, timeline),
-          animtable: animtable,
+          animatable: animatable,
         );
 
         await tester.pumpWidget(
@@ -442,14 +442,14 @@ void main() {
       testWidgets('wraps child in Transform', (tester) async {
         const act = StretchAct(from: Stretch.none, to: Stretch(x: 2.0, y: 1.0));
 
-        final (animtable, _) = act.buildTweens(actContext);
+        final (animatable, _) = act.buildTweens(actContext);
 
         track.setProgress(0.5);
 
         final animation = CueAnimationImpl<Matrix4>(
           parent: track,
           token: ReleaseToken(track.config, timeline),
-          animtable: animtable,
+          animatable: animatable,
         );
 
         await tester.pumpWidget(
@@ -466,14 +466,14 @@ void main() {
       testWidgets('Transform uses animation value', (tester) async {
         const act = StretchAct(from: Stretch.none, to: Stretch(x: 2.0, y: 1.0));
 
-        final (animtable, _) = act.buildTweens(actContext);
+        final (animatable, _) = act.buildTweens(actContext);
 
         track.setProgress(0.0);
 
         final animation = CueAnimationImpl<Matrix4>(
           parent: track,
           token: ReleaseToken(track.config, timeline),
-          animtable: animtable,
+          animatable: animatable,
         );
 
         await tester.pumpWidget(

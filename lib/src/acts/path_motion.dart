@@ -8,7 +8,7 @@ part of 'base/act.dart';
 ///
 /// The widget follows the path's geometry exactly, making this ideal for
 /// complex curved motions, orbital patterns, and scenic animations.
-class PathMotionAct extends AnimtableAct<Matrix4, Matrix4> {
+class PathMotionAct extends AnimatableAct<Matrix4, Matrix4> {
   @override
   final ActKey key = const ActKey('PathMotionAct');
 
@@ -181,7 +181,7 @@ class PathMotionAct extends AnimtableAct<Matrix4, Matrix4> {
   }
 
   @override
-  (CueAnimtable<Matrix4>, CueAnimtable<Matrix4>?) buildTweens(
+  (CueAnimatable<Matrix4>, CueAnimatable<Matrix4>?) buildTweens(
     ActContext context,
   ) {
     final metrics = path.computeMetrics().toList();
@@ -191,8 +191,8 @@ class PathMotionAct extends AnimtableAct<Matrix4, Matrix4> {
       throw Exception('Path must have only one metric');
     }
     return (
-      TweenAnimtable(
-        _AnimtablePath(
+      TweenAnimatable(
+        _AnimatablePath(
           metrics.first,
           autoRotate: autoRotate,
           startAngle: _startAngle * math.pi / 180,
@@ -232,7 +232,7 @@ class PathMotionAct extends AnimtableAct<Matrix4, Matrix4> {
 /// - Looking up position along path using progress * path.length
 /// - Extracting tangent angle if autoRotate is enabled
 /// - Building Matrix4 with translation and optional rotation
-class _AnimtablePath extends Animatable<Matrix4> {
+class _AnimatablePath extends Animatable<Matrix4> {
   /// Path metric extracted from the animated path.
   final PathMetric metric;
 
@@ -247,7 +247,11 @@ class _AnimtablePath extends Animatable<Matrix4> {
   /// Creates path animatable.
   ///
   /// [startAngle] is in radians, allowing offset rotation start position.
-  _AnimtablePath(this.metric, {this.autoRotate = false, this.startAngle = 0.0});
+  _AnimatablePath(
+    this.metric, {
+    this.autoRotate = false,
+    this.startAngle = 0.0,
+  });
 
   /// Computes position and rotation matrix at animation progress [t].
   ///

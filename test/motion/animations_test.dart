@@ -11,26 +11,26 @@ void main() {
   final timeline = CueTimelineImpl.fromMotion(motion);
   final config = TrackConfig(motion: motion, reverseMotion: motion);
   final track = CueTrackImpl(config);
-  final animtable = TweenAnimtable(Tween(begin: 0.0, end: 1.0));
+  final animatable = TweenAnimatable(Tween(begin: 0.0, end: 1.0));
   final token = ReleaseToken(config, timeline);
   group('CueAnimationImpl', () {
-    test('stores parent, token, and animtable', () {
+    test('stores parent, token, and animatable', () {
       final animation = CueAnimationImpl<double>(
         parent: track,
         token: token,
-        animtable: animtable,
+        animatable: animatable,
       );
 
       expect(animation.parent, equals(track));
       expect(animation.token, equals(token));
-      expect(animation.animtable, equals(animtable));
+      expect(animation.animatable, equals(animatable));
     });
 
-    test('value returns evaluated animtable', () {
+    test('value returns evaluated animatable', () {
       final animation = CueAnimationImpl<double>(
         parent: track,
         token: token,
-        animtable: animtable,
+        animatable: animatable,
       );
 
       track.setProgress(0.0);
@@ -47,7 +47,7 @@ void main() {
       final animation = CueAnimationImpl<double>(
         parent: track,
         token: token,
-        animtable: animtable,
+        animatable: animatable,
       );
 
       expect(animation.parent.config, equals(track.config));
@@ -57,7 +57,7 @@ void main() {
       final animation = CueAnimationImpl<double>(
         parent: track,
         token: token,
-        animtable: animtable,
+        animatable: animatable,
       );
 
       track.setProgress(0.0, forward: false);
@@ -75,7 +75,7 @@ void main() {
       final animation = CueAnimationImpl<double>(
         parent: track,
         token: token,
-        animtable: animtable,
+        animatable: animatable,
       );
 
       final mapped = animation.map((value) => value * 100);
@@ -91,7 +91,7 @@ void main() {
       final animation = CueAnimationImpl<double>(
         parent: track,
         token: token,
-        animtable: animtable,
+        animatable: animatable,
       );
 
       final mapped = animation.map((value) => value.toString());
@@ -101,13 +101,13 @@ void main() {
     });
 
     test('map with complex type transformation', () {
-      final colorAnimtable = TweenAnimtable<Color>(
+      final colorAnimatable = TweenAnimatable<Color>(
         Tween<Color>(begin: Colors.red, end: Colors.blue),
       );
       final animation = CueAnimationImpl<Color>(
         parent: track,
         token: token,
-        animtable: colorAnimtable,
+        animatable: colorAnimatable,
       );
 
       final mapped = animation.map((color) => color.withValues(alpha: .5));
@@ -162,32 +162,32 @@ void main() {
         token: token,
       );
 
-      animation.setAnimatable(TweenAnimtable(Tween(begin: 0.0, end: 1.0)));
+      animation.setAnimatable(TweenAnimatable(Tween(begin: 0.0, end: 1.0)));
 
       expect(animation.hasAnimatable, isTrue);
     });
 
-    test('animtable throws before being set', () {
+    test('animatable throws before being set', () {
       final animation = DeferredCueAnimation<double>(
         parent: track,
         context: context,
         token: token,
       );
 
-      expect(() => animation.animtable, throwsStateError);
+      expect(() => animation.animatable, throwsStateError);
     });
 
-    test('animtable returns value after being set', () {
+    test('animatable returns value after being set', () {
       final animation = DeferredCueAnimation<double>(
         parent: track,
         context: context,
         token: token,
       );
-      final animtable = TweenAnimtable(Tween(begin: 0.0, end: 1.0));
+      final animatable = TweenAnimatable(Tween(begin: 0.0, end: 1.0));
 
-      animation.setAnimatable(animtable);
+      animation.setAnimatable(animatable);
 
-      expect(animation.animtable, equals(animtable));
+      expect(animation.animatable, equals(animatable));
     });
 
     test('setAnimatable can be called with null', () {
@@ -197,21 +197,21 @@ void main() {
         token: token,
       );
 
-      animation.setAnimatable(TweenAnimtable(Tween(begin: 0.0, end: 1.0)));
+      animation.setAnimatable(TweenAnimatable(Tween(begin: 0.0, end: 1.0)));
       expect(animation.hasAnimatable, isTrue);
 
       animation.setAnimatable(null);
       expect(animation.hasAnimatable, isFalse);
     });
 
-    test('value evaluates animtable when set', () {
+    test('value evaluates animatable when set', () {
       final animation = DeferredCueAnimation<double>(
         parent: track,
         context: context,
         token: token,
       );
 
-      animation.setAnimatable(TweenAnimtable(Tween(begin: 0.0, end: 100.0)));
+      animation.setAnimatable(TweenAnimatable(Tween(begin: 0.0, end: 100.0)));
 
       track.setProgress(0.5);
       expect(animation.value, equals(50.0));
@@ -242,22 +242,22 @@ void main() {
     });
   });
 
-  group('CueAnimation.map (MappedCueAnimtable)', () {
+  group('CueAnimation.map (MappedCueAnimatable)', () {
     late CueTrack track;
-    late CueAnimtable<double> baseAnimtable;
+    late CueAnimatable<double> baseAnimatable;
 
     setUp(() {
       final motion = CueMotion.linear(300.ms);
       final config = TrackConfig(motion: motion, reverseMotion: motion);
       track = CueTrackImpl(config);
-      baseAnimtable = TweenAnimtable(Tween(begin: 0.0, end: 1.0));
+      baseAnimatable = TweenAnimatable(Tween(begin: 0.0, end: 1.0));
     });
 
     test('evaluate transforms value using selector', () {
       final animation = CueAnimationImpl<double>(
         parent: track,
         token: ReleaseToken(track.config, timeline),
-        animtable: baseAnimtable,
+        animatable: baseAnimatable,
       );
       final mapped = animation.map((value) => 'value: $value');
 
@@ -272,7 +272,7 @@ void main() {
       final animation = CueAnimationImpl<double>(
         parent: track,
         token: ReleaseToken(track.config, timeline),
-        animtable: baseAnimtable,
+        animatable: baseAnimatable,
       );
       final mapped = animation.map((value) => value * value);
 
@@ -287,7 +287,7 @@ void main() {
       final animation = CueAnimationImpl<double>(
         parent: track,
         token: ReleaseToken(track.config, timeline),
-        animtable: baseAnimtable,
+        animatable: baseAnimatable,
       );
       final mapped = animation.map((value) => (value * 100).round());
 
@@ -313,7 +313,7 @@ void main() {
       animation = CueAnimationImpl<double>(
         parent: track,
         token: token,
-        animtable: TweenAnimtable(Tween(begin: 0.0, end: 1.0)),
+        animatable: TweenAnimatable(Tween(begin: 0.0, end: 1.0)),
       );
     });
 
@@ -348,7 +348,7 @@ void main() {
       final animation = CueAnimationImpl<double>(
         parent: track,
         token: token,
-        animtable: TweenAnimtable(Tween(begin: 0.0, end: 1.0)),
+        animatable: TweenAnimatable(Tween(begin: 0.0, end: 1.0)),
       );
 
       animation.release();
@@ -358,7 +358,7 @@ void main() {
       final animation = CueAnimationImpl<double>(
         parent: track,
         token: token,
-        animtable: TweenAnimtable(Tween(begin: 0.0, end: 1.0)),
+        animatable: TweenAnimatable(Tween(begin: 0.0, end: 1.0)),
       );
 
       animation.release();

@@ -165,14 +165,14 @@ void main() {
       testWidgets('wraps child in widget', (tester) async {
         final act = RotateLayoutAct.degrees(from: 0, to: 90);
 
-        final (animtable, _) = act.buildTweens(actContext);
+        final (animatable, _) = act.buildTweens(actContext);
 
         track.setProgress(0.5);
 
         final animation = CueAnimationImpl<double>(
           parent: track,
           token: ReleaseToken(track.config, timeline),
-          animtable: animtable,
+          animatable: animatable,
         );
 
         await tester.pumpWidget(
@@ -196,14 +196,14 @@ void main() {
       testWidgets('renders with degrees unit', (tester) async {
         final act = RotateLayoutAct.degrees(from: 0, to: 180);
 
-        final (animtable, _) = act.buildTweens(actContext);
+        final (animatable, _) = act.buildTweens(actContext);
 
         track.setProgress(0);
 
         final animation = CueAnimationImpl<double>(
           parent: track,
           token: ReleaseToken(track.config, timeline),
-          animtable: animtable,
+          animatable: animatable,
         );
 
         await tester.pumpWidget(
@@ -224,14 +224,14 @@ void main() {
       testWidgets('renders with turns unit', (tester) async {
         final act = RotateLayoutAct.turns(from: 0, to: 1);
 
-        final (animtable, _) = act.buildTweens(actContext);
+        final (animatable, _) = act.buildTweens(actContext);
 
         track.setProgress(0.5);
 
         final animation = CueAnimationImpl<double>(
           parent: track,
           token: ReleaseToken(track.config, timeline),
-          animtable: animtable,
+          animatable: animatable,
         );
 
         await tester.pumpWidget(
@@ -252,14 +252,14 @@ void main() {
       testWidgets('renders with radians unit', (tester) async {
         final act = RotateLayoutAct(from: 0, to: pi, unit: RotateUnit.radians);
 
-        final (animtable, _) = act.buildTweens(actContext);
+        final (animatable, _) = act.buildTweens(actContext);
 
         track.setProgress(0.5);
 
         final animation = CueAnimationImpl<double>(
           parent: track,
           token: ReleaseToken(track.config, timeline),
-          animtable: animtable,
+          animatable: animatable,
         );
 
         await tester.pumpWidget(
@@ -280,12 +280,12 @@ void main() {
       testWidgets('animation listener triggers layout update', (tester) async {
         final act = RotateLayoutAct.degrees(from: 0, to: 180);
 
-        final (animtable, _) = act.buildTweens(actContext);
+        final (animatable, _) = act.buildTweens(actContext);
 
         final animation = CueAnimationImpl<double>(
           parent: track,
           token: ReleaseToken(track.config, timeline),
-          animtable: animtable,
+          animatable: animatable,
         );
 
         // Start at 0 progress
@@ -323,13 +323,13 @@ void main() {
       testWidgets('handles animation replacement', (tester) async {
         final act = RotateLayoutAct.degrees(from: 0, to: 90);
 
-        final (animtable, _) = act.buildTweens(actContext);
+        final (animatable, _) = act.buildTweens(actContext);
 
         track.setProgress(0);
         final animation1 = CueAnimationImpl<double>(
           parent: track,
           token: ReleaseToken(track.config, timeline),
-          animtable: animtable,
+          animatable: animatable,
         );
 
         await tester.pumpWidget(
@@ -352,7 +352,7 @@ void main() {
         final animation2 = CueAnimationImpl<double>(
           parent: track,
           token: ReleaseToken(track.config, timeline),
-          animtable: animtable,
+          animatable: animatable,
         );
 
         // Replace with new animation
@@ -378,13 +378,13 @@ void main() {
       testWidgets('performs layout with rotated child', (tester) async {
         final act = RotateLayoutAct.degrees(from: 0, to: 45);
 
-        final (animtable, _) = act.buildTweens(actContext);
+        final (animatable, _) = act.buildTweens(actContext);
 
         track.setProgress(0.25); // 11.25 degrees
         final animation = CueAnimationImpl<double>(
           parent: track,
           token: ReleaseToken(track.config, timeline),
-          animtable: animtable,
+          animatable: animatable,
         );
 
         await tester.pumpWidget(
@@ -418,14 +418,14 @@ void main() {
       testWidgets('handles null child during layout', (tester) async {
         final act = RotateLayoutAct.degrees(from: 0, to: 90);
 
-        final (animtable, _) = act.buildTweens(actContext);
+        final (animatable, _) = act.buildTweens(actContext);
 
         // The apply() method should still work with proper child
         track.setProgress(0.5);
         final animation = CueAnimationImpl<double>(
           parent: track,
           token: ReleaseToken(track.config, timeline),
-          animtable: animtable,
+          animatable: animatable,
         );
 
         await tester.pumpWidget(

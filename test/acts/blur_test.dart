@@ -158,14 +158,14 @@ void main() {
 
     testWidgets('apply wraps child in ImageFiltered', (tester) async {
       const act = BlurAct(from: 0.0, to: 10.0);
-      final (animtable, _) = act.buildTweens(actContext);
+      final (animatable, _) = act.buildTweens(actContext);
 
       track.setProgress(0.5);
 
       final animation = CueAnimationImpl<double>(
         parent: track,
         token: ReleaseToken(track.config, timeline),
-        animtable: animtable,
+        animatable: animatable,
       );
 
       await tester.pumpWidget(
@@ -183,14 +183,14 @@ void main() {
 
     testWidgets('apply uses animation value for blur', (tester) async {
       const act = BlurAct(from: 0.0, to: 10.0);
-      final (animtable, _) = act.buildTweens(actContext);
+      final (animatable, _) = act.buildTweens(actContext);
 
       track.setProgress(0.5);
 
       final animation = CueAnimationImpl<double>(
         parent: track,
         token: ReleaseToken(track.config, timeline),
-        animtable: animtable,
+        animatable: animatable,
       );
 
       await tester.pumpWidget(
@@ -306,14 +306,14 @@ void main() {
 
     testWidgets('apply wraps child in BackdropFilter', (tester) async {
       const act = BackdropBlurAct(from: 0.0, to: 10.0);
-      final (animtable, _) = act.buildTweens(actContext);
+      final (animatable, _) = act.buildTweens(actContext);
 
       track.setProgress(0.5);
 
       final animation = CueAnimationImpl<double>(
         parent: track,
         token: ReleaseToken(track.config, timeline),
-        animtable: animtable,
+        animatable: animatable,
       );
 
       await tester.pumpWidget(
@@ -331,14 +331,14 @@ void main() {
 
     testWidgets('apply uses animation value for blur', (tester) async {
       const act = BackdropBlurAct(from: 0.0, to: 10.0);
-      final (animtable, _) = act.buildTweens(actContext);
+      final (animatable, _) = act.buildTweens(actContext);
 
       track.setProgress(0.5);
 
       final animation = CueAnimationImpl<double>(
         parent: track,
         token: ReleaseToken(track.config, timeline),
-        animtable: animtable,
+        animatable: animatable,
       );
 
       await tester.pumpWidget(
@@ -364,14 +364,14 @@ void main() {
         to: 10.0,
         blendMode: BlendMode.multiply,
       );
-      final (animtable, _) = act.buildTweens(actContext);
+      final (animatable, _) = act.buildTweens(actContext);
 
       track.setProgress(0.5);
 
       final animation = CueAnimationImpl<double>(
         parent: track,
         token: ReleaseToken(track.config, timeline),
-        animtable: animtable,
+        animatable: animatable,
       );
 
       await tester.pumpWidget(

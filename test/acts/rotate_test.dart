@@ -41,12 +41,12 @@ void main() {
 
       testWidgets('radians constructor applies rotation', (tester) async {
         final act = RotateAct.radians(from: 0, to: math.pi);
-        final (animtable, _) = act.buildTweens(actContext);
+        final (animatable, _) = act.buildTweens(actContext);
         track.setProgress(0.5);
         final animation = CueAnimationImpl<double>(
           parent: track,
           token: ReleaseToken(track.config, timeline),
-          animtable: animtable,
+          animatable: animatable,
         );
 
         await tester.pumpWidget(
@@ -64,12 +64,12 @@ void main() {
 
       testWidgets('degrees constructor applies rotation', (tester) async {
         final act = RotateAct.degrees(from: 0, to: 180);
-        final (animtable, _) = act.buildTweens(actContext);
+        final (animatable, _) = act.buildTweens(actContext);
         track.setProgress(0.5);
         final animation = CueAnimationImpl<double>(
           parent: track,
           token: ReleaseToken(track.config, timeline),
-          animtable: animtable,
+          animatable: animatable,
         );
 
         await tester.pumpWidget(
@@ -87,12 +87,12 @@ void main() {
 
       testWidgets('turns constructor applies rotation', (tester) async {
         final act = RotateAct.turns(from: 0, to: 2);
-        final (animtable, _) = act.buildTweens(actContext);
+        final (animatable, _) = act.buildTweens(actContext);
         track.setProgress(0.5);
         final animation = CueAnimationImpl<double>(
           parent: track,
           token: ReleaseToken(track.config, timeline),
-          animtable: animtable,
+          animatable: animatable,
         );
 
         await tester.pumpWidget(
@@ -175,14 +175,14 @@ void main() {
       testWidgets('wraps child in MatrixTransition', (tester) async {
         const act = RotateAct(from: 0, to: 90);
 
-        final (animtable, _) = act.buildTweens(actContext);
+        final (animatable, _) = act.buildTweens(actContext);
 
         track.setProgress(0.5);
 
         final animation = CueAnimationImpl<double>(
           parent: track,
           token: ReleaseToken(track.config, timeline),
-          animtable: animtable,
+          animatable: animatable,
         );
 
         await tester.pumpWidget(
@@ -202,14 +202,14 @@ void main() {
       testWidgets('uses correct alignment', (tester) async {
         const act = RotateAct(from: 0, to: 90, alignment: Alignment.topLeft);
 
-        final (animtable, _) = act.buildTweens(actContext);
+        final (animatable, _) = act.buildTweens(actContext);
 
         track.setProgress(0.5);
 
         final animation = CueAnimationImpl<double>(
           parent: track,
           token: ReleaseToken(track.config, timeline),
-          animtable: animtable,
+          animatable: animatable,
         );
 
         await tester.pumpWidget(
@@ -232,14 +232,14 @@ void main() {
       testWidgets('applies rotation with X axis', (tester) async {
         const act = RotateAct(from: 0, to: 90, axis: RotateAxis.x);
 
-        final (animtable, _) = act.buildTweens(actContext);
+        final (animatable, _) = act.buildTweens(actContext);
 
         track.setProgress(0.5);
 
         final animation = CueAnimationImpl<double>(
           parent: track,
           token: ReleaseToken(track.config, timeline),
-          animtable: animtable,
+          animatable: animatable,
         );
 
         await tester.pumpWidget(
@@ -259,14 +259,14 @@ void main() {
       testWidgets('applies rotation with Y axis', (tester) async {
         const act = RotateAct(from: 0, to: 90, axis: RotateAxis.y);
 
-        final (animtable, _) = act.buildTweens(actContext);
+        final (animatable, _) = act.buildTweens(actContext);
 
         track.setProgress(0.5);
 
         final animation = CueAnimationImpl<double>(
           parent: track,
           token: ReleaseToken(track.config, timeline),
-          animtable: animtable,
+          animatable: animatable,
         );
 
         await tester.pumpWidget(
@@ -395,12 +395,12 @@ void main() {
         expect(act.to, const Rotation3D(y: 180));
         expect(act.unit, Rotate3DUnit.degrees);
 
-        final (animtable, _) = act.buildTweens(actContext);
+        final (animatable, _) = act.buildTweens(actContext);
         track.setProgress(0.5);
         final animation = CueAnimationImpl<Rotation3D>(
           parent: track,
           token: ReleaseToken(track.config, timeline),
-          animtable: animtable,
+          animatable: animatable,
         );
 
         await tester.pumpWidget(
@@ -424,12 +424,12 @@ void main() {
         expect(act.to, const Rotation3D(x: 180));
         expect(act.unit, Rotate3DUnit.degrees);
 
-        final (animtable, _) = act.buildTweens(actContext);
+        final (animatable, _) = act.buildTweens(actContext);
         track.setProgress(0.5);
         final animation = CueAnimationImpl<Rotation3D>(
           parent: track,
           token: ReleaseToken(track.config, timeline),
-          animtable: animtable,
+          animatable: animatable,
         );
 
         await tester.pumpWidget(
@@ -487,14 +487,14 @@ void main() {
       testWidgets('wraps child in Transform', (tester) async {
         const act = Rotate3DAct(from: Rotation3D.zero, to: Rotation3D(y: 180));
 
-        final (animtable, _) = act.buildTweens(actContext);
+        final (animatable, _) = act.buildTweens(actContext);
 
         track.setProgress(0.5);
 
         final animation = CueAnimationImpl<Rotation3D>(
           parent: track,
           token: ReleaseToken(track.config, timeline),
-          animtable: animtable,
+          animatable: animatable,
         );
 
         await tester.pumpWidget(
@@ -518,14 +518,14 @@ void main() {
           alignment: Alignment.topLeft,
         );
 
-        final (animtable, _) = act.buildTweens(actContext);
+        final (animatable, _) = act.buildTweens(actContext);
 
         track.setProgress(0.5);
 
         final animation = CueAnimationImpl<Rotation3D>(
           parent: track,
           token: ReleaseToken(track.config, timeline),
-          animtable: animtable,
+          animatable: animatable,
         );
 
         await tester.pumpWidget(

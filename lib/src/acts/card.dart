@@ -14,7 +14,7 @@ part of 'base/act.dart';
 ///
 /// **Prefer [CardActor] for simple card-only animations** — it provides better
 /// readability than composing [Actor] + [CardAct] directly.
-class CardAct extends AnimtableAct<CardProps, CardProps> {
+class CardAct extends AnimatableAct<CardProps, CardProps> {
   @override
   final ActKey key = const ActKey('Card');
 
@@ -197,7 +197,7 @@ class CardAct extends AnimtableAct<CardProps, CardProps> {
        semanticContainer = true;
 
   @override
-  (CueAnimtable<CardProps>, CueAnimtable<CardProps>?) buildTweens(
+  (CueAnimatable<CardProps>, CueAnimatable<CardProps>?) buildTweens(
     ActContext context,
   ) {
     final from = CardProps(

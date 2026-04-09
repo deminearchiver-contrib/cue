@@ -5,7 +5,7 @@ part of 'base/act.dart';
 /// Allows selective animation of individual decoration properties while keeping
 /// others fixed. Each property (color, borderRadius, border, boxShadow, gradient)
 /// can be independently animated or fixed using `AnimatableValue.fixed()`.
-class DecoratedBoxAct extends AnimtableAct<Decoration, Decoration> {
+class DecoratedBoxAct extends AnimatableAct<Decoration, Decoration> {
   @override
   final ActKey key = const ActKey('DecoratedBox');
 
@@ -152,7 +152,7 @@ class DecoratedBoxAct extends AnimtableAct<Decoration, Decoration> {
        gradient = null;
 
   @override
-  (CueAnimtable<Decoration>, CueAnimtable<Decoration>?) buildTweens(
+  (CueAnimatable<Decoration>, CueAnimatable<Decoration>?) buildTweens(
     ActContext context,
   ) {
     final from = BoxDecoration(

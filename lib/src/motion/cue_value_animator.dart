@@ -36,7 +36,7 @@ class CueValueAnimator<T extends Object?> extends Animation<T>
     Duration delay = Duration.zero,
     TweenBuilder<T>? tweenBuilder,
   }) : _tweenBuilder = tweenBuilder ?? Tween<T>.new,
-       _animatable = ConstantAnimtable<T>(initialValue),
+       _animatable = ConstantAnimatable<T>(initialValue),
        _controller = CueController(
          vsync: vsync,
          motion: delay == Duration.zero ? motion : motion.delayed(delay),
@@ -44,7 +44,7 @@ class CueValueAnimator<T extends Object?> extends Animation<T>
 
   late final CueTrack _track = _controller.timeline.obtainDefaultTrack().$1;
 
-  late CueAnimtable<T> _animatable;
+  late CueAnimatable<T> _animatable;
 
   @override
   Animation<double> get parent => _track;
@@ -56,7 +56,7 @@ class CueValueAnimator<T extends Object?> extends Animation<T>
   set value(T newValue) {
     if (newValue == value) return;
     _controller.stop();
-    _animatable = ConstantAnimtable<T>(newValue);
+    _animatable = ConstantAnimatable<T>(newValue);
     _track.setProgress(0.0, alwaysNotify: true);
   }
 
@@ -68,7 +68,7 @@ class CueValueAnimator<T extends Object?> extends Animation<T>
   /// Starts from the current value and runs the animation forward from 0.
   void animateTo(T newTarget, {double? velocity}) {
     final currentValue = _animatable.evaluate(_track);
-    _animatable = TweenAnimtable<T>(
+    _animatable = TweenAnimatable<T>(
       _tweenBuilder(begin: currentValue, end: newTarget),
     );
     _controller.forward(from: 0.0, velocity: velocity);

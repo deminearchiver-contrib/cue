@@ -241,7 +241,7 @@ void main() {
         final animation = CueAnimationImpl<Matrix4>(
           parent: track,
           token: ReleaseToken(track.config, timeline),
-          animtable: animatable,
+          animatable: animatable,
         );
 
         await tester.pumpWidget(
@@ -266,7 +266,7 @@ void main() {
         final animation = CueAnimationImpl<Matrix4>(
           parent: track,
           token: ReleaseToken(track.config, timeline),
-          animtable: animatable,
+          animatable: animatable,
         );
 
         await tester.pumpWidget(
@@ -296,7 +296,7 @@ void main() {
         final animation = CueAnimationImpl<Matrix4>(
           parent: track,
           token: ReleaseToken(track.config, timeline),
-          animtable: animatable,
+          animatable: animatable,
         );
 
         await tester.pumpWidget(
@@ -329,7 +329,7 @@ void main() {
         final animation = CueAnimationImpl<Matrix4>(
           parent: track,
           token: ReleaseToken(track.config, timeline),
-          animtable: animatable,
+          animatable: animatable,
         );
 
         await tester.pumpWidget(
@@ -366,7 +366,7 @@ void main() {
         final animation0 = CueAnimationImpl<Matrix4>(
           parent: track,
           token: ReleaseToken(track.config, timeline),
-          animtable: animatable,
+          animatable: animatable,
         );
         expect(animation0.value, isA<Matrix4>());
 
@@ -374,7 +374,7 @@ void main() {
         final animation25 = CueAnimationImpl<Matrix4>(
           parent: track,
           token: ReleaseToken(track.config, timeline),
-          animtable: animatable,
+          animatable: animatable,
         );
         expect(animation25.value, isA<Matrix4>());
 
@@ -382,7 +382,7 @@ void main() {
         final animation50 = CueAnimationImpl<Matrix4>(
           parent: track,
           token: ReleaseToken(track.config, timeline),
-          animtable: animatable,
+          animatable: animatable,
         );
         expect(animation50.value, isA<Matrix4>());
 
@@ -390,7 +390,7 @@ void main() {
         final animation100 = CueAnimationImpl<Matrix4>(
           parent: track,
           token: ReleaseToken(track.config, timeline),
-          animtable: animatable,
+          animatable: animatable,
         );
         expect(animation100.value, isA<Matrix4>());
       });
@@ -405,7 +405,7 @@ void main() {
         final animation = CueAnimationImpl<Matrix4>(
           parent: track,
           token: ReleaseToken(track.config, timeline),
-          animtable: animatable,
+          animatable: animatable,
         );
         expect(animation.value, isA<Matrix4>());
       });
@@ -422,7 +422,7 @@ void main() {
         final animation = CueAnimationImpl<Matrix4>(
           parent: track,
           token: ReleaseToken(track.config, timeline),
-          animtable: animatable,
+          animatable: animatable,
         );
         expect(animation.value, isA<Matrix4>());
       });

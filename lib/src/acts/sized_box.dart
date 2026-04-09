@@ -263,8 +263,8 @@ class _AnimatedSizedBox extends SingleChildRenderObjectWidget {
   final ReverseBehaviorBase<Size> reverse;
 
   @override
-  _AnimtableRenderConstrainedBox createRenderObject(BuildContext context) {
-    return _AnimtableRenderConstrainedBox(
+  _AnimatableRenderConstrainedBox createRenderObject(BuildContext context) {
+    return _AnimatableRenderConstrainedBox(
       driver: driver,
       widthInput: width,
       heightInput: height,
@@ -277,7 +277,7 @@ class _AnimatedSizedBox extends SingleChildRenderObjectWidget {
   @override
   void updateRenderObject(
     BuildContext context,
-    _AnimtableRenderConstrainedBox renderObject,
+    _AnimatableRenderConstrainedBox renderObject,
   ) {
     renderObject
       ..driver = driver
@@ -289,8 +289,8 @@ class _AnimatedSizedBox extends SingleChildRenderObjectWidget {
   }
 }
 
-class _AnimtableRenderConstrainedBox extends RenderConstrainedBox {
-  _AnimtableRenderConstrainedBox({
+class _AnimatableRenderConstrainedBox extends RenderConstrainedBox {
+  _AnimatableRenderConstrainedBox({
     required DeferredCueAnimation<Size> driver,
     AnimatableValue<double>? widthInput,
     AnimatableValue<double>? heightInput,
@@ -406,7 +406,7 @@ class _AnimtableRenderConstrainedBox extends RenderConstrainedBox {
       tweenBuilder: (begin, end) => _SizeTween(begin: begin, end: end),
     );
 
-    _driver.setAnimatable(builder.buildAnimtable(_driver.context));
+    _driver.setAnimatable(builder.buildAnimatable(_driver.context));
     _lastConstraints = constraints;
   }
 

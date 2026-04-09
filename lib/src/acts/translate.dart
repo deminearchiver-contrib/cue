@@ -685,7 +685,7 @@ class _RenderTranslateFromGlobal extends RenderProxyBox {
       tweenBuilder: (from, to) => Tween<Offset>(begin: from, end: to),
     );
 
-    _driver.setAnimatable(builder.buildAnimtable(_driver.context));
+    _driver.setAnimatable(builder.buildAnimatable(_driver.context));
   }
 
   Rect _rectFor(GlobalKey key) {

@@ -5,7 +5,7 @@ part of 'base/act.dart';
 /// Animates a widget to a fraction of its parent's size on one or both axes.
 /// Both widthFactor and heightFactor are optional and can be independently
 /// animated (via `AnimatableValue.tween()`) or fixed (via `AnimatableValue.fixed()`).
-class FractionalSizeAct extends AnimtableAct<FractionalSize, FractionalSize> {
+class FractionalSizeAct extends AnimatableAct<FractionalSize, FractionalSize> {
   @override
   final ActKey key = const ActKey('FractionalSize');
 
@@ -136,7 +136,7 @@ class FractionalSizeAct extends AnimtableAct<FractionalSize, FractionalSize> {
   }
 
   @override
-  (CueAnimtable<FractionalSize>, CueAnimtable<FractionalSize>?) buildTweens(
+  (CueAnimatable<FractionalSize>, CueAnimatable<FractionalSize>?) buildTweens(
     ActContext context,
   ) {
     final builder = CueTweenBuildHelper<FractionalSize>(
