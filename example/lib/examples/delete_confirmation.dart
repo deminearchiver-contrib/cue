@@ -14,18 +14,18 @@ class DeleteConfirmationDialog extends StatelessWidget {
       alignment: Alignment.bottomRight,
       barrierColor: Colors.transparent,
       hideTriggerOnTransition: true,
-      motion: Spring.wobbly(dampingRatio: .7),
+      motion: const Spring.wobbly(dampingRatio: .7),
       triggerBuilder: (context, open) => FloatingActionButton(
         onPressed: open,
         backgroundColor: theme.colorScheme.surfaceContainer,
         foregroundColor: theme.colorScheme.error,
         elevation: .5,
-        shape: CircleBorder(),
-        child: Icon(Iconsax.trash),
+        shape: const CircleBorder(),
+        child: const Icon(Iconsax.trash),
       ),
       builder: (context, rect) {
         return Actor(
-          acts: [.translate(to: Offset(-28, -28))],
+          acts: const [.translate(to: Offset(-28, -28))],
           child: Material(
             clipBehavior: .hardEdge,
             borderRadius: BorderRadius.circular(32),
@@ -36,10 +36,10 @@ class DeleteConfirmationDialog extends StatelessWidget {
               acts: [
                 .sizedClip(
                   from: .size(rect.size),
-                  to: .width(220),
+                  to: const .width(220),
                   alignment: .bottomRight,
                 ),
-                .slideY(from: 0.4),
+                const .slideY(from: 0.4),
               ],
               child: Column(
                 mainAxisSize: .min,
@@ -50,19 +50,23 @@ class DeleteConfirmationDialog extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Actor(
-                        acts: [.fadeIn(), .scale(from: .5), .blur(from: 10)],
+                        acts: const [
+                          .fadeIn(),
+                          .scale(from: .5),
+                          .blur(from: 10),
+                        ],
                         child: Padding(
                           padding: const EdgeInsets.fromLTRB(16, 16, 16, 16),
                           child: Column(
                             children: [
                               Text(
-                                'Are you sure you want to delete this item?',
+                                "Are you sure you want to delete this item?",
                                 textAlign: .center,
                                 style: theme.textTheme.bodyMedium,
                               ),
-                              SizedBox(height: 4),
+                              const SizedBox(height: 4),
                               Text(
-                                'This action cannot be undone.',
+                                "This action cannot be undone.",
                                 textAlign: .center,
                                 style: theme.textTheme.bodyMedium?.copyWith(
                                   color: theme.colorScheme.onSurface.withValues(
@@ -81,17 +85,20 @@ class DeleteConfirmationDialog extends StatelessWidget {
                             alpha: .05,
                           ),
                           foregroundColor: theme.colorScheme.error,
-                          padding: .symmetric(horizontal: 20.0, vertical: 12.0),
+                          padding: const .symmetric(
+                            horizontal: 20.0,
+                            vertical: 12.0,
+                          ),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(24),
                           ),
                         ),
-                        label: Text('Delete Item'),
+                        label: const Text("Delete Item"),
                         iconAlignment: .end,
                         icon: Actor(
                           acts: [
                             .translateFromGlobalRect(rect),
-                            .iconTheme(
+                            const .iconTheme(
                               from: IconThemeData(size: 24),
                               to: IconThemeData(size: 20),
                             ),
@@ -102,7 +109,7 @@ class DeleteConfirmationDialog extends StatelessWidget {
                           ),
                         ),
                       ),
-                      SizedBox(height: 8),
+                      const SizedBox(height: 8),
                     ],
                   ),
                 ],

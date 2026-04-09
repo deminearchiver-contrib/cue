@@ -11,19 +11,19 @@ class HorizontallyExpandingCards extends StatefulWidget {
 
 const cardsInfo = <({String title, String imageUrl})>[
   (
-    title: 'Elegant',
+    title: "Elegant",
     imageUrl:
-        'https://images.pexels.com/photos/261181/pexels-photo-261181.jpeg',
+        "https://images.pexels.com/photos/261181/pexels-photo-261181.jpeg",
   ),
   (
-    title: 'Awesome',
+    title: "Awesome",
     imageUrl:
-        'https://images.pexels.com/photos/1166209/pexels-photo-1166209.jpeg',
+        "https://images.pexels.com/photos/1166209/pexels-photo-1166209.jpeg",
   ),
   (
-    title: 'Glamorous',
+    title: "Glamorous",
     imageUrl:
-        'https://images.pexels.com/photos/313032/pexels-photo-313032.jpeg',
+        "https://images.pexels.com/photos/313032/pexels-photo-313032.jpeg",
   ),
 ];
 
@@ -35,12 +35,12 @@ class _HorizontallyExpandingCardsState
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     return Padding(
-      padding: .symmetric(horizontal: 16),
+      padding: const .symmetric(horizontal: 16),
       child: SizedBox(
         height: 200,
         child: LayoutBuilder(
           builder: (context, constraints) {
-            final spacing = 8.0;
+            const spacing = 8.0;
             final availableWidth = constraints.maxWidth - (spacing * 2);
             return Row(
               spacing: spacing,
@@ -49,7 +49,7 @@ class _HorizontallyExpandingCardsState
                 for (var i = 0; i < cardsInfo.length; i++)
                   Cue.onToggle(
                     toggled: i == _expandedIndex,
-                    motion: .smooth(),
+                    motion: const .smooth(),
                     child: Card(
                       margin: .zero,
                       elevation: 0,
@@ -85,13 +85,13 @@ class _HorizontallyExpandingCardsState
                               _expandedIndex = i;
                             }),
                             child: Padding(
-                              padding: .fromLTRB(14, 14, 14, 0),
+                              padding: const .fromLTRB(14, 14, 14, 0),
                               child: Column(
                                 mainAxisAlignment: .end,
                                 crossAxisAlignment: .start,
                                 children: [
                                   Actor(
-                                    acts: [
+                                    acts: const [
                                       .align(
                                         from: .bottomCenter,
                                         to: .bottomLeft,
@@ -109,17 +109,17 @@ class _HorizontallyExpandingCardsState
                                       ),
                                     ),
                                   ),
-                                  SizedBox(height: 2),
+                                  const SizedBox(height: 2),
                                   Flexible(
                                     child: Actor(
-                                      acts: [
+                                      acts: const [
                                         .fadeIn(),
                                         .clipHeight(fromFactor: .25),
                                       ],
                                       child: Padding(
-                                        padding: .only(bottom: 14),
+                                        padding: const .only(bottom: 14),
                                         child: Text(
-                                          'This is a bunch of text that should only be visible when the card is expanded.',
+                                          "This is a bunch of text that should only be visible when the card is expanded.",
                                           style: textTheme.bodySmall?.copyWith(
                                             color: Colors.white,
                                             fontWeight: .w600,

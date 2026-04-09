@@ -13,14 +13,14 @@ class _SmoothSwitchState extends State<SmoothSwitch> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final height = 44.0;
-    final width = height * 2;
+    const height = 44.0;
+    const width = height * 2;
     final trackColor = Colors.grey.shade800;
     final thumbColor = theme.colorScheme.onSurface;
     const duration = Duration(milliseconds: 300);
     return Cue.onToggle(
       toggled: _toggled,
-      motion: .linear(duration),
+      motion: const .linear(duration),
       child: GestureDetector(
         onTap: () {
           setState(() {
@@ -28,7 +28,7 @@ class _SmoothSwitchState extends State<SmoothSwitch> {
           });
         },
         child: Actor(
-          acts: [
+          acts: const [
             ScaleAct.keyframed(
               frames: .fractional([
                 .key(1.1, at: .4),
@@ -47,7 +47,7 @@ class _SmoothSwitchState extends State<SmoothSwitch> {
                 BoxShadow(
                   color: theme.colorScheme.shadow.withValues(alpha: .1),
                   blurRadius: 12,
-                  offset: Offset(0, 6),
+                  offset: const Offset(0, 6),
                 ),
               ],
             ),
@@ -55,13 +55,13 @@ class _SmoothSwitchState extends State<SmoothSwitch> {
               fit: .expand,
               children: [
                 PositionedActor.keyframed(
-                  frames: .fractional([
+                  frames: const .fractional([
                     .key(Position.fill(end: .5), at: .0),
                     .key(Position.fill(end: 0, top: .15, bottom: .15), at: .45),
                     .key(Position.fill(end: 0, top: .15, bottom: .15), at: .55),
                     .key(Position.fill(start: .5), at: 1.0),
                   ]),
-                  relativeTo: Size(width, height),
+                  relativeTo: const Size(width, height),
                   child: DecoratedBox(
                     decoration: BoxDecoration(
                       color: thumbColor,
@@ -77,7 +77,7 @@ class _SmoothSwitchState extends State<SmoothSwitch> {
                         color: .tween(trackColor, thumbColor),
                         motion: .linear(duration * .5),
                         reverse: .mirror(delay: duration * .5),
-                        child: SizedBox.square(dimension: width * .16),
+                        child: const SizedBox.square(dimension: width * .16),
                       ),
                     ),
                     Expanded(
@@ -90,7 +90,7 @@ class _SmoothSwitchState extends State<SmoothSwitch> {
                           ),
                           motion: .linear(duration * .5),
                           delay: duration * .5,
-                          child: SizedBox(
+                          child: const SizedBox(
                             width: width * .08,
                             height: width * .22,
                           ),

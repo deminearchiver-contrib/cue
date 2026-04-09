@@ -11,13 +11,13 @@ class WalletPage extends StatelessWidget {
     final theme = Theme.of(context);
     return Scaffold(
       backgroundColor: theme.colorScheme.surface,
-      body: SafeArea(
+      body: const SafeArea(
         bottom: false,
         child: SingleChildScrollView(
-          padding: const EdgeInsets.all(20),
+          padding: EdgeInsets.all(20),
           child: Cue.onMount(
             motion: .bouncy(),
-            child: const Column(
+            child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 _WalletHeader(),
@@ -45,9 +45,9 @@ class _WalletHeader extends StatelessWidget {
     return Row(
       children: [
         Actor(
-          acts: [.slideX(from: -0.5), .fadeIn()],
+          acts: const [.slideX(from: -0.5), .fadeIn()],
           child: Text(
-            'Wallet',
+            "Wallet",
             style: theme.textTheme.headlineMedium?.copyWith(
               fontWeight: FontWeight.bold,
               color: theme.colorScheme.onSurface,
@@ -56,7 +56,7 @@ class _WalletHeader extends StatelessWidget {
         ),
         const Spacer(),
         Actor(
-          acts: [.slideX(from: 0.5), .fadeIn()],
+          acts: const [.slideX(from: 0.5), .fadeIn()],
           child: Container(
             padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(
@@ -81,8 +81,8 @@ class _CreditCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Actor(
-      acts: [.scale(from: 0.8), .fadeIn(), .slideY(from: 0.3)],
-      delay: 100.ms,
+      acts: const [.scale(from: 0.8), .fadeIn(), .slideY(from: 0.3)],
+      delay: const .new(milliseconds: 100),
       child: Container(
         height: 200,
         width: double.infinity,
@@ -108,37 +108,33 @@ class _CreditCard extends StatelessWidget {
             Row(
               children: [
                 Actor(
-                  acts: [.fadeIn(), .blur(from: 8)],
-                  delay: 200.ms,
+                  acts: const [.fadeIn(), .blur(from: 8)],
+                  delay: const .new(milliseconds: 200),
                   child: Text(
-                    'Current Balance',
+                    "Current Balance",
                     style: theme.textTheme.bodySmall?.copyWith(
                       color: Colors.white70,
                     ),
                   ),
                 ),
                 const Spacer(),
-                Actor(
+                const Actor(
                   acts: [.fadeIn(), .blur(from: 8)],
-                  delay: 250.ms,
-                  child: const Icon(
-                    Iconsax.wifi,
-                    color: Colors.white70,
-                    size: 20,
-                  ),
+                  delay: .new(milliseconds: 250),
+                  child: Icon(Iconsax.wifi, color: Colors.white70, size: 20),
                 ),
               ],
             ),
             const SizedBox(height: 8),
             Actor(
-              acts: [.fadeIn(), .blur(from: 8)],
-              delay: 300.ms,
+              acts: const [.fadeIn(), .blur(from: 8)],
+              delay: const .new(milliseconds: 300),
               child: TweenAnimationBuilder<double>(
                 tween: Tween(begin: 0, end: 12842.50),
                 duration: const Duration(milliseconds: 1500),
                 builder: (context, value, child) {
                   return Text(
-                    '\$${value.toStringAsFixed(2)}',
+                    "\$${value.toStringAsFixed(2)}",
                     style: theme.textTheme.headlineLarge?.copyWith(
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
@@ -152,20 +148,20 @@ class _CreditCard extends StatelessWidget {
             Row(
               children: [
                 Actor(
-                  acts: [.fadeIn(), .slideX(from: -0.3)],
-                  delay: 400.ms,
+                  acts: const [.fadeIn(), .slideX(from: -0.3)],
+                  delay: const .new(milliseconds: 400),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'CARD HOLDER',
+                        "CARD HOLDER",
                         style: theme.textTheme.labelSmall?.copyWith(
                           color: Colors.white54,
                           fontSize: 9,
                         ),
                       ),
                       Text(
-                        'ALEXANDER',
+                        "ALEXANDER",
                         style: theme.textTheme.bodyMedium?.copyWith(
                           color: Colors.white,
                           fontWeight: FontWeight.w600,
@@ -177,20 +173,20 @@ class _CreditCard extends StatelessWidget {
                 ),
                 const Spacer(),
                 Actor(
-                  acts: [.fadeIn(), .slideX(from: 0.3)],
-                  delay: 450.ms,
+                  acts: const [.fadeIn(), .slideX(from: 0.3)],
+                  delay: const .new(milliseconds: 450),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'VALID THRU',
+                        "VALID THRU",
                         style: theme.textTheme.labelSmall?.copyWith(
                           color: Colors.white54,
                           fontSize: 9,
                         ),
                       ),
                       Text(
-                        '12/28',
+                        "12/28",
                         style: theme.textTheme.bodyMedium?.copyWith(
                           color: Colors.white,
                           fontWeight: FontWeight.w600,
@@ -202,8 +198,8 @@ class _CreditCard extends StatelessWidget {
                 ),
                 const SizedBox(width: 16),
                 Actor(
-                  acts: [.fadeIn(), .scale(from: 0.5)],
-                  delay: 500.ms,
+                  acts: const [.fadeIn(), .scale(from: 0.5)],
+                  delay: const .new(milliseconds: 500),
                   child: Container(
                     width: 50,
                     height: 35,
@@ -213,7 +209,7 @@ class _CreditCard extends StatelessWidget {
                     ),
                     child: Center(
                       child: Text(
-                        'VISA',
+                        "VISA",
                         style: theme.textTheme.labelSmall?.copyWith(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
@@ -235,10 +231,10 @@ class _QuickActions extends StatelessWidget {
   const _QuickActions();
 
   static final _quickActions = [
-    (icon: Iconsax.wallet_3, label: 'Send'),
-    (icon: Iconsax.receipt_search, label: 'Request'),
-    (icon: Iconsax.refresh, label: 'Top Up'),
-    (icon: Iconsax.chart_21, label: 'Invest'),
+    (icon: Iconsax.wallet_3, label: "Send"),
+    (icon: Iconsax.receipt_search, label: "Request"),
+    (icon: Iconsax.refresh, label: "Top Up"),
+    (icon: Iconsax.chart_21, label: "Invest"),
   ];
 
   @override
@@ -248,10 +244,10 @@ class _QuickActions extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Actor(
-          acts: [.fadeIn(), .slideY(from: 0.3)],
-          delay: 200.ms,
+          acts: const [.fadeIn(), .slideY(from: 0.3)],
+          delay: const .new(milliseconds: 200),
           child: Text(
-            'Quick Actions',
+            "Quick Actions",
             style: theme.textTheme.titleMedium?.copyWith(
               fontWeight: FontWeight.w600,
               color: theme.colorScheme.onSurface,
@@ -266,7 +262,7 @@ class _QuickActions extends StatelessWidget {
             return Expanded(
               child: Actor(
                 acts: [
-                  .fadeIn(),
+                  const .fadeIn(),
                   .slideX(from: index.isEven ? -0.3 : 0.3),
                 ],
                 delay: Duration(milliseconds: 250 + (index * 50)),
@@ -323,37 +319,37 @@ class _Transactions extends StatelessWidget {
   static final _transactions = [
     (
       icon: Iconsax.arrow_up,
-      label: 'Spotify',
-      amount: '-\$12.99',
-      time: 'Today, 9:41 AM',
+      label: "Spotify",
+      amount: r"-$12.99",
+      time: "Today, 9:41 AM",
       color: Colors.red,
     ),
     (
       icon: Iconsax.arrow_down,
-      label: 'Salary',
-      amount: '+\$4,250.00',
-      time: 'Today, 12:00 PM',
+      label: "Salary",
+      amount: r"+$4,250.00",
+      time: "Today, 12:00 PM",
       color: Colors.green,
     ),
     (
       icon: Iconsax.shopping_cart,
-      label: 'Amazon',
-      amount: '-\$89.00',
-      time: 'Yesterday',
+      label: "Amazon",
+      amount: r"-$89.00",
+      time: "Yesterday",
       color: Colors.orange,
     ),
     (
       icon: Iconsax.dollar_square,
-      label: 'Dividend',
-      amount: '+\$156.32',
-      time: 'Mar 5',
+      label: "Dividend",
+      amount: r"+$156.32",
+      time: "Mar 5",
       color: Colors.green,
     ),
     (
       icon: Iconsax.card_add,
-      label: 'Netflix',
-      amount: '-\$15.99',
-      time: 'Mar 4',
+      label: "Netflix",
+      amount: r"-$15.99",
+      time: "Mar 4",
       color: Colors.red,
     ),
   ];
@@ -365,12 +361,12 @@ class _Transactions extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Actor(
-          acts: [.fadeIn(), .slideY(from: 0.3)],
-          delay: 300.ms,
+          acts: const [.fadeIn(), .slideY(from: 0.3)],
+          delay: const .new(milliseconds: 300),
           child: Row(
             children: [
               Text(
-                'Recent Transactions',
+                "Recent Transactions",
                 style: theme.textTheme.titleMedium?.copyWith(
                   fontWeight: FontWeight.w600,
                   color: theme.colorScheme.onSurface,
@@ -378,7 +374,7 @@ class _Transactions extends StatelessWidget {
               ),
               const Spacer(),
               Text(
-                'See All',
+                "See All",
                 style: theme.textTheme.labelMedium?.copyWith(
                   color: theme.colorScheme.primary,
                 ),
@@ -387,13 +383,13 @@ class _Transactions extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 16),
-        ...List.generate(_transactions.length, (index) {
+        ...Iterable.generate(_transactions.length, (index) {
           final item = _transactions[index];
           return Padding(
             padding: const EdgeInsets.only(bottom: 12),
             child: Actor(
               acts: [
-                .fadeIn(),
+                const .fadeIn(),
                 .slideX(from: index.isEven ? -0.3 : 0.3),
               ],
               delay: Duration(milliseconds: 350 + (index * 80)),

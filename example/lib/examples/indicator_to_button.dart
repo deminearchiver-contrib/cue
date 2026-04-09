@@ -32,7 +32,7 @@ class _IndicatorToButtonState extends State<IndicatorToButton> {
                 index: index,
                 controller: _cuePageController,
                 child: Actor(
-                  acts: [
+                  acts: const [
                     .rotate(
                       from: 4.5,
                       alignment: .bottomCenter,
@@ -50,9 +50,9 @@ class _IndicatorToButtonState extends State<IndicatorToButton> {
                       borderRadius: .circular(32),
                     ),
                     child: Actor(
-                      acts: [.parallax(slide: .3, axis: .horizontal)],
+                      acts: const [.parallax(slide: .3, axis: .horizontal)],
                       child: Image.network(
-                        'https://picsum.photos/600/500?random=$index',
+                        "https://picsum.photos/600/500?random=$index",
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -85,11 +85,13 @@ class _IndicatorToButtonState extends State<IndicatorToButton> {
                           child: Actor(
                             acts: [
                               .sizedClip(
-                                from: .square(10),
-                                to: isLast ? .height(44) : NSize(w: 38, h: 10),
+                                from: const .square(10),
+                                to: isLast
+                                    ? const .height(44)
+                                    : const NSize(w: 38, h: 10),
                               ),
-                              if (isLast) .zoomIn(),
-                              if (isLast) .slideX(from: -1),
+                              if (isLast) const .zoomIn(),
+                              if (isLast) const .slideX(from: -1),
                             ],
                             child: isLast
                                 ? Padding(
@@ -98,14 +100,14 @@ class _IndicatorToButtonState extends State<IndicatorToButton> {
                                       mainAxisAlignment: .center,
                                       children: [
                                         Text(
-                                          'Let’s Go',
+                                          "Let’s Go",
                                           textAlign: TextAlign.center,
                                           style: TextStyle(
                                             color: colors.surface,
                                             fontSize: 15,
                                           ),
                                         ),
-                                        SizedBox(width: 6),
+                                        const SizedBox(width: 6),
                                         Icon(
                                           Icons.arrow_forward_ios_rounded,
                                           color: colors.surface,
@@ -114,7 +116,7 @@ class _IndicatorToButtonState extends State<IndicatorToButton> {
                                       ],
                                     ),
                                   )
-                                : SizedBox(),
+                                : const SizedBox(),
                           ),
                         ),
                       ),

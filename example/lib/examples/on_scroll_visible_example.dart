@@ -12,18 +12,18 @@ class OnScrollVisibleExample extends StatelessWidget {
     return Scaffold(
       backgroundColor: theme.colorScheme.surface,
       appBar: AppBar(
-        title: const Text('On Scroll Visible'),
+        title: const Text("On Scroll Visible"),
         backgroundColor: theme.colorScheme.surface,
         elevation: 0,
       ),
       body: ListView.builder(
-        padding: .all(16),
+        padding: const .all(16),
         itemCount: 10,
         itemBuilder: (context, index) {
           return Padding(
-            padding: .symmetric(vertical: 8),
+            padding: const .symmetric(vertical: 8),
             child: Cue.onScrollVisible(
-              acts: [
+              acts: const [
                 // forward from Offset(-.6, 0) to  Offset.zero
                 // reverse from Offset.zero to Offset(0, .8)
                 .slide(from: Offset(-.6, 0), reverse: .to(Offset(0, .8))),
@@ -47,18 +47,18 @@ class _BigCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final titles = [
-      'Mountain View',
-      'Ocean Breeze',
-      'Forest Walk',
-      'City Skyline',
-      'Desert Sun',
+      "Mountain View",
+      "Ocean Breeze",
+      "Forest Walk",
+      "City Skyline",
+      "Desert Sun",
     ];
     final subtitles = [
-      'Discover amazing places',
-      'Experience nature',
-      'Urban adventure',
-      'Tropical escape',
-      'Winter wonder',
+      "Discover amazing places",
+      "Experience nature",
+      "Urban adventure",
+      "Tropical escape",
+      "Winter wonder",
     ];
     final icons = [
       Iconsax.arrow_circle_up,
@@ -81,7 +81,7 @@ class _BigCard extends StatelessWidget {
           fit: StackFit.expand,
           children: [
             Image.network(
-              'https://picsum.photos/id/${index + 120}/800/600',
+              "https://picsum.photos/id/${index + 120}/800/600",
               fit: BoxFit.cover,
             ),
             Container(
@@ -144,7 +144,7 @@ class _BigCard extends StatelessWidget {
                       borderRadius: BorderRadius.circular(16),
                     ),
                     child: Text(
-                      'Explore',
+                      "Explore",
                       style: TextStyle(
                         color: Colors.black,
                         fontSize: 14,

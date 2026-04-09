@@ -71,7 +71,10 @@ class _ProgressCue extends Cue {
 
 class _ProgressCueState extends CueState<_ProgressCue>
     with SingleTickerProviderStateMixin {
-  late final _controller = CueController(vsync: this, motion: .linear(500.ms));
+  late final _controller = CueController(
+    vsync: this,
+    motion: const .linear(.new(milliseconds: 500)),
+  );
 
   @override
   String get debugName => 'ProgressCue';

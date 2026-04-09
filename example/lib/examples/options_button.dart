@@ -11,7 +11,7 @@ class OptionsButton extends StatelessWidget {
     return CueModalTransition(
       barrierColor: Colors.transparent,
       alignment: Alignment.center,
-      motion: Spring.smooth(),
+      motion: const Spring.smooth(),
       triggerBuilder: (context, showModal) {
         return ElevatedButton(
           style: ElevatedButton.styleFrom(
@@ -19,11 +19,11 @@ class OptionsButton extends StatelessWidget {
             shape: RoundedSuperellipseBorder(
               borderRadius: BorderRadius.circular(24),
             ),
-            padding: EdgeInsets.symmetric(horizontal: 24, vertical: 14),
-            minimumSize: Size(48, 48),
+            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
+            minimumSize: const Size(48, 48),
           ),
           onPressed: showModal,
-          child: Text('Options'),
+          child: const Text("Options"),
         );
       },
       builder: (context, rect) {
@@ -52,13 +52,13 @@ class OptionsButton extends StatelessWidget {
                             to: labelStyle.copyWith(fontSize: 22),
                           ),
                         ],
-                        child: Padding(
+                        child: const Padding(
                           padding: .symmetric(horizontal: 24, vertical: 14),
-                          child: Text('Options'),
+                          child: Text("Options"),
                         ),
                       ),
                       Actor(
-                        acts: [
+                        acts: const [
                           .focus(),
                           .scale(from: .8),
                           .fadeIn(),
@@ -87,8 +87,10 @@ class OptionsButton extends StatelessWidget {
                                           Icons.sanitizer_outlined,
                                         ][i],
                                       ),
-                                      title: Text('Option ${i + 1}'),
-                                      subtitle: Text('Subtitle text goes here'),
+                                      title: Text("Option ${i + 1}"),
+                                      subtitle: const Text(
+                                        "Subtitle text goes here",
+                                      ),
                                     ),
                                   ),
                                 ),

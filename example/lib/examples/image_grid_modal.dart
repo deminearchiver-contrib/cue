@@ -9,7 +9,7 @@ class ImageGridModal extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Image Gallery'),
+        title: const Text("Image Gallery"),
         backgroundColor: Colors.transparent,
         elevation: 0,
       ),
@@ -24,12 +24,12 @@ class ImageGridModal extends StatelessWidget {
         itemCount: 12,
         itemBuilder: (context, index) {
           final titles = [
-            'Beach',
-            'Mountain',
-            'City',
-            'Forest',
-            'Desert',
-            'Lake',
+            "Beach",
+            "Mountain",
+            "City",
+            "Forest",
+            "Desert",
+            "Lake",
           ];
           final title = titles[index % titles.length];
           return _ImageCard(imageId: index, title: title);
@@ -55,13 +55,13 @@ class _ImageCard extends StatelessWidget {
         fit: StackFit.expand,
         children: [
           CueModalTransition(
-            motion: .easeInOut(300.ms),
+            motion: const .easeInOut(.new(milliseconds: 300)),
             hideTriggerOnTransition: true,
             barrierColor: Colors.black.withValues(alpha: .9),
             triggerBuilder: (context, open) => GestureDetector(
               onTap: open,
               child: Image.network(
-                'https://picsum.photos/id/${80 + imageId}/400/500',
+                "https://picsum.photos/id/${80 + imageId}/400/500",
                 fit: BoxFit.cover,
               ),
             ),
@@ -128,10 +128,13 @@ class _ImageModalContent extends StatelessWidget {
         SafeArea(
           bottom: false,
           child: Padding(
-            padding: .only(top: kToolbarHeight),
+            padding: const .only(top: kToolbarHeight),
             child: ClipRect(
               child: Transform.translate(
-                offset: Offset(0, -kToolbarHeight), // make up for the padding
+                offset: const Offset(
+                  0,
+                  -kToolbarHeight,
+                ), // make up for the padding
                 child: Actor(
                   acts: [
                     .translateFromGlobalRect(triggerRect),
@@ -143,7 +146,7 @@ class _ImageModalContent extends StatelessWidget {
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(20),
                         child: Image.network(
-                          'https://picsum.photos/id/${80 + imageId}/400/500',
+                          "https://picsum.photos/id/${80 + imageId}/400/500",
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -161,9 +164,9 @@ class _ImageModalContent extends StatelessWidget {
           right: 16,
           child: SafeArea(
             child: Actor(
-              delay: 100.ms,
-              reverseMotion: .spatialFast(),
-              acts: [.fadeIn(), .slideY(from: -0.2)],
+              delay: const .new(milliseconds: 100),
+              reverseMotion: const .spatialFast(),
+              acts: const [.fadeIn(), .slideY(from: -0.2)],
               child: Row(
                 children: [
                   IconButton(
@@ -210,8 +213,8 @@ class _ImageModalContent extends StatelessWidget {
           right: 20,
           bottom: 50,
           child: Actor(
-            acts: [.slideY(from: 1), .fadeIn()],
-            delay: 200.ms,
+            acts: const [.slideY(from: 1), .fadeIn()],
+            delay: const .new(milliseconds: 200),
             child: Container(
               padding: const EdgeInsets.all(20),
               decoration: BoxDecoration(
@@ -235,7 +238,7 @@ class _ImageModalContent extends StatelessWidget {
                         ),
                         const SizedBox(height: 4),
                         Text(
-                          'Beautiful destination',
+                          "Beautiful destination",
                           style: TextStyle(
                             color: Colors.white.withValues(alpha: 0.7),
                             fontSize: 14,
@@ -254,7 +257,7 @@ class _ImageModalContent extends StatelessWidget {
                       borderRadius: BorderRadius.circular(16),
                     ),
                     child: const Text(
-                      'Book Now',
+                      "Book Now",
                       style: TextStyle(
                         color: Colors.black,
                         fontSize: 14,

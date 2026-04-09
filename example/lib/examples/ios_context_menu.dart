@@ -7,7 +7,7 @@ class IosContextMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const emojis = ['💜', '😂', '😮', '😢', '✊🏽', '🤢', '🤯', '👋🏽'];
+    const emojis = ["💜", "😂", "😮", "😢", "✊🏽", "🤢", "🤯", "👋🏽"];
     final theme = Theme.of(context);
 
     return ListView.builder(
@@ -30,7 +30,7 @@ class IosContextMenu extends StatelessWidget {
               ),
               margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               child: Image.network(
-                'https://picsum.photos/seed/${index + 99}/650/500',
+                "https://picsum.photos/seed/${index + 99}/650/500",
                 fit: BoxFit.cover,
               ),
             ),
@@ -39,10 +39,10 @@ class IosContextMenu extends StatelessWidget {
 
         return CueModalTransition(
           barrierColor: Colors.transparent,
-          motion: .smooth(),
-          reverseMotion: .snappy(),
+          motion: const .smooth(),
+          reverseMotion: const .snappy(),
           hideTriggerOnTransition: true,
-          backdrop: Actor(
+          backdrop: const Actor(
             acts: [.backdropBlur(to: 8)],
             child: ColoredBox(color: Colors.transparent),
           ),
@@ -57,19 +57,19 @@ class IosContextMenu extends StatelessWidget {
             return SafeArea(
               bottom: false,
               child: Padding(
-                padding: .only(top: kToolbarHeight),
+                padding: const .only(top: kToolbarHeight),
                 child: ClipRect(
                   child: Column(
                     verticalDirection: VerticalDirection.up,
                     mainAxisAlignment: showInTopHalf ? .end : .start,
                     crossAxisAlignment: .start,
                     children: [
-                      SizedBox(height: 40),
+                      const SizedBox(height: 40),
                       SizedBox(
                         width: 300,
                         child: Actor(
-                          acts: [
-                            .fadeIn(delay: 100.ms),
+                          acts: const [
+                            .fadeIn(delay: .new(milliseconds: 100)),
                             .zoomIn(reverse: .none()),
                             .slide(from: Offset(0, -2)),
                           ],
@@ -86,8 +86,8 @@ class IosContextMenu extends StatelessWidget {
                                 width: .5,
                               ),
                             ),
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(
+                            child: const Padding(
+                              padding: EdgeInsets.symmetric(
                                 horizontal: 16.0,
                                 vertical: 12,
                               ),
@@ -95,20 +95,20 @@ class IosContextMenu extends StatelessWidget {
                                 mainAxisSize: .min,
                                 children: [
                                   _OptionTile(
-                                    title: 'Attach Sticker',
+                                    title: "Attach Sticker",
                                     icon: Iconsax.sticker,
                                   ),
                                   Divider(thickness: .5, indent: 2),
                                   _OptionTile(
-                                    title: 'Copy',
+                                    title: "Copy",
                                     icon: Iconsax.copy,
                                   ),
                                   _OptionTile(
-                                    title: 'Share',
+                                    title: "Share",
                                     icon: Iconsax.export,
                                   ),
                                   _OptionTile(
-                                    title: 'More',
+                                    title: "More",
                                     icon: Iconsax.more_2,
                                   ),
                                 ],
@@ -117,7 +117,7 @@ class IosContextMenu extends StatelessWidget {
                           ),
                         ),
                       ),
-                      SizedBox(height: 4),
+                      const SizedBox(height: 4),
                       Actor(
                         acts: [
                           .translateFromGlobal(
@@ -128,7 +128,7 @@ class IosContextMenu extends StatelessWidget {
                           crossAxisAlignment: .start,
                           children: [
                             Actor(
-                              acts: [.fadeIn(), .slideY(from: 2)],
+                              acts: const [.fadeIn(), .slideY(from: 2)],
                               child: Card(
                                 clipBehavior: Clip.antiAlias,
                                 color: theme.cardColor.withValues(alpha: .80),
@@ -148,11 +148,11 @@ class IosContextMenu extends StatelessWidget {
                                   ),
                                 ),
                                 child: Actor(
-                                  acts: [
+                                  acts: const [
                                     .sizedClip(
                                       from: .square(24),
                                       to: .height(68),
-                                      delay: 150.ms,
+                                      delay: .new(milliseconds: 150),
                                     ),
                                     .fadeIn(),
                                     .slideY(from: 2),
@@ -166,14 +166,18 @@ class IosContextMenu extends StatelessWidget {
                                       for (var i = 0; i < emojis.length; i++)
                                         Center(
                                           child: Actor(
-                                            delay: 200.ms,
-                                            motion: .wobbly(),
-                                            reverseMotion: .snappy(),
+                                            delay: const .new(
+                                              milliseconds: 200,
+                                            ),
+                                            motion: const .wobbly(),
+                                            reverseMotion: const .snappy(),
                                             acts: [
-                                              .scale(from: .5),
+                                              const .scale(from: .5),
                                               .rotate(
                                                 from: -50,
-                                                delay: 10.ms * i,
+                                                delay: .new(
+                                                  milliseconds: 10 * i,
+                                                ),
                                               ),
                                             ],
                                             child: Padding(
@@ -199,7 +203,7 @@ class IosContextMenu extends StatelessWidget {
                           ],
                         ),
                       ),
-                      SizedBox(height: 12),
+                      const SizedBox(height: 12),
                     ],
                   ),
                 ),

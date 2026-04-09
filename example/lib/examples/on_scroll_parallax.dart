@@ -8,59 +8,59 @@ class OnScrollParallax extends StatelessWidget {
   static final _cards = [
     (
       imageId: 1015,
-      title: 'Mountain Adventure',
-      subtitle: 'Explore the wild peaks',
+      title: "Mountain Adventure",
+      subtitle: "Explore the wild peaks",
       icon: Iconsax.arrow_circle_up,
-      location: 'Swiss Alps',
+      location: "Swiss Alps",
     ),
     (
       imageId: 1016,
-      title: 'Ocean Sunset',
-      subtitle: 'Golden hour at the beach',
+      title: "Ocean Sunset",
+      subtitle: "Golden hour at the beach",
       icon: Iconsax.sun_1,
-      location: 'Maldives',
+      location: "Maldives",
     ),
     (
       imageId: 1018,
-      title: 'Forest Trail',
-      subtitle: 'Walk through ancient woods',
+      title: "Forest Trail",
+      subtitle: "Walk through ancient woods",
       icon: Iconsax.tree,
-      location: 'Black Forest',
+      location: "Black Forest",
     ),
     (
       imageId: 1019,
-      title: 'Desert Dunes',
-      subtitle: 'Ride the golden sands',
+      title: "Desert Dunes",
+      subtitle: "Ride the golden sands",
       icon: Iconsax.sun_fog,
-      location: 'Sahara',
+      location: "Sahara",
     ),
     (
       imageId: 1020,
-      title: 'City Lights',
-      subtitle: 'Nightlife in the metropolis',
+      title: "City Lights",
+      subtitle: "Nightlife in the metropolis",
       icon: Iconsax.buildings,
-      location: 'Tokyo',
+      location: "Tokyo",
     ),
     (
       imageId: 1021,
-      title: 'Snowy Peaks',
-      subtitle: 'Winter wonderland awaits',
+      title: "Snowy Peaks",
+      subtitle: "Winter wonderland awaits",
       icon: Iconsax.cloud_snow,
-      location: 'Alaska',
+      location: "Alaska",
     ),
     (
       imageId: 1022,
-      title: 'Tropical Paradise',
-      subtitle: 'Relax in paradise',
+      title: "Tropical Paradise",
+      subtitle: "Relax in paradise",
       icon: Iconsax.emoji_happy,
-      location: 'Hawaii',
+      location: "Hawaii",
     ),
     (
       imageId: 1024,
-      title: 'Waterfall Trek',
-      subtitle: 'Discover hidden cascades',
+      title: "Waterfall Trek",
+      subtitle: "Discover hidden cascades",
       icon: Iconsax.building,
-      location: 'Iceland',
+      location: "Iceland",
     ),
   ];
 
@@ -69,7 +69,7 @@ class OnScrollParallax extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Destinations',
+          "Destinations",
           style: Theme.of(context).textTheme.headlineSmall,
         ),
         backgroundColor: Colors.transparent,
@@ -114,7 +114,7 @@ class _ParallaxCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Cue.onScroll(
-      acts: [
+      acts: const [
         // uncomment to add a subtle 3D rotation effect to the parallax card
         // Rotate3DAct.keyframed(
         //   frames: .fractional([
@@ -126,7 +126,7 @@ class _ParallaxCard extends StatelessWidget {
       ],
       child: Container(
         height: 280,
-        margin: .symmetric(vertical: 8),
+        margin: const .symmetric(vertical: 8),
         decoration: BoxDecoration(borderRadius: .circular(24)),
         clipBehavior: .hardEdge,
         child: Stack(
@@ -145,9 +145,9 @@ class _ParallaxCard extends StatelessWidget {
                 ),
               ),
               child: Actor(
-                acts: [.parallax(slide: .4, axis: .vertical)],
+                acts: const [.parallax(slide: .4, axis: .vertical)],
                 child: Image.network(
-                  'https://picsum.photos/id/$imageId/600/600',
+                  "https://picsum.photos/id/$imageId/600/600",
                   fit: BoxFit.cover,
                 ),
               ),
@@ -222,7 +222,7 @@ class _ParallaxCard extends StatelessWidget {
                           borderRadius: BorderRadius.circular(20),
                         ),
                         child: const Text(
-                          'Explore',
+                          "Explore",
                           style: TextStyle(
                             color: Colors.black,
                             fontSize: 13,

@@ -13,9 +13,9 @@ class _ExpandingCardsState extends State<ExpandingCards> {
   int _expandedIndex = -1;
 
   final _cardIfno = <(String title, IconData icon)>[
-    ('Expandable Cards', Iconsax.card_edit),
-    ('Flutter is Awesome', Iconsax.cup),
-    ('Smooth Animations', Iconsax.battery_charging),
+    ("Expandable Cards", Iconsax.card_edit),
+    ("Flutter is Awesome", Iconsax.cup),
+    ("Smooth Animations", Iconsax.battery_charging),
   ];
 
   @override
@@ -28,7 +28,7 @@ class _ExpandingCardsState extends State<ExpandingCards> {
           for (var i = 0; i < _cardIfno.length; i++)
             Cue.onToggle(
               toggled: _expandedIndex == i,
-              motion: Spring.smooth(),
+              motion: const Spring.smooth(),
               child: Builder(
                 builder: (context) {
                   final isLast = i == _cardIfno.length - 1;
@@ -44,9 +44,9 @@ class _ExpandingCardsState extends State<ExpandingCards> {
                       : 0.0;
 
                   return Actor(
-                    acts: [
+                    acts: const [
                       .scale(from: 1.0, to: 1.05),
-                      .padding(to: const .symmetric(vertical: 12)),
+                      .padding(to: .symmetric(vertical: 12)),
                     ],
                     child: Material(
                       clipBehavior: .hardEdge,
@@ -73,10 +73,10 @@ class _ExpandingCardsState extends State<ExpandingCards> {
                               Row(
                                 children: [
                                   Icon(_cardIfno[i].$2, size: 20),
-                                  SizedBox(width: 12),
+                                  const SizedBox(width: 12),
                                   Expanded(child: Text(_cardIfno[i].$1)),
                                   Actor(
-                                    acts: [.rotate(to: -180)],
+                                    acts: const [.rotate(to: -180)],
                                     child: Icon(
                                       Icons.expand_more_rounded,
                                       color: theme.colorScheme.onSurface
@@ -86,7 +86,7 @@ class _ExpandingCardsState extends State<ExpandingCards> {
                                 ],
                               ),
                               Actor(
-                                acts: [
+                                acts: const [
                                   .clipHeight(fromFactor: .3),
                                   .fadeIn(),
                                   .slideY(from: 0.5),
@@ -99,7 +99,7 @@ class _ExpandingCardsState extends State<ExpandingCards> {
                                     bottom: 12,
                                   ),
                                   child: Text(
-                                    'Lorem ipsum dolor sit amet, consectetur for on adipiscing elit. Donec auctor, nisl eget ultricies lacinia.',
+                                    "Lorem ipsum dolor sit amet, consectetur for on adipiscing elit. Donec auctor, nisl eget ultricies lacinia.",
                                     style: theme.textTheme.bodySmall?.copyWith(
                                       color: theme.colorScheme.onSurface
                                           .withValues(alpha: .7),

@@ -51,7 +51,10 @@ class _OnScrollCueState extends CueState<OnScrollCue>
   @override
   CueController get controller => _controller;
 
-  late final _controller = CueController(vsync: this, motion: .linear(500.ms));
+  late final _controller = CueController(
+    vsync: this,
+    motion: const .linear(.new(milliseconds: 500)),
+  );
 
   ScrollPosition? _scrollPosition;
   double? _cachedRevealedOffset;

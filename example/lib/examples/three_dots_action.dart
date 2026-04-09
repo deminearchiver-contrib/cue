@@ -9,11 +9,11 @@ class ThreeDotsAction extends StatelessWidget {
     final colors = Theme.of(context).colorScheme;
     return CueModalTransition(
       barrierColor: Colors.black12,
-      motion: .bouncy(),
-      reverseMotion: .snappy(),
+      motion: const .bouncy(),
+      reverseMotion: const .snappy(),
       alignment: Alignment.bottomCenter,
       triggerBuilder: (context, showModal) => FloatingActionButton(
-        shape: CircleBorder(),
+        shape: const CircleBorder(),
         heroTag: null,
         elevation: 1,
         onPressed: showModal,
@@ -36,11 +36,11 @@ class ThreeDotsAction extends StatelessWidget {
             children: [
               FloatingActionButton(
                 elevation: 0,
-                shape: CircleBorder(),
+                shape: const CircleBorder(),
                 onPressed: () => Navigator.of(context).pop(),
-                child: Actor(
+                child: const Actor(
                   acts: [.fadeIn(from: 0), .focus(from: 8), .slideY(from: 1)],
-                  child: const Icon(Icons.keyboard_arrow_down),
+                  child: Icon(Icons.keyboard_arrow_down),
                 ),
               ),
               Actor(
@@ -53,13 +53,13 @@ class ThreeDotsAction extends StatelessWidget {
                 child: Column(
                   mainAxisSize: .min,
                   children: [
-                    for (var icon in [
+                    for (final icon in [
                       Icons.near_me_outlined,
                       Icons.draw_outlined,
                       Icons.translate,
                     ])
                       Actor(
-                        acts: [
+                        acts: const [
                           .padding(from: .all(1), to: .only(bottom: 10.0)),
                           .sizedBox(
                             width: .tween(5, 44),
@@ -70,11 +70,11 @@ class ThreeDotsAction extends StatelessWidget {
                           mini: true,
                           backgroundColor: colors.onSurface,
                           elevation: 1,
-                          shape: CircleBorder(),
+                          shape: const CircleBorder(),
                           heroTag: null,
                           onPressed: () {},
                           child: Actor(
-                            acts: [.focus(from: 8), .zoomIn(), .fadeIn()],
+                            acts: const [.focus(from: 8), .zoomIn(), .fadeIn()],
                             child: Icon(
                               icon,
                               color: colors.onPrimary,

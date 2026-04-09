@@ -12,25 +12,25 @@ class SlackStyleFab extends StatelessWidget {
       barrierColor: Colors.transparent,
       alignment: .bottomRight,
       barrierDismissible: true,
-      motion: .smooth(),
+      motion: const .smooth(),
       hideTriggerOnTransition: true,
       triggerBuilder: (_, showModal) {
         return CueModalTransition(
           alignment: .bottomCenter,
           barrierColor: Colors.black12,
           barrierDismissible: true,
-          motion: .smooth(),
+          motion: const .smooth(),
           triggerBuilder: (context, showModal2) {
             return GestureDetector(
               onLongPress: showModal2,
               child: FloatingActionButton(
                 onPressed: showModal,
-                heroTag: 'btn1',
-                shape: CircleBorder(),
+                heroTag: "btn1",
+                shape: const CircleBorder(),
                 elevation: 1,
                 backgroundColor: theme.colorScheme.primary,
                 foregroundColor: theme.colorScheme.onPrimary,
-                child: Icon(Icons.add),
+                child: const Icon(Icons.add),
               ),
             );
           },
@@ -56,15 +56,15 @@ class SlackStyleFab extends StatelessWidget {
             acts: [
               .sizedClip(
                 from: .size(rect.size),
-                to: NSize(w: 300),
+                to: const NSize(w: 300),
                 alignment: .bottomRight,
               ),
             ],
             child: Actor(
-              acts: [
+              acts: const [
                 .padding(
                   to: .symmetric(horizontal: 16, vertical: 12),
-                  delay: 100.ms,
+                  delay: .new(microseconds: 100),
                 ),
               ],
               child: Column(
@@ -73,14 +73,14 @@ class SlackStyleFab extends StatelessWidget {
                 spacing: 4,
                 children: [
                   Actor(
-                    acts: [
+                    acts: const [
                       .slide(from: Offset(.8, .8)),
                       .fadeIn(),
                       .focus(),
                     ],
                     child: ListTile(
-                      contentPadding: EdgeInsets.symmetric(horizontal: 8),
-                      visualDensity: VisualDensity(vertical: -4),
+                      contentPadding: const EdgeInsets.symmetric(horizontal: 8),
+                      visualDensity: const VisualDensity(vertical: -4),
                       leading: Container(
                         width: 40,
                         height: 40,
@@ -94,13 +94,13 @@ class SlackStyleFab extends StatelessWidget {
                         ),
                       ),
                       title: Text(
-                        'Huddle',
+                        "Huddle",
                         style: theme.textTheme.titleMedium?.copyWith(
                           height: 1.2,
                         ),
                       ),
                       subtitle: Text(
-                        'Start an audio or video chat',
+                        "Start an audio or video chat",
                         style: theme.textTheme.bodySmall,
                       ),
                     ),
@@ -121,7 +121,7 @@ class SlackStyleFab extends StatelessWidget {
                         foregroundColor: theme.colorScheme.onPrimary,
                         minimumSize: .zero,
                       ),
-                      child: Row(
+                      child: const Row(
                         mainAxisSize: .min,
                         mainAxisAlignment: .center,
                         children: [
@@ -133,7 +133,7 @@ class SlackStyleFab extends StatelessWidget {
                               children: [
                                 Icon(Iconsax.edit),
                                 SizedBox(width: 8),
-                                Text('Message'),
+                                Text("Message"),
                               ],
                             ),
                           ),
@@ -144,7 +144,7 @@ class SlackStyleFab extends StatelessWidget {
                               .slideX(to: -2),
                               .rotate(to: 90),
                             ],
-                            delay: 100.ms,
+                            delay: .new(milliseconds: 100),
                             child: Icon(Icons.add, size: 24),
                           ),
                         ],
@@ -174,14 +174,14 @@ class _LongPressContent extends StatelessWidget {
       children: [
         for (var i = 0; i < 3; i++)
           Actor(
-            motion: .wobbly(),
+            motion: const .wobbly(),
             acts: [
               .translateFromGlobal(
                 offset: Offset(triggerRect.left - 64, triggerRect.top),
-                toLocal: Offset(-40, 0),
+                toLocal: const Offset(-40, 0),
               ),
-              .fadeIn(),
-              .focus(from: 6),
+              const .fadeIn(),
+              const .focus(from: 6),
             ],
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 12.0),
@@ -189,16 +189,16 @@ class _LongPressContent extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
-                    'Jhon Doe',
+                    "Jhon Doe",
                     style: theme.textTheme.bodyMedium?.copyWith(
                       color: theme.colorScheme.onSurface,
                     ),
                   ),
-                  SizedBox(width: 12),
+                  const SizedBox(width: 12),
                   ClipRRect(
                     borderRadius: BorderRadius.circular(8),
                     child: Image.network(
-                      'https://i.pravatar.cc/150?img=${i + 60}',
+                      "https://i.pravatar.cc/150?img=${i + 60}",
                       width: 40,
                       height: 40,
                       fit: BoxFit.cover,
@@ -208,13 +208,13 @@ class _LongPressContent extends StatelessWidget {
               ),
             ),
           ),
-        SizedBox(height: 12),
+        const SizedBox(height: 12),
         FloatingActionButton(
-          shape: CircleBorder(),
+          shape: const CircleBorder(),
           elevation: 0,
           backgroundColor: theme.colorScheme.primary,
           foregroundColor: theme.colorScheme.onPrimary,
-          child: Actor(
+          child: const Actor(
             acts: [.rotate(to: .5, unit: .quarterTurns)],
             child: Icon(Icons.add),
           ),

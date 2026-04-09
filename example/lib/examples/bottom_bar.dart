@@ -13,9 +13,9 @@ class _BottomBarState extends State<BottomBar> {
   int _activeTab = 0;
 
   final _tabs = <({String label, IconData icon})>[
-    (label: 'Home', icon: Iconsax.home),
-    (label: 'Group', icon: Iconsax.profile_2user),
-    (label: 'Settings', icon: Iconsax.setting),
+    (label: "Home", icon: Iconsax.home),
+    (label: "Group", icon: Iconsax.profile_2user),
+    (label: "Settings", icon: Iconsax.setting),
   ];
 
   @override
@@ -46,9 +46,9 @@ class _BottomBarState extends State<BottomBar> {
                         value: _activeTab,
                         // this will have cue behave as an implicitly animated widget
                         // still the animation will trigger only when the value changes,
-                        //it will animate from the current position ignoring any provided 'from' value
+                        //it will animate from the current position ignoring any provided "from" value
                         fromCurrentValue: true,
-                        motion: .easeInOut(300.ms),
+                        motion: const .easeInOut(.new(milliseconds: 300)),
                         acts: [.slideX(to: slideStep * _activeTab)],
                         child: Container(
                           width: expandedWidth,
@@ -76,14 +76,14 @@ class _BottomBarState extends State<BottomBar> {
                                 },
                                 child: Cue.onToggle(
                                   toggled: _activeTab == i,
-                                  motion: .smooth(),
+                                  motion: const .smooth(),
                                   child: Actor(
                                     acts: [
                                       .sizedClip(
                                         from: .width(collapsedWidth),
                                         to: .width(expandedWidth),
                                       ),
-                                      .colorTint(
+                                      const .colorTint(
                                         from: Colors.white60,
                                         to: Colors.black,
                                       ),
@@ -96,7 +96,7 @@ class _BottomBarState extends State<BottomBar> {
                                           color: Colors.white,
                                         ),
                                         Actor(
-                                          acts: [
+                                          acts: const [
                                             // clip the text so the icon is centered in the collapsed state
                                             .clipWidth(),
                                             .fadeIn(),
@@ -127,14 +127,14 @@ class _BottomBarState extends State<BottomBar> {
               ),
             ),
           ),
-          SizedBox(width: 32),
+          const SizedBox(width: 32),
           SizedBox.square(
             dimension: 56,
             child: FloatingActionButton(
-              shape: CircleBorder(),
+              shape: const CircleBorder(),
               elevation: 0,
               backgroundColor: Colors.black,
-              child: Icon(Iconsax.activity, color: Colors.white),
+              child: const Icon(Iconsax.activity, color: Colors.white),
               onPressed: () {},
             ),
           ),

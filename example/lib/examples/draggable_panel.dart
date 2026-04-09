@@ -22,7 +22,7 @@ class _DraggablePanelState extends State<DraggablePanel> {
           _isDraggedDown = forward;
         });
       },
-      motion: .curved(400.ms, curve: Curves.easeInOut),
+      motion: const .curved(.new(milliseconds: 400), curve: Curves.easeInOut),
       child: CardTheme(
         data: theme.cardTheme.copyWith(
           shape: RoundedRectangleBorder(
@@ -39,7 +39,7 @@ class _DraggablePanelState extends State<DraggablePanel> {
               left: 24,
               right: 24,
               height: _dragExtent - 32,
-              child: Row(
+              child: const Row(
                 crossAxisAlignment: .stretch,
                 spacing: 8,
                 children: [
@@ -48,9 +48,9 @@ class _DraggablePanelState extends State<DraggablePanel> {
                       acts: [.scale(from: 1.1), .slideY(from: .3)],
                       child: Card(
                         child: Padding(
-                          padding: const EdgeInsets.all(16.0),
+                          padding: EdgeInsets.all(16.0),
                           child: Text(
-                            'Drag the cover card up and down to see the animation',
+                            "Drag the cover card up and down to see the animation",
                           ),
                         ),
                       ),
@@ -61,9 +61,9 @@ class _DraggablePanelState extends State<DraggablePanel> {
                       acts: [.scale(from: 1.1), .slideY(from: .3)],
                       child: Card(
                         child: Padding(
-                          padding: const EdgeInsets.all(16.0),
+                          padding: EdgeInsets.all(16.0),
                           child: Text(
-                            'Drag the cover card up and down to see the animation',
+                            "Drag the cover card up and down to see the animation",
                           ),
                         ),
                       ),
@@ -74,14 +74,14 @@ class _DraggablePanelState extends State<DraggablePanel> {
             ),
 
             PositionedActor(
-              from: .fill(),
+              from: const .fill(),
               to: .fromSTEB(20, _dragExtent, 20, 24),
               child: CueDragScrubber(
                 distance: _dragExtent,
                 scrubDirection: .forward,
                 child: CardActor(
                   clipBehavior: .antiAlias,
-                  elevation: .fixed(.3),
+                  elevation: const .fixed(.3),
                   borderRadius: .tween(
                     BorderRadius.circular(24),
                     BorderRadius.circular(48),
@@ -90,9 +90,9 @@ class _DraggablePanelState extends State<DraggablePanel> {
                     fit: StackFit.expand,
                     children: [
                       Actor(
-                        acts: [.parallax(slide: .2, axis: .horizontal)],
+                        acts: const [.parallax(slide: .2, axis: .horizontal)],
                         child: Image.network(
-                          'https://cdn.pixabay.com/photo/2024/10/06/11/55/cow-9099854_1280.jpg',
+                          "https://cdn.pixabay.com/photo/2024/10/06/11/55/cow-9099854_1280.jpg",
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -101,7 +101,7 @@ class _DraggablePanelState extends State<DraggablePanel> {
                         child: Padding(
                           padding: const EdgeInsets.all(24),
                           child: Actor(
-                            acts: [
+                            acts: const [
                               .slideUp(),
                               .focus(),
                               .fadeIn(),
@@ -113,7 +113,7 @@ class _DraggablePanelState extends State<DraggablePanel> {
                               mainAxisSize: MainAxisSize.min,
                               children: [
                                 Text(
-                                  'Cute Cow',
+                                  "Cute Cow",
                                   style: theme.textTheme.headlineMedium!
                                       .copyWith(
                                         color: Colors.white,
@@ -129,7 +129,7 @@ class _DraggablePanelState extends State<DraggablePanel> {
                                       ),
                                 ),
                                 Text(
-                                  'This is a cute cow. It is very cute and friendly. It loves to eat grass and play with other cows.',
+                                  "This is a cute cow. It is very cute and friendly. It loves to eat grass and play with other cows.",
                                   style: theme.textTheme.bodyLarge!.copyWith(
                                     color: Colors.white,
                                     shadows: [
