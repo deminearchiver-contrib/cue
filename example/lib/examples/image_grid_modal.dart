@@ -63,6 +63,8 @@ class _ImageCard extends StatelessWidget {
               child: Image.network(
                 "https://picsum.photos/id/${80 + imageId}/400/500",
                 fit: BoxFit.cover,
+                errorBuilder: (context, error, stackTrace) =>
+                    Container(color: Colors.red),
               ),
             ),
             builder: (context, rect) {
@@ -148,6 +150,8 @@ class _ImageModalContent extends StatelessWidget {
                         child: Image.network(
                           "https://picsum.photos/id/${80 + imageId}/400/500",
                           fit: BoxFit.cover,
+                          errorBuilder: (context, error, stackTrace) =>
+                              Container(color: Colors.red),
                         ),
                       ),
                     ),

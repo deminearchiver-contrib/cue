@@ -54,6 +54,8 @@ class _IndicatorToButtonState extends State<IndicatorToButton> {
                       child: Image.network(
                         "https://picsum.photos/600/500?random=$index",
                         fit: BoxFit.cover,
+                        errorBuilder: (context, error, stackTrace) =>
+                            Container(color: Colors.red),
                       ),
                     ),
                   ),

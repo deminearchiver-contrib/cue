@@ -149,6 +149,8 @@ class _ParallaxCard extends StatelessWidget {
                 child: Image.network(
                   "https://picsum.photos/id/$imageId/600/600",
                   fit: BoxFit.cover,
+                  errorBuilder: (context, error, stackTrace) =>
+                      Container(color: Colors.red),
                 ),
               ),
             ),

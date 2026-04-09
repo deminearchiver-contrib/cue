@@ -32,6 +32,8 @@ class IosContextMenu extends StatelessWidget {
               child: Image.network(
                 "https://picsum.photos/seed/${index + 99}/650/500",
                 fit: BoxFit.cover,
+                errorBuilder: (context, error, stackTrace) =>
+                    Container(color: Colors.red),
               ),
             ),
           ),

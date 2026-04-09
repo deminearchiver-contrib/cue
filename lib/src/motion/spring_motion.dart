@@ -191,6 +191,7 @@ final class Spring extends SimulationMotion<CueSpringSimulation> {
   /// )
   /// ```
   /// {@endtemplate}
+  @Deprecated("Avoid using motion presets.")
   const Spring.smooth({
     double this.mass = 1.1,
     double this.stiffness = 522.35,
@@ -216,6 +217,7 @@ final class Spring extends SimulationMotion<CueSpringSimulation> {
   /// )
   /// ```
   /// {@endtemplate}
+  @Deprecated("Avoid using motion presets.")
   const Spring.bouncy({
     double this.mass = 1.0,
     double this.stiffness = 325.0,
@@ -238,6 +240,7 @@ final class Spring extends SimulationMotion<CueSpringSimulation> {
   ///   child: Actor(acts: [.scale(from: 1.0, to: 1.05)], child: MyButton()),
   /// )
   /// ```
+  @Deprecated("Avoid using motion presets.")
   const Spring.interactive({
     double this.mass = 1.0,
     double this.stiffness = 522.35,
@@ -263,6 +266,7 @@ final class Spring extends SimulationMotion<CueSpringSimulation> {
   /// )
   /// ```
   /// {@endtemplate}
+  @Deprecated("Avoid using motion presets.")
   const Spring.snappy({
     double this.mass = 1.0,
     double this.stiffness = 1754.6,
@@ -288,6 +292,7 @@ final class Spring extends SimulationMotion<CueSpringSimulation> {
   /// )
   /// ```
   /// {@endtemplate}
+  @Deprecated("Avoid using motion presets.")
   const Spring.wobbly({
     double this.mass = 1.0,
     double this.stiffness = 200.0,
@@ -317,6 +322,7 @@ final class Spring extends SimulationMotion<CueSpringSimulation> {
   /// )
   /// ```
   /// {@endtemplate}
+  @Deprecated("Avoid using motion presets.")
   const Spring.gentle({
     double this.mass = 1.0,
     double this.stiffness = 61.69,
@@ -343,6 +349,7 @@ final class Spring extends SimulationMotion<CueSpringSimulation> {
   /// )
   /// ```
   /// {@endtemplate}
+  @Deprecated("Avoid using motion presets.")
   const Spring.spatialFast({
     double this.mass = 1.0,
     double this.stiffness = 1400.0,
@@ -371,6 +378,7 @@ final class Spring extends SimulationMotion<CueSpringSimulation> {
   /// )
   /// ```
   /// {@endtemplate}
+  @Deprecated("Avoid using motion presets.")
   const Spring.spatial({
     double this.mass = 1.0,
     double this.stiffness = 700.0,
@@ -396,6 +404,7 @@ final class Spring extends SimulationMotion<CueSpringSimulation> {
   /// )
   /// ```
   /// {@endtemplate}
+  @Deprecated("Avoid using motion presets.")
   const Spring.spatialSlow({
     double this.mass = 1.0,
     double this.stiffness = 300.0,
@@ -421,6 +430,7 @@ final class Spring extends SimulationMotion<CueSpringSimulation> {
   /// )
   /// ```
   /// {@endtemplate}
+  @Deprecated("Avoid using motion presets.")
   const Spring.effectFast({
     double this.mass = 1.0,
     double this.stiffness = 1400.0,
@@ -450,6 +460,7 @@ final class Spring extends SimulationMotion<CueSpringSimulation> {
   /// )
   /// ```
   /// {@endtemplate}
+  @Deprecated("Avoid using motion presets.")
   const Spring.effect({
     double this.mass = 1.0,
     double this.stiffness = 700.0,
@@ -475,6 +486,7 @@ final class Spring extends SimulationMotion<CueSpringSimulation> {
   /// )
   /// ```
   /// {@endtemplate}
+  @Deprecated("Avoid using motion presets.")
   const Spring.effectSlow({
     double this.mass = 1.0,
     double this.stiffness = 300.0,

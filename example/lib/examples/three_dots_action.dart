@@ -8,9 +8,10 @@ class ThreeDotsAction extends StatelessWidget {
   Widget build(BuildContext context) {
     final colors = Theme.of(context).colorScheme;
     return CueModalTransition(
-      barrierColor: Colors.black12,
-      motion: const .bouncy(),
-      reverseMotion: const .snappy(),
+      barrierColor: const Color.fromRGBO(0, 0, 0, 0.122),
+      motion: Spring.custom(
+        desc: .withDampingRatio(mass: 1.0, stiffness: 800.0, ratio: 0.6),
+      ),
       alignment: Alignment.bottomCenter,
       triggerBuilder: (context, showModal) => FloatingActionButton(
         shape: const CircleBorder(),
