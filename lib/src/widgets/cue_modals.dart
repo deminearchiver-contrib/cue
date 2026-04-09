@@ -32,7 +32,8 @@ import 'package:flutter/material.dart';
 /// on top, this route's content is hidden via [Visibility.maintain]. This
 /// enables seamless stacking — e.g. a nested [CueModalTransition] inside a
 /// modal won't show both layers simultaneously.
-class CueDialogRoute<T extends Object?> extends RawDialogRoute<T> with CueModalRouteMixin<T> {
+class CueDialogRoute<T extends Object?> extends RawDialogRoute<T>
+    with CueModalRouteMixin<T> {
   /// Default constructor.
   CueDialogRoute({
     required super.pageBuilder,

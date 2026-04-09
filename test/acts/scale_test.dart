@@ -9,7 +9,9 @@ void main() {
 
   final motion = CueMotion.linear(300.ms);
   final actContext = ActContext(motion: motion, reverseMotion: motion);
-  final track = CueTrackImpl(TrackConfig(motion: motion, reverseMotion: motion));
+  final track = CueTrackImpl(
+    TrackConfig(motion: motion, reverseMotion: motion),
+  );
   final timeline = CueTimelineImpl.fromMotion(motion);
 
   group('ScaleAct', () {
@@ -142,7 +144,9 @@ void main() {
           ),
         );
 
-        final scaleTransition = tester.widget<ScaleTransition>(find.byType(ScaleTransition));
+        final scaleTransition = tester.widget<ScaleTransition>(
+          find.byType(ScaleTransition),
+        );
         expect(scaleTransition.scale, animation);
       });
 
@@ -170,7 +174,9 @@ void main() {
           ),
         );
 
-        final scaleTransition = tester.widget<ScaleTransition>(find.byType(ScaleTransition));
+        final scaleTransition = tester.widget<ScaleTransition>(
+          find.byType(ScaleTransition),
+        );
         expect(scaleTransition.alignment, Alignment.center);
       });
 
@@ -198,7 +204,9 @@ void main() {
           ),
         );
 
-        final scaleTransition = tester.widget<ScaleTransition>(find.byType(ScaleTransition));
+        final scaleTransition = tester.widget<ScaleTransition>(
+          find.byType(ScaleTransition),
+        );
         expect(scaleTransition.alignment, Alignment.topLeft);
       });
 
@@ -230,7 +238,9 @@ void main() {
           ),
         );
 
-        final scaleTransition = tester.widget<ScaleTransition>(find.byType(ScaleTransition));
+        final scaleTransition = tester.widget<ScaleTransition>(
+          find.byType(ScaleTransition),
+        );
         expect(scaleTransition.alignment, Alignment.centerRight);
       });
 
@@ -353,7 +363,10 @@ void main() {
 
     group('constructors', () {
       test('default constructor sets from and to', () {
-        const act = StretchAct(from: Stretch(x: 0.5, y: 1.0), to: Stretch(x: 1.0, y: 0.5));
+        const act = StretchAct(
+          from: Stretch(x: 0.5, y: 1.0),
+          to: Stretch(x: 1.0, y: 0.5),
+        );
         expect(act.from, Stretch(x: 0.5, y: 1.0));
         expect(act.to, Stretch(x: 1.0, y: 0.5));
       });
@@ -478,21 +491,39 @@ void main() {
 
     group('equality', () {
       test('equal acts have same hashCode', () {
-        const act1 = StretchAct(from: Stretch(x: 0.5, y: 1.0), to: Stretch(x: 2.0, y: 1.0));
-        const act2 = StretchAct(from: Stretch(x: 0.5, y: 1.0), to: Stretch(x: 2.0, y: 1.0));
+        const act1 = StretchAct(
+          from: Stretch(x: 0.5, y: 1.0),
+          to: Stretch(x: 2.0, y: 1.0),
+        );
+        const act2 = StretchAct(
+          from: Stretch(x: 0.5, y: 1.0),
+          to: Stretch(x: 2.0, y: 1.0),
+        );
         expect(act1, act2);
         expect(act1.hashCode, act2.hashCode);
       });
 
       test('different from values are not equal', () {
-        const act1 = StretchAct(from: Stretch(x: 0.5, y: 1.0), to: Stretch.none);
-        const act2 = StretchAct(from: Stretch(x: 0.8, y: 1.0), to: Stretch.none);
+        const act1 = StretchAct(
+          from: Stretch(x: 0.5, y: 1.0),
+          to: Stretch.none,
+        );
+        const act2 = StretchAct(
+          from: Stretch(x: 0.8, y: 1.0),
+          to: Stretch.none,
+        );
         expect(act1, isNot(act2));
       });
 
       test('different to values are not equal', () {
-        const act1 = StretchAct(from: Stretch.none, to: Stretch(x: 2.0, y: 1.0));
-        const act2 = StretchAct(from: Stretch.none, to: Stretch(x: 1.5, y: 1.0));
+        const act1 = StretchAct(
+          from: Stretch.none,
+          to: Stretch(x: 2.0, y: 1.0),
+        );
+        const act2 = StretchAct(
+          from: Stretch.none,
+          to: Stretch(x: 1.5, y: 1.0),
+        );
         expect(act1, isNot(act2));
       });
     });

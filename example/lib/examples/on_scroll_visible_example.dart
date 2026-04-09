@@ -46,7 +46,13 @@ class _BigCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final titles = ['Mountain View', 'Ocean Breeze', 'Forest Walk', 'City Skyline', 'Desert Sun'];
+    final titles = [
+      'Mountain View',
+      'Ocean Breeze',
+      'Forest Walk',
+      'City Skyline',
+      'Desert Sun',
+    ];
     final subtitles = [
       'Discover amazing places',
       'Experience nature',
@@ -54,7 +60,13 @@ class _BigCard extends StatelessWidget {
       'Tropical escape',
       'Winter wonder',
     ];
-    final icons = [Iconsax.arrow_circle_up, Iconsax.drop, Iconsax.tree, Iconsax.buildings, Iconsax.cloud_snow];
+    final icons = [
+      Iconsax.arrow_circle_up,
+      Iconsax.drop,
+      Iconsax.tree,
+      Iconsax.buildings,
+      Iconsax.cloud_snow,
+    ];
 
     final title = titles[index % titles.length];
     final subtitle = subtitles[index % subtitles.length];
@@ -62,9 +74,7 @@ class _BigCard extends StatelessWidget {
 
     return Container(
       height: 240,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(24),
-      ),
+      decoration: BoxDecoration(borderRadius: BorderRadius.circular(24)),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(24),
         child: Stack(
@@ -125,7 +135,10 @@ class _BigCard extends StatelessWidget {
                     ),
                   ),
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 8,
+                    ),
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(16),

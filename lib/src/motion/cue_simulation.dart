@@ -55,7 +55,10 @@ mixin CueSimulation on Simulation {
   ///
   /// Returns a tuple of `(value, phase)` — the interpolated value and the
   /// phase it occurred in.
-  (double value, int phase) valueAtProgress(double progress, {bool forceLinear = false});
+  (double value, int phase) valueAtProgress(
+    double progress, {
+    bool forceLinear = false,
+  });
 }
 
 /// A simulation that delays the start of a base simulation by a fixed amount.
@@ -77,11 +80,9 @@ class DelayedSimulation extends Simulation with CueSimulation {
   ///
   /// - [base]: The simulation to delay.
   /// - [delay]: Number of seconds to wait before the base starts (in seconds).
-  DelayedSimulation({
-    required CueSimulation base,
-    required double delay,
-  }) : _base = base,
-       _delay = delay;
+  DelayedSimulation({required CueSimulation base, required double delay})
+    : _base = base,
+      _delay = delay;
 
   /// The underlying simulation to delay.
   final CueSimulation _base;
@@ -97,7 +98,10 @@ class DelayedSimulation extends Simulation with CueSimulation {
 
   // Core progress mapping - delay is first portion of progress
   @override
-  (double value, int phase) valueAtProgress(double progress, {bool forceLinear = false}) {
+  (double value, int phase) valueAtProgress(
+    double progress, {
+    bool forceLinear = false,
+  }) {
     final totalDuration = duration;
     final delayProgress = totalDuration <= 0 ? 0.0 : _delay / totalDuration;
 
@@ -183,7 +187,10 @@ class CurvedSimulation extends Simulation with CueSimulation {
   bool isDone(double t) => t >= _duration;
 
   @override
-  (double value, int phase) valueAtProgress(double progress, {bool forceLinear = false}) {
+  (double value, int phase) valueAtProgress(
+    double progress, {
+    bool forceLinear = false,
+  }) {
     if (forceLinear) {
       return (_from + (_to - _from) * progress, 0);
     }
@@ -233,7 +240,9 @@ class SegmentedSimulation extends Simulation with CueSimulation {
     if (_forward) {
       return List.unmodifiable(_motions.map((m) => m.buildBase()));
     }
-    return List.unmodifiable(_motions.reversed.map((m) => m.buildBase(forward: false)));
+    return List.unmodifiable(
+      _motions.reversed.map((m) => m.buildBase(forward: false)),
+    );
   }
 
   late final _seekableSegments = _buildSeekableSegments();
@@ -296,23 +305,38 @@ class SegmentedSimulation extends Simulation with CueSimulation {
   }
 
   @override
-  (double value, int phase) valueAtProgress(double progress, {bool forceLinear = false}) {
+  (double value, int phase) valueAtProgress(
+    double progress, {
+    bool forceLinear = false,
+  }) {
     if (_motions.isEmpty) return (0.0, 0);
-    final totalBaseDuration = _seekableSegments.fold(0.0, (sum, value) => sum + value.duration);
+    final totalBaseDuration = _seekableSegments.fold(
+      0.0,
+      (sum, value) => sum + value.duration,
+    );
     if (totalBaseDuration <= 0.0) {
-      return _seekableSegments.first.valueAtProgress(1.0, forceLinear: forceLinear);
+      return _seekableSegments.first.valueAtProgress(
+        1.0,
+        forceLinear: forceLinear,
+      );
     }
     double elapsed = progress * totalBaseDuration;
     int phase = 0;
-    while (phase < _seekableSegments.length - 1 && elapsed >= _seekableSegments[phase].duration) {
+    while (phase < _seekableSegments.length - 1 &&
+        elapsed >= _seekableSegments[phase].duration) {
       elapsed -= _seekableSegments[phase].duration;
       phase++;
     }
 
     final segmentDuration = _seekableSegments[phase].duration;
 
-    final localProgress = segmentDuration <= 0.0 ? 1.0 : (elapsed / segmentDuration).clamp(0.0, 1.0);
-    final (value, _) = _seekableSegments[phase].valueAtProgress(localProgress, forceLinear: forceLinear);
+    final localProgress = segmentDuration <= 0.0
+        ? 1.0
+        : (elapsed / segmentDuration).clamp(0.0, 1.0);
+    final (value, _) = _seekableSegments[phase].valueAtProgress(
+      localProgress,
+      forceLinear: forceLinear,
+    );
     _phase = _forward ? phase : _motions.length - 1 - phase;
 
     return (value, _phase);
@@ -322,7 +346,9 @@ class SegmentedSimulation extends Simulation with CueSimulation {
     final localTime = time - _phaseStartTime;
     final canAdvance = _forward ? _phase < endPhase : _phase > endPhase;
     if (canAdvance && _current.isDone(localTime)) {
-      double exitVelocity = _current.dx((localTime).clamp(0.0, double.infinity));
+      double exitVelocity = _current.dx(
+        (localTime).clamp(0.0, double.infinity),
+      );
       // Negate velocity when reversing
       if (!_forward) {
         exitVelocity = -exitVelocity;
@@ -391,10 +417,16 @@ class CueSpringSimulation extends SpringSimulation with CueSimulation {
   final double _end;
 
   @override
-  late final double duration = calculateSettleDuration(spring: _spring, stepSize: samplingStepSize);
+  late final double duration = calculateSettleDuration(
+    spring: _spring,
+    stepSize: samplingStepSize,
+  );
 
   @override
-  (double value, int phase) valueAtProgress(double progress, {bool forceLinear = false}) {
+  (double value, int phase) valueAtProgress(
+    double progress, {
+    bool forceLinear = false,
+  }) {
     if (forceLinear) {
       return (_start + (_end - _start) * progress, 0);
     }
@@ -419,10 +451,14 @@ class CueSpringSimulation extends SpringSimulation with CueSimulation {
     required SpringDescription spring,
   }) {
     final omega0 = math.sqrt(spring.stiffness / spring.mass);
-    final zeta = spring.damping / (2 * math.sqrt(spring.stiffness * spring.mass));
+    final zeta =
+        spring.damping / (2 * math.sqrt(spring.stiffness * spring.mass));
     final amplitude = (_start - _end).abs();
 
-    final estimate = math.max(0.0, -math.log(tolerance.distance / amplitude) / (zeta * omega0));
+    final estimate = math.max(
+      0.0,
+      -math.log(tolerance.distance / amplitude) / (zeta * omega0),
+    );
     double t = (estimate / stepSize).floor() * stepSize;
     while (t < 100.0) {
       if (isDone(t)) return t;

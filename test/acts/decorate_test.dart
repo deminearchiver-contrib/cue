@@ -9,7 +9,9 @@ void main() {
 
   final motion = CueMotion.linear(300.ms);
   final actContext = ActContext(motion: motion, reverseMotion: motion);
-  final track = CueTrackImpl(TrackConfig(motion: motion, reverseMotion: motion));
+  final track = CueTrackImpl(
+    TrackConfig(motion: motion, reverseMotion: motion),
+  );
   final timeline = CueTimelineImpl.fromMotion(motion);
   group('DecoratedBoxAct', () {
     group('key', () {
@@ -47,7 +49,10 @@ void main() {
           ),
         );
         expect(act.borderRadius?.from, BorderRadius.zero);
-        expect(act.borderRadius?.to, const BorderRadius.all(Radius.circular(10)));
+        expect(
+          act.borderRadius?.to,
+          const BorderRadius.all(Radius.circular(10)),
+        );
       });
 
       test('constructor accepts border', () {
@@ -258,7 +263,9 @@ void main() {
         final act = DecoratedBoxAct(
           border: AnimatableValue(
             from: Border(),
-            to: Border.fromBorderSide(BorderSide(color: Colors.black, width: 2)),
+            to: Border.fromBorderSide(
+              BorderSide(color: Colors.black, width: 2),
+            ),
           ),
         );
 
@@ -345,7 +352,9 @@ void main() {
           ),
         );
 
-        final transition = tester.widget<DecoratedBoxTransition>(find.byType(DecoratedBoxTransition));
+        final transition = tester.widget<DecoratedBoxTransition>(
+          find.byType(DecoratedBoxTransition),
+        );
         expect(transition.decoration, animation);
       });
 
@@ -376,7 +385,9 @@ void main() {
           ),
         );
 
-        final transition = tester.widget<DecoratedBoxTransition>(find.byType(DecoratedBoxTransition));
+        final transition = tester.widget<DecoratedBoxTransition>(
+          find.byType(DecoratedBoxTransition),
+        );
         expect(transition.position, DecorationPosition.foreground);
       });
 
@@ -407,7 +418,9 @@ void main() {
           ),
         );
 
-        final transition = tester.widget<DecoratedBoxTransition>(find.byType(DecoratedBoxTransition));
+        final transition = tester.widget<DecoratedBoxTransition>(
+          find.byType(DecoratedBoxTransition),
+        );
         expect(transition.position, DecorationPosition.background);
       });
     });
@@ -448,7 +461,10 @@ void main() {
 
       test('different borderRadius values are not equal', () {
         const act1 = DecoratedBoxAct(
-          borderRadius: AnimatableValue(from: BorderRadius.zero, to: BorderRadius.zero),
+          borderRadius: AnimatableValue(
+            from: BorderRadius.zero,
+            to: BorderRadius.zero,
+          ),
         );
         const act2 = DecoratedBoxAct(
           borderRadius: AnimatableValue(
@@ -612,7 +628,9 @@ void main() {
       expect(actor.reverse, reverse);
     });
 
-    testWidgets('build method creates Actor with DecoratedBoxAct', (tester) async {
+    testWidgets('build method creates Actor with DecoratedBoxAct', (
+      tester,
+    ) async {
       const actor = DecoratedBoxActor(
         color: AnimatableValue(from: Colors.red, to: Colors.blue),
       );
@@ -620,10 +638,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Cue(
-            controller: CueController(
-              vsync: tester,
-              motion: motion,
-            ),
+            controller: CueController(vsync: tester, motion: motion),
             child: Scaffold(body: actor),
           ),
         ),
@@ -641,10 +656,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Cue(
-            controller: CueController(
-              vsync: tester,
-              motion: motion,
-            ),
+            controller: CueController(vsync: tester, motion: motion),
             child: Scaffold(body: actor),
           ),
         ),
@@ -662,10 +674,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Cue(
-            controller: CueController(
-              vsync: tester,
-              motion: motion,
-            ),
+            controller: CueController(vsync: tester, motion: motion),
             child: Scaffold(body: actor),
           ),
         ),
@@ -674,7 +683,9 @@ void main() {
       expect(find.byType(MaterialApp), findsOneWidget);
     });
 
-    testWidgets('build method passes position to DecoratedBoxAct', (tester) async {
+    testWidgets('build method passes position to DecoratedBoxAct', (
+      tester,
+    ) async {
       const actor = DecoratedBoxActor(
         position: DecorationPosition.foreground,
         color: AnimatableValue(from: Colors.red, to: Colors.blue),
@@ -682,25 +693,23 @@ void main() {
 
       await tester.pumpWidget(
         MaterialApp(
-          home: Cue.onMount(
-            child: Scaffold(body: actor),
-          ),
+          home: Cue.onMount(child: Scaffold(body: actor)),
         ),
       );
 
       expect(find.byType(MaterialApp), findsOneWidget);
     });
 
-    testWidgets('build method uses default child when none provided', (tester) async {
+    testWidgets('build method uses default child when none provided', (
+      tester,
+    ) async {
       const actor = DecoratedBoxActor(
         color: AnimatableValue(from: Colors.red, to: Colors.blue),
       );
 
       await tester.pumpWidget(
         MaterialApp(
-          home: Cue.onMount(
-            child: Scaffold(body: actor),
-          ),
+          home: Cue.onMount(child: Scaffold(body: actor)),
         ),
       );
 
@@ -716,9 +725,7 @@ void main() {
 
       await tester.pumpWidget(
         MaterialApp(
-          home: Cue.onMount(
-            child: Scaffold(body: actor),
-          ),
+          home: Cue.onMount(child: Scaffold(body: actor)),
         ),
       );
 
@@ -752,9 +759,7 @@ void main() {
 
       await tester.pumpWidget(
         MaterialApp(
-          home: Cue.onMount(
-            child: Scaffold(body: actor),
-          ),
+          home: Cue.onMount(child: Scaffold(body: actor)),
         ),
       );
 
@@ -770,9 +775,7 @@ void main() {
 
       await tester.pumpWidget(
         MaterialApp(
-          home: Cue.onMount(
-            child: Scaffold(body: actor),
-          ),
+          home: Cue.onMount(child: Scaffold(body: actor)),
         ),
       );
 

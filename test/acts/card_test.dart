@@ -9,7 +9,9 @@ void main() {
 
   final motion = CueMotion.linear(300.ms);
   final actContext = ActContext(motion: motion, reverseMotion: motion);
-  final track = CueTrackImpl(TrackConfig(motion: motion, reverseMotion: motion));
+  final track = CueTrackImpl(
+    TrackConfig(motion: motion, reverseMotion: motion),
+  );
   final timeline = CueTimelineImpl.fromMotion(motion);
   group('CardProps', () {
     test('default values', () {
@@ -36,7 +38,10 @@ void main() {
       expect(props.color, equals(Colors.white));
       expect(props.shadowColor, equals(Colors.black));
       expect(props.surfaceTintColor, equals(Colors.blue));
-      expect(props.borderRadius, equals(const BorderRadius.all(Radius.circular(12))));
+      expect(
+        props.borderRadius,
+        equals(const BorderRadius.all(Radius.circular(12))),
+      );
       expect(props.margin, equals(const EdgeInsets.all(16)));
     });
 
@@ -100,13 +105,14 @@ void main() {
       expect(act.clipBehavior, equals(Clip.none));
       expect(act.borderOnForeground, isTrue);
       expect(act.semanticContainer, isTrue);
-      expect(act.shadowColor, equals(const AnimatableValue.fixed(Color(0xFF000000))));
+      expect(
+        act.shadowColor,
+        equals(const AnimatableValue.fixed(Color(0xFF000000))),
+      );
     });
 
     test('constructor with elevation', () {
-      const act = CardAct(
-        elevation: AnimatableValue(from: 0.0, to: 8.0),
-      );
+      const act = CardAct(elevation: AnimatableValue(from: 0.0, to: 8.0));
       expect(act.elevation?.from, equals(0.0));
       expect(act.elevation?.to, equals(8.0));
     });
@@ -162,9 +168,7 @@ void main() {
     });
 
     test('constructor with shadowColor', () {
-      const act = CardAct(
-        shadowColor: AnimatableValue.fixed(Colors.red),
-      );
+      const act = CardAct(shadowColor: AnimatableValue.fixed(Colors.red));
       expect(act.shadowColor.from, equals(Colors.red));
     });
 
@@ -263,9 +267,7 @@ void main() {
     });
 
     test('buildTweens returns CueAnimtable', () {
-      const act = CardAct(
-        elevation: AnimatableValue(from: 0.0, to: 8.0),
-      );
+      const act = CardAct(elevation: AnimatableValue(from: 0.0, to: 8.0));
 
       final (animtable, reverseAnimtable) = act.buildTweens(actContext);
 
@@ -274,9 +276,7 @@ void main() {
     });
 
     test('resolve returns ActContext', () {
-      const act = CardAct(
-        elevation: AnimatableValue(from: 0.0, to: 8.0),
-      );
+      const act = CardAct(elevation: AnimatableValue(from: 0.0, to: 8.0));
 
       final resolved = act.resolve(actContext);
 
@@ -304,9 +304,7 @@ void main() {
         elevation: AnimatableValue(from: 0.0, to: 8.0),
         delay: Duration(milliseconds: 100),
       );
-      const act3 = CardAct(
-        elevation: AnimatableValue(from: 0.0, to: 4.0),
-      );
+      const act3 = CardAct(elevation: AnimatableValue(from: 0.0, to: 4.0));
 
       expect(act1, equals(act2));
       expect(act1, isNot(equals(act3)));
@@ -321,9 +319,7 @@ void main() {
         clipBehavior: Clip.hardEdge,
         borderOnForeground: false,
       );
-      const act3 = CardAct(
-        clipBehavior: Clip.antiAlias,
-      );
+      const act3 = CardAct(clipBehavior: Clip.antiAlias);
 
       expect(act1, equals(act2));
       expect(act1, isNot(equals(act3)));
@@ -337,9 +333,7 @@ void main() {
     });
 
     testWidgets('apply wraps child in PhysicalShape', (tester) async {
-      const act = CardAct(
-        elevation: AnimatableValue(from: 0.0, to: 8.0),
-      );
+      const act = CardAct(elevation: AnimatableValue(from: 0.0, to: 8.0));
 
       final (animtable, _) = act.buildTweens(actContext);
 
@@ -355,7 +349,8 @@ void main() {
         MaterialApp(
           home: Scaffold(
             body: Builder(
-              builder: (context) => act.apply(context, animation, const SizedBox()),
+              builder: (context) =>
+                  act.apply(context, animation, const SizedBox()),
             ),
           ),
         ),
@@ -365,9 +360,7 @@ void main() {
     });
 
     testWidgets('apply uses animation value for elevation', (tester) async {
-      const act = CardAct(
-        elevation: AnimatableValue(from: 0.0, to: 8.0),
-      );
+      const act = CardAct(elevation: AnimatableValue(from: 0.0, to: 8.0));
 
       final (animtable, _) = act.buildTweens(actContext);
 
@@ -383,13 +376,16 @@ void main() {
         MaterialApp(
           home: Scaffold(
             body: Builder(
-              builder: (context) => act.apply(context, animation, const SizedBox()),
+              builder: (context) =>
+                  act.apply(context, animation, const SizedBox()),
             ),
           ),
         ),
       );
 
-      final physicalShape = tester.widget<PhysicalShape>(find.byType(PhysicalShape));
+      final physicalShape = tester.widget<PhysicalShape>(
+        find.byType(PhysicalShape),
+      );
       expect(physicalShape.elevation, equals(4.0));
     });
 
@@ -415,7 +411,8 @@ void main() {
         MaterialApp(
           home: Scaffold(
             body: Builder(
-              builder: (context) => act.apply(context, animation, const SizedBox()),
+              builder: (context) =>
+                  act.apply(context, animation, const SizedBox()),
             ),
           ),
         ),
@@ -443,7 +440,8 @@ void main() {
         MaterialApp(
           home: Scaffold(
             body: Builder(
-              builder: (context) => act.apply(context, animation, const SizedBox()),
+              builder: (context) =>
+                  act.apply(context, animation, const SizedBox()),
             ),
           ),
         ),
@@ -452,7 +450,9 @@ void main() {
       expect(find.byType(Padding), findsOneWidget);
     });
 
-    testWidgets('apply with hasBorderStroke renders CustomPaint', (tester) async {
+    testWidgets('apply with hasBorderStroke renders CustomPaint', (
+      tester,
+    ) async {
       const act = CardAct(
         shape: AnimatableValue.fixed(BeveledRectangleBorder()),
       );
@@ -471,7 +471,8 @@ void main() {
         MaterialApp(
           home: Scaffold(
             body: Builder(
-              builder: (context) => act.apply(context, animation, const SizedBox()),
+              builder: (context) =>
+                  act.apply(context, animation, const SizedBox()),
             ),
           ),
         ),
@@ -482,50 +483,101 @@ void main() {
       expect(find.byType(CustomPaint), findsWidgets);
     });
 
-    testWidgets('apply with hasBorderStroke and borderOnForeground true uses foregroundPainter', (tester) async {
-      const act = CardAct(
-        shape: AnimatableValue.fixed(BeveledRectangleBorder()),
-        borderOnForeground: true,
-      );
+    testWidgets(
+      'apply with hasBorderStroke and borderOnForeground true uses foregroundPainter',
+      (tester) async {
+        const act = CardAct(
+          shape: AnimatableValue.fixed(BeveledRectangleBorder()),
+          borderOnForeground: true,
+        );
 
-      final (animtable, _) = act.buildTweens(actContext);
+        final (animtable, _) = act.buildTweens(actContext);
 
-      track.setProgress(0.0);
+        track.setProgress(0.0);
 
-      final animation = CueAnimationImpl<CardProps>(
-        parent: track,
-        token: ReleaseToken(track.config, timeline),
-        animtable: animtable,
-      );
+        final animation = CueAnimationImpl<CardProps>(
+          parent: track,
+          token: ReleaseToken(track.config, timeline),
+          animtable: animtable,
+        );
 
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: Builder(
-              builder: (context) => act.apply(context, animation, const SizedBox()),
+        await tester.pumpWidget(
+          MaterialApp(
+            home: Scaffold(
+              body: Builder(
+                builder: (context) =>
+                    act.apply(context, animation, const SizedBox()),
+              ),
             ),
           ),
+        );
+
+        // Should have at least one CustomPaint (the one we created for the border)
+        final customPaints = find.byType(CustomPaint);
+        expect(customPaints, findsWidgets);
+
+        // The CustomPaint should have the painter as foregroundPainter
+        final widgets = tester.widgetList<CustomPaint>(customPaints);
+        final hasCustomPaintWithForeground = widgets.any(
+          (widget) =>
+              widget.foregroundPainter != null && widget.painter == null,
+        );
+        expect(hasCustomPaintWithForeground, isTrue);
+      },
+    );
+
+    testWidgets(
+      'apply with hasBorderStroke and borderOnForeground false uses painter',
+      (tester) async {
+        const act = CardAct(
+          shape: AnimatableValue.fixed(BeveledRectangleBorder()),
+          borderOnForeground: false,
+        );
+
+        final (animtable, _) = act.buildTweens(actContext);
+
+        track.setProgress(0.0);
+
+        final animation = CueAnimationImpl<CardProps>(
+          parent: track,
+          token: ReleaseToken(track.config, timeline),
+          animtable: animtable,
+        );
+
+        await tester.pumpWidget(
+          MaterialApp(
+            home: Scaffold(
+              body: Builder(
+                builder: (context) =>
+                    act.apply(context, animation, const SizedBox()),
+              ),
+            ),
+          ),
+        );
+
+        // Should have at least one CustomPaint (the one we created for the border)
+        final customPaints = find.byType(CustomPaint);
+        expect(customPaints, findsWidgets);
+
+        // The CustomPaint should have the painter as painter (not foregroundPainter)
+        final widgets = tester.widgetList<CustomPaint>(customPaints);
+        final hasCustomPaintWithPainter = widgets.any(
+          (widget) =>
+              widget.painter != null && widget.foregroundPainter == null,
+        );
+        expect(hasCustomPaintWithPainter, isTrue);
+      },
+    );
+
+    testWidgets('apply with constant borderRadius uses cached shape', (
+      tester,
+    ) async {
+      const act = CardAct(
+        borderRadius: AnimatableValue.fixed(
+          BorderRadius.all(Radius.circular(12)),
         ),
       );
 
-      // Should have at least one CustomPaint (the one we created for the border)
-      final customPaints = find.byType(CustomPaint);
-      expect(customPaints, findsWidgets);
-
-      // The CustomPaint should have the painter as foregroundPainter
-      final widgets = tester.widgetList<CustomPaint>(customPaints);
-      final hasCustomPaintWithForeground = widgets.any(
-        (widget) => widget.foregroundPainter != null && widget.painter == null,
-      );
-      expect(hasCustomPaintWithForeground, isTrue);
-    });
-
-    testWidgets('apply with hasBorderStroke and borderOnForeground false uses painter', (tester) async {
-      const act = CardAct(
-        shape: AnimatableValue.fixed(BeveledRectangleBorder()),
-        borderOnForeground: false,
-      );
-
       final (animtable, _) = act.buildTweens(actContext);
 
       track.setProgress(0.0);
@@ -540,44 +592,8 @@ void main() {
         MaterialApp(
           home: Scaffold(
             body: Builder(
-              builder: (context) => act.apply(context, animation, const SizedBox()),
-            ),
-          ),
-        ),
-      );
-
-      // Should have at least one CustomPaint (the one we created for the border)
-      final customPaints = find.byType(CustomPaint);
-      expect(customPaints, findsWidgets);
-
-      // The CustomPaint should have the painter as painter (not foregroundPainter)
-      final widgets = tester.widgetList<CustomPaint>(customPaints);
-      final hasCustomPaintWithPainter = widgets.any(
-        (widget) => widget.painter != null && widget.foregroundPainter == null,
-      );
-      expect(hasCustomPaintWithPainter, isTrue);
-    });
-
-    testWidgets('apply with constant borderRadius uses cached shape', (tester) async {
-      const act = CardAct(
-        borderRadius: AnimatableValue.fixed(BorderRadius.all(Radius.circular(12))),
-      );
-
-      final (animtable, _) = act.buildTweens(actContext);
-
-      track.setProgress(0.0);
-
-      final animation = CueAnimationImpl<CardProps>(
-        parent: track,
-        token: ReleaseToken(track.config, timeline),
-        animtable: animtable,
-      );
-
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: Builder(
-              builder: (context) => act.apply(context, animation, const SizedBox()),
+              builder: (context) =>
+                  act.apply(context, animation, const SizedBox()),
             ),
           ),
         ),
@@ -587,7 +603,9 @@ void main() {
       expect(find.byType(PhysicalShape), findsOneWidget);
     });
 
-    testWidgets('apply with animated shape updates shape each frame', (tester) async {
+    testWidgets('apply with animated shape updates shape each frame', (
+      tester,
+    ) async {
       const act = CardAct(
         shape: AnimatableValue(
           from: RoundedRectangleBorder(),
@@ -609,7 +627,8 @@ void main() {
         MaterialApp(
           home: Scaffold(
             body: Builder(
-              builder: (context) => act.apply(context, animation, const SizedBox()),
+              builder: (context) =>
+                  act.apply(context, animation, const SizedBox()),
             ),
           ),
         ),
@@ -669,10 +688,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Cue(
-            controller: CueController(
-              vsync: tester,
-              motion: motion,
-            ),
+            controller: CueController(vsync: tester, motion: motion),
             child: Scaffold(body: actor),
           ),
         ),

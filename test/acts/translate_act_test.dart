@@ -68,19 +68,35 @@ void main() {
 
     test('translateX with different motion not equal', () {
       final a = TranslateAct.fromX(from: 0, to: 100, motion: CueMotion.none);
-      final b = TranslateAct.fromX(from: 0, to: 100, motion: CueMotion.linear(Duration(milliseconds: 200)));
+      final b = TranslateAct.fromX(
+        from: 0,
+        to: 100,
+        motion: CueMotion.linear(Duration(milliseconds: 200)),
+      );
       expect(a, isNot(equals(b)));
     });
 
     test('translateX with different delay not equal', () {
       final a = TranslateAct.fromX(from: 0, to: 100, delay: Duration.zero);
-      final b = TranslateAct.fromX(from: 0, to: 100, delay: Duration(milliseconds: 100));
+      final b = TranslateAct.fromX(
+        from: 0,
+        to: 100,
+        delay: Duration(milliseconds: 100),
+      );
       expect(a, isNot(equals(b)));
     });
 
     test('translateX with different reverse not equal', () {
-      final a = TranslateAct.fromX(from: 0, to: 100, reverse: ReverseBehavior.mirror());
-      final b = TranslateAct.fromX(from: 0, to: 100, reverse: ReverseBehavior.none());
+      final a = TranslateAct.fromX(
+        from: 0,
+        to: 100,
+        reverse: ReverseBehavior.mirror(),
+      );
+      final b = TranslateAct.fromX(
+        from: 0,
+        to: 100,
+        reverse: ReverseBehavior.none(),
+      );
       expect(a, isNot(equals(b)));
     });
 
@@ -124,8 +140,14 @@ void main() {
       final frames = MotionKeyframes<double>([
         Keyframe.key(0.0),
       ], motion: CueMotion.none);
-      final a = TranslateAct.keyframedX(frames: frames, delay: Duration(milliseconds: 100));
-      final b = TranslateAct.keyframedX(frames: frames, delay: Duration(milliseconds: 200));
+      final a = TranslateAct.keyframedX(
+        frames: frames,
+        delay: Duration(milliseconds: 100),
+      );
+      final b = TranslateAct.keyframedX(
+        frames: frames,
+        delay: Duration(milliseconds: 200),
+      );
       expect(a, isNot(equals(b)));
     });
 
@@ -133,8 +155,14 @@ void main() {
       final frames = MotionKeyframes<double>([
         Keyframe.key(0.0),
       ], motion: CueMotion.none);
-      final a = TranslateAct.keyframedY(frames: frames, delay: Duration(milliseconds: 100));
-      final b = TranslateAct.keyframedY(frames: frames, delay: Duration(milliseconds: 200));
+      final a = TranslateAct.keyframedY(
+        frames: frames,
+        delay: Duration(milliseconds: 100),
+      );
+      final b = TranslateAct.keyframedY(
+        frames: frames,
+        delay: Duration(milliseconds: 200),
+      );
       expect(a, isNot(equals(b)));
     });
   });
@@ -290,7 +318,11 @@ void main() {
             children: [
               Cue(
                 controller: controller,
-                acts: [TranslateAct.fromGlobalRect(Rect.fromLTWH(100, 100, 200, 200))],
+                acts: [
+                  TranslateAct.fromGlobalRect(
+                    Rect.fromLTWH(100, 100, 200, 200),
+                  ),
+                ],
                 child: SizedBox(width: 50, height: 50),
               ),
             ],
@@ -302,7 +334,9 @@ void main() {
       expect(find.byType(SizedBox), findsWidgets);
     });
 
-    testWidgets('fromGlobal with globalKey applies translation', (tester) async {
+    testWidgets('fromGlobal with globalKey applies translation', (
+      tester,
+    ) async {
       final targetKey = GlobalKey();
       final controller = CueController(
         vsync: tester,
@@ -381,7 +415,9 @@ void main() {
           textDirection: TextDirection.ltr,
           child: Cue(
             controller: controller,
-            acts: [TranslateAct.fromGlobalRect(Rect.fromLTWH(100, 100, 200, 200))],
+            acts: [
+              TranslateAct.fromGlobalRect(Rect.fromLTWH(100, 100, 200, 200)),
+            ],
             child: SizedBox(width: 50, height: 50),
           ),
         ),
@@ -395,7 +431,9 @@ void main() {
           textDirection: TextDirection.ltr,
           child: Cue(
             controller: controller,
-            acts: [TranslateAct.fromGlobalRect(Rect.fromLTWH(150, 150, 250, 250))],
+            acts: [
+              TranslateAct.fromGlobalRect(Rect.fromLTWH(150, 150, 250, 250)),
+            ],
             child: SizedBox(width: 50, height: 50),
           ),
         ),
@@ -405,7 +443,9 @@ void main() {
       expect(find.byType(SizedBox), findsWidgets);
     });
 
-    testWidgets('fromGlobal with valid globalKey measures correctly', (tester) async {
+    testWidgets('fromGlobal with valid globalKey measures correctly', (
+      tester,
+    ) async {
       final targetKey = GlobalKey();
       final controller = CueController(
         vsync: tester,

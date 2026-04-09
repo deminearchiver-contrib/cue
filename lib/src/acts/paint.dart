@@ -77,7 +77,11 @@ class PaintAct extends TweenAct<double> {
   }) : super.tween(from: 0.0, to: 1.0);
 
   @override
-  Widget apply(BuildContext context, Animation<double> animation, Widget child) {
+  Widget apply(
+    BuildContext context,
+    Animation<double> animation,
+    Widget child,
+  ) {
     final customPainter = _PainterBase(animation, painter);
     return CustomPaint(
       painter: !paintOnTop ? customPainter : null,
@@ -249,7 +253,8 @@ abstract class Painter {
 /// - [canvas]: The canvas to paint on
 /// - [size]: The size available for painting
 /// - [progress]: Animation progress from 0 (start) to 1 (end)
-typedef PaintaerCallback = void Function(Canvas canvas, Size size, double progress);
+typedef PaintaerCallback =
+    void Function(Canvas canvas, Size size, double progress);
 
 /// Internal painter implementation for callback functions.
 ///

@@ -13,9 +13,7 @@ void main() {
           home: SingleChildScrollView(
             child: SizedBox(
               height: 1000,
-              child: Cue.onScrollVisible(
-                child: const SizedBox(height: 100),
-              ),
+              child: Cue.onScrollVisible(child: const SizedBox(height: 100)),
             ),
           ),
         ),
@@ -49,9 +47,7 @@ void main() {
     testWidgets('throws when not inside scrollable', (tester) async {
       await tester.pumpWidget(
         MaterialApp(
-          home: Cue.onScrollVisible(
-            child: const SizedBox(height: 100),
-          ),
+          home: Cue.onScrollVisible(child: const SizedBox(height: 100)),
         ),
       );
 
@@ -64,9 +60,7 @@ void main() {
           home: SingleChildScrollView(
             child: SizedBox(
               height: 1000,
-              child: Cue.onScrollVisible(
-                child: const SizedBox(height: 100),
-              ),
+              child: Cue.onScrollVisible(child: const SizedBox(height: 100)),
             ),
           ),
         ),
@@ -74,7 +68,9 @@ void main() {
 
       await tester.pump();
 
-      final state = tester.state<OnScrollVisibleCueState>(find.byType(OnScrollVisibleCue));
+      final state = tester.state<OnScrollVisibleCueState>(
+        find.byType(OnScrollVisibleCue),
+      );
       expect(state.controller, isA<CueController>());
       expect(state.debugName, equals('OnScrollVisibleCue'));
     });
@@ -105,9 +101,7 @@ void main() {
           home: SingleChildScrollView(
             child: SizedBox(
               height: 1000,
-              child: Cue.onScrollVisible(
-                child: const SizedBox(height: 100),
-              ),
+              child: Cue.onScrollVisible(child: const SizedBox(height: 100)),
             ),
           ),
         ),
@@ -115,7 +109,9 @@ void main() {
 
       await tester.pump();
 
-      final state = tester.state<OnScrollVisibleCueState>(find.byType(OnScrollVisibleCue));
+      final state = tester.state<OnScrollVisibleCueState>(
+        find.byType(OnScrollVisibleCue),
+      );
       expect(state.controller.value, equals(1.0));
     });
 
@@ -152,7 +148,9 @@ void main() {
 
       await tester.pump();
 
-      final state = tester.state<OnScrollVisibleCueState>(find.byType(OnScrollVisibleCue));
+      final state = tester.state<OnScrollVisibleCueState>(
+        find.byType(OnScrollVisibleCue),
+      );
       expect(state.controller.value, equals(1.0));
     });
 
@@ -168,9 +166,7 @@ void main() {
               child: Column(
                 children: [
                   SizedBox(height: 200),
-                  Cue.onScrollVisible(
-                    child: const SizedBox(height: 100),
-                  ),
+                  Cue.onScrollVisible(child: const SizedBox(height: 100)),
                 ],
               ),
             ),
@@ -185,7 +181,9 @@ void main() {
       await tester.pump();
       await tester.pump(const Duration(milliseconds: 100));
 
-      final state = tester.state<OnScrollVisibleCueState>(find.byType(OnScrollVisibleCue));
+      final state = tester.state<OnScrollVisibleCueState>(
+        find.byType(OnScrollVisibleCue),
+      );
       expect(state.controller.value, lessThanOrEqualTo(1.0));
       expect(state.controller.value, greaterThanOrEqualTo(0.0));
     });
@@ -224,7 +222,9 @@ void main() {
 
       await tester.pump();
 
-      final state = tester.state<OnScrollVisibleCueState>(find.byType(OnScrollVisibleCue));
+      final state = tester.state<OnScrollVisibleCueState>(
+        find.byType(OnScrollVisibleCue),
+      );
       expect(state.controller, isA<CueController>());
       expect(find.byType(OnScrollVisibleCue), findsOneWidget);
     });

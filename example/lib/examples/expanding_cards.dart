@@ -36,8 +36,12 @@ class _ExpandingCardsState extends State<ExpandingCards> {
                   final isPrevious = _expandedIndex - 1 == i;
                   final isNext = _expandedIndex + 1 == i;
 
-                  final fromTopRadius = isActive || i == 0 || isNext ? 24.0 : 0.0;
-                  final fromBottomRadius = isActive || isLast || isPrevious ? 24.0 : 0.0;
+                  final fromTopRadius = isActive || i == 0 || isNext
+                      ? 24.0
+                      : 0.0;
+                  final fromBottomRadius = isActive || isLast || isPrevious
+                      ? 24.0
+                      : 0.0;
 
                   return Actor(
                     acts: [
@@ -75,7 +79,8 @@ class _ExpandingCardsState extends State<ExpandingCards> {
                                     acts: [.rotate(to: -180)],
                                     child: Icon(
                                       Icons.expand_more_rounded,
-                                      color: theme.colorScheme.onSurface.withValues(alpha: .6),
+                                      color: theme.colorScheme.onSurface
+                                          .withValues(alpha: .6),
                                     ),
                                   ),
                                 ],
@@ -88,11 +93,16 @@ class _ExpandingCardsState extends State<ExpandingCards> {
                                   .blur(from: 8),
                                 ],
                                 child: Padding(
-                                  padding: const .only(left: 8, right: 8, bottom: 12),
+                                  padding: const .only(
+                                    left: 8,
+                                    right: 8,
+                                    bottom: 12,
+                                  ),
                                   child: Text(
                                     'Lorem ipsum dolor sit amet, consectetur for on adipiscing elit. Donec auctor, nisl eget ultricies lacinia.',
                                     style: theme.textTheme.bodySmall?.copyWith(
-                                      color: theme.colorScheme.onSurface.withValues(alpha: .7),
+                                      color: theme.colorScheme.onSurface
+                                          .withValues(alpha: .7),
                                     ),
                                   ),
                                 ),

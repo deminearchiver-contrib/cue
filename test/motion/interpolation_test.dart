@@ -40,14 +40,16 @@ void _assertInterpolation(
   expect(
     valueAtStart,
     closeTo(startValue, tolerance),
-    reason: '${label ?? motion.runtimeType}: value at progress 0.0 should equal startValue ($startValue)',
+    reason:
+        '${label ?? motion.runtimeType}: value at progress 0.0 should equal startValue ($startValue)',
   );
 
   final (valueAtEnd, _) = sim.valueAtProgress(1.0);
   expect(
     valueAtEnd,
     closeTo(endValue, tolerance),
-    reason: '${label ?? motion.runtimeType}: value at progress 1.0 should equal endValue ($endValue)',
+    reason:
+        '${label ?? motion.runtimeType}: value at progress 1.0 should equal endValue ($endValue)',
   );
 
   // Intermediate values must be finite numbers — overshoot is valid.
@@ -56,7 +58,8 @@ void _assertInterpolation(
     expect(
       mid.isFinite,
       isTrue,
-      reason: '${label ?? motion.runtimeType}: value at progress $p must be finite',
+      reason:
+          '${label ?? motion.runtimeType}: value at progress $p must be finite',
     );
   }
 }
@@ -115,7 +118,11 @@ void main() {
       final motion = CueMotion.linear(300.ms);
       _assertInterpolation(
         motion,
-        const SimulationBuildData(forward: true, startValue: 0.2, endValue: 0.8),
+        const SimulationBuildData(
+          forward: true,
+          startValue: 0.2,
+          endValue: 0.8,
+        ),
         label: 'linear explicit endValue 0.2→0.8',
       );
     });
@@ -123,7 +130,9 @@ void main() {
     test('zero duration linear (instant snap)', () {
       final motion = CueMotion.linear(Duration.zero);
       // Duration 0 means the simulation is immediately at the end.
-      final sim = motion.build(const SimulationBuildData.forward(startValue: 0.0));
+      final sim = motion.build(
+        const SimulationBuildData.forward(startValue: 0.0),
+      );
       final (valueAtEnd, _) = sim.valueAtProgress(1.0);
       expect(valueAtEnd, closeTo(1.0, 1e-9));
     });
@@ -177,13 +186,14 @@ void main() {
     }
 
     test('curved explicit endValue 0.1→0.9', () {
-      final motion = CueMotion.curved(
-        300.ms,
-        curve: Curves.easeInOut,
-      );
+      final motion = CueMotion.curved(300.ms, curve: Curves.easeInOut);
       _assertInterpolation(
         motion,
-        const SimulationBuildData(forward: true, startValue: 0.1, endValue: 0.9),
+        const SimulationBuildData(
+          forward: true,
+          startValue: 0.1,
+          endValue: 0.9,
+        ),
         label: 'easeInOut explicit 0.1→0.9',
       );
     });
@@ -238,7 +248,9 @@ void main() {
         label: 'Spring.bouncy forward 0→1',
       );
       // Confirm that bouncy spring actually overshoots (value > 1.0 somewhere)
-      final sim = motion.build(const SimulationBuildData.forward(startValue: 0.0));
+      final sim = motion.build(
+        const SimulationBuildData.forward(startValue: 0.0),
+      );
       bool overshoot = false;
       for (double p = 0.0; p <= 1.0; p += 0.01) {
         final (v, _) = sim.valueAtProgress(p);
@@ -247,7 +259,11 @@ void main() {
           break;
         }
       }
-      expect(overshoot, isTrue, reason: 'Spring.bouncy should overshoot past 1.0');
+      expect(
+        overshoot,
+        isTrue,
+        reason: 'Spring.bouncy should overshoot past 1.0',
+      );
     });
 
     test('Spring.wobbly forward 0→1 — overshoot expected', () {
@@ -258,7 +274,9 @@ void main() {
         tolerance: springTolerance,
         label: 'Spring.wobbly forward 0→1',
       );
-      final sim = motion.build(const SimulationBuildData.forward(startValue: 0.0));
+      final sim = motion.build(
+        const SimulationBuildData.forward(startValue: 0.0),
+      );
       bool overshoot = false;
       for (double p = 0.0; p <= 1.0; p += 0.01) {
         final (v, _) = sim.valueAtProgress(p);
@@ -267,7 +285,11 @@ void main() {
           break;
         }
       }
-      expect(overshoot, isTrue, reason: 'Spring.wobbly should overshoot past 1.0');
+      expect(
+        overshoot,
+        isTrue,
+        reason: 'Spring.wobbly should overshoot past 1.0',
+      );
     });
 
     test('Spring.gentle forward 0→1', () {
@@ -330,21 +352,28 @@ void main() {
       );
     });
 
-    test('Spring with opposing initial velocity (will undershoot then recover)', () {
-      final motion = const Spring.smooth();
-      _assertInterpolation(
-        motion,
-        const SimulationBuildData.forward(startValue: 0.0, velocity: -2.0),
-        tolerance: springTolerance,
-        label: 'Spring.smooth with opposing velocity 0→1',
-      );
-    });
+    test(
+      'Spring with opposing initial velocity (will undershoot then recover)',
+      () {
+        final motion = const Spring.smooth();
+        _assertInterpolation(
+          motion,
+          const SimulationBuildData.forward(startValue: 0.0, velocity: -2.0),
+          tolerance: springTolerance,
+          label: 'Spring.smooth with opposing velocity 0→1',
+        );
+      },
+    );
 
     test('Spring explicit endValue 0.2→0.8', () {
       final motion = const Spring.smooth();
       _assertInterpolation(
         motion,
-        const SimulationBuildData(forward: true, startValue: 0.2, endValue: 0.8),
+        const SimulationBuildData(
+          forward: true,
+          startValue: 0.2,
+          endValue: 0.8,
+        ),
         tolerance: springTolerance,
         label: 'Spring.smooth explicit 0.2→0.8',
       );
@@ -362,7 +391,9 @@ void main() {
       final motion = base.delayed(100.ms);
       // Total = 400ms; delay fraction = 100/400 = 0.25
 
-      final sim = motion.build(const SimulationBuildData.forward(startValue: 0.0));
+      final sim = motion.build(
+        const SimulationBuildData.forward(startValue: 0.0),
+      );
 
       // Strictly within delay (progress 0.0 – 0.24) value must be startValue.
       for (final p in [0.0, 0.05, 0.1, 0.15, 0.24]) {
@@ -370,20 +401,22 @@ void main() {
         expect(
           v,
           closeTo(0.0, 1e-9),
-          reason: 'Delayed linear: at progress $p (within delay) value should be startValue 0.0',
+          reason:
+              'Delayed linear: at progress $p (within delay) value should be startValue 0.0',
         );
       }
 
       // At progress 1.0 value must be endValue.
       final (vEnd, _) = sim.valueAtProgress(1.0);
-      expect(vEnd, closeTo(1.0, 1e-9), reason: 'Delayed linear: value at progress 1.0 should be 1.0');
+      expect(
+        vEnd,
+        closeTo(1.0, 1e-9),
+        reason: 'Delayed linear: value at progress 1.0 should be 1.0',
+      );
     });
 
     test('delayed curved (easeOut) forward 0→1', () {
-      final base = CueMotion.curved(
-        300.ms,
-        curve: Curves.easeOut,
-      );
+      final base = CueMotion.curved(300.ms, curve: Curves.easeOut);
       final motion = base.delayed(150.ms);
       _assertInterpolation(
         motion,
@@ -428,21 +461,26 @@ void main() {
       final base = CueMotion.linear(300.ms);
       final delayed = base.delayed(Duration.zero);
 
-      final baseSim = base.build(const SimulationBuildData.forward(startValue: 0.0));
-      final delayedSim = delayed.build(const SimulationBuildData.forward(startValue: 0.0));
+      final baseSim = base.build(
+        const SimulationBuildData.forward(startValue: 0.0),
+      );
+      final delayedSim = delayed.build(
+        const SimulationBuildData.forward(startValue: 0.0),
+      );
 
       for (final p in [0.0, 0.25, 0.5, 0.75, 1.0]) {
         final (bv, _) = baseSim.valueAtProgress(p);
         final (dv, _) = delayedSim.valueAtProgress(p);
-        expect(dv, closeTo(bv, 1e-9), reason: 'Zero delay: value at $p should match base motion');
+        expect(
+          dv,
+          closeTo(bv, 1e-9),
+          reason: 'Zero delay: value at $p should match base motion',
+        );
       }
     });
 
     test('delay longer than base animation (extreme ratio)', () {
-      final base = CueMotion.curved(
-        100.ms,
-        curve: Curves.easeIn,
-      );
+      final base = CueMotion.curved(100.ms, curve: Curves.easeIn);
       final motion = base.delayed(400.ms);
       _assertInterpolation(
         motion,
@@ -542,11 +580,19 @@ void main() {
 
       for (double p = 0.0; p <= 1.0; p += 0.1) {
         final (v, _) = sim.valueAtProgress(p);
-        expect(v.isFinite, isTrue, reason: 'Segmented partial start: value at $p must be finite');
+        expect(
+          v.isFinite,
+          isTrue,
+          reason: 'Segmented partial start: value at $p must be finite',
+        );
       }
 
       final (vEnd, _) = sim.valueAtProgress(1.0);
-      expect(vEnd, closeTo(1.0, 0.001), reason: 'Segmented partial start: value at progress 1.0 should be 1.0');
+      expect(
+        vEnd,
+        closeTo(1.0, 0.001),
+        reason: 'Segmented partial start: value at progress 1.0 should be 1.0',
+      );
     });
 
     test('two-segment motion with elastic curves — overshoot valid', () {
@@ -567,11 +613,17 @@ void main() {
         CueMotion.curved(200.ms, curve: Curves.elasticOut),
         CueMotion.linear(100.ms),
       ]);
-      final sim = motion.build(const SimulationBuildData.forward(startValue: 0.0));
+      final sim = motion.build(
+        const SimulationBuildData.forward(startValue: 0.0),
+      );
 
       for (double p = 0.0; p <= 1.0; p += 0.05) {
         final (v, _) = sim.valueAtProgress(p);
-        expect(v.isFinite, isTrue, reason: 'Segmented mixed: value at $p must be finite');
+        expect(
+          v.isFinite,
+          isTrue,
+          reason: 'Segmented mixed: value at $p must be finite',
+        );
       }
     });
   });
@@ -580,15 +632,21 @@ void main() {
   // Custom / edge-case SimulationBuildData configurations
   // -------------------------------------------------------------------------
   group('SimulationBuildData — edge cases', () {
-    test('endValue defaults to 1.0 when forward=true and no endValue supplied', () {
-      const data = SimulationBuildData.forward(startValue: 0.0);
-      expect(data.endValue, equals(1.0));
-    });
+    test(
+      'endValue defaults to 1.0 when forward=true and no endValue supplied',
+      () {
+        const data = SimulationBuildData.forward(startValue: 0.0);
+        expect(data.endValue, equals(1.0));
+      },
+    );
 
-    test('endValue defaults to 0.0 when forward=false and no endValue supplied', () {
-      const data = SimulationBuildData.reverse(startValue: 1.0);
-      expect(data.endValue, equals(0.0));
-    });
+    test(
+      'endValue defaults to 0.0 when forward=false and no endValue supplied',
+      () {
+        const data = SimulationBuildData.reverse(startValue: 1.0);
+        expect(data.endValue, equals(0.0));
+      },
+    );
 
     test('explicit endValue overrides default for forward data', () {
       const data = SimulationBuildData.forward(startValue: 0.0, endValue: 0.75);
@@ -614,23 +672,31 @@ void main() {
       expect(data.endValue, equals(0.0));
     });
 
-    test('linear motion with non-standard range (0.25→0.75) via explicit endValue', () {
-      final motion = CueMotion.linear(300.ms);
-      _assertInterpolation(
-        motion,
-        const SimulationBuildData(forward: true, startValue: 0.25, endValue: 0.75),
-        label: 'linear explicit range 0.25→0.75',
-      );
-    });
+    test(
+      'linear motion with non-standard range (0.25→0.75) via explicit endValue',
+      () {
+        final motion = CueMotion.linear(300.ms);
+        _assertInterpolation(
+          motion,
+          const SimulationBuildData(
+            forward: true,
+            startValue: 0.25,
+            endValue: 0.75,
+          ),
+          label: 'linear explicit range 0.25→0.75',
+        );
+      },
+    );
 
     test('curved motion with non-standard range (0.1→0.9)', () {
-      final motion = CueMotion.curved(
-        300.ms,
-        curve: Curves.easeInOut,
-      );
+      final motion = CueMotion.curved(300.ms, curve: Curves.easeInOut);
       _assertInterpolation(
         motion,
-        const SimulationBuildData(forward: true, startValue: 0.1, endValue: 0.9),
+        const SimulationBuildData(
+          forward: true,
+          startValue: 0.1,
+          endValue: 0.9,
+        ),
         label: 'easeInOut explicit 0.1→0.9',
       );
     });
@@ -639,7 +705,11 @@ void main() {
       final motion = const Spring.smooth();
       _assertInterpolation(
         motion,
-        const SimulationBuildData(forward: true, startValue: 0.3, endValue: 0.9),
+        const SimulationBuildData(
+          forward: true,
+          startValue: 0.3,
+          endValue: 0.9,
+        ),
         tolerance: 0.01,
         label: 'Spring.smooth explicit 0.3→0.9',
       );
@@ -649,7 +719,11 @@ void main() {
       final motion = CueMotion.linear(300.ms);
       _assertInterpolation(
         motion,
-        const SimulationBuildData(forward: false, startValue: 1.0, endValue: 0.3),
+        const SimulationBuildData(
+          forward: false,
+          startValue: 1.0,
+          endValue: 0.3,
+        ),
         label: 'linear explicit reverse 1.0→0.3',
       );
     });

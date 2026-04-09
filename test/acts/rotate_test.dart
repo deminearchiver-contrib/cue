@@ -10,7 +10,9 @@ void main() {
 
   final motion = CueMotion.linear(300.ms);
   final actContext = ActContext(motion: motion, reverseMotion: motion);
-  final track = CueTrackImpl(TrackConfig(motion: motion, reverseMotion: motion));
+  final track = CueTrackImpl(
+    TrackConfig(motion: motion, reverseMotion: motion),
+  );
   final timeline = CueTimelineImpl.fromMotion(motion);
 
   group('RotateAct', () {
@@ -51,7 +53,8 @@ void main() {
           Directionality(
             textDirection: TextDirection.ltr,
             child: Builder(
-              builder: (context) => act.apply(context, animation, const SizedBox()),
+              builder: (context) =>
+                  act.apply(context, animation, const SizedBox()),
             ),
           ),
         );
@@ -73,7 +76,8 @@ void main() {
           Directionality(
             textDirection: TextDirection.ltr,
             child: Builder(
-              builder: (context) => act.apply(context, animation, const SizedBox()),
+              builder: (context) =>
+                  act.apply(context, animation, const SizedBox()),
             ),
           ),
         );
@@ -95,7 +99,8 @@ void main() {
           Directionality(
             textDirection: TextDirection.ltr,
             child: Builder(
-              builder: (context) => act.apply(context, animation, const SizedBox()),
+              builder: (context) =>
+                  act.apply(context, animation, const SizedBox()),
             ),
           ),
         );
@@ -218,7 +223,9 @@ void main() {
           ),
         );
 
-        final matrixTransition = tester.widget<MatrixTransition>(find.byType(MatrixTransition));
+        final matrixTransition = tester.widget<MatrixTransition>(
+          find.byType(MatrixTransition),
+        );
         expect(matrixTransition.alignment, Alignment.topLeft);
       });
 
@@ -380,7 +387,9 @@ void main() {
         expect(act.frames, frames);
       });
 
-      testWidgets('flipX constructor rotates around Y axis (horizontal flip)', (tester) async {
+      testWidgets('flipX constructor rotates around Y axis (horizontal flip)', (
+        tester,
+      ) async {
         final act = Rotate3DAct.flipX();
         expect(act.from, Rotation3D.zero);
         expect(act.to, const Rotation3D(y: 180));
@@ -398,7 +407,8 @@ void main() {
           Directionality(
             textDirection: TextDirection.ltr,
             child: Builder(
-              builder: (context) => act.apply(context, animation, const SizedBox()),
+              builder: (context) =>
+                  act.apply(context, animation, const SizedBox()),
             ),
           ),
         );
@@ -406,7 +416,9 @@ void main() {
         expect(find.byType(Transform), findsOneWidget);
       });
 
-      testWidgets('flipY constructor rotates around X axis (vertical flip)', (tester) async {
+      testWidgets('flipY constructor rotates around X axis (vertical flip)', (
+        tester,
+      ) async {
         final act = Rotate3DAct.flipY();
         expect(act.from, Rotation3D.zero);
         expect(act.to, const Rotation3D(x: 180));
@@ -424,7 +436,8 @@ void main() {
           Directionality(
             textDirection: TextDirection.ltr,
             child: Builder(
-              builder: (context) => act.apply(context, animation, const SizedBox()),
+              builder: (context) =>
+                  act.apply(context, animation, const SizedBox()),
             ),
           ),
         );
@@ -437,7 +450,10 @@ void main() {
       test('transforms degrees to radians', () {
         const act = Rotate3DAct(unit: Rotate3DUnit.degrees);
 
-        final result = act.transform(actContext, const Rotation3D(x: 90, y: 180, z: 45));
+        final result = act.transform(
+          actContext,
+          const Rotation3D(x: 90, y: 180, z: 45),
+        );
         expect(result.x, math.pi / 2);
         expect(result.y, math.pi);
         expect(result.z, math.pi / 4);
@@ -446,7 +462,10 @@ void main() {
       test('returns radians unchanged', () {
         const act = Rotate3DAct(unit: Rotate3DUnit.radians);
 
-        final result = act.transform(actContext, const Rotation3D(x: math.pi, y: math.pi / 2, z: 0));
+        final result = act.transform(
+          actContext,
+          const Rotation3D(x: math.pi, y: math.pi / 2, z: 0),
+        );
         expect(result.x, math.pi);
         expect(result.y, math.pi / 2);
         expect(result.z, 0);
@@ -543,7 +562,10 @@ void main() {
 
       test('different from values are not equal', () {
         const act1 = Rotate3DAct(from: Rotation3D.zero, to: Rotation3D(y: 180));
-        const act2 = Rotate3DAct(from: Rotation3D(x: 45), to: Rotation3D(y: 180));
+        const act2 = Rotate3DAct(
+          from: Rotation3D(x: 45),
+          to: Rotation3D(y: 180),
+        );
         expect(act1, isNot(act2));
       });
 

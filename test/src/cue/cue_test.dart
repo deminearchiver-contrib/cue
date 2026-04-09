@@ -14,10 +14,7 @@ void main() {
       );
       await tester.pumpWidget(
         MaterialApp(
-          home: Cue(
-            controller: controller,
-            child: const Text('hello'),
-          ),
+          home: Cue(controller: controller, child: const Text('hello')),
         ),
       );
 
@@ -50,7 +47,9 @@ void main() {
   });
 
   group('CueState', () {
-    testWidgets('build wraps child with Actor when acts provided', (tester) async {
+    testWidgets('build wraps child with Actor when acts provided', (
+      tester,
+    ) async {
       final controller = CueController(
         vsync: tester,
         motion: CueMotion.linear(300.ms),
@@ -76,10 +75,7 @@ void main() {
       );
       await tester.pumpWidget(
         MaterialApp(
-          home: Cue(
-            controller: controller,
-            child: const Text('plain'),
-          ),
+          home: Cue(controller: controller, child: const Text('plain')),
         ),
       );
 
@@ -89,9 +85,7 @@ void main() {
 
     testWidgets('debugName is available on state', (tester) async {
       await tester.pumpWidget(
-        MaterialApp(
-          home: Cue.onMount(child: const SizedBox()),
-        ),
+        MaterialApp(home: Cue.onMount(child: const SizedBox())),
       );
 
       final state = tester.state<OnMountCueState>(find.byType(OnMountCue));

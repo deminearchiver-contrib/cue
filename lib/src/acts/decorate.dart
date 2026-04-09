@@ -139,7 +139,8 @@ class DecoratedBoxAct extends AnimtableAct<Decoration, Decoration> {
   /// {@endtemplate}
   const DecoratedBoxAct.keyframed({
     required Keyframes<Decoration> this.frames,
-    KFReverseBehavior<Decoration> super.reverse = const KFReverseBehavior.mirror(),
+    KFReverseBehavior<Decoration> super.reverse =
+        const KFReverseBehavior.mirror(),
     super.delay,
     this.position = DecorationPosition.background,
     this.shape = BoxShape.rectangle,
@@ -151,7 +152,9 @@ class DecoratedBoxAct extends AnimtableAct<Decoration, Decoration> {
        gradient = null;
 
   @override
-  (CueAnimtable<Decoration>, CueAnimtable<Decoration>?) buildTweens(ActContext context) {
+  (CueAnimtable<Decoration>, CueAnimtable<Decoration>?) buildTweens(
+    ActContext context,
+  ) {
     final from = BoxDecoration(
       color: color?.from,
       borderRadius: borderRadius?.from,
@@ -181,7 +184,11 @@ class DecoratedBoxAct extends AnimtableAct<Decoration, Decoration> {
   }
 
   @override
-  Widget apply(BuildContext context, covariant Animation<Decoration> animation, Widget child) {
+  Widget apply(
+    BuildContext context,
+    covariant Animation<Decoration> animation,
+    Widget child,
+  ) {
     return DecoratedBoxTransition(
       decoration: animation,
       position: position,

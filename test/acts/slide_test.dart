@@ -10,7 +10,9 @@ void main() {
 
   final motion = CueMotion.linear(300.ms);
   final actContext = ActContext(motion: motion, reverseMotion: motion);
-  final track = CueTrackImpl(TrackConfig(motion: motion, reverseMotion: motion));
+  final track = CueTrackImpl(
+    TrackConfig(motion: motion, reverseMotion: motion),
+  );
   final timeline = CueTimelineImpl.fromMotion(motion);
 
   group('SlideAct', () {
@@ -419,7 +421,11 @@ void main() {
             textDirection: TextDirection.ltr,
             child: Builder(
               builder: (context) {
-                return animtableAct.apply(context, animation, const Text('Test'));
+                return animtableAct.apply(
+                  context,
+                  animation,
+                  const Text('Test'),
+                );
               },
             ),
           ),
@@ -486,7 +492,10 @@ void main() {
         );
 
         final value = animation.value;
-        expect(value.dx, closeTo(-0.5, 0.01)); // Should interpolate between -1 and 0
+        expect(
+          value.dx,
+          closeTo(-0.5, 0.01),
+        ); // Should interpolate between -1 and 0
         expect(value.dy, 0); // Y should always be 0
       });
 
@@ -506,7 +515,10 @@ void main() {
 
         final value = animation.value;
         expect(value.dx, 0); // X should always be 0
-        expect(value.dy, closeTo(-0.5, 0.01)); // Should interpolate between -1 and 0
+        expect(
+          value.dy,
+          closeTo(-0.5, 0.01),
+        ); // Should interpolate between -1 and 0
       });
 
       test('horizontal axis transforms different values correctly', () {
@@ -553,7 +565,11 @@ void main() {
             textDirection: TextDirection.ltr,
             child: Builder(
               builder: (context) {
-                return animtableAct.apply(context, animation, const Text('Slide X'));
+                return animtableAct.apply(
+                  context,
+                  animation,
+                  const Text('Slide X'),
+                );
               },
             ),
           ),
@@ -582,7 +598,11 @@ void main() {
             textDirection: TextDirection.ltr,
             child: Builder(
               builder: (context) {
-                return animtableAct.apply(context, animation, const Text('Slide Y'));
+                return animtableAct.apply(
+                  context,
+                  animation,
+                  const Text('Slide Y'),
+                );
               },
             ),
           ),
@@ -616,10 +636,16 @@ void main() {
           animtable: animtableY,
         );
 
-        expect(animationX.value.dx, isNot(0)); // X slide should have non-zero DX
+        expect(
+          animationX.value.dx,
+          isNot(0),
+        ); // X slide should have non-zero DX
         expect(animationX.value.dy, 0);
         expect(animationY.value.dx, 0);
-        expect(animationY.value.dy, isNot(0)); // Y slide should have non-zero DY
+        expect(
+          animationY.value.dy,
+          isNot(0),
+        ); // Y slide should have non-zero DY
       });
     });
   });

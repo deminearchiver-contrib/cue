@@ -9,7 +9,9 @@ void main() {
 
   final motion = CueMotion.linear(300.ms);
   final actContext = ActContext(motion: motion, reverseMotion: motion);
-  final track = CueTrackImpl(TrackConfig(motion: motion, reverseMotion: motion));
+  final track = CueTrackImpl(
+    TrackConfig(motion: motion, reverseMotion: motion),
+  );
   final timeline = CueTimelineImpl.fromMotion(motion);
   group('PaddingAct', () {
     group('key', () {
@@ -90,7 +92,10 @@ void main() {
       });
 
       testWidgets('applies padding at progress 0', (tester) async {
-        const act = PaddingAct(from: EdgeInsets.all(10), to: EdgeInsets.all(20));
+        const act = PaddingAct(
+          from: EdgeInsets.all(10),
+          to: EdgeInsets.all(20),
+        );
 
         final (animtable, _) = act.buildTweens(actContext);
 
@@ -118,7 +123,10 @@ void main() {
       });
 
       testWidgets('applies padding at progress 1', (tester) async {
-        const act = PaddingAct(from: EdgeInsets.all(10), to: EdgeInsets.all(20));
+        const act = PaddingAct(
+          from: EdgeInsets.all(10),
+          to: EdgeInsets.all(20),
+        );
 
         final (animtable, _) = act.buildTweens(actContext);
 
@@ -210,28 +218,49 @@ void main() {
 
     group('equality', () {
       test('equal acts have same hashCode', () {
-        const act1 = PaddingAct(from: EdgeInsets.all(10), to: EdgeInsets.all(20));
-        const act2 = PaddingAct(from: EdgeInsets.all(10), to: EdgeInsets.all(20));
+        const act1 = PaddingAct(
+          from: EdgeInsets.all(10),
+          to: EdgeInsets.all(20),
+        );
+        const act2 = PaddingAct(
+          from: EdgeInsets.all(10),
+          to: EdgeInsets.all(20),
+        );
         expect(act1, act2);
         expect(act1.hashCode, act2.hashCode);
       });
 
       test('different from values are not equal', () {
-        const act1 = PaddingAct(from: EdgeInsets.all(10), to: EdgeInsets.all(20));
-        const act2 = PaddingAct(from: EdgeInsets.all(5), to: EdgeInsets.all(20));
+        const act1 = PaddingAct(
+          from: EdgeInsets.all(10),
+          to: EdgeInsets.all(20),
+        );
+        const act2 = PaddingAct(
+          from: EdgeInsets.all(5),
+          to: EdgeInsets.all(20),
+        );
         expect(act1, isNot(act2));
       });
 
       test('different to values are not equal', () {
-        const act1 = PaddingAct(from: EdgeInsets.all(10), to: EdgeInsets.all(20));
-        const act2 = PaddingAct(from: EdgeInsets.all(10), to: EdgeInsets.all(30));
+        const act1 = PaddingAct(
+          from: EdgeInsets.all(10),
+          to: EdgeInsets.all(20),
+        );
+        const act2 = PaddingAct(
+          from: EdgeInsets.all(10),
+          to: EdgeInsets.all(30),
+        );
         expect(act1, isNot(act2));
       });
     });
 
     group('isConstant', () {
       test('isConstant when from equals to', () {
-        const act = PaddingAct(from: EdgeInsets.all(10), to: EdgeInsets.all(10));
+        const act = PaddingAct(
+          from: EdgeInsets.all(10),
+          to: EdgeInsets.all(10),
+        );
         expect(act.isConstant, isTrue);
       });
 

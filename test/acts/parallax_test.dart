@@ -9,10 +9,15 @@ void main() {
 
   final motion = CueMotion.linear(300.ms);
   final actContext = ActContext(motion: motion, reverseMotion: motion);
-  final track = CueTrackImpl(TrackConfig(motion: motion, reverseMotion: motion));
+  final track = CueTrackImpl(
+    TrackConfig(motion: motion, reverseMotion: motion),
+  );
   final timeline = CueTimelineImpl.fromMotion(motion);
 
-  DeferredCueAnimation<Offset> createDeferredAnimation(CueTrackImpl track, ActContext ctx) {
+  DeferredCueAnimation<Offset> createDeferredAnimation(
+    CueTrackImpl track,
+    ActContext ctx,
+  ) {
     return DeferredCueAnimation<Offset>(
       parent: track,
       token: ReleaseToken(track.config, timeline),
@@ -117,7 +122,11 @@ void main() {
               height: 200,
               child: Builder(
                 builder: (context) {
-                  return act.apply(context, animation, const SizedBox(width: 300, height: 200));
+                  return act.apply(
+                    context,
+                    animation,
+                    const SizedBox(width: 300, height: 200),
+                  );
                 },
               ),
             ),
@@ -139,7 +148,11 @@ void main() {
               height: 400,
               child: Builder(
                 builder: (context) {
-                  return act.apply(context, animation, const SizedBox(width: 200, height: 300));
+                  return act.apply(
+                    context,
+                    animation,
+                    const SizedBox(width: 200, height: 300),
+                  );
                 },
               ),
             ),
@@ -259,8 +272,14 @@ void main() {
       });
 
       test('different reverse values are not equal', () {
-        const act1 = ParallaxAct(slide: 0.5, reverse: ReverseBehavior<double>.none());
-        const act2 = ParallaxAct(slide: 0.5, reverse: ReverseBehavior<double>.exclusive());
+        const act1 = ParallaxAct(
+          slide: 0.5,
+          reverse: ReverseBehavior<double>.none(),
+        );
+        const act2 = ParallaxAct(
+          slide: 0.5,
+          reverse: ReverseBehavior<double>.exclusive(),
+        );
         expect(act1, isNot(act2));
       });
 
@@ -285,7 +304,11 @@ void main() {
               height: 200,
               child: Builder(
                 builder: (context) {
-                  return act.apply(context, animation1, const SizedBox(width: 300, height: 200));
+                  return act.apply(
+                    context,
+                    animation1,
+                    const SizedBox(width: 300, height: 200),
+                  );
                 },
               ),
             ),
@@ -302,7 +325,11 @@ void main() {
               height: 200,
               child: Builder(
                 builder: (context) {
-                  return act.apply(context, animation2, const SizedBox(width: 300, height: 200));
+                  return act.apply(
+                    context,
+                    animation2,
+                    const SizedBox(width: 300, height: 200),
+                  );
                 },
               ),
             ),
@@ -325,7 +352,11 @@ void main() {
             height: 200,
             child: Builder(
               builder: (context) {
-                return act1.apply(context, animation, const SizedBox(width: 300, height: 200));
+                return act1.apply(
+                  context,
+                  animation,
+                  const SizedBox(width: 300, height: 200),
+                );
               },
             ),
           ),
@@ -341,7 +372,11 @@ void main() {
             height: 200,
             child: Builder(
               builder: (context) {
-                return act2.apply(context, animation, const SizedBox(width: 300, height: 200));
+                return act2.apply(
+                  context,
+                  animation,
+                  const SizedBox(width: 300, height: 200),
+                );
               },
             ),
           ),
@@ -562,7 +597,9 @@ void main() {
         await tester.pump();
       });
 
-      testWidgets('setter called with same value returns early', (tester) async {
+      testWidgets('setter called with same value returns early', (
+        tester,
+      ) async {
         final act = ParallaxAct(slide: 0.5, axis: Axis.horizontal);
 
         track.setProgress(0.5);
@@ -613,10 +650,7 @@ void main() {
 
       testWidgets('updates reverse behavior when changed', (tester) async {
         const reverse1 = ReverseBehavior<double>.mirror();
-        final act1 = ParallaxAct(
-          slide: 0.5,
-          reverse: reverse1,
-        );
+        final act1 = ParallaxAct(slide: 0.5, reverse: reverse1);
 
         track.setProgress(0.5);
         final animation = createDeferredAnimation(track, actContext);
@@ -642,10 +676,7 @@ void main() {
 
         // Update reverse behavior
         const reverse2 = ReverseBehavior<double>.exclusive();
-        final act2 = ParallaxAct(
-          slide: 0.5,
-          reverse: reverse2,
-        );
+        final act2 = ParallaxAct(slide: 0.5, reverse: reverse2);
 
         await tester.pumpWidget(
           Directionality(
@@ -744,7 +775,11 @@ void main() {
                     animation,
                     GestureDetector(
                       onTap: () {},
-                      child: const SizedBox(width: 300, height: 200, child: Text('Tap me')),
+                      child: const SizedBox(
+                        width: 300,
+                        height: 200,
+                        child: Text('Tap me'),
+                      ),
                     ),
                   );
                 },

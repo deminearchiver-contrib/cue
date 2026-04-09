@@ -31,7 +31,9 @@ class CueTrackImpl extends CueTrack with AnimationLocalStatusListenersMixin {
   bool _needsPrepare = false;
 
   late final CueSimulation _seekableSim = config.motion.buildBase();
-  late final CueSimulation _seekableReverseSim = config.reverseMotion.buildBase(forward: false);
+  late final CueSimulation _seekableReverseSim = config.reverseMotion.buildBase(
+    forward: false,
+  );
 
   /// Duration of the forward animation in seconds.
   @override
@@ -65,7 +67,11 @@ class CueTrackImpl extends CueTrack with AnimationLocalStatusListenersMixin {
 
   bool _forward = true;
 
-  (double, int) _valueAtProgress(double progress, bool forward, {bool forceLinear = false}) {
+  (double, int) _valueAtProgress(
+    double progress,
+    bool forward, {
+    bool forceLinear = false,
+  }) {
     final sim = forward ? _seekableSim : _seekableReverseSim;
     progress = forward ? progress : (1.0 - progress);
     return sim.valueAtProgress(progress, forceLinear: forceLinear);
@@ -82,8 +88,16 @@ class CueTrackImpl extends CueTrack with AnimationLocalStatusListenersMixin {
   /// [alwaysNotify] - Force notifying listeners even if value didn't change
   /// [forceLinear] - Ignore curves/springs and use linear interpolation
   @override
-  void setProgress(double t, {bool forward = true, bool alwaysNotify = false, bool forceLinear = false}) {
-    assert(t >= 0.0 && t <= 1.0, 'Progress value must be between 0.0 and 1.0. Received: $t');
+  void setProgress(
+    double t, {
+    bool forward = true,
+    bool alwaysNotify = false,
+    bool forceLinear = false,
+  }) {
+    assert(
+      t >= 0.0 && t <= 1.0,
+      'Progress value must be between 0.0 and 1.0. Received: $t',
+    );
     _forward = forward;
     _needsPrepare = true;
     _progress = t;
@@ -123,7 +137,12 @@ class CueTrackImpl extends CueTrack with AnimationLocalStatusListenersMixin {
   /// [target] - Target progress override (default: 1.0 forward, 0.0 reverse)
   /// [exteranlVelocity] - Initial velocity for spring handoff/momentum
   @override
-  void prepare({required bool forward, double? from, double? target, double? exteranlVelocity}) {
+  void prepare({
+    required bool forward,
+    double? from,
+    double? target,
+    double? exteranlVelocity,
+  }) {
     _needsPrepare = false;
     _forward = forward;
 
@@ -164,7 +183,9 @@ class CueTrackImpl extends CueTrack with AnimationLocalStatusListenersMixin {
       _phase = sim.phase;
     }
 
-    final (targetValue, targetPhase) = target == null ? (null, null) : _valueAtProgress(target, forward);
+    final (targetValue, targetPhase) = target == null
+        ? (null, null)
+        : _valueAtProgress(target, forward);
     _activeSim = active.build(
       SimulationBuildData(
         forward: forward,
@@ -208,7 +229,9 @@ class CueTrackImpl extends CueTrack with AnimationLocalStatusListenersMixin {
     _localT += td;
 
     final simDuration = _activeSim!.duration;
-    final fraction = simDuration <= 0 ? 1.0 : (_localT / simDuration).clamp(0.0, 1.0);
+    final fraction = simDuration <= 0
+        ? 1.0
+        : (_localT / simDuration).clamp(0.0, 1.0);
     _progress = _startProgress + (_targetProgress - _startProgress) * fraction;
 
     if (_activeSim!.isDone(_localT)) {
@@ -259,10 +282,16 @@ class CueTrackImpl extends CueTrack with AnimationLocalStatusListenersMixin {
 /// A track drives a specific animation with forward and reverse motions.
 /// It maintains progress (0-1), computed animation values, and respects
 /// the track's [ReverseBehaviorType] configuration.
-abstract class CueTrack extends Animation<double> with AnimationLocalListenersMixin {
+abstract class CueTrack extends Animation<double>
+    with AnimationLocalListenersMixin {
   /// Prepares the track for animation playback.
   /// Must be called before [tick] when resuming from a [setProgress] call.
-  void prepare({required bool forward, double? from, double? target, double? exteranlVelocity});
+  void prepare({
+    required bool forward,
+    double? from,
+    double? target,
+    double? exteranlVelocity,
+  });
 
   /// Track configuration with forward and reverse motion.
   TrackConfig get config;
@@ -286,7 +315,12 @@ abstract class CueTrack extends Animation<double> with AnimationLocalListenersMi
   void tick(double td);
 
   /// Set animation progress directly (0-1, normalized).
-  void setProgress(double t, {bool forward = true, bool alwaysNotify = false, bool forceLinear = false});
+  void setProgress(
+    double t, {
+    bool forward = true,
+    bool alwaysNotify = false,
+    bool forceLinear = false,
+  });
 
   /// Whether animation has finished.
   bool get isDone;

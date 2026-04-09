@@ -68,7 +68,10 @@ class OnScrollParallax extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Destinations', style: Theme.of(context).textTheme.headlineSmall),
+        title: Text(
+          'Destinations',
+          style: Theme.of(context).textTheme.headlineSmall,
+        ),
         backgroundColor: Colors.transparent,
         elevation: 0,
       ),
@@ -164,11 +167,7 @@ class _ParallaxCard extends StatelessWidget {
                           color: Colors.white.withValues(alpha: 0.2),
                           borderRadius: BorderRadius.circular(10),
                         ),
-                        child: Icon(
-                          icon,
-                          color: Colors.white,
-                          size: 18,
-                        ),
+                        child: Icon(icon, color: Colors.white, size: 18),
                       ),
                       const SizedBox(width: 12),
                       Expanded(

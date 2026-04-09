@@ -19,21 +19,36 @@ void main() {
     });
 
     test('equal instances with same curve', () {
-      final a = TimedMotion.curved(Duration(milliseconds: 300), curve: Curves.easeIn);
-      final b = TimedMotion.curved(Duration(milliseconds: 300), curve: Curves.easeIn);
+      final a = TimedMotion.curved(
+        Duration(milliseconds: 300),
+        curve: Curves.easeIn,
+      );
+      final b = TimedMotion.curved(
+        Duration(milliseconds: 300),
+        curve: Curves.easeIn,
+      );
       expect(a, equals(b));
       expect(a.hashCode, equals(b.hashCode));
     });
 
     test('unequal instances with different curve', () {
-      final a = TimedMotion.curved(Duration(milliseconds: 300), curve: Curves.easeIn);
-      final b = TimedMotion.curved(Duration(milliseconds: 300), curve: Curves.easeOut);
+      final a = TimedMotion.curved(
+        Duration(milliseconds: 300),
+        curve: Curves.easeIn,
+      );
+      final b = TimedMotion.curved(
+        Duration(milliseconds: 300),
+        curve: Curves.easeOut,
+      );
       expect(a, isNot(equals(b)));
     });
 
     test('linear vs curved are not equal', () {
       const a = TimedMotion(Duration(milliseconds: 300));
-      final b = TimedMotion.curved(Duration(milliseconds: 300), curve: Curves.easeIn);
+      final b = TimedMotion.curved(
+        Duration(milliseconds: 300),
+        curve: Curves.easeIn,
+      );
       expect(a, isNot(equals(b)));
     });
 
@@ -74,8 +89,16 @@ void main() {
     });
 
     test('unequal springs with different snapToEnd', () {
-      const a = Spring.withDampingRatio(stiffness: 100, ratio: 0.5, snapToEnd: true);
-      const b = Spring.withDampingRatio(stiffness: 100, ratio: 0.5, snapToEnd: false);
+      const a = Spring.withDampingRatio(
+        stiffness: 100,
+        ratio: 0.5,
+        snapToEnd: true,
+      );
+      const b = Spring.withDampingRatio(
+        stiffness: 100,
+        ratio: 0.5,
+        snapToEnd: false,
+      );
       expect(a, isNot(equals(b)));
     });
 
@@ -104,7 +127,10 @@ void main() {
       expect(const Spring.smooth(), isNot(equals(const Spring.gentle())));
       expect(const Spring.smooth(), isNot(equals(const Spring.snappy())));
       expect(const Spring.bouncy(), isNot(equals(const Spring.wobbly())));
-      expect(const Spring.spatialSlow(), isNot(equals(const Spring.interactive())));
+      expect(
+        const Spring.spatialSlow(),
+        isNot(equals(const Spring.interactive())),
+      );
     });
 
     test('identical spring is equal', () {
@@ -140,9 +166,7 @@ void main() {
     });
 
     test('unequal segmented motions with different length', () {
-      const a = SegmentedMotion([
-        TimedMotion(Duration(milliseconds: 200)),
-      ]);
+      const a = SegmentedMotion([TimedMotion(Duration(milliseconds: 200))]);
       const b = SegmentedMotion([
         TimedMotion(Duration(milliseconds: 200)),
         TimedMotion(Duration(milliseconds: 300)),
@@ -181,32 +205,56 @@ void main() {
 
   group('DelayedMotion equality', () {
     test('equal delayed motions', () {
-      const a = DelayedMotion(TimedMotion(Duration(milliseconds: 300)), Duration(milliseconds: 100));
-      const b = DelayedMotion(TimedMotion(Duration(milliseconds: 300)), Duration(milliseconds: 100));
+      const a = DelayedMotion(
+        TimedMotion(Duration(milliseconds: 300)),
+        Duration(milliseconds: 100),
+      );
+      const b = DelayedMotion(
+        TimedMotion(Duration(milliseconds: 300)),
+        Duration(milliseconds: 100),
+      );
       expect(a, equals(b));
       expect(a.hashCode, equals(b.hashCode));
     });
 
     test('unequal delayed motions with different base', () {
-      const a = DelayedMotion(TimedMotion(Duration(milliseconds: 300)), Duration(milliseconds: 100));
-      const b = DelayedMotion(TimedMotion(Duration(milliseconds: 500)), Duration(milliseconds: 100));
+      const a = DelayedMotion(
+        TimedMotion(Duration(milliseconds: 300)),
+        Duration(milliseconds: 100),
+      );
+      const b = DelayedMotion(
+        TimedMotion(Duration(milliseconds: 500)),
+        Duration(milliseconds: 100),
+      );
       expect(a, isNot(equals(b)));
     });
 
     test('unequal delayed motions with different delay', () {
-      const a = DelayedMotion(TimedMotion(Duration(milliseconds: 300)), Duration(milliseconds: 100));
-      const b = DelayedMotion(TimedMotion(Duration(milliseconds: 300)), Duration(milliseconds: 200));
+      const a = DelayedMotion(
+        TimedMotion(Duration(milliseconds: 300)),
+        Duration(milliseconds: 100),
+      );
+      const b = DelayedMotion(
+        TimedMotion(Duration(milliseconds: 300)),
+        Duration(milliseconds: 200),
+      );
       expect(a, isNot(equals(b)));
     });
 
     test('delayed spring vs delayed timed are not equal', () {
-      const a = DelayedMotion(TimedMotion(Duration(milliseconds: 300)), Duration(milliseconds: 100));
+      const a = DelayedMotion(
+        TimedMotion(Duration(milliseconds: 300)),
+        Duration(milliseconds: 100),
+      );
       const b = DelayedMotion(Spring.smooth(), Duration(milliseconds: 100));
       expect(a, isNot(equals(b)));
     });
 
     test('identical delayed motion is equal', () {
-      const a = DelayedMotion(TimedMotion(Duration(milliseconds: 300)), Duration(milliseconds: 100));
+      const a = DelayedMotion(
+        TimedMotion(Duration(milliseconds: 300)),
+        Duration(milliseconds: 100),
+      );
       expect(a, equals(a));
     });
   });
@@ -226,7 +274,10 @@ void main() {
 
     test('TimedMotion is not equal to DelayedMotion', () {
       const a = TimedMotion(Duration(milliseconds: 300));
-      const b = DelayedMotion(TimedMotion(Duration(milliseconds: 300)), Duration.zero);
+      const b = DelayedMotion(
+        TimedMotion(Duration(milliseconds: 300)),
+        Duration.zero,
+      );
       expect(a, isNot(equals(b)));
     });
 
@@ -293,10 +344,7 @@ void main() {
         Duration(milliseconds: 100),
       );
       final sim = motion.build(
-        SimulationBuildData.forward(
-          startValue: 0.0,
-          startProgress: 0.5,
-        ),
+        SimulationBuildData.forward(startValue: 0.0, startProgress: 0.5),
       );
       expect(sim, isNotNull);
       expect(sim.duration, greaterThan(0));
@@ -308,10 +356,7 @@ void main() {
         Duration(milliseconds: 100),
       );
       final sim = motion.build(
-        SimulationBuildData.reverse(
-          startValue: 1.0,
-          startProgress: 0.5,
-        ),
+        SimulationBuildData.reverse(startValue: 1.0, startProgress: 0.5),
       );
       expect(sim, isNotNull);
       expect(sim.duration, greaterThan(0));
@@ -323,10 +368,7 @@ void main() {
         Duration(milliseconds: 100),
       );
       final sim = motion.build(
-        SimulationBuildData.forward(
-          startValue: 0.0,
-          startProgress: 0.9,
-        ),
+        SimulationBuildData.forward(startValue: 0.0, startProgress: 0.9),
       );
       expect(sim, isNotNull);
     });

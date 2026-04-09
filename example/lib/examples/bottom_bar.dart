@@ -28,12 +28,17 @@ class _BottomBarState extends State<BottomBar> {
             child: Container(
               height: 56,
               width: 300,
-              decoration: BoxDecoration(borderRadius: .circular(32), color: Colors.black),
+              decoration: BoxDecoration(
+                borderRadius: .circular(32),
+                color: Colors.black,
+              ),
               padding: const EdgeInsets.all(4),
               child: LayoutBuilder(
                 builder: (context, constraints) {
-                  final collapsedWidth = constraints.maxWidth / (_tabs.length + 1);
-                  final expandedWidth = collapsedWidth * 2; // expanded takes 2x space
+                  final collapsedWidth =
+                      constraints.maxWidth / (_tabs.length + 1);
+                  final expandedWidth =
+                      collapsedWidth * 2; // expanded takes 2x space
                   final slideStep = collapsedWidth / expandedWidth;
                   return Stack(
                     children: [
@@ -74,13 +79,22 @@ class _BottomBarState extends State<BottomBar> {
                                   motion: .smooth(),
                                   child: Actor(
                                     acts: [
-                                      .sizedClip(from: .width(collapsedWidth), to: .width(expandedWidth)),
-                                      .colorTint(from: Colors.white60, to: Colors.black),
+                                      .sizedClip(
+                                        from: .width(collapsedWidth),
+                                        to: .width(expandedWidth),
+                                      ),
+                                      .colorTint(
+                                        from: Colors.white60,
+                                        to: Colors.black,
+                                      ),
                                     ],
                                     child: Row(
                                       mainAxisAlignment: .center,
                                       children: [
-                                        Icon(_tabs[i].icon, color: Colors.white),
+                                        Icon(
+                                          _tabs[i].icon,
+                                          color: Colors.white,
+                                        ),
                                         Actor(
                                           acts: [
                                             // clip the text so the icon is centered in the collapsed state
@@ -89,7 +103,9 @@ class _BottomBarState extends State<BottomBar> {
                                             .scale(from: .7),
                                           ],
                                           child: Padding(
-                                            padding: const .symmetric(horizontal: 8.0),
+                                            padding: const .symmetric(
+                                              horizontal: 8.0,
+                                            ),
                                             child: Text(
                                               _tabs[i].label,
                                               maxLines: 1,

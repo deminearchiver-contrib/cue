@@ -23,10 +23,7 @@ class ThreeDotsAction extends StatelessWidget {
           children: [
             // we use specific sized dots for easier transition
             for (var i = 0; i < 3; i++)
-              CircleAvatar(
-                radius: 2.5,
-                backgroundColor: colors.onSurface,
-              ),
+              CircleAvatar(radius: 2.5, backgroundColor: colors.onSurface),
           ],
         ),
       ),
@@ -42,11 +39,7 @@ class ThreeDotsAction extends StatelessWidget {
                 shape: CircleBorder(),
                 onPressed: () => Navigator.of(context).pop(),
                 child: Actor(
-                  acts: [
-                    .fadeIn(from: 0),
-                    .focus(from: 8),
-                    .slideY(from: 1),
-                  ],
+                  acts: [.fadeIn(from: 0), .focus(from: 8), .slideY(from: 1)],
                   child: const Icon(Icons.keyboard_arrow_down),
                 ),
               ),
@@ -81,12 +74,12 @@ class ThreeDotsAction extends StatelessWidget {
                           heroTag: null,
                           onPressed: () {},
                           child: Actor(
-                            acts: [
-                              .focus(from: 8),
-                              .zoomIn(),
-                              .fadeIn(),
-                            ],
-                            child: Icon(icon, color: colors.onPrimary, size: 20),
+                            acts: [.focus(from: 8), .zoomIn(), .fadeIn()],
+                            child: Icon(
+                              icon,
+                              color: colors.onPrimary,
+                              size: 20,
+                            ),
                           ),
                         ),
                       ),

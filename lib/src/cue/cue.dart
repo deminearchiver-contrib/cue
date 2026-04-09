@@ -156,12 +156,7 @@ part 'on_mount_cue.dart';
 /// ```
 
 abstract class Cue extends StatefulWidget {
-  const Cue._({
-    super.key,
-    required this.child,
-    this.debugLabel,
-    this.acts,
-  });
+  const Cue._({super.key, required this.child, this.debugLabel, this.acts});
 
   /// An optional label shown in debug overlays and timeline tools.
   ///
@@ -315,7 +310,8 @@ abstract class CueState<T extends Cue> extends State<Cue> {
   /// A debug name for this cue, used in debug overlays and DevTools.
   String get debugName;
 
-  late final _debugId = '$debugName-${widget.debugLabel ?? ''}${identityHashCode(widget)}';
+  late final _debugId =
+      '$debugName-${widget.debugLabel ?? ''}${identityHashCode(widget)}';
 
   @override
   void didChangeDependencies() {

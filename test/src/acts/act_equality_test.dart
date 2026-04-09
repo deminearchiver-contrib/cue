@@ -65,25 +65,37 @@ void main() {
 
     test('mirror with different motion are not equal', () {
       const a = ReverseBehavior<double>.mirror(motion: CueMotion.none);
-      const b = ReverseBehavior<double>.mirror(motion: CueMotion.linear(Duration(milliseconds: 200)));
+      const b = ReverseBehavior<double>.mirror(
+        motion: CueMotion.linear(Duration(milliseconds: 200)),
+      );
       expect(a, isNot(equals(b)));
     });
 
     test('mirror with same motion are equal', () {
-      const a = ReverseBehavior<double>.mirror(motion: CueMotion.linear(Duration(milliseconds: 200)));
-      const b = ReverseBehavior<double>.mirror(motion: CueMotion.linear(Duration(milliseconds: 200)));
+      const a = ReverseBehavior<double>.mirror(
+        motion: CueMotion.linear(Duration(milliseconds: 200)),
+      );
+      const b = ReverseBehavior<double>.mirror(
+        motion: CueMotion.linear(Duration(milliseconds: 200)),
+      );
       expect(a, equals(b));
     });
 
     test('mirror with different delay are not equal', () {
       const a = ReverseBehavior<double>.mirror(delay: Duration.zero);
-      const b = ReverseBehavior<double>.mirror(delay: Duration(milliseconds: 100));
+      const b = ReverseBehavior<double>.mirror(
+        delay: Duration(milliseconds: 100),
+      );
       expect(a, isNot(equals(b)));
     });
 
     test('mirror with same delay are equal', () {
-      const a = ReverseBehavior<double>.mirror(delay: Duration(milliseconds: 150));
-      const b = ReverseBehavior<double>.mirror(delay: Duration(milliseconds: 150));
+      const a = ReverseBehavior<double>.mirror(
+        delay: Duration(milliseconds: 150),
+      );
+      const b = ReverseBehavior<double>.mirror(
+        delay: Duration(milliseconds: 150),
+      );
       expect(a, equals(b));
     });
 
@@ -148,26 +160,50 @@ void main() {
     });
 
     test('to with same motion are equal', () {
-      const a = ReverseBehavior<double>.to(0.5, motion: CueMotion.linear(Duration(milliseconds: 100)));
-      const b = ReverseBehavior<double>.to(0.5, motion: CueMotion.linear(Duration(milliseconds: 100)));
+      const a = ReverseBehavior<double>.to(
+        0.5,
+        motion: CueMotion.linear(Duration(milliseconds: 100)),
+      );
+      const b = ReverseBehavior<double>.to(
+        0.5,
+        motion: CueMotion.linear(Duration(milliseconds: 100)),
+      );
       expect(a, equals(b));
     });
 
     test('to with different motion are not equal', () {
-      const a = ReverseBehavior<double>.to(0.5, motion: CueMotion.linear(Duration(milliseconds: 100)));
-      const b = ReverseBehavior<double>.to(0.5, motion: CueMotion.linear(Duration(milliseconds: 200)));
+      const a = ReverseBehavior<double>.to(
+        0.5,
+        motion: CueMotion.linear(Duration(milliseconds: 100)),
+      );
+      const b = ReverseBehavior<double>.to(
+        0.5,
+        motion: CueMotion.linear(Duration(milliseconds: 200)),
+      );
       expect(a, isNot(equals(b)));
     });
 
     test('to with same delay are equal', () {
-      const a = ReverseBehavior<double>.to(0.5, delay: Duration(milliseconds: 50));
-      const b = ReverseBehavior<double>.to(0.5, delay: Duration(milliseconds: 50));
+      const a = ReverseBehavior<double>.to(
+        0.5,
+        delay: Duration(milliseconds: 50),
+      );
+      const b = ReverseBehavior<double>.to(
+        0.5,
+        delay: Duration(milliseconds: 50),
+      );
       expect(a, equals(b));
     });
 
     test('to with different delay are not equal', () {
-      const a = ReverseBehavior<double>.to(0.5, delay: Duration(milliseconds: 50));
-      const b = ReverseBehavior<double>.to(0.5, delay: Duration(milliseconds: 100));
+      const a = ReverseBehavior<double>.to(
+        0.5,
+        delay: Duration(milliseconds: 50),
+      );
+      const b = ReverseBehavior<double>.to(
+        0.5,
+        delay: Duration(milliseconds: 100),
+      );
       expect(a, isNot(equals(b)));
     });
 
@@ -208,8 +244,12 @@ void main() {
     });
 
     test('different ReverseBehaviors typically have different hashCode', () {
-      const a = ReverseBehavior<double>.mirror(delay: Duration(milliseconds: 50));
-      const b = ReverseBehavior<double>.mirror(delay: Duration(milliseconds: 100));
+      const a = ReverseBehavior<double>.mirror(
+        delay: Duration(milliseconds: 50),
+      );
+      const b = ReverseBehavior<double>.mirror(
+        delay: Duration(milliseconds: 100),
+      );
       expect(a.hashCode, isNot(equals(b.hashCode)));
     });
   });
@@ -222,14 +262,20 @@ void main() {
     });
 
     test('mirror with same delay are equal', () {
-      const a = KFReverseBehavior<double>.mirror(delay: Duration(milliseconds: 50));
-      const b = KFReverseBehavior<double>.mirror(delay: Duration(milliseconds: 50));
+      const a = KFReverseBehavior<double>.mirror(
+        delay: Duration(milliseconds: 50),
+      );
+      const b = KFReverseBehavior<double>.mirror(
+        delay: Duration(milliseconds: 50),
+      );
       expect(a, equals(b));
     });
 
     test('mirror with different delay are not equal', () {
       const a = KFReverseBehavior<double>.mirror(delay: Duration.zero);
-      const b = KFReverseBehavior<double>.mirror(delay: Duration(milliseconds: 100));
+      const b = KFReverseBehavior<double>.mirror(
+        delay: Duration(milliseconds: 100),
+      );
       expect(a, isNot(equals(b)));
     });
 
@@ -246,29 +292,51 @@ void main() {
     });
 
     test('to with same frames are equal', () {
-      final frames = MotionKeyframes([Keyframe.key(0.5)], motion: CueMotion.none);
+      final frames = MotionKeyframes([
+        Keyframe.key(0.5),
+      ], motion: CueMotion.none);
       final a = KFReverseBehavior<double>.to(frames);
       final b = KFReverseBehavior<double>.to(frames);
       expect(a, equals(b));
     });
 
     test('to with different frames are not equal', () {
-      final a = KFReverseBehavior<double>.to(MotionKeyframes([Keyframe.key(0.5)], motion: CueMotion.none));
-      final b = KFReverseBehavior<double>.to(MotionKeyframes([Keyframe.key(0.8)], motion: CueMotion.none));
+      final a = KFReverseBehavior<double>.to(
+        MotionKeyframes([Keyframe.key(0.5)], motion: CueMotion.none),
+      );
+      final b = KFReverseBehavior<double>.to(
+        MotionKeyframes([Keyframe.key(0.8)], motion: CueMotion.none),
+      );
       expect(a, isNot(equals(b)));
     });
 
     test('to with same delay are equal', () {
-      final frames = MotionKeyframes([Keyframe.key(0.5)], motion: CueMotion.none);
-      final a = KFReverseBehavior<double>.to(frames, delay: const Duration(milliseconds: 50));
-      final b = KFReverseBehavior<double>.to(frames, delay: const Duration(milliseconds: 50));
+      final frames = MotionKeyframes([
+        Keyframe.key(0.5),
+      ], motion: CueMotion.none);
+      final a = KFReverseBehavior<double>.to(
+        frames,
+        delay: const Duration(milliseconds: 50),
+      );
+      final b = KFReverseBehavior<double>.to(
+        frames,
+        delay: const Duration(milliseconds: 50),
+      );
       expect(a, equals(b));
     });
 
     test('to with different delay are not equal', () {
-      final frames = MotionKeyframes([Keyframe.key(0.5)], motion: CueMotion.none);
-      final a = KFReverseBehavior<double>.to(frames, delay: const Duration(milliseconds: 50));
-      final b = KFReverseBehavior<double>.to(frames, delay: const Duration(milliseconds: 100));
+      final frames = MotionKeyframes([
+        Keyframe.key(0.5),
+      ], motion: CueMotion.none);
+      final a = KFReverseBehavior<double>.to(
+        frames,
+        delay: const Duration(milliseconds: 50),
+      );
+      final b = KFReverseBehavior<double>.to(
+        frames,
+        delay: const Duration(milliseconds: 100),
+      );
       expect(a, isNot(equals(b)));
     });
 
@@ -292,13 +360,19 @@ void main() {
 
     test('mirror vs to not equal', () {
       const a = KFReverseBehavior<double>.mirror();
-      final b = KFReverseBehavior<double>.to(MotionKeyframes([Keyframe.key(0.5)], motion: CueMotion.none));
+      final b = KFReverseBehavior<double>.to(
+        MotionKeyframes([Keyframe.key(0.5)], motion: CueMotion.none),
+      );
       expect(a, isNot(equals(b)));
     });
 
     test('equal KFReverseBehaviors have same hashCode', () {
-      const a = KFReverseBehavior<double>.mirror(delay: Duration(milliseconds: 50));
-      const b = KFReverseBehavior<double>.mirror(delay: Duration(milliseconds: 50));
+      const a = KFReverseBehavior<double>.mirror(
+        delay: Duration(milliseconds: 50),
+      );
+      const b = KFReverseBehavior<double>.mirror(
+        delay: Duration(milliseconds: 50),
+      );
       expect(a.hashCode, equals(b.hashCode));
     });
   });
@@ -317,14 +391,26 @@ void main() {
     });
 
     test('TimedMotion.curved with same curve are equal', () {
-      const a = CueMotion.curved(Duration(milliseconds: 200), curve: Curves.easeInOut);
-      const b = CueMotion.curved(Duration(milliseconds: 200), curve: Curves.easeInOut);
+      const a = CueMotion.curved(
+        Duration(milliseconds: 200),
+        curve: Curves.easeInOut,
+      );
+      const b = CueMotion.curved(
+        Duration(milliseconds: 200),
+        curve: Curves.easeInOut,
+      );
       expect(a, equals(b));
     });
 
     test('TimedMotion.curved with different curve are not equal', () {
-      const a = CueMotion.curved(Duration(milliseconds: 200), curve: Curves.easeIn);
-      const b = CueMotion.curved(Duration(milliseconds: 200), curve: Curves.easeOut);
+      const a = CueMotion.curved(
+        Duration(milliseconds: 200),
+        curve: Curves.easeIn,
+      );
+      const b = CueMotion.curved(
+        Duration(milliseconds: 200),
+        curve: Curves.easeOut,
+      );
       expect(a, isNot(equals(b)));
     });
 
@@ -363,32 +449,74 @@ void main() {
     });
 
     test('Spring.custom with same parameters are equal', () {
-      const a = Spring.withDampingRatio(mass: 1.0, stiffness: 100.0, ratio: 0.1);
-      const b = Spring.withDampingRatio(mass: 1.0, stiffness: 100.0, ratio: 0.1);
+      const a = Spring.withDampingRatio(
+        mass: 1.0,
+        stiffness: 100.0,
+        ratio: 0.1,
+      );
+      const b = Spring.withDampingRatio(
+        mass: 1.0,
+        stiffness: 100.0,
+        ratio: 0.1,
+      );
       expect(a, equals(b));
     });
 
     test('Spring.custom with different mass are not equal', () {
-      const a = Spring.withDampingRatio(mass: 1.0, stiffness: 100.0, ratio: 0.1);
-      const b = Spring.withDampingRatio(mass: 2.0, stiffness: 100.0, ratio: 0.1);
+      const a = Spring.withDampingRatio(
+        mass: 1.0,
+        stiffness: 100.0,
+        ratio: 0.1,
+      );
+      const b = Spring.withDampingRatio(
+        mass: 2.0,
+        stiffness: 100.0,
+        ratio: 0.1,
+      );
       expect(a, isNot(equals(b)));
     });
 
     test('Spring.custom with different stiffness are not equal', () {
-      const a = Spring.withDampingRatio(mass: 1.0, stiffness: 100.0, ratio: 0.1);
-      const b = Spring.withDampingRatio(mass: 1.0, stiffness: 200.0, ratio: 0.1);
+      const a = Spring.withDampingRatio(
+        mass: 1.0,
+        stiffness: 100.0,
+        ratio: 0.1,
+      );
+      const b = Spring.withDampingRatio(
+        mass: 1.0,
+        stiffness: 200.0,
+        ratio: 0.1,
+      );
       expect(a, isNot(equals(b)));
     });
 
     test('Spring.custom with different damping are not equal', () {
-      const a = Spring.withDampingRatio(mass: 1.0, stiffness: 100.0, ratio: 0.1);
-      const b = Spring.withDampingRatio(mass: 1.0, stiffness: 100.0, ratio: 0.2);
+      const a = Spring.withDampingRatio(
+        mass: 1.0,
+        stiffness: 100.0,
+        ratio: 0.1,
+      );
+      const b = Spring.withDampingRatio(
+        mass: 1.0,
+        stiffness: 100.0,
+        ratio: 0.2,
+      );
       expect(a, isNot(equals(b)));
     });
 
     test('Spring.custom with different snapToEnd are not equal', () {
-      const a = Spring.withDampingRatio(mass: 1.0, stiffness: 100.0, ratio: 0.1, snapToEnd: true);
-      const b = Spring.withDampingRatio(mass: 1.0, stiffness: 100.0, ratio: 0.1, snapToEnd: false);
+      const a = Spring.withDampingRatio(
+        mass: 1.0,
+        stiffness: 100.0,
+        ratio: 0.1,
+        snapToEnd: true,
+      );
+      const b = Spring.withDampingRatio(
+        mass: 1.0,
+        stiffness: 100.0,
+        ratio: 0.1,
+        snapToEnd: false,
+      );
       expect(a, isNot(equals(b)));
     });
 
@@ -423,7 +551,9 @@ void main() {
     });
 
     test('SegmentedMotion with different lengths are not equal', () {
-      const a = SegmentedMotion([CueMotion.linear(Duration(milliseconds: 100))]);
+      const a = SegmentedMotion([
+        CueMotion.linear(Duration(milliseconds: 100)),
+      ]);
       const b = SegmentedMotion([
         CueMotion.linear(Duration(milliseconds: 100)),
         CueMotion.linear(Duration(milliseconds: 200)),
@@ -432,20 +562,32 @@ void main() {
     });
 
     test('DelayedMotion with same base and delay are equal', () {
-      final a = CueMotion.linear(Duration(milliseconds: 200)).delayed(const Duration(milliseconds: 50));
-      final b = CueMotion.linear(Duration(milliseconds: 200)).delayed(const Duration(milliseconds: 50));
+      final a = CueMotion.linear(
+        Duration(milliseconds: 200),
+      ).delayed(const Duration(milliseconds: 50));
+      final b = CueMotion.linear(
+        Duration(milliseconds: 200),
+      ).delayed(const Duration(milliseconds: 50));
       expect(a, equals(b));
     });
 
     test('DelayedMotion with different delay are not equal', () {
-      final a = CueMotion.linear(Duration(milliseconds: 200)).delayed(const Duration(milliseconds: 50));
-      final b = CueMotion.linear(Duration(milliseconds: 200)).delayed(const Duration(milliseconds: 100));
+      final a = CueMotion.linear(
+        Duration(milliseconds: 200),
+      ).delayed(const Duration(milliseconds: 50));
+      final b = CueMotion.linear(
+        Duration(milliseconds: 200),
+      ).delayed(const Duration(milliseconds: 100));
       expect(a, isNot(equals(b)));
     });
 
     test('DelayedMotion with different base are not equal', () {
-      final a = CueMotion.linear(Duration(milliseconds: 200)).delayed(const Duration(milliseconds: 50));
-      final b = CueMotion.linear(Duration(milliseconds: 300)).delayed(const Duration(milliseconds: 50));
+      final a = CueMotion.linear(
+        Duration(milliseconds: 200),
+      ).delayed(const Duration(milliseconds: 50));
+      final b = CueMotion.linear(
+        Duration(milliseconds: 300),
+      ).delayed(const Duration(milliseconds: 50));
       expect(a, isNot(equals(b)));
     });
 
@@ -456,14 +598,26 @@ void main() {
     });
 
     test('equal Springs have same hashCode', () {
-      const a = Spring.withDampingRatio(mass: 1.0, stiffness: 100.0, ratio: 0.1);
-      const b = Spring.withDampingRatio(mass: 1.0, stiffness: 100.0, ratio: 0.1);
+      const a = Spring.withDampingRatio(
+        mass: 1.0,
+        stiffness: 100.0,
+        ratio: 0.1,
+      );
+      const b = Spring.withDampingRatio(
+        mass: 1.0,
+        stiffness: 100.0,
+        ratio: 0.1,
+      );
       expect(a.hashCode, equals(b.hashCode));
     });
 
     test('equal SegmentedMotions have same hashCode', () {
-      const a = SegmentedMotion([CueMotion.linear(Duration(milliseconds: 100))]);
-      const b = SegmentedMotion([CueMotion.linear(Duration(milliseconds: 100))]);
+      const a = SegmentedMotion([
+        CueMotion.linear(Duration(milliseconds: 100)),
+      ]);
+      const b = SegmentedMotion([
+        CueMotion.linear(Duration(milliseconds: 100)),
+      ]);
       expect(a.hashCode, equals(b.hashCode));
     });
   });
@@ -574,8 +728,12 @@ void main() {
     });
 
     test('superEllipse with same radius are equal', () {
-      const a = ClipGeometry.superEllipse(BorderRadius.all(Radius.circular(10)));
-      const b = ClipGeometry.superEllipse(BorderRadius.all(Radius.circular(10)));
+      const a = ClipGeometry.superEllipse(
+        BorderRadius.all(Radius.circular(10)),
+      );
+      const b = ClipGeometry.superEllipse(
+        BorderRadius.all(Radius.circular(10)),
+      );
       expect(a, equals(b));
     });
 
@@ -587,7 +745,9 @@ void main() {
 
     test('rrect vs superEllipse are not equal', () {
       const a = ClipGeometry.rrect(BorderRadius.all(Radius.circular(10)));
-      const b = ClipGeometry.superEllipse(BorderRadius.all(Radius.circular(10)));
+      const b = ClipGeometry.superEllipse(
+        BorderRadius.all(Radius.circular(10)),
+      );
       expect(a, isNot(equals(b)));
     });
   });
@@ -655,18 +815,30 @@ void main() {
 
     test('different motion are not equal', () {
       const a = OpacityAct(from: 0.0, to: 1.0, motion: CueMotion.none);
-      const b = OpacityAct(from: 0.0, to: 1.0, motion: CueMotion.linear(Duration(milliseconds: 200)));
+      const b = OpacityAct(
+        from: 0.0,
+        to: 1.0,
+        motion: CueMotion.linear(Duration(milliseconds: 200)),
+      );
       expect(a, isNot(equals(b)));
     });
 
     test('different delay are not equal', () {
       const a = OpacityAct(from: 0.0, to: 1.0, delay: Duration.zero);
-      const b = OpacityAct(from: 0.0, to: 1.0, delay: Duration(milliseconds: 100));
+      const b = OpacityAct(
+        from: 0.0,
+        to: 1.0,
+        delay: Duration(milliseconds: 100),
+      );
       expect(a, isNot(equals(b)));
     });
 
     test('different reverse are not equal', () {
-      const a = OpacityAct(from: 0.0, to: 1.0, reverse: ReverseBehavior.mirror());
+      const a = OpacityAct(
+        from: 0.0,
+        to: 1.0,
+        reverse: ReverseBehavior.mirror(),
+      );
       const b = OpacityAct(from: 0.0, to: 1.0, reverse: ReverseBehavior.none());
       expect(a, isNot(equals(b)));
     });
@@ -742,7 +914,11 @@ void main() {
     });
 
     test('different motion are not equal', () {
-      const a = PaddingAct(from: EdgeInsets.all(10), to: EdgeInsets.all(20), motion: CueMotion.none);
+      const a = PaddingAct(
+        from: EdgeInsets.all(10),
+        to: EdgeInsets.all(20),
+        motion: CueMotion.none,
+      );
       const b = PaddingAct(
         from: EdgeInsets.all(10),
         to: EdgeInsets.all(20),
@@ -752,14 +928,30 @@ void main() {
     });
 
     test('different delay are not equal', () {
-      const a = PaddingAct(from: EdgeInsets.all(10), to: EdgeInsets.all(20), delay: Duration(milliseconds: 50));
-      const b = PaddingAct(from: EdgeInsets.all(10), to: EdgeInsets.all(20), delay: Duration(milliseconds: 100));
+      const a = PaddingAct(
+        from: EdgeInsets.all(10),
+        to: EdgeInsets.all(20),
+        delay: Duration(milliseconds: 50),
+      );
+      const b = PaddingAct(
+        from: EdgeInsets.all(10),
+        to: EdgeInsets.all(20),
+        delay: Duration(milliseconds: 100),
+      );
       expect(a, isNot(equals(b)));
     });
 
     test('different reverse are not equal', () {
-      const a = PaddingAct(from: EdgeInsets.all(10), to: EdgeInsets.all(20), reverse: ReverseBehavior.mirror());
-      const b = PaddingAct(from: EdgeInsets.all(10), to: EdgeInsets.all(20), reverse: ReverseBehavior.none());
+      const a = PaddingAct(
+        from: EdgeInsets.all(10),
+        to: EdgeInsets.all(20),
+        reverse: ReverseBehavior.mirror(),
+      );
+      const b = PaddingAct(
+        from: EdgeInsets.all(10),
+        to: EdgeInsets.all(20),
+        reverse: ReverseBehavior.none(),
+      );
       expect(a, isNot(equals(b)));
     });
   });
@@ -806,40 +998,76 @@ void main() {
 
   group('TextStyleAct equality', () {
     test('identical values are equal', () {
-      const a = TextStyleAct(from: TextStyle(fontSize: 14), to: TextStyle(fontSize: 24));
-      const b = TextStyleAct(from: TextStyle(fontSize: 14), to: TextStyle(fontSize: 24));
+      const a = TextStyleAct(
+        from: TextStyle(fontSize: 14),
+        to: TextStyle(fontSize: 24),
+      );
+      const b = TextStyleAct(
+        from: TextStyle(fontSize: 14),
+        to: TextStyle(fontSize: 24),
+      );
       expect(a, equals(b));
     });
 
     test('different from are not equal', () {
-      const a = TextStyleAct(from: TextStyle(fontSize: 14), to: TextStyle(fontSize: 24));
-      const b = TextStyleAct(from: TextStyle(fontSize: 10), to: TextStyle(fontSize: 24));
+      const a = TextStyleAct(
+        from: TextStyle(fontSize: 14),
+        to: TextStyle(fontSize: 24),
+      );
+      const b = TextStyleAct(
+        from: TextStyle(fontSize: 10),
+        to: TextStyle(fontSize: 24),
+      );
       expect(a, isNot(equals(b)));
     });
 
     test('different to are not equal', () {
-      const a = TextStyleAct(from: TextStyle(fontSize: 14), to: TextStyle(fontSize: 24));
-      const b = TextStyleAct(from: TextStyle(fontSize: 14), to: TextStyle(fontSize: 30));
+      const a = TextStyleAct(
+        from: TextStyle(fontSize: 14),
+        to: TextStyle(fontSize: 24),
+      );
+      const b = TextStyleAct(
+        from: TextStyle(fontSize: 14),
+        to: TextStyle(fontSize: 30),
+      );
       expect(a, isNot(equals(b)));
     });
   });
 
   group('IconThemeAct equality', () {
     test('identical values are equal', () {
-      const a = IconThemeAct(from: IconThemeData(size: 16), to: IconThemeData(size: 32));
-      const b = IconThemeAct(from: IconThemeData(size: 16), to: IconThemeData(size: 32));
+      const a = IconThemeAct(
+        from: IconThemeData(size: 16),
+        to: IconThemeData(size: 32),
+      );
+      const b = IconThemeAct(
+        from: IconThemeData(size: 16),
+        to: IconThemeData(size: 32),
+      );
       expect(a, equals(b));
     });
 
     test('different from are not equal', () {
-      const a = IconThemeAct(from: IconThemeData(size: 16), to: IconThemeData(size: 32));
-      const b = IconThemeAct(from: IconThemeData(size: 20), to: IconThemeData(size: 32));
+      const a = IconThemeAct(
+        from: IconThemeData(size: 16),
+        to: IconThemeData(size: 32),
+      );
+      const b = IconThemeAct(
+        from: IconThemeData(size: 20),
+        to: IconThemeData(size: 32),
+      );
       expect(a, isNot(equals(b)));
     });
 
     test('different to are not equal', () {
-      const a = IconThemeAct(from: IconThemeData(size: 16), to: IconThemeData(size: 32));
-      const b = IconThemeAct(from: IconThemeData(size: 16), to: IconThemeData(size: 48));
+      const a = IconThemeAct(
+        from: IconThemeData(size: 16),
+        to: IconThemeData(size: 32),
+      );
+      const b = IconThemeAct(
+        from: IconThemeData(size: 16),
+        to: IconThemeData(size: 48),
+      );
       expect(a, isNot(equals(b)));
     });
   });
@@ -975,7 +1203,11 @@ void main() {
 
     test('different motion are not equal', () {
       const a = RotateAct(from: 0, to: 90, motion: CueMotion.none);
-      const b = RotateAct(from: 0, to: 90, motion: CueMotion.linear(Duration(milliseconds: 200)));
+      const b = RotateAct(
+        from: 0,
+        to: 90,
+        motion: CueMotion.linear(Duration(milliseconds: 200)),
+      );
       expect(a, isNot(equals(b)));
     });
 
@@ -1030,25 +1262,53 @@ void main() {
     });
 
     test('different alignment are not equal', () {
-      const a = Rotate3DAct(from: Rotation3D.zero, to: Rotation3D(x: 90), alignment: Alignment.center);
-      const b = Rotate3DAct(from: Rotation3D.zero, to: Rotation3D(x: 90), alignment: Alignment.topLeft);
+      const a = Rotate3DAct(
+        from: Rotation3D.zero,
+        to: Rotation3D(x: 90),
+        alignment: Alignment.center,
+      );
+      const b = Rotate3DAct(
+        from: Rotation3D.zero,
+        to: Rotation3D(x: 90),
+        alignment: Alignment.topLeft,
+      );
       expect(a, isNot(equals(b)));
     });
 
     test('different perspective are not equal', () {
-      const a = Rotate3DAct(from: Rotation3D.zero, to: Rotation3D(x: 90), perspective: 0.001);
-      const b = Rotate3DAct(from: Rotation3D.zero, to: Rotation3D(x: 90), perspective: 0.005);
+      const a = Rotate3DAct(
+        from: Rotation3D.zero,
+        to: Rotation3D(x: 90),
+        perspective: 0.001,
+      );
+      const b = Rotate3DAct(
+        from: Rotation3D.zero,
+        to: Rotation3D(x: 90),
+        perspective: 0.005,
+      );
       expect(a, isNot(equals(b)));
     });
 
     test('different unit are not equal', () {
-      const a = Rotate3DAct(from: Rotation3D.zero, to: Rotation3D(x: 90), unit: Rotate3DUnit.degrees);
-      const b = Rotate3DAct(from: Rotation3D.zero, to: Rotation3D(x: 90), unit: Rotate3DUnit.radians);
+      const a = Rotate3DAct(
+        from: Rotation3D.zero,
+        to: Rotation3D(x: 90),
+        unit: Rotate3DUnit.degrees,
+      );
+      const b = Rotate3DAct(
+        from: Rotation3D.zero,
+        to: Rotation3D(x: 90),
+        unit: Rotate3DUnit.radians,
+      );
       expect(a, isNot(equals(b)));
     });
 
     test('different motion are not equal', () {
-      const a = Rotate3DAct(from: Rotation3D.zero, to: Rotation3D(x: 90), motion: CueMotion.none);
+      const a = Rotate3DAct(
+        from: Rotation3D.zero,
+        to: Rotation3D(x: 90),
+        motion: CueMotion.none,
+      );
       const b = Rotate3DAct(
         from: Rotation3D.zero,
         to: Rotation3D(x: 90),
@@ -1058,8 +1318,16 @@ void main() {
     });
 
     test('different delay are not equal', () {
-      const a = Rotate3DAct(from: Rotation3D.zero, to: Rotation3D(x: 90), delay: Duration.zero);
-      const b = Rotate3DAct(from: Rotation3D.zero, to: Rotation3D(x: 90), delay: Duration(milliseconds: 100));
+      const a = Rotate3DAct(
+        from: Rotation3D.zero,
+        to: Rotation3D(x: 90),
+        delay: Duration.zero,
+      );
+      const b = Rotate3DAct(
+        from: Rotation3D.zero,
+        to: Rotation3D(x: 90),
+        delay: Duration(milliseconds: 100),
+      );
       expect(a, isNot(equals(b)));
     });
   });
@@ -1073,20 +1341,32 @@ void main() {
 
     test('same color values are equal', () {
       const a = DecoratedBoxAct(
-        color: AnimatableValue<Color>(from: Color(0xFF000000), to: Color(0xFFFFFFFF)),
+        color: AnimatableValue<Color>(
+          from: Color(0xFF000000),
+          to: Color(0xFFFFFFFF),
+        ),
       );
       const b = DecoratedBoxAct(
-        color: AnimatableValue<Color>(from: Color(0xFF000000), to: Color(0xFFFFFFFF)),
+        color: AnimatableValue<Color>(
+          from: Color(0xFF000000),
+          to: Color(0xFFFFFFFF),
+        ),
       );
       expect(a, equals(b));
     });
 
     test('different color are not equal', () {
       const a = DecoratedBoxAct(
-        color: AnimatableValue<Color>(from: Color(0xFF000000), to: Color(0xFFFFFFFF)),
+        color: AnimatableValue<Color>(
+          from: Color(0xFF000000),
+          to: Color(0xFFFFFFFF),
+        ),
       );
       const b = DecoratedBoxAct(
-        color: AnimatableValue<Color>(from: Color(0xFFFF0000), to: Color(0xFFFFFFFF)),
+        color: AnimatableValue<Color>(
+          from: Color(0xFFFF0000),
+          to: Color(0xFFFFFFFF),
+        ),
       );
       expect(a, isNot(equals(b)));
     });
@@ -1152,8 +1432,12 @@ void main() {
     });
 
     test('different surfaceTintColor are not equal', () {
-      const a = CardAct(surfaceTintColor: AnimatableValue.fixed(Color(0xFF000000)));
-      const b = CardAct(surfaceTintColor: AnimatableValue.fixed(Color(0xFFFFFFFF)));
+      const a = CardAct(
+        surfaceTintColor: AnimatableValue.fixed(Color(0xFF000000)),
+      );
+      const b = CardAct(
+        surfaceTintColor: AnimatableValue.fixed(Color(0xFFFFFFFF)),
+      );
       expect(a, isNot(equals(b)));
     });
 
@@ -1231,7 +1515,10 @@ void main() {
 
     test('different motion are not equal', () {
       const a = ParallaxAct(slide: 0.5, motion: CueMotion.none);
-      const b = ParallaxAct(slide: 0.5, motion: CueMotion.linear(Duration(milliseconds: 100)));
+      const b = ParallaxAct(
+        slide: 0.5,
+        motion: CueMotion.linear(Duration(milliseconds: 100)),
+      );
       expect(a, isNot(equals(b)));
     });
 
@@ -1281,13 +1568,17 @@ void main() {
 
     test('different clipGeometry are not equal', () {
       const a = SizedClipAct(clipGeometry: ClipGeometry.rect());
-      const b = SizedClipAct(clipGeometry: ClipGeometry.rrect(BorderRadius.all(Radius.circular(10))));
+      const b = SizedClipAct(
+        clipGeometry: ClipGeometry.rrect(BorderRadius.all(Radius.circular(10))),
+      );
       expect(a, isNot(equals(b)));
     });
 
     test('different motion are not equal', () {
       const a = SizedClipAct(motion: CueMotion.none);
-      const b = SizedClipAct(motion: CueMotion.linear(Duration(milliseconds: 100)));
+      const b = SizedClipAct(
+        motion: CueMotion.linear(Duration(milliseconds: 100)),
+      );
       expect(a, isNot(equals(b)));
     });
   });
@@ -1300,20 +1591,38 @@ void main() {
     });
 
     test('same width/height are equal', () {
-      const a = SizedBoxAct(width: AnimatableValue.fixed(100.0), height: AnimatableValue.fixed(200.0));
-      const b = SizedBoxAct(width: AnimatableValue.fixed(100.0), height: AnimatableValue.fixed(200.0));
+      const a = SizedBoxAct(
+        width: AnimatableValue.fixed(100.0),
+        height: AnimatableValue.fixed(200.0),
+      );
+      const b = SizedBoxAct(
+        width: AnimatableValue.fixed(100.0),
+        height: AnimatableValue.fixed(200.0),
+      );
       expect(a, equals(b));
     });
 
     test('different width are not equal', () {
-      const a = SizedBoxAct(width: AnimatableValue.fixed(100.0), height: AnimatableValue.fixed(200.0));
-      const b = SizedBoxAct(width: AnimatableValue.fixed(150.0), height: AnimatableValue.fixed(200.0));
+      const a = SizedBoxAct(
+        width: AnimatableValue.fixed(100.0),
+        height: AnimatableValue.fixed(200.0),
+      );
+      const b = SizedBoxAct(
+        width: AnimatableValue.fixed(150.0),
+        height: AnimatableValue.fixed(200.0),
+      );
       expect(a, isNot(equals(b)));
     });
 
     test('different height are not equal', () {
-      const a = SizedBoxAct(width: AnimatableValue.fixed(100.0), height: AnimatableValue.fixed(200.0));
-      const b = SizedBoxAct(width: AnimatableValue.fixed(100.0), height: AnimatableValue.fixed(300.0));
+      const a = SizedBoxAct(
+        width: AnimatableValue.fixed(100.0),
+        height: AnimatableValue.fixed(200.0),
+      );
+      const b = SizedBoxAct(
+        width: AnimatableValue.fixed(100.0),
+        height: AnimatableValue.fixed(300.0),
+      );
       expect(a, isNot(equals(b)));
     });
 
@@ -1325,7 +1634,9 @@ void main() {
 
     test('different motion are not equal', () {
       const a = SizedBoxAct(motion: CueMotion.none);
-      const b = SizedBoxAct(motion: CueMotion.linear(Duration(milliseconds: 100)));
+      const b = SizedBoxAct(
+        motion: CueMotion.linear(Duration(milliseconds: 100)),
+      );
       expect(a, isNot(equals(b)));
     });
 
@@ -1356,8 +1667,12 @@ void main() {
     });
 
     test('OpacityAct.keyframed with different frames are not equal', () {
-      final a = OpacityAct.keyframed(frames: MotionKeyframes([Keyframe.key(0.0)], motion: CueMotion.none));
-      final b = OpacityAct.keyframed(frames: MotionKeyframes([Keyframe.key(1.0)], motion: CueMotion.none));
+      final a = OpacityAct.keyframed(
+        frames: MotionKeyframes([Keyframe.key(0.0)], motion: CueMotion.none),
+      );
+      final b = OpacityAct.keyframed(
+        frames: MotionKeyframes([Keyframe.key(1.0)], motion: CueMotion.none),
+      );
       expect(a, isNot(equals(b)));
     });
 
@@ -1402,7 +1717,13 @@ void main() {
     });
 
     test('RotateAct is equal to itself', () {
-      const act = RotateAct(from: 0, to: 90, alignment: Alignment.center, unit: RotateUnit.degrees, axis: RotateAxis.z);
+      const act = RotateAct(
+        from: 0,
+        to: 90,
+        alignment: Alignment.center,
+        unit: RotateUnit.degrees,
+        axis: RotateAxis.z,
+      );
       expect(act, equals(act));
       expect(act.hashCode, equals(act.hashCode));
     });
@@ -1414,8 +1735,20 @@ void main() {
     });
 
     test('equal RotateActs have same hashCode', () {
-      const a = RotateAct(from: 0, to: 90, alignment: Alignment.center, unit: RotateUnit.degrees, axis: RotateAxis.z);
-      const b = RotateAct(from: 0, to: 90, alignment: Alignment.center, unit: RotateUnit.degrees, axis: RotateAxis.z);
+      const a = RotateAct(
+        from: 0,
+        to: 90,
+        alignment: Alignment.center,
+        unit: RotateUnit.degrees,
+        axis: RotateAxis.z,
+      );
+      const b = RotateAct(
+        from: 0,
+        to: 90,
+        alignment: Alignment.center,
+        unit: RotateUnit.degrees,
+        axis: RotateAxis.z,
+      );
       expect(a.hashCode, equals(b.hashCode));
     });
 
@@ -1426,8 +1759,14 @@ void main() {
     });
 
     test('equal DecoratedBoxActs have same hashCode', () {
-      const a = DecoratedBoxAct(shape: BoxShape.circle, position: DecorationPosition.foreground);
-      const b = DecoratedBoxAct(shape: BoxShape.circle, position: DecorationPosition.foreground);
+      const a = DecoratedBoxAct(
+        shape: BoxShape.circle,
+        position: DecorationPosition.foreground,
+      );
+      const b = DecoratedBoxAct(
+        shape: BoxShape.circle,
+        position: DecorationPosition.foreground,
+      );
       expect(a.hashCode, equals(b.hashCode));
     });
 

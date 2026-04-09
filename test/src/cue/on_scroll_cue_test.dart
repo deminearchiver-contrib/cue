@@ -13,9 +13,7 @@ void main() {
           home: SingleChildScrollView(
             child: SizedBox(
               height: 1000,
-              child: Cue.onScroll(
-                child: const SizedBox(height: 100),
-              ),
+              child: Cue.onScroll(child: const SizedBox(height: 100)),
             ),
           ),
         ),
@@ -28,11 +26,7 @@ void main() {
 
     testWidgets('throws when not inside scrollable', (tester) async {
       await tester.pumpWidget(
-        MaterialApp(
-          home: Cue.onScroll(
-            child: const SizedBox(height: 100),
-          ),
-        ),
+        MaterialApp(home: Cue.onScroll(child: const SizedBox(height: 100))),
       );
 
       expect(tester.takeException(), isA<FlutterError>());
@@ -71,9 +65,7 @@ void main() {
               child: Column(
                 children: [
                   SizedBox(height: 200),
-                  Cue.onScroll(
-                    child: const SizedBox(height: 100),
-                  ),
+                  Cue.onScroll(child: const SizedBox(height: 100)),
                 ],
               ),
             ),
@@ -109,9 +101,7 @@ void main() {
               child: Column(
                 children: [
                   SizedBox(height: 50),
-                  Cue.onScroll(
-                    child: const SizedBox(height: 100),
-                  ),
+                  Cue.onScroll(child: const SizedBox(height: 100)),
                 ],
               ),
             ),
@@ -145,9 +135,7 @@ void main() {
               child: Column(
                 children: [
                   SizedBox(height: 150),
-                  Cue.onScroll(
-                    child: const SizedBox(height: 100),
-                  ),
+                  Cue.onScroll(child: const SizedBox(height: 100)),
                 ],
               ),
             ),
@@ -186,9 +174,7 @@ void main() {
                   children: [
                     SizedBox(height: 150),
                     if (showScroll)
-                      Cue.onScroll(
-                        child: const SizedBox(height: 100),
-                      ),
+                      Cue.onScroll(child: const SizedBox(height: 100)),
                     SizedBox(height: 500),
                   ],
                 ),

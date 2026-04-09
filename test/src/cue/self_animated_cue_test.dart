@@ -18,14 +18,17 @@ void main() {
 
         final state = tester.state<OnMountCueState>(find.byType(OnMountCue));
         expect(state.controller, isA<CueController>());
-        expect(state.controller.timeline.obtainDefaultTrack().$1.motion, equals(motion));
+        expect(
+          state.controller.timeline.obtainDefaultTrack().$1.motion,
+          equals(motion),
+        );
       });
 
-      testWidgets('timeline getter returns controller timeline', (tester) async {
+      testWidgets('timeline getter returns controller timeline', (
+        tester,
+      ) async {
         await tester.pumpWidget(
-          MaterialApp(
-            home: Cue.onMount(child: const SizedBox()),
-          ),
+          MaterialApp(home: Cue.onMount(child: const SizedBox())),
         );
 
         final state = tester.state<OnMountCueState>(find.byType(OnMountCue));
@@ -34,9 +37,7 @@ void main() {
 
       testWidgets('dispose cleans up controller', (tester) async {
         await tester.pumpWidget(
-          MaterialApp(
-            home: Cue.onMount(child: const SizedBox()),
-          ),
+          MaterialApp(home: Cue.onMount(child: const SizedBox())),
         );
 
         // Remove the widget to trigger dispose
@@ -63,7 +64,10 @@ void main() {
         );
 
         final state = tester.state<OnMountCueState>(find.byType(OnMountCue));
-        expect(state.controller.timeline.obtainDefaultTrack().$1.motion, equals(motion2));
+        expect(
+          state.controller.timeline.obtainDefaultTrack().$1.motion,
+          equals(motion2),
+        );
       });
 
       testWidgets('updates reverseMotion when widget changes', (tester) async {
@@ -92,7 +96,10 @@ void main() {
         );
 
         final state = tester.state<OnMountCueState>(find.byType(OnMountCue));
-        expect(state.controller.timeline.obtainDefaultTrack().$1.reverseMotion, equals(reverse2));
+        expect(
+          state.controller.timeline.obtainDefaultTrack().$1.reverseMotion,
+          equals(reverse2),
+        );
       });
 
       testWidgets('does not update when motion stays the same', (tester) async {
@@ -100,10 +107,7 @@ void main() {
 
         await tester.pumpWidget(
           MaterialApp(
-            home: Cue.onMount(
-              motion: motion,
-              child: const Text('first'),
-            ),
+            home: Cue.onMount(motion: motion, child: const Text('first')),
           ),
         );
 
@@ -111,10 +115,7 @@ void main() {
 
         await tester.pumpWidget(
           MaterialApp(
-            home: Cue.onMount(
-              motion: motion,
-              child: const Text('second'),
-            ),
+            home: Cue.onMount(motion: motion, child: const Text('second')),
           ),
         );
 

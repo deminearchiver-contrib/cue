@@ -33,7 +33,10 @@ class CueScope extends InheritedWidget {
   /// Throws an assertion error if no [CueScope] is found.
   static CueScope of(BuildContext context) {
     final cue = context.dependOnInheritedWidgetOfExactType<CueScope>();
-    assert(cue != null, 'No Cue found in context, make sure to wrap your widget tree with a Cue widget.');
+    assert(
+      cue != null,
+      'No Cue found in context, make sure to wrap your widget tree with a Cue widget.',
+    );
     return cue!;
   }
 
@@ -46,7 +49,9 @@ class CueScope extends InheritedWidget {
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties.add(DiagnosticsProperty('controller', controller));
-    properties.add(DiagnosticsProperty('reanimateFromCurrent', reanimateFromCurrent));
+    properties.add(
+      DiagnosticsProperty('reanimateFromCurrent', reanimateFromCurrent),
+    );
     properties.add(DiagnosticsProperty('defaultConfig', defaultConfig));
   }
 

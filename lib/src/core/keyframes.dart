@@ -33,12 +33,18 @@ class FKeyframe<T> extends KeyframeBase<T> {
 
   /// Creates a fractional keyframe with the given [value] at normalized position [at].
   const FKeyframe(super.value, {required this.at, this.curve})
-    : assert(at >= 0.0 && at <= 1.0, 'Relative Keyframe time must be between 0 and 1'),
+    : assert(
+        at >= 0.0 && at <= 1.0,
+        'Relative Keyframe time must be between 0 and 1',
+      ),
       super._();
 
   /// Creates a fractional keyframe with the shorthand `.key` syntax.
   const FKeyframe.key(super.value, {required this.at, this.curve})
-    : assert(at >= 0.0 && at <= 1.0, 'Relative Keyframe time must be between 0 and 1'),
+    : assert(
+        at >= 0.0 && at <= 1.0,
+        'Relative Keyframe time must be between 0 and 1',
+      ),
       super._();
 
   @override
@@ -92,17 +98,17 @@ class Keyframe<T> extends KeyframeBase<T> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is Keyframe && runtimeType == other.runtimeType && value == other.value && motion == other.motion;
+      other is Keyframe &&
+          runtimeType == other.runtimeType &&
+          value == other.value &&
+          motion == other.motion;
 
   @override
   int get hashCode => Object.hash(value, motion);
 
   /// Creates a copy of this keyframe with optional field overrides.
   Keyframe<T> copyWith({T? value, CueMotion? motion}) {
-    return Keyframe<T>(
-      value ?? this.value,
-      motion: motion ?? this.motion,
-    );
+    return Keyframe<T>(value ?? this.value, motion: motion ?? this.motion);
   }
 
   @override
@@ -137,7 +143,10 @@ class Keyframe<T> extends KeyframeBase<T> {
 /// ```
 sealed class Keyframes<T> {
   /// Creates a keyframe sequence with explicit motion timing.
-  const factory Keyframes(List<Keyframe<T>> frames, {required CueMotion motion}) = MotionKeyframes<T>;
+  const factory Keyframes(
+    List<Keyframe<T>> frames, {
+    required CueMotion motion,
+  }) = MotionKeyframes<T>;
 
   /// Creates a keyframe sequence with fractional positioning.
   ///
@@ -182,7 +191,9 @@ final class MotionKeyframes<T> implements Keyframes<T> {
   /// Extracts motions from each keyframe, optionally including the first.
   List<CueMotion> extractMotion({bool includeFirst = false}) {
     final motions = frames.map((f) => f.motion ?? motion);
-    return List<CueMotion>.unmodifiable(includeFirst ? motions : motions.skip(1));
+    return List<CueMotion>.unmodifiable(
+      includeFirst ? motions : motions.skip(1),
+    );
   }
 
   @override
@@ -191,10 +202,7 @@ final class MotionKeyframes<T> implements Keyframes<T> {
       motion: motion,
       List.unmodifiable(
         frames.map(
-          (frame) => Keyframe<E>(
-            transform(frame.value),
-            motion: frame.motion,
-          ),
+          (frame) => Keyframe<E>(transform(frame.value), motion: frame.motion),
         ),
       ),
     );
@@ -202,12 +210,18 @@ final class MotionKeyframes<T> implements Keyframes<T> {
 
   @override
   MotionKeyframes<T> get reversed {
-    return MotionKeyframes<T>(List.unmodifiable(frames.reversed), motion: motion);
+    return MotionKeyframes<T>(
+      List.unmodifiable(frames.reversed),
+      motion: motion,
+    );
   }
 
   @override
   T get lastTarget {
-    assert(frames.isNotEmpty, 'Keyframes must have at least one frame to determine last target');
+    assert(
+      frames.isNotEmpty,
+      'Keyframes must have at least one frame to determine last target',
+    );
     return frames.last.value;
   }
 
@@ -281,7 +295,10 @@ final class FractionalKeyframes<T> implements Keyframes<T> {
 
   @override
   T get lastTarget {
-    assert(frames.isNotEmpty, 'Keyframes must have at least one frame to determine last target');
+    assert(
+      frames.isNotEmpty,
+      'Keyframes must have at least one frame to determine last target',
+    );
     return frames.last.value;
   }
 
@@ -293,7 +310,10 @@ final class FractionalKeyframes<T> implements Keyframes<T> {
   ///
   /// [includeFirst]: If true, includes motion to the first keyframe.
   /// [duration]: The total duration to distribute across keyframes.
-  List<CueMotion> extractMotion({bool includeFirst = false, required Duration duration}) {
+  List<CueMotion> extractMotion({
+    bool includeFirst = false,
+    required Duration duration,
+  }) {
     // Remove duplicates (keep last) and track curves
     final Map<double, Curve?> frameCurves = {};
 
@@ -306,7 +326,8 @@ final class FractionalKeyframes<T> implements Keyframes<T> {
     // Sort by time
     final sortedTimes = frameCurves.keys.toList()..sort();
 
-    if (sortedTimes.isEmpty || (!includeFirst && sortedTimes.length < 2)) return [];
+    if (sortedTimes.isEmpty || (!includeFirst && sortedTimes.length < 2))
+      return [];
 
     final List<CueMotion> motions = [];
 
@@ -315,7 +336,10 @@ final class FractionalKeyframes<T> implements Keyframes<T> {
       final firstTime = sortedTimes.first;
       final firstCurve = frameCurves[firstTime] ?? curve ?? Curves.linear;
       motions.add(
-        CueMotion.curved(Duration(milliseconds: (duration.inMilliseconds * firstTime).round()), curve: firstCurve),
+        CueMotion.curved(
+          Duration(milliseconds: (duration.inMilliseconds * firstTime).round()),
+          curve: firstCurve,
+        ),
       );
     }
 
@@ -325,7 +349,12 @@ final class FractionalKeyframes<T> implements Keyframes<T> {
       final nextTime = sortedTimes[i + 1];
       final weight = nextTime - currentTime;
       final curve = frameCurves[nextTime] ?? this.curve ?? Curves.linear;
-      motions.add(CueMotion.curved(Duration(milliseconds: (duration.inMilliseconds * weight).round()), curve: curve));
+      motions.add(
+        CueMotion.curved(
+          Duration(milliseconds: (duration.inMilliseconds * weight).round()),
+          curve: curve,
+        ),
+      );
     }
 
     return motions;
@@ -361,15 +390,15 @@ class Phase<T extends Object?> {
   final T end;
 
   /// Creates a Phase with the given begin and end values.
-  const Phase({
-    required this.begin,
-    required this.end,
-  });
+  const Phase({required this.begin, required this.end});
 
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is Phase && runtimeType == other.runtimeType && begin == other.begin && end == other.end;
+      other is Phase &&
+          runtimeType == other.runtimeType &&
+          begin == other.begin &&
+          end == other.end;
 
   @override
   int get hashCode => Object.hash(begin, end);
@@ -385,7 +414,8 @@ class Phase<T extends Object?> {
   ///
   /// [forReverse]: If true, the starting value is appended at the end
   /// instead of prepended, for reversed animations.
-  static List<Phase<R>> resolveFractionalFrames<T extends Object?, R extends Object?>(
+  static List<Phase<R>>
+  resolveFractionalFrames<T extends Object?, R extends Object?>(
     List<FKeyframe<T>> frames, {
     T? from,
     bool forReverse = false,
@@ -420,9 +450,7 @@ class Phase<T extends Object?> {
       final time = sortedTimes.first;
       final value = transform(uniqueFrames[time] as T);
 
-      return [
-        Phase(begin: value, end: value),
-      ];
+      return [Phase(begin: value, end: value)];
     }
 
     final resolvedFrames = <FKeyframe<T>>[
@@ -435,10 +463,7 @@ class Phase<T extends Object?> {
     ];
 
     if (from != null) {
-      final fromFrame = FKeyframe<T>(
-        from,
-        at: forReverse ? 1.0 : 0.0,
-      );
+      final fromFrame = FKeyframe<T>(from, at: forReverse ? 1.0 : 0.0);
       if (forReverse) {
         resolvedFrames.add(fromFrame);
       } else {
@@ -467,7 +492,8 @@ class Phase<T extends Object?> {
   ///
   /// [forReverse]: If true, the starting value is appended at the end
   /// instead of prepended, for reversed animations.
-  static List<Phase<R>> resolveMotionFrames<T extends Object?, R extends Object?>(
+  static List<Phase<R>>
+  resolveMotionFrames<T extends Object?, R extends Object?>(
     List<Keyframe<T>> frames, {
     T? from,
     bool forReverse = false,

@@ -11,7 +11,9 @@ void main() {
 
   final motion = CueMotion.linear(300.ms);
   final actContext = ActContext(motion: motion, reverseMotion: motion);
-  final track = CueTrackImpl(TrackConfig(motion: motion, reverseMotion: motion));
+  final track = CueTrackImpl(
+    TrackConfig(motion: motion, reverseMotion: motion),
+  );
   final timeline = CueTimelineImpl.fromMotion(motion);
 
   group('RotateLayoutAct', () {
@@ -142,11 +144,7 @@ void main() {
       });
 
       test('leaves radians unchanged', () {
-        final act = RotateLayoutAct(
-          from: 0,
-          to: pi,
-          unit: RotateUnit.radians,
-        );
+        final act = RotateLayoutAct(from: 0, to: pi, unit: RotateUnit.radians);
 
         final radians = act.transform(actContext, pi);
         expect(radians, closeTo(pi, 0.0001));
@@ -182,7 +180,11 @@ void main() {
             textDirection: TextDirection.ltr,
             child: Builder(
               builder: (context) {
-                return act.apply(context, animation, const Text('Rotate Layout'));
+                return act.apply(
+                  context,
+                  animation,
+                  const Text('Rotate Layout'),
+                );
               },
             ),
           ),
@@ -296,7 +298,11 @@ void main() {
                 return SizedBox(
                   width: 200,
                   height: 200,
-                  child: act.apply(context, animation, const SizedBox(width: 50, height: 50)),
+                  child: act.apply(
+                    context,
+                    animation,
+                    const SizedBox(width: 50, height: 50),
+                  ),
                 );
               },
             ),
@@ -331,7 +337,11 @@ void main() {
             textDirection: TextDirection.ltr,
             child: Builder(
               builder: (context) {
-                return act.apply(context, animation1, const SizedBox(width: 50, height: 50));
+                return act.apply(
+                  context,
+                  animation1,
+                  const SizedBox(width: 50, height: 50),
+                );
               },
             ),
           ),
@@ -351,7 +361,11 @@ void main() {
             textDirection: TextDirection.ltr,
             child: Builder(
               builder: (context) {
-                return act.apply(context, animation2, const SizedBox(width: 50, height: 50));
+                return act.apply(
+                  context,
+                  animation2,
+                  const SizedBox(width: 50, height: 50),
+                );
               },
             ),
           ),

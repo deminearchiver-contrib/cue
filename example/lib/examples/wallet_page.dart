@@ -92,10 +92,7 @@ class _CreditCard extends StatelessWidget {
           gradient: const LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
-            colors: [
-              Color(0xFF667EEA),
-              Color(0xFF764BA2),
-            ],
+            colors: [Color(0xFF667EEA), Color(0xFF764BA2)],
           ),
           boxShadow: [
             BoxShadow(
@@ -264,57 +261,56 @@ class _QuickActions extends StatelessWidget {
         const SizedBox(height: 16),
         Row(
           spacing: 12,
-          children: List.generate(
-            _quickActions.length,
-            (index) {
-              final item = _quickActions[index];
-              return Expanded(
-                child: Actor(
-                  acts: [
-                    .fadeIn(),
-                    .slideX(from: index.isEven ? -0.3 : 0.3),
-                  ],
-                  delay: Duration(milliseconds: 250 + (index * 50)),
-                  child: Material(
-                    color: theme.colorScheme.surfaceContainer,
+          children: List.generate(_quickActions.length, (index) {
+            final item = _quickActions[index];
+            return Expanded(
+              child: Actor(
+                acts: [
+                  .fadeIn(),
+                  .slideX(from: index.isEven ? -0.3 : 0.3),
+                ],
+                delay: Duration(milliseconds: 250 + (index * 50)),
+                child: Material(
+                  color: theme.colorScheme.surfaceContainer,
+                  borderRadius: BorderRadius.circular(16),
+                  child: InkWell(
                     borderRadius: BorderRadius.circular(16),
-                    child: InkWell(
-                      borderRadius: BorderRadius.circular(16),
-                      onTap: () {},
-                      child: Container(
-                        width: 70,
-                        padding: const EdgeInsets.all(12),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Container(
-                              padding: const EdgeInsets.all(10),
-                              decoration: BoxDecoration(
-                                color: theme.colorScheme.primary.withValues(alpha: 0.1),
-                                borderRadius: BorderRadius.circular(12),
+                    onTap: () {},
+                    child: Container(
+                      width: 70,
+                      padding: const EdgeInsets.all(12),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.all(10),
+                            decoration: BoxDecoration(
+                              color: theme.colorScheme.primary.withValues(
+                                alpha: 0.1,
                               ),
-                              child: Icon(
-                                item.icon,
-                                size: 20,
-                                color: theme.colorScheme.primary,
-                              ),
+                              borderRadius: BorderRadius.circular(12),
                             ),
-                            const SizedBox(height: 8),
-                            Text(
-                              item.label,
-                              style: theme.textTheme.labelSmall?.copyWith(
-                                color: theme.colorScheme.onSurface,
-                              ),
+                            child: Icon(
+                              item.icon,
+                              size: 20,
+                              color: theme.colorScheme.primary,
                             ),
-                          ],
-                        ),
+                          ),
+                          const SizedBox(height: 8),
+                          Text(
+                            item.label,
+                            style: theme.textTheme.labelSmall?.copyWith(
+                              color: theme.colorScheme.onSurface,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ),
                 ),
-              );
-            },
-          ),
+              ),
+            );
+          }),
         ),
       ],
     );
@@ -325,11 +321,41 @@ class _Transactions extends StatelessWidget {
   const _Transactions();
 
   static final _transactions = [
-    (icon: Iconsax.arrow_up, label: 'Spotify', amount: '-\$12.99', time: 'Today, 9:41 AM', color: Colors.red),
-    (icon: Iconsax.arrow_down, label: 'Salary', amount: '+\$4,250.00', time: 'Today, 12:00 PM', color: Colors.green),
-    (icon: Iconsax.shopping_cart, label: 'Amazon', amount: '-\$89.00', time: 'Yesterday', color: Colors.orange),
-    (icon: Iconsax.dollar_square, label: 'Dividend', amount: '+\$156.32', time: 'Mar 5', color: Colors.green),
-    (icon: Iconsax.card_add, label: 'Netflix', amount: '-\$15.99', time: 'Mar 4', color: Colors.red),
+    (
+      icon: Iconsax.arrow_up,
+      label: 'Spotify',
+      amount: '-\$12.99',
+      time: 'Today, 9:41 AM',
+      color: Colors.red,
+    ),
+    (
+      icon: Iconsax.arrow_down,
+      label: 'Salary',
+      amount: '+\$4,250.00',
+      time: 'Today, 12:00 PM',
+      color: Colors.green,
+    ),
+    (
+      icon: Iconsax.shopping_cart,
+      label: 'Amazon',
+      amount: '-\$89.00',
+      time: 'Yesterday',
+      color: Colors.orange,
+    ),
+    (
+      icon: Iconsax.dollar_square,
+      label: 'Dividend',
+      amount: '+\$156.32',
+      time: 'Mar 5',
+      color: Colors.green,
+    ),
+    (
+      icon: Iconsax.card_add,
+      label: 'Netflix',
+      amount: '-\$15.99',
+      time: 'Mar 4',
+      color: Colors.red,
+    ),
   ];
 
   @override
@@ -384,11 +410,7 @@ class _Transactions extends StatelessWidget {
                           color: item.color.withValues(alpha: 0.1),
                           borderRadius: BorderRadius.circular(12),
                         ),
-                        child: Icon(
-                          item.icon,
-                          size: 20,
-                          color: item.color,
-                        ),
+                        child: Icon(item.icon, size: 20, color: item.color),
                       ),
                       const SizedBox(width: 16),
                       Expanded(
@@ -405,7 +427,9 @@ class _Transactions extends StatelessWidget {
                             Text(
                               item.time,
                               style: theme.textTheme.bodySmall?.copyWith(
-                                color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
+                                color: theme.colorScheme.onSurface.withValues(
+                                  alpha: 0.6,
+                                ),
                               ),
                             ),
                           ],

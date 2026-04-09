@@ -119,7 +119,14 @@ final class Spring extends SimulationMotion<CueSpringSimulation> {
 
   @override
   int get hashCode {
-    return Object.hash(mass, stiffness, dampingRatio, tolerance, snapToEnd, _rawDesc);
+    return Object.hash(
+      mass,
+      stiffness,
+      dampingRatio,
+      tolerance,
+      snapToEnd,
+      _rawDesc,
+    );
   }
 
   /// Resolves the [SpringDescription] used to build the simulation.
@@ -515,7 +522,8 @@ final class Spring extends SimulationMotion<CueSpringSimulation> {
   /// Computed once via [buildBase] and rounded to the nearest millisecond.
   @override
   Duration get baseDuration {
-    final milliseconds = (buildBase().duration * Duration.millisecondsPerSecond).round();
+    final milliseconds = (buildBase().duration * Duration.millisecondsPerSecond)
+        .round();
     return Duration(milliseconds: milliseconds);
   }
 

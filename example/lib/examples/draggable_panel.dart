@@ -25,7 +25,9 @@ class _DraggablePanelState extends State<DraggablePanel> {
       motion: .curved(400.ms, curve: Curves.easeInOut),
       child: CardTheme(
         data: theme.cardTheme.copyWith(
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(24),
+          ),
           color: theme.colorScheme.surfaceContainerHigh,
         ),
         child: Stack(
@@ -43,28 +45,26 @@ class _DraggablePanelState extends State<DraggablePanel> {
                 children: [
                   Expanded(
                     child: Actor(
-                      acts: [
-                        .scale(from: 1.1),
-                        .slideY(from: .3),
-                      ],
+                      acts: [.scale(from: 1.1), .slideY(from: .3)],
                       child: Card(
                         child: Padding(
                           padding: const EdgeInsets.all(16.0),
-                          child: Text('Drag the cover card up and down to see the animation'),
+                          child: Text(
+                            'Drag the cover card up and down to see the animation',
+                          ),
                         ),
                       ),
                     ),
                   ),
                   Expanded(
                     child: Actor(
-                      acts: [
-                        .scale(from: 1.1),
-                        .slideY(from: .3),
-                      ],
+                      acts: [.scale(from: 1.1), .slideY(from: .3)],
                       child: Card(
                         child: Padding(
                           padding: const EdgeInsets.all(16.0),
-                          child: Text('Drag the cover card up and down to see the animation'),
+                          child: Text(
+                            'Drag the cover card up and down to see the animation',
+                          ),
                         ),
                       ),
                     ),
@@ -114,16 +114,19 @@ class _DraggablePanelState extends State<DraggablePanel> {
                               children: [
                                 Text(
                                   'Cute Cow',
-                                  style: theme.textTheme.headlineMedium!.copyWith(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    shadows: [
-                                      Shadow(
-                                        color: Colors.black.withValues(alpha: .5),
-                                        blurRadius: 8,
+                                  style: theme.textTheme.headlineMedium!
+                                      .copyWith(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                        shadows: [
+                                          Shadow(
+                                            color: Colors.black.withValues(
+                                              alpha: .5,
+                                            ),
+                                            blurRadius: 8,
+                                          ),
+                                        ],
                                       ),
-                                    ],
-                                  ),
                                 ),
                                 Text(
                                   'This is a cute cow. It is very cute and friendly. It loves to eat grass and play with other cows.',
@@ -131,7 +134,9 @@ class _DraggablePanelState extends State<DraggablePanel> {
                                     color: Colors.white,
                                     shadows: [
                                       Shadow(
-                                        color: Colors.black.withValues(alpha: .5),
+                                        color: Colors.black.withValues(
+                                          alpha: .5,
+                                        ),
                                         blurRadius: 8,
                                       ),
                                     ],

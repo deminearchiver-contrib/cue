@@ -28,41 +28,50 @@ void main() {
         expect(track.progress, equals(0.0));
       });
 
-      test('setProgress converts normalized progress to correct animation value', () {
-        // Create a track with a linear motion
-        final motion = CueMotion.linear(300.ms);
-        final config = TrackConfig(motion: motion, reverseMotion: motion);
-        final track = CueTrackImpl(config);
+      test(
+        'setProgress converts normalized progress to correct animation value',
+        () {
+          // Create a track with a linear motion
+          final motion = CueMotion.linear(300.ms);
+          final config = TrackConfig(motion: motion, reverseMotion: motion);
+          final track = CueTrackImpl(config);
 
-        // Set progress to 0.0 and check the animation value
-        track.setProgress(0.0);
-        expect(track.value, equals(0.0));
+          // Set progress to 0.0 and check the animation value
+          track.setProgress(0.0);
+          expect(track.value, equals(0.0));
 
-        // Set progress to 0.5 and check the animation value
-        track.setProgress(0.5);
-        expect(track.value, equals(0.5)); // Linear motion should directly map 0.5 progress to 0.5 value
+          // Set progress to 0.5 and check the animation value
+          track.setProgress(0.5);
+          expect(
+            track.value,
+            equals(0.5),
+          ); // Linear motion should directly map 0.5 progress to 0.5 value
 
-        // Set progress to 1.0 and check the animation value
-        track.setProgress(1.0);
-        expect(track.value, equals(1.0));
-      });
+          // Set progress to 1.0 and check the animation value
+          track.setProgress(1.0);
+          expect(track.value, equals(1.0));
+        },
+      );
 
-      test('setProgress with non-linear motion correctly maps progress to values', () {
-        // Create a track with an easeIn motion
-        final motion = CueMotion.curved(300.ms, curve: Curves.easeIn);
-        final config = TrackConfig(motion: motion, reverseMotion: motion);
-        final track = CueTrackImpl(config);
+      test(
+        'setProgress with non-linear motion correctly maps progress to values',
+        () {
+          // Create a track with an easeIn motion
+          final motion = CueMotion.curved(300.ms, curve: Curves.easeIn);
+          final config = TrackConfig(motion: motion, reverseMotion: motion);
+          final track = CueTrackImpl(config);
 
-        // Set progress to 0.5 and check the animation value
-        track.setProgress(0.5);
+          // Set progress to 0.5 and check the animation value
+          track.setProgress(0.5);
 
-        // With easeIn curve, the value at 0.5 should be less than 0.5
-        expect(track.value, lessThan(0.5));
-        expect(track.value, greaterThan(0.0));
+          // With easeIn curve, the value at 0.5 should be less than 0.5
+          expect(track.value, lessThan(0.5));
+          expect(track.value, greaterThan(0.0));
 
-        // The exact value depends on the curve implementation
-        expect(track.value, equals(Curves.easeIn.transform(0.5)));
-      });
+          // The exact value depends on the curve implementation
+          expect(track.value, equals(Curves.easeIn.transform(0.5)));
+        },
+      );
 
       test('setProgress with reverse direction correctly maps values', () {
         // Create a track with a linear motion
@@ -86,7 +95,10 @@ void main() {
         // Create a track with different forward and reverse motions
         final forwardMotion = CueMotion.linear(300.ms);
         final reverseMotion = CueMotion.curved(500.ms, curve: Curves.easeInOut);
-        final config = TrackConfig(motion: forwardMotion, reverseMotion: reverseMotion);
+        final config = TrackConfig(
+          motion: forwardMotion,
+          reverseMotion: reverseMotion,
+        );
         final track = CueTrackImpl(config);
 
         // Set forward progress and check duration
@@ -138,32 +150,39 @@ void main() {
     });
 
     group('valueAtProgress conversion', () {
-      test('_valueAtProgress correctly maps progress to simulation value for linear motion', () {
-        final motion = CueMotion.linear(300.ms);
-        final config = TrackConfig(motion: motion, reverseMotion: motion);
-        final track = CueTrackImpl(config);
+      test(
+        '_valueAtProgress correctly maps progress to simulation value for linear motion',
+        () {
+          final motion = CueMotion.linear(300.ms);
+          final config = TrackConfig(motion: motion, reverseMotion: motion);
+          final track = CueTrackImpl(config);
 
-        // Create a helper function to access the private _valueAtProgress method
-        // This is a workaround since we can't directly test private methods
-        void testProgressMapping(double progress, bool forward, double expectedValue) {
-          track.setProgress(progress, forward: forward);
-          expect(track.value, closeTo(expectedValue, 0.01));
-        }
+          // Create a helper function to access the private _valueAtProgress method
+          // This is a workaround since we can't directly test private methods
+          void testProgressMapping(
+            double progress,
+            bool forward,
+            double expectedValue,
+          ) {
+            track.setProgress(progress, forward: forward);
+            expect(track.value, closeTo(expectedValue, 0.01));
+          }
 
-        // Test forward direction
-        testProgressMapping(0.0, true, 0.0);
-        testProgressMapping(0.25, true, 0.25);
-        testProgressMapping(0.5, true, 0.5);
-        testProgressMapping(0.75, true, 0.75);
-        testProgressMapping(1.0, true, 1.0);
+          // Test forward direction
+          testProgressMapping(0.0, true, 0.0);
+          testProgressMapping(0.25, true, 0.25);
+          testProgressMapping(0.5, true, 0.5);
+          testProgressMapping(0.75, true, 0.75);
+          testProgressMapping(1.0, true, 1.0);
 
-        // Test reverse direction - based on implementation, values don't get flipped
-        testProgressMapping(0.0, false, 0.0);
-        testProgressMapping(0.25, false, 0.25);
-        testProgressMapping(0.5, false, 0.5);
-        testProgressMapping(0.75, false, 0.75);
-        testProgressMapping(1.0, false, 1.0);
-      });
+          // Test reverse direction - based on implementation, values don't get flipped
+          testProgressMapping(0.0, false, 0.0);
+          testProgressMapping(0.25, false, 0.25);
+          testProgressMapping(0.5, false, 0.5);
+          testProgressMapping(0.75, false, 0.75);
+          testProgressMapping(1.0, false, 1.0);
+        },
+      );
 
       test('_valueAtProgress correctly maps progress for curved motion', () {
         final motion = CueMotion.curved(300.ms, curve: Curves.easeInOut);
@@ -303,7 +322,11 @@ void main() {
     group('ReverseBehaviorType', () {
       test('reverseType.isExclusive controls forward animation', () {
         final motion = CueMotion.linear(300.ms);
-        final config = TrackConfig(motion: motion, reverseMotion: motion, reverseType: ReverseBehaviorType.exclusive);
+        final config = TrackConfig(
+          motion: motion,
+          reverseMotion: motion,
+          reverseType: ReverseBehaviorType.exclusive,
+        );
         final track = CueTrackImpl(config);
 
         // With exclusive reverse type, forward animation should be done immediately
@@ -317,7 +340,11 @@ void main() {
 
       test('reverseType.isNone controls reverse animation', () {
         final motion = CueMotion.linear(300.ms);
-        final config = TrackConfig(motion: motion, reverseMotion: motion, reverseType: ReverseBehaviorType.none);
+        final config = TrackConfig(
+          motion: motion,
+          reverseMotion: motion,
+          reverseType: ReverseBehaviorType.none,
+        );
         final track = CueTrackImpl(config);
 
         // With none reverse type, forward animation should work
@@ -376,14 +403,23 @@ void main() {
         final snappyMotion = CueMotion.snappy();
         final smoothMotion = CueMotion.smooth();
 
-        final snappyConfig = TrackConfig(motion: snappyMotion, reverseMotion: snappyMotion);
+        final snappyConfig = TrackConfig(
+          motion: snappyMotion,
+          reverseMotion: snappyMotion,
+        );
         final snappyTrack = CueTrackImpl(snappyConfig);
 
-        final smoothConfig = TrackConfig(motion: smoothMotion, reverseMotion: smoothMotion);
+        final smoothConfig = TrackConfig(
+          motion: smoothMotion,
+          reverseMotion: smoothMotion,
+        );
         final smoothTrack = CueTrackImpl(smoothConfig);
 
         // Snappy motion should have shorter duration than smooth
-        expect(snappyTrack.forwardDuration, lessThan(smoothTrack.forwardDuration));
+        expect(
+          snappyTrack.forwardDuration,
+          lessThan(smoothTrack.forwardDuration),
+        );
 
         // Both should start at 0 and end at 1
         snappyTrack.setProgress(0.0);
@@ -418,7 +454,10 @@ void main() {
         final track = CueTrackImpl(config);
 
         // Gentle spring should have longer duration
-        expect(track.forwardDuration, greaterThan(0.3)); // Gentle is typically slower
+        expect(
+          track.forwardDuration,
+          greaterThan(0.3),
+        ); // Gentle is typically slower
 
         track.setProgress(0.5);
         expect(track.value, greaterThan(0.0));
@@ -426,10 +465,7 @@ void main() {
       });
 
       test('spring motion with custom parameters', () {
-        final motion = CueMotion.spring(
-          duration: 400.ms,
-          bounce: 0.2,
-        );
+        final motion = CueMotion.spring(duration: 400.ms, bounce: 0.2);
         final config = TrackConfig(motion: motion, reverseMotion: motion);
         final track = CueTrackImpl(config);
 
@@ -463,7 +499,10 @@ void main() {
       test('forward motion with delay stays at 0 during delay period', () {
         final baseMotion = CueMotion.linear(300.ms);
         final delayedMotion = baseMotion.delayed(100.ms);
-        final config = TrackConfig(motion: delayedMotion, reverseMotion: delayedMotion);
+        final config = TrackConfig(
+          motion: delayedMotion,
+          reverseMotion: delayedMotion,
+        );
         final track = CueTrackImpl(config);
 
         // During delay period, value should remain at 0
@@ -499,7 +538,10 @@ void main() {
         final track = CueTrackImpl(config);
 
         // Forward duration should include delay
-        expect(track.forwardDuration, closeTo(0.4, 0.01)); // 300ms + 100ms = 400ms
+        expect(
+          track.forwardDuration,
+          closeTo(0.4, 0.01),
+        ); // 300ms + 100ms = 400ms
 
         // Reverse duration should not include delay
         expect(track.reverseDuration, closeTo(0.3, 0.01)); // 300ms
@@ -530,7 +572,10 @@ void main() {
       test('delayed spring motion with smooth preset', () {
         final baseMotion = CueMotion.smooth();
         final delayedMotion = baseMotion.delayed(150.ms);
-        final config = TrackConfig(motion: delayedMotion, reverseMotion: delayedMotion);
+        final config = TrackConfig(
+          motion: delayedMotion,
+          reverseMotion: delayedMotion,
+        );
         final track = CueTrackImpl(config);
 
         // Delay should increase total duration
@@ -554,7 +599,10 @@ void main() {
       test('delayed bouncy spring motion', () {
         final baseMotion = CueMotion.bouncy();
         final delayedMotion = baseMotion.delayed(100.ms);
-        final config = TrackConfig(motion: delayedMotion, reverseMotion: delayedMotion);
+        final config = TrackConfig(
+          motion: delayedMotion,
+          reverseMotion: delayedMotion,
+        );
         final track = CueTrackImpl(config);
 
         // Test that delay + bouncy spring works correctly
@@ -592,12 +640,12 @@ void main() {
       });
 
       test('delayed curved motion', () {
-        final baseMotion = CueMotion.curved(
-          300.ms,
-          curve: Curves.easeInOut,
-        );
+        final baseMotion = CueMotion.curved(300.ms, curve: Curves.easeInOut);
         final delayedMotion = baseMotion.delayed(100.ms);
-        final config = TrackConfig(motion: delayedMotion, reverseMotion: delayedMotion);
+        final config = TrackConfig(
+          motion: delayedMotion,
+          reverseMotion: delayedMotion,
+        );
         final track = CueTrackImpl(config);
 
         // Total duration: 300ms + 100ms = 400ms
@@ -617,83 +665,99 @@ void main() {
     });
 
     group('Edge cases with simulation validation', () {
-      test('track value matches simulation valueAtProgress for linear motion', () {
-        final motion = CueMotion.linear(300.ms);
-        final config = TrackConfig(motion: motion, reverseMotion: motion);
-        final track = CueTrackImpl(config);
+      test(
+        'track value matches simulation valueAtProgress for linear motion',
+        () {
+          final motion = CueMotion.linear(300.ms);
+          final config = TrackConfig(motion: motion, reverseMotion: motion);
+          final track = CueTrackImpl(config);
 
-        // Build simulation directly to validate against
-        final simulation = motion.buildBase(forward: true);
+          // Build simulation directly to validate against
+          final simulation = motion.buildBase(forward: true);
 
-        final testProgresses = [0.0, 0.1, 0.25, 0.5, 0.75, 0.9, 1.0];
-        for (final progress in testProgresses) {
-          track.setProgress(progress);
-          final (expectedValue, _) = simulation.valueAtProgress(progress);
-          expect(
-            track.value,
-            closeTo(expectedValue, 0.001),
-            reason: 'Track value should match simulation at progress $progress',
-          );
-        }
-      });
+          final testProgresses = [0.0, 0.1, 0.25, 0.5, 0.75, 0.9, 1.0];
+          for (final progress in testProgresses) {
+            track.setProgress(progress);
+            final (expectedValue, _) = simulation.valueAtProgress(progress);
+            expect(
+              track.value,
+              closeTo(expectedValue, 0.001),
+              reason:
+                  'Track value should match simulation at progress $progress',
+            );
+          }
+        },
+      );
 
-      test('track value matches simulation valueAtProgress for curved motion', () {
-        final motion = CueMotion.curved(400.ms, curve: Curves.easeInOut);
-        final config = TrackConfig(motion: motion, reverseMotion: motion);
-        final track = CueTrackImpl(config);
+      test(
+        'track value matches simulation valueAtProgress for curved motion',
+        () {
+          final motion = CueMotion.curved(400.ms, curve: Curves.easeInOut);
+          final config = TrackConfig(motion: motion, reverseMotion: motion);
+          final track = CueTrackImpl(config);
 
-        final simulation = motion.buildBase(forward: true);
+          final simulation = motion.buildBase(forward: true);
 
-        final testProgresses = [0.0, 0.1, 0.25, 0.5, 0.75, 0.9, 1.0];
-        for (final progress in testProgresses) {
-          track.setProgress(progress);
-          final (expectedValue, _) = simulation.valueAtProgress(progress);
-          expect(
-            track.value,
-            closeTo(expectedValue, 0.001),
-            reason: 'Track value should match simulation at progress $progress',
-          );
-        }
-      });
+          final testProgresses = [0.0, 0.1, 0.25, 0.5, 0.75, 0.9, 1.0];
+          for (final progress in testProgresses) {
+            track.setProgress(progress);
+            final (expectedValue, _) = simulation.valueAtProgress(progress);
+            expect(
+              track.value,
+              closeTo(expectedValue, 0.001),
+              reason:
+                  'Track value should match simulation at progress $progress',
+            );
+          }
+        },
+      );
 
-      test('track value matches simulation valueAtProgress for spring motion', () {
-        final motion = CueMotion.smooth();
-        final config = TrackConfig(motion: motion, reverseMotion: motion);
-        final track = CueTrackImpl(config);
+      test(
+        'track value matches simulation valueAtProgress for spring motion',
+        () {
+          final motion = CueMotion.smooth();
+          final config = TrackConfig(motion: motion, reverseMotion: motion);
+          final track = CueTrackImpl(config);
 
-        final simulation = motion.buildBase(forward: true);
+          final simulation = motion.buildBase(forward: true);
 
-        final testProgresses = [0.0, 0.1, 0.25, 0.5, 0.75, 0.9, 1.0];
-        for (final progress in testProgresses) {
-          track.setProgress(progress);
-          final (expectedValue, _) = simulation.valueAtProgress(progress);
-          expect(
-            track.value,
-            closeTo(expectedValue, 0.001),
-            reason: 'Track value should match simulation at progress $progress',
-          );
-        }
-      });
+          final testProgresses = [0.0, 0.1, 0.25, 0.5, 0.75, 0.9, 1.0];
+          for (final progress in testProgresses) {
+            track.setProgress(progress);
+            final (expectedValue, _) = simulation.valueAtProgress(progress);
+            expect(
+              track.value,
+              closeTo(expectedValue, 0.001),
+              reason:
+                  'Track value should match simulation at progress $progress',
+            );
+          }
+        },
+      );
 
-      test('track value matches simulation valueAtProgress for delayed motion', () {
-        final baseMotion = CueMotion.linear(300.ms);
-        final motion = baseMotion.delayed(100.ms);
-        final config = TrackConfig(motion: motion, reverseMotion: motion);
-        final track = CueTrackImpl(config);
+      test(
+        'track value matches simulation valueAtProgress for delayed motion',
+        () {
+          final baseMotion = CueMotion.linear(300.ms);
+          final motion = baseMotion.delayed(100.ms);
+          final config = TrackConfig(motion: motion, reverseMotion: motion);
+          final track = CueTrackImpl(config);
 
-        final simulation = motion.buildBase(forward: true);
+          final simulation = motion.buildBase(forward: true);
 
-        final testProgresses = [0.0, 0.1, 0.2, 0.3, 0.5, 0.75, 1.0];
-        for (final progress in testProgresses) {
-          track.setProgress(progress);
-          final (expectedValue, _) = simulation.valueAtProgress(progress);
-          expect(
-            track.value,
-            closeTo(expectedValue, 0.001),
-            reason: 'Track value should match simulation at progress $progress',
-          );
-        }
-      });
+          final testProgresses = [0.0, 0.1, 0.2, 0.3, 0.5, 0.75, 1.0];
+          for (final progress in testProgresses) {
+            track.setProgress(progress);
+            final (expectedValue, _) = simulation.valueAtProgress(progress);
+            expect(
+              track.value,
+              closeTo(expectedValue, 0.001),
+              reason:
+                  'Track value should match simulation at progress $progress',
+            );
+          }
+        },
+      );
 
       test('track value matches simulation in reverse direction', () {
         final motion = CueMotion.curved(300.ms, curve: Curves.easeIn);
@@ -710,29 +774,36 @@ void main() {
           expect(
             track.value,
             closeTo(expectedValue, 0.001),
-            reason: 'Track value should match reverse simulation at progress $progress',
+            reason:
+                'Track value should match reverse simulation at progress $progress',
           );
         }
       });
 
-      test('track with different forward and reverse motions matches respective simulations', () {
-        final forwardMotion = CueMotion.linear(300.ms);
-        final reverseMotion = CueMotion.curved(500.ms, curve: Curves.easeOut);
-        final config = TrackConfig(motion: forwardMotion, reverseMotion: reverseMotion);
-        final track = CueTrackImpl(config);
+      test(
+        'track with different forward and reverse motions matches respective simulations',
+        () {
+          final forwardMotion = CueMotion.linear(300.ms);
+          final reverseMotion = CueMotion.curved(500.ms, curve: Curves.easeOut);
+          final config = TrackConfig(
+            motion: forwardMotion,
+            reverseMotion: reverseMotion,
+          );
+          final track = CueTrackImpl(config);
 
-        // Test forward
-        final forwardSim = forwardMotion.buildBase(forward: true);
-        track.setProgress(0.5, forward: true);
-        final (forwardExpected, _) = forwardSim.valueAtProgress(0.5);
-        expect(track.value, closeTo(forwardExpected, 0.001));
+          // Test forward
+          final forwardSim = forwardMotion.buildBase(forward: true);
+          track.setProgress(0.5, forward: true);
+          final (forwardExpected, _) = forwardSim.valueAtProgress(0.5);
+          expect(track.value, closeTo(forwardExpected, 0.001));
 
-        // Test reverse
-        final reverseSim = reverseMotion.buildBase(forward: false);
-        track.setProgress(0.5, forward: false);
-        final (reverseExpected, _) = reverseSim.valueAtProgress(0.5);
-        expect(track.value, closeTo(reverseExpected, 0.001));
-      });
+          // Test reverse
+          final reverseSim = reverseMotion.buildBase(forward: false);
+          track.setProgress(0.5, forward: false);
+          final (reverseExpected, _) = reverseSim.valueAtProgress(0.5);
+          expect(track.value, closeTo(reverseExpected, 0.001));
+        },
+      );
 
       test('delayed spring motion matches simulation valueAtProgress', () {
         final baseMotion = CueMotion.bouncy();
@@ -743,14 +814,26 @@ void main() {
         final simulation = motion.buildBase(forward: true);
 
         // Test extensively during and after delay
-        final testProgresses = [0.0, 0.05, 0.1, 0.15, 0.2, 0.3, 0.5, 0.7, 0.9, 1.0];
+        final testProgresses = [
+          0.0,
+          0.05,
+          0.1,
+          0.15,
+          0.2,
+          0.3,
+          0.5,
+          0.7,
+          0.9,
+          1.0,
+        ];
         for (final progress in testProgresses) {
           track.setProgress(progress);
           final (expectedValue, _) = simulation.valueAtProgress(progress);
           expect(
             track.value,
             closeTo(expectedValue, 0.001),
-            reason: 'Delayed spring track value should match simulation at progress $progress',
+            reason:
+                'Delayed spring track value should match simulation at progress $progress',
           );
         }
       });
@@ -770,22 +853,26 @@ void main() {
         expect(track.progress, equals(1.0));
       });
 
-      test('monotonic progress produces monotonic values for linear motion', () {
-        final motion = CueMotion.linear(300.ms);
-        final config = TrackConfig(motion: motion, reverseMotion: motion);
-        final track = CueTrackImpl(config);
+      test(
+        'monotonic progress produces monotonic values for linear motion',
+        () {
+          final motion = CueMotion.linear(300.ms);
+          final config = TrackConfig(motion: motion, reverseMotion: motion);
+          final track = CueTrackImpl(config);
 
-        double previousValue = -1.0;
-        for (double progress = 0.0; progress <= 1.0; progress += 0.05) {
-          track.setProgress(progress);
-          expect(
-            track.value,
-            greaterThanOrEqualTo(previousValue),
-            reason: 'Linear motion should have monotonically increasing values',
-          );
-          previousValue = track.value;
-        }
-      });
+          double previousValue = -1.0;
+          for (double progress = 0.0; progress <= 1.0; progress += 0.05) {
+            track.setProgress(progress);
+            expect(
+              track.value,
+              greaterThanOrEqualTo(previousValue),
+              reason:
+                  'Linear motion should have monotonically increasing values',
+            );
+            previousValue = track.value;
+          }
+        },
+      );
 
       test('very small progress increments are handled correctly', () {
         final motion = CueMotion.smooth();
@@ -801,7 +888,8 @@ void main() {
           expect(
             track.value,
             closeTo(expectedValue, 0.002),
-            reason: 'Small progress increment at $progress should match simulation',
+            reason:
+                'Small progress increment at $progress should match simulation',
           );
 
           // Only test a subset to avoid too many iterations
@@ -813,14 +901,23 @@ void main() {
         final baseMotion = CueMotion.linear(300.ms);
         final delayedMotion = baseMotion.delayed(.zero);
 
-        final baseConfig = TrackConfig(motion: baseMotion, reverseMotion: baseMotion);
+        final baseConfig = TrackConfig(
+          motion: baseMotion,
+          reverseMotion: baseMotion,
+        );
         final baseTrack = CueTrackImpl(baseConfig);
 
-        final delayedConfig = TrackConfig(motion: delayedMotion, reverseMotion: delayedMotion);
+        final delayedConfig = TrackConfig(
+          motion: delayedMotion,
+          reverseMotion: delayedMotion,
+        );
         final delayedTrack = CueTrackImpl(delayedConfig);
 
         // Both should have same duration
-        expect(delayedTrack.forwardDuration, closeTo(baseTrack.forwardDuration, 0.001));
+        expect(
+          delayedTrack.forwardDuration,
+          closeTo(baseTrack.forwardDuration, 0.001),
+        );
 
         // Both should produce same values at same progress
         final testProgresses = [0.0, 0.25, 0.5, 0.75, 1.0];
@@ -871,7 +968,8 @@ void main() {
           expect(
             track.value,
             closeTo(expectedValue, 0.001),
-            reason: 'Delay transition at progress $progress should match simulation',
+            reason:
+                'Delay transition at progress $progress should match simulation',
           );
         }
       });
@@ -890,10 +988,18 @@ void main() {
           final track = CueTrackImpl(config);
 
           track.setProgress(0.0);
-          expect(track.value, closeTo(0.0, 0.01), reason: '${motion.runtimeType} should start at 0');
+          expect(
+            track.value,
+            closeTo(0.0, 0.01),
+            reason: '${motion.runtimeType} should start at 0',
+          );
 
           track.setProgress(1.0);
-          expect(track.value, closeTo(1.0, 0.01), reason: '${motion.runtimeType} should end at 1');
+          expect(
+            track.value,
+            closeTo(1.0, 0.01),
+            reason: '${motion.runtimeType} should end at 1',
+          );
         }
       });
 
@@ -912,7 +1018,8 @@ void main() {
           expect(
             track.value,
             closeTo(expectedValue, 0.001),
-            reason: 'Rapid progress change to $progress should match simulation',
+            reason:
+                'Rapid progress change to $progress should match simulation',
           );
         }
       });
@@ -942,33 +1049,37 @@ void main() {
         expect(track.value, closeTo(1.0, 0.01));
       });
 
-      test('spring motion with custom parameters matches simulation precisely', () {
-        final motion = CueMotion.spring(
-          duration: 350.ms,
-          bounce: 0.15,
-        );
-        final config = TrackConfig(motion: motion, reverseMotion: motion);
-        final track = CueTrackImpl(config);
+      test(
+        'spring motion with custom parameters matches simulation precisely',
+        () {
+          final motion = CueMotion.spring(duration: 350.ms, bounce: 0.15);
+          final config = TrackConfig(motion: motion, reverseMotion: motion);
+          final track = CueTrackImpl(config);
 
-        final simulation = motion.buildBase(forward: true);
+          final simulation = motion.buildBase(forward: true);
 
-        // Test at many points
-        for (double progress = 0.0; progress <= 1.0; progress += 0.1) {
-          track.setProgress(progress);
-          final (expectedValue, _) = simulation.valueAtProgress(progress);
-          expect(
-            track.value,
-            closeTo(expectedValue, 0.001),
-            reason: 'Custom spring at progress $progress should match simulation',
-          );
-        }
-      });
+          // Test at many points
+          for (double progress = 0.0; progress <= 1.0; progress += 0.1) {
+            track.setProgress(progress);
+            final (expectedValue, _) = simulation.valueAtProgress(progress);
+            expect(
+              track.value,
+              closeTo(expectedValue, 0.001),
+              reason:
+                  'Custom spring at progress $progress should match simulation',
+            );
+          }
+        },
+      );
 
       test('reverse motion with delay on forward only', () {
         final forwardMotion = CueMotion.linear(300.ms).delayed(60.ms);
         final reverseMotion = CueMotion.linear(300.ms); // No delay
 
-        final config = TrackConfig(motion: forwardMotion, reverseMotion: reverseMotion);
+        final config = TrackConfig(
+          motion: forwardMotion,
+          reverseMotion: reverseMotion,
+        );
         final track = CueTrackImpl(config);
 
         // Forward should have delay
@@ -979,7 +1090,10 @@ void main() {
 
         // Reverse should have no delay
         final reverseSim = reverseMotion.buildBase(forward: false);
-        track.setProgress(0.3, forward: false); // Should be animating immediately
+        track.setProgress(
+          0.3,
+          forward: false,
+        ); // Should be animating immediately
         // In reverse, track progress is flipped: simulation sees (1.0 - 0.3) = 0.7
         final (reverseExpected, _) = reverseSim.valueAtProgress(1.0 - 0.3);
         expect(track.value, closeTo(reverseExpected, 0.001));
@@ -1005,74 +1119,105 @@ void main() {
 
         track.setProgress(0.0);
         expect(track.value, closeTo(0.0, 0.001));
-        expect(track.phase, equals(0), reason: 'At start, should be in phase 0');
+        expect(
+          track.phase,
+          equals(0),
+          reason: 'At start, should be in phase 0',
+        );
 
         track.setProgress(0.2); // 20% progress = in segment 1
         final (value20, _) = simulation.valueAtProgress(0.2);
         expect(track.value, closeTo(value20, 0.001));
-        expect(track.phase, equals(0), reason: '20% progress is in first segment (ends at 40%)');
+        expect(
+          track.phase,
+          equals(0),
+          reason: '20% progress is in first segment (ends at 40%)',
+        );
 
         track.setProgress(0.39); // Just before segment boundary
-        expect(track.phase, equals(0), reason: 'Just before 40% should still be phase 0');
+        expect(
+          track.phase,
+          equals(0),
+          reason: 'Just before 40% should still be phase 0',
+        );
 
         track.setProgress(0.6); // 60% progress = in segment 2
         final (value60, _) = simulation.valueAtProgress(0.6);
         expect(track.value, closeTo(value60, 0.001));
-        expect(track.phase, equals(1), reason: '60% progress is in second segment (starts at 40%)');
+        expect(
+          track.phase,
+          equals(1),
+          reason: '60% progress is in second segment (starts at 40%)',
+        );
 
         track.setProgress(1.0);
         expect(track.value, closeTo(1.0, 0.001));
-        expect(track.phase, equals(1), reason: 'At end, should be in final phase');
+        expect(
+          track.phase,
+          equals(1),
+          reason: 'At end, should be in final phase',
+        );
       });
 
-      test('three-segment motion with different durations and phase transitions', () {
-        final segment1 = CueMotion.linear(100.ms); // 100ms
-        final segment2 = CueMotion.linear(200.ms); // 200ms
-        final segment3 = CueMotion.linear(200.ms); // 200ms
-        final motion = SegmentedMotion([segment1, segment2, segment3]);
+      test(
+        'three-segment motion with different durations and phase transitions',
+        () {
+          final segment1 = CueMotion.linear(100.ms); // 100ms
+          final segment2 = CueMotion.linear(200.ms); // 200ms
+          final segment3 = CueMotion.linear(200.ms); // 200ms
+          final motion = SegmentedMotion([segment1, segment2, segment3]);
 
-        final config = TrackConfig(motion: motion, reverseMotion: motion);
-        final track = CueTrackImpl(config);
-        final simulation = motion.buildBase(forward: true);
+          final config = TrackConfig(motion: motion, reverseMotion: motion);
+          final track = CueTrackImpl(config);
+          final simulation = motion.buildBase(forward: true);
 
-        expect(motion.totalPhases, equals(3));
+          expect(motion.totalPhases, equals(3));
 
-        // Total: 500ms
-        // Segment 1: 100ms (0% - 20%)   -> phase 0
-        // Segment 2: 200ms (20% - 60%)  -> phase 1
-        // Segment 3: 200ms (60% - 100%) -> phase 2
+          // Total: 500ms
+          // Segment 1: 100ms (0% - 20%)   -> phase 0
+          // Segment 2: 200ms (20% - 60%)  -> phase 1
+          // Segment 3: 200ms (60% - 100%) -> phase 2
 
-        track.setProgress(0.0);
-        expect(track.phase, equals(0), reason: 'Start is phase 0');
+          track.setProgress(0.0);
+          expect(track.phase, equals(0), reason: 'Start is phase 0');
 
-        track.setProgress(0.1); // 10% = middle of segment 1
-        expect(track.phase, equals(0), reason: '10% is in segment 1 (0-20%)');
+          track.setProgress(0.1); // 10% = middle of segment 1
+          expect(track.phase, equals(0), reason: '10% is in segment 1 (0-20%)');
 
-        track.setProgress(0.19); // Just before transition
-        expect(track.phase, equals(0), reason: '19% is still in segment 1');
+          track.setProgress(0.19); // Just before transition
+          expect(track.phase, equals(0), reason: '19% is still in segment 1');
 
-        track.setProgress(0.25); // 25% = in segment 2
-        expect(track.phase, equals(1), reason: '25% is in segment 2 (20-60%)');
+          track.setProgress(0.25); // 25% = in segment 2
+          expect(
+            track.phase,
+            equals(1),
+            reason: '25% is in segment 2 (20-60%)',
+          );
 
-        track.setProgress(0.5); // 50% = in segment 2
-        expect(track.phase, equals(1), reason: '50% is in segment 2');
+          track.setProgress(0.5); // 50% = in segment 2
+          expect(track.phase, equals(1), reason: '50% is in segment 2');
 
-        track.setProgress(0.59); // Just before next transition
-        expect(track.phase, equals(1), reason: '59% is still in segment 2');
+          track.setProgress(0.59); // Just before next transition
+          expect(track.phase, equals(1), reason: '59% is still in segment 2');
 
-        track.setProgress(0.65); // 65% = in segment 3
-        expect(track.phase, equals(2), reason: '65% is in segment 3 (60-100%)');
+          track.setProgress(0.65); // 65% = in segment 3
+          expect(
+            track.phase,
+            equals(2),
+            reason: '65% is in segment 3 (60-100%)',
+          );
 
-        track.setProgress(1.0);
-        expect(track.phase, equals(2), reason: 'End is final phase');
+          track.setProgress(1.0);
+          expect(track.phase, equals(2), reason: 'End is final phase');
 
-        // Validate values still match simulation
-        for (final progress in [0.0, 0.25, 0.5, 0.75, 1.0]) {
-          track.setProgress(progress);
-          final (expectedValue, _) = simulation.valueAtProgress(progress);
-          expect(track.value, closeTo(expectedValue, 0.001));
-        }
-      });
+          // Validate values still match simulation
+          for (final progress in [0.0, 0.25, 0.5, 0.75, 1.0]) {
+            track.setProgress(progress);
+            final (expectedValue, _) = simulation.valueAtProgress(progress);
+            expect(track.value, closeTo(expectedValue, 0.001));
+          }
+        },
+      );
 
       test('segmented motion with curves validates against simulation', () {
         final segment1 = CueMotion.curved(200.ms, curve: Curves.easeIn);
@@ -1127,7 +1272,9 @@ void main() {
 
         for (final progress in [0.0, 0.2, 0.4, 0.6, 0.8, 1.0]) {
           track.setProgress(progress);
-          final (expectedValue, expectedPhase) = simulation.valueAtProgress(progress);
+          final (expectedValue, expectedPhase) = simulation.valueAtProgress(
+            progress,
+          );
           expect(track.value, closeTo(expectedValue, 0.001));
           expect(track.phase, equals(expectedPhase));
         }
@@ -1153,7 +1300,10 @@ void main() {
         expect(track.value, closeTo(value0, 0.001));
         // In reverse, segments are reversed, so phases go from high to low
 
-        track.setProgress(0.4, forward: false); // Mid-way through reversed animation
+        track.setProgress(
+          0.4,
+          forward: false,
+        ); // Mid-way through reversed animation
         final (value40, _) = simulation.valueAtProgress(0.6);
         expect(track.value, closeTo(value40, 0.001));
 
@@ -1162,51 +1312,66 @@ void main() {
         expect(track.value, closeTo(value100, 0.001));
       });
 
-      test('segmented motion with unequal durations tracks phases correctly', () {
-        final segment1 = CueMotion.linear(100.ms); // 100ms
-        final segment2 = CueMotion.linear(400.ms); // 400ms
-        final segment3 = CueMotion.linear(100.ms); // 100ms
-        final motion = SegmentedMotion([segment1, segment2, segment3]);
+      test(
+        'segmented motion with unequal durations tracks phases correctly',
+        () {
+          final segment1 = CueMotion.linear(100.ms); // 100ms
+          final segment2 = CueMotion.linear(400.ms); // 400ms
+          final segment3 = CueMotion.linear(100.ms); // 100ms
+          final motion = SegmentedMotion([segment1, segment2, segment3]);
 
-        final config = TrackConfig(motion: motion, reverseMotion: motion);
-        final track = CueTrackImpl(config);
-        final simulation = motion.buildBase(forward: true);
+          final config = TrackConfig(motion: motion, reverseMotion: motion);
+          final track = CueTrackImpl(config);
+          final simulation = motion.buildBase(forward: true);
 
-        expect(motion.totalPhases, equals(3));
+          expect(motion.totalPhases, equals(3));
 
-        // Total: 600ms
-        // Segment 1: 100ms (0% - 16.67%)    -> phase 0
-        // Segment 2: 400ms (16.67% - 83.33%) -> phase 1
-        // Segment 3: 100ms (83.33% - 100%)   -> phase 2
+          // Total: 600ms
+          // Segment 1: 100ms (0% - 16.67%)    -> phase 0
+          // Segment 2: 400ms (16.67% - 83.33%) -> phase 1
+          // Segment 3: 100ms (83.33% - 100%)   -> phase 2
 
-        track.setProgress(0.08); // 8% is in segment 1
-        expect(track.phase, equals(0), reason: '8% is in segment 1 (0-16.67%)');
+          track.setProgress(0.08); // 8% is in segment 1
+          expect(
+            track.phase,
+            equals(0),
+            reason: '8% is in segment 1 (0-16.67%)',
+          );
 
-        track.setProgress(0.15); // 15% is still in segment 1
-        expect(track.phase, equals(0), reason: '15% is still in segment 1');
+          track.setProgress(0.15); // 15% is still in segment 1
+          expect(track.phase, equals(0), reason: '15% is still in segment 1');
 
-        track.setProgress(0.2); // 20% is in segment 2
-        expect(track.phase, equals(1), reason: '20% is in segment 2 (16.67-83.33%)');
+          track.setProgress(0.2); // 20% is in segment 2
+          expect(
+            track.phase,
+            equals(1),
+            reason: '20% is in segment 2 (16.67-83.33%)',
+          );
 
-        track.setProgress(0.5); // 50% is in segment 2 (large segment)
-        expect(track.phase, equals(1), reason: '50% is in segment 2');
+          track.setProgress(0.5); // 50% is in segment 2 (large segment)
+          expect(track.phase, equals(1), reason: '50% is in segment 2');
 
-        track.setProgress(0.8); // 80% is still in segment 2
-        expect(track.phase, equals(1), reason: '80% is still in segment 2');
+          track.setProgress(0.8); // 80% is still in segment 2
+          expect(track.phase, equals(1), reason: '80% is still in segment 2');
 
-        track.setProgress(0.85); // 85% is in segment 3
-        expect(track.phase, equals(2), reason: '85% is in segment 3 (83.33-100%)');
+          track.setProgress(0.85); // 85% is in segment 3
+          expect(
+            track.phase,
+            equals(2),
+            reason: '85% is in segment 3 (83.33-100%)',
+          );
 
-        track.setProgress(0.9); // 90% is in segment 3
-        expect(track.phase, equals(2), reason: '90% is in segment 3');
+          track.setProgress(0.9); // 90% is in segment 3
+          expect(track.phase, equals(2), reason: '90% is in segment 3');
 
-        // Validate values
-        for (final progress in [0.08, 0.5, 0.9]) {
-          track.setProgress(progress);
-          final (expectedValue, _) = simulation.valueAtProgress(progress);
-          expect(track.value, closeTo(expectedValue, 0.001));
-        }
-      });
+          // Validate values
+          for (final progress in [0.08, 0.5, 0.9]) {
+            track.setProgress(progress);
+            final (expectedValue, _) = simulation.valueAtProgress(progress);
+            expect(track.value, closeTo(expectedValue, 0.001));
+          }
+        },
+      );
 
       test('segmented motion phase boundary precision', () {
         final segment1 = CueMotion.linear(250.ms);
@@ -1228,7 +1393,11 @@ void main() {
         final (value50, _) = simulation.valueAtProgress(0.5);
         expect(track.value, closeTo(value50, 0.001));
         // At exact boundary, could be either phase 0 or 1 depending on implementation
-        expect(track.phase, anyOf(equals(0), equals(1)), reason: 'At exact 50% boundary, phase could be 0 or 1');
+        expect(
+          track.phase,
+          anyOf(equals(0), equals(1)),
+          reason: 'At exact 50% boundary, phase could be 0 or 1',
+        );
 
         track.setProgress(0.51); // Just after boundary
         expect(track.phase, equals(1), reason: '51% is in segment 2');
@@ -1282,7 +1451,9 @@ void main() {
 
         for (double progress = 0.0; progress <= 1.0; progress += 0.1) {
           track.setProgress(progress);
-          final (expectedValue, expectedPhase) = simulation.valueAtProgress(progress);
+          final (expectedValue, expectedPhase) = simulation.valueAtProgress(
+            progress,
+          );
           expect(track.value, closeTo(expectedValue, 0.001));
           expect(track.phase, equals(expectedPhase));
         }
@@ -1292,8 +1463,12 @@ void main() {
         final singleSegment = CueMotion.linear(300.ms);
         final segmentedMotion = SegmentedMotion([singleSegment]);
 
-        final segmentedTrack = CueTrackImpl(TrackConfig(motion: segmentedMotion, reverseMotion: segmentedMotion));
-        final normalTrack = CueTrackImpl(TrackConfig(motion: singleSegment, reverseMotion: singleSegment));
+        final segmentedTrack = CueTrackImpl(
+          TrackConfig(motion: segmentedMotion, reverseMotion: segmentedMotion),
+        );
+        final normalTrack = CueTrackImpl(
+          TrackConfig(motion: singleSegment, reverseMotion: singleSegment),
+        );
 
         expect(segmentedMotion.totalPhases, equals(1));
 
@@ -1341,7 +1516,9 @@ void main() {
 
         for (final progress in [0.0, 0.2, 0.4, 0.6, 0.8, 1.0]) {
           track.setProgress(progress);
-          final (expectedValue, expectedPhase) = simulation.valueAtProgress(progress);
+          final (expectedValue, expectedPhase) = simulation.valueAtProgress(
+            progress,
+          );
           expect(track.value, closeTo(expectedValue, 0.001));
           expect(track.phase, equals(expectedPhase));
         }
@@ -1360,7 +1537,9 @@ void main() {
 
         for (final progress in [0.0, 0.4, 0.8, 1.0]) {
           track.setProgress(progress, forward: false);
-          final (expectedValue, expectedPhase) = simulation.valueAtProgress(1.0 - progress);
+          final (expectedValue, expectedPhase) = simulation.valueAtProgress(
+            1.0 - progress,
+          );
           expect(track.value, closeTo(expectedValue, 0.001));
           expect(track.phase, equals(expectedPhase));
         }
@@ -1388,7 +1567,8 @@ void main() {
           expect(
             track.phase,
             equals(i),
-            reason: 'At ${(progress * 100).toStringAsFixed(0)}% progress, should be in phase $i',
+            reason:
+                'At ${(progress * 100).toStringAsFixed(0)}% progress, should be in phase $i',
           );
 
           // Also validate value
@@ -1404,146 +1584,174 @@ void main() {
         expect(track.phase, equals(1));
       });
 
-      test('different forward and reverse segmented motions with same phase count', () {
-        // Forward: 2 segments
-        final forwardMotion = SegmentedMotion([
-          CueMotion.linear(200.ms), // 200ms
-          CueMotion.curved(300.ms, curve: Curves.easeIn), // 300ms
-        ]);
+      test(
+        'different forward and reverse segmented motions with same phase count',
+        () {
+          // Forward: 2 segments
+          final forwardMotion = SegmentedMotion([
+            CueMotion.linear(200.ms), // 200ms
+            CueMotion.curved(300.ms, curve: Curves.easeIn), // 300ms
+          ]);
 
-        // Reverse: 2 segments with different durations
-        final reverseMotion = SegmentedMotion([
-          CueMotion.curved(400.ms, curve: Curves.easeOut), // 400ms
-          CueMotion.linear(100.ms), // 100ms
-        ]);
+          // Reverse: 2 segments with different durations
+          final reverseMotion = SegmentedMotion([
+            CueMotion.curved(400.ms, curve: Curves.easeOut), // 400ms
+            CueMotion.linear(100.ms), // 100ms
+          ]);
 
-        final config = TrackConfig(motion: forwardMotion, reverseMotion: reverseMotion);
-        final track = CueTrackImpl(config);
+          final config = TrackConfig(
+            motion: forwardMotion,
+            reverseMotion: reverseMotion,
+          );
+          final track = CueTrackImpl(config);
 
-        expect(forwardMotion.totalPhases, equals(2));
-        expect(reverseMotion.totalPhases, equals(2));
+          expect(forwardMotion.totalPhases, equals(2));
+          expect(reverseMotion.totalPhases, equals(2));
 
-        // Forward: total 500ms
-        // Phase 0: 0% - 40% (200ms)
-        // Phase 1: 40% - 100% (300ms)
-        expect(track.forwardDuration, closeTo(0.5, 0.01));
+          // Forward: total 500ms
+          // Phase 0: 0% - 40% (200ms)
+          // Phase 1: 40% - 100% (300ms)
+          expect(track.forwardDuration, closeTo(0.5, 0.01));
 
-        final forwardSim = forwardMotion.buildBase(forward: true);
+          final forwardSim = forwardMotion.buildBase(forward: true);
 
-        track.setProgress(0.0, forward: true);
-        expect(track.phase, equals(0), reason: 'Forward start is phase 0');
+          track.setProgress(0.0, forward: true);
+          expect(track.phase, equals(0), reason: 'Forward start is phase 0');
 
-        track.setProgress(0.25, forward: true); // 25% in forward phase 0
-        expect(track.phase, equals(0), reason: 'Forward 25% is in phase 0 (ends at 40%)');
-        final (fwdValue25, _) = forwardSim.valueAtProgress(0.25);
-        expect(track.value, closeTo(fwdValue25, 0.001));
+          track.setProgress(0.25, forward: true); // 25% in forward phase 0
+          expect(
+            track.phase,
+            equals(0),
+            reason: 'Forward 25% is in phase 0 (ends at 40%)',
+          );
+          final (fwdValue25, _) = forwardSim.valueAtProgress(0.25);
+          expect(track.value, closeTo(fwdValue25, 0.001));
 
-        track.setProgress(0.5, forward: true); // 50% in forward phase 1
-        expect(track.phase, equals(1), reason: 'Forward 50% is in phase 1');
-        final (fwdValue50, _) = forwardSim.valueAtProgress(0.5);
-        expect(track.value, closeTo(fwdValue50, 0.001));
+          track.setProgress(0.5, forward: true); // 50% in forward phase 1
+          expect(track.phase, equals(1), reason: 'Forward 50% is in phase 1');
+          final (fwdValue50, _) = forwardSim.valueAtProgress(0.5);
+          expect(track.value, closeTo(fwdValue50, 0.001));
 
-        track.setProgress(1.0, forward: true);
-        expect(track.phase, equals(1), reason: 'Forward end is phase 1');
+          track.setProgress(1.0, forward: true);
+          expect(track.phase, equals(1), reason: 'Forward end is phase 1');
 
-        // Reverse: total 500ms
-        // Phase 0: 0% - 80% (400ms)
-        // Phase 1: 80% - 100% (100ms)
-        expect(track.reverseDuration, closeTo(0.5, 0.01));
+          // Reverse: total 500ms
+          // Phase 0: 0% - 80% (400ms)
+          // Phase 1: 80% - 100% (100ms)
+          expect(track.reverseDuration, closeTo(0.5, 0.01));
 
-        final reverseSim = reverseMotion.buildBase(forward: false);
+          final reverseSim = reverseMotion.buildBase(forward: false);
 
-        track.setProgress(0.0, forward: false);
-        final (revValue0, _) = reverseSim.valueAtProgress(1.0);
-        expect(track.value, closeTo(revValue0, 0.001));
+          track.setProgress(0.0, forward: false);
+          final (revValue0, _) = reverseSim.valueAtProgress(1.0);
+          expect(track.value, closeTo(revValue0, 0.001));
 
-        track.setProgress(0.5, forward: false); // 50% reverse -> 50% flipped
-        // In reverse at 50% track progress: simulation sees (1.0 - 0.5) = 0.5
-        // 50% of reverse motion is in phase 0 (phase 0 is 0-80%)
-        final (revValue50, _) = reverseSim.valueAtProgress(0.5);
-        expect(track.value, closeTo(revValue50, 0.001));
+          track.setProgress(0.5, forward: false); // 50% reverse -> 50% flipped
+          // In reverse at 50% track progress: simulation sees (1.0 - 0.5) = 0.5
+          // 50% of reverse motion is in phase 0 (phase 0 is 0-80%)
+          final (revValue50, _) = reverseSim.valueAtProgress(0.5);
+          expect(track.value, closeTo(revValue50, 0.001));
 
-        track.setProgress(0.9, forward: false); // 90% reverse
-        // At 90% track progress in reverse: simulation sees 10%
-        // 10% of reverse motion is in phase 1 (phase 1 is 80-100%)
-        final (revValue90, _) = reverseSim.valueAtProgress(0.1);
-        expect(track.value, closeTo(revValue90, 0.001));
-      });
+          track.setProgress(0.9, forward: false); // 90% reverse
+          // At 90% track progress in reverse: simulation sees 10%
+          // 10% of reverse motion is in phase 1 (phase 1 is 80-100%)
+          final (revValue90, _) = reverseSim.valueAtProgress(0.1);
+          expect(track.value, closeTo(revValue90, 0.001));
+        },
+      );
 
-      test('different forward and reverse segmented motions with different phase counts', () {
-        // Forward: 3 segments
-        final forwardMotion = SegmentedMotion([
-          CueMotion.linear(100.ms),
-          CueMotion.linear(200.ms),
-          CueMotion.linear(300.ms),
-        ]);
+      test(
+        'different forward and reverse segmented motions with different phase counts',
+        () {
+          // Forward: 3 segments
+          final forwardMotion = SegmentedMotion([
+            CueMotion.linear(100.ms),
+            CueMotion.linear(200.ms),
+            CueMotion.linear(300.ms),
+          ]);
 
-        // Reverse: 2 segments
-        final reverseMotion = SegmentedMotion([
-          CueMotion.curved(400.ms, curve: Curves.easeInOut),
-          CueMotion.linear(200.ms),
-        ]);
+          // Reverse: 2 segments
+          final reverseMotion = SegmentedMotion([
+            CueMotion.curved(400.ms, curve: Curves.easeInOut),
+            CueMotion.linear(200.ms),
+          ]);
 
-        final config = TrackConfig(motion: forwardMotion, reverseMotion: reverseMotion);
-        final track = CueTrackImpl(config);
+          final config = TrackConfig(
+            motion: forwardMotion,
+            reverseMotion: reverseMotion,
+          );
+          final track = CueTrackImpl(config);
 
-        expect(forwardMotion.totalPhases, equals(3));
-        expect(reverseMotion.totalPhases, equals(2));
+          expect(forwardMotion.totalPhases, equals(3));
+          expect(reverseMotion.totalPhases, equals(2));
 
-        // Forward: total 600ms
-        // Phase 0: 0% - 16.67% (100ms)
-        // Phase 1: 16.67% - 50% (200ms)
-        // Phase 2: 50% - 100% (300ms)
-        expect(track.forwardDuration, closeTo(0.6, 0.01));
+          // Forward: total 600ms
+          // Phase 0: 0% - 16.67% (100ms)
+          // Phase 1: 16.67% - 50% (200ms)
+          // Phase 2: 50% - 100% (300ms)
+          expect(track.forwardDuration, closeTo(0.6, 0.01));
 
-        final forwardSim = forwardMotion.buildBase(forward: true);
+          final forwardSim = forwardMotion.buildBase(forward: true);
 
-        track.setProgress(0.0, forward: true);
-        expect(track.phase, equals(0), reason: 'Forward start is phase 0');
+          track.setProgress(0.0, forward: true);
+          expect(track.phase, equals(0), reason: 'Forward start is phase 0');
 
-        track.setProgress(0.1, forward: true); // 10% in phase 0
-        expect(track.phase, equals(0), reason: 'Forward 10% is in phase 0 (0-16.67%)');
+          track.setProgress(0.1, forward: true); // 10% in phase 0
+          expect(
+            track.phase,
+            equals(0),
+            reason: 'Forward 10% is in phase 0 (0-16.67%)',
+          );
 
-        track.setProgress(0.3, forward: true); // 30% in phase 1
-        expect(track.phase, equals(1), reason: 'Forward 30% is in phase 1 (16.67-50%)');
-        final (fwdValue30, _) = forwardSim.valueAtProgress(0.3);
-        expect(track.value, closeTo(fwdValue30, 0.001));
+          track.setProgress(0.3, forward: true); // 30% in phase 1
+          expect(
+            track.phase,
+            equals(1),
+            reason: 'Forward 30% is in phase 1 (16.67-50%)',
+          );
+          final (fwdValue30, _) = forwardSim.valueAtProgress(0.3);
+          expect(track.value, closeTo(fwdValue30, 0.001));
 
-        track.setProgress(0.7, forward: true); // 70% in phase 2
-        expect(track.phase, equals(2), reason: 'Forward 70% is in phase 2 (50-100%)');
-        final (fwdValue70, _) = forwardSim.valueAtProgress(0.7);
-        expect(track.value, closeTo(fwdValue70, 0.001));
+          track.setProgress(0.7, forward: true); // 70% in phase 2
+          expect(
+            track.phase,
+            equals(2),
+            reason: 'Forward 70% is in phase 2 (50-100%)',
+          );
+          final (fwdValue70, _) = forwardSim.valueAtProgress(0.7);
+          expect(track.value, closeTo(fwdValue70, 0.001));
 
-        track.setProgress(1.0, forward: true);
-        expect(track.phase, equals(2), reason: 'Forward end is phase 2');
+          track.setProgress(1.0, forward: true);
+          expect(track.phase, equals(2), reason: 'Forward end is phase 2');
 
-        // Reverse: total 600ms
-        // Phase 0: 0% - 66.67% (400ms)
-        // Phase 1: 66.67% - 100% (200ms)
-        expect(track.reverseDuration, closeTo(0.6, 0.01));
+          // Reverse: total 600ms
+          // Phase 0: 0% - 66.67% (400ms)
+          // Phase 1: 66.67% - 100% (200ms)
+          expect(track.reverseDuration, closeTo(0.6, 0.01));
 
-        final reverseSim = reverseMotion.buildBase(forward: false);
+          final reverseSim = reverseMotion.buildBase(forward: false);
 
-        track.setProgress(0.0, forward: false);
-        final (revValue0, _) = reverseSim.valueAtProgress(1.0);
-        expect(track.value, closeTo(revValue0, 0.001));
+          track.setProgress(0.0, forward: false);
+          final (revValue0, _) = reverseSim.valueAtProgress(1.0);
+          expect(track.value, closeTo(revValue0, 0.001));
 
-        track.setProgress(0.5, forward: false); // 50% reverse
-        // In reverse: simulation sees (1.0 - 0.5) = 0.5
-        // 50% of reverse motion is in phase 0 (phase 0 is 0-66.67%)
-        final (revValue50, _) = reverseSim.valueAtProgress(0.5);
-        expect(track.value, closeTo(revValue50, 0.001));
+          track.setProgress(0.5, forward: false); // 50% reverse
+          // In reverse: simulation sees (1.0 - 0.5) = 0.5
+          // 50% of reverse motion is in phase 0 (phase 0 is 0-66.67%)
+          final (revValue50, _) = reverseSim.valueAtProgress(0.5);
+          expect(track.value, closeTo(revValue50, 0.001));
 
-        track.setProgress(0.8, forward: false); // 80% reverse
-        // In reverse: simulation sees (1.0 - 0.8) = 0.2
-        // 20% of reverse motion is in phase 1 (phase 1 is 66.67-100%)
-        final (revValue80, _) = reverseSim.valueAtProgress(0.2);
-        expect(track.value, closeTo(revValue80, 0.001));
+          track.setProgress(0.8, forward: false); // 80% reverse
+          // In reverse: simulation sees (1.0 - 0.8) = 0.2
+          // 20% of reverse motion is in phase 1 (phase 1 is 66.67-100%)
+          final (revValue80, _) = reverseSim.valueAtProgress(0.2);
+          expect(track.value, closeTo(revValue80, 0.001));
 
-        track.setProgress(1.0, forward: false);
-        final (revValue100, _) = reverseSim.valueAtProgress(0.0);
-        expect(track.value, closeTo(revValue100, 0.001));
-      });
+          track.setProgress(1.0, forward: false);
+          final (revValue100, _) = reverseSim.valueAtProgress(0.0);
+          expect(track.value, closeTo(revValue100, 0.001));
+        },
+      );
 
       test('forward 4 segments vs reverse 2 segments with phase tracking', () {
         // Forward: 4 small segments
@@ -1560,7 +1768,10 @@ void main() {
           CueMotion.linear(100.ms),
         ]);
 
-        final config = TrackConfig(motion: forwardMotion, reverseMotion: reverseMotion);
+        final config = TrackConfig(
+          motion: forwardMotion,
+          reverseMotion: reverseMotion,
+        );
         final track = CueTrackImpl(config);
 
         expect(forwardMotion.totalPhases, equals(4));
@@ -1619,7 +1830,10 @@ void main() {
           CueMotion.linear(100.ms),
         ]);
 
-        final config = TrackConfig(motion: forwardMotion, reverseMotion: reverseMotion);
+        final config = TrackConfig(
+          motion: forwardMotion,
+          reverseMotion: reverseMotion,
+        );
         final track = CueTrackImpl(config);
 
         expect(forwardMotion.totalPhases, equals(1));
@@ -1633,7 +1847,11 @@ void main() {
         expect(track.phase, equals(0));
 
         track.setProgress(0.5, forward: true);
-        expect(track.phase, equals(0), reason: 'Single segment is always phase 0');
+        expect(
+          track.phase,
+          equals(0),
+          reason: 'Single segment is always phase 0',
+        );
         final (fwdValue50, _) = forwardSim.valueAtProgress(0.5);
         expect(track.value, closeTo(fwdValue50, 0.001));
 
@@ -1659,11 +1877,12 @@ void main() {
         ]);
 
         // Reverse: single segment
-        final reverseMotion = SegmentedMotion([
-          CueMotion.snappy(),
-        ]);
+        final reverseMotion = SegmentedMotion([CueMotion.snappy()]);
 
-        final config = TrackConfig(motion: forwardMotion, reverseMotion: reverseMotion);
+        final config = TrackConfig(
+          motion: forwardMotion,
+          reverseMotion: reverseMotion,
+        );
         final track = CueTrackImpl(config);
 
         expect(forwardMotion.totalPhases, equals(3));
@@ -1709,7 +1928,10 @@ void main() {
           CueMotion.linear(200.ms),
         ]);
 
-        final config = TrackConfig(motion: forwardMotion, reverseMotion: reverseMotion);
+        final config = TrackConfig(
+          motion: forwardMotion,
+          reverseMotion: reverseMotion,
+        );
         final track = CueTrackImpl(config);
 
         expect(forwardMotion.totalPhases, equals(2));

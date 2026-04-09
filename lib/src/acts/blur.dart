@@ -76,11 +76,8 @@ class BlurAct extends TweenAct<double> {
   /// )
   /// ```
   /// {@endtemplate}
-  const BlurAct.keyframed({
-    required super.frames,
-    super.reverse,
-    super.delay,
-  }) : super.keyframed(from: 0.0);
+  const BlurAct.keyframed({required super.frames, super.reverse, super.delay})
+    : super.keyframed(from: 0.0);
 
   /// {@template act.blur.focus}
   /// Animates from blurred to sharp (blur → 0).
@@ -117,17 +114,18 @@ class BlurAct extends TweenAct<double> {
   }) : super.tween(from: 0.0);
 
   @override
-  Widget apply(BuildContext context, Animation<double> animation, Widget child) {
+  Widget apply(
+    BuildContext context,
+    Animation<double> animation,
+    Widget child,
+  ) {
     return AnimatedBuilder(
       animation: animation,
       child: child,
       builder: (context, child) {
         final blurValue = animation.value;
         return ImageFiltered(
-          imageFilter: ImageFilter.blur(
-            sigmaX: blurValue,
-            sigmaY: blurValue,
-          ),
+          imageFilter: ImageFilter.blur(sigmaX: blurValue, sigmaY: blurValue),
           child: child,
         );
       },
@@ -204,7 +202,11 @@ class BackdropBlurAct extends TweenAct<double> {
   }) : super.keyframed();
 
   @override
-  Widget apply(BuildContext context, Animation<double> animation, Widget child) {
+  Widget apply(
+    BuildContext context,
+    Animation<double> animation,
+    Widget child,
+  ) {
     return AnimatedBuilder(
       animation: animation,
       child: child,
@@ -212,10 +214,7 @@ class BackdropBlurAct extends TweenAct<double> {
         final blurValue = animation.value;
         return BackdropFilter(
           blendMode: blendMode,
-          filter: ImageFilter.blur(
-            sigmaX: blurValue,
-            sigmaY: blurValue,
-          ),
+          filter: ImageFilter.blur(sigmaX: blurValue, sigmaY: blurValue),
           child: child,
         );
       },

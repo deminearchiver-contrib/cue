@@ -9,7 +9,10 @@ void main() {
     final reverseMotion = CueMotion.linear(const Duration(milliseconds: 200));
 
     test('with null frames uses motion parameter', () {
-      final context = ActContext(motion: defaultMotion, reverseMotion: reverseMotion);
+      final context = ActContext(
+        motion: defaultMotion,
+        reverseMotion: reverseMotion,
+      );
       final customMotion = CueMotion.linear(const Duration(milliseconds: 150));
       final reverse = ReverseBehavior<double>.mirror(motion: customMotion);
 
@@ -32,7 +35,10 @@ void main() {
         Keyframe(2, motion: m2),
       ], motion: CueMotion.none);
 
-      final context = ActContext(motion: defaultMotion, reverseMotion: reverseMotion);
+      final context = ActContext(
+        motion: defaultMotion,
+        reverseMotion: reverseMotion,
+      );
       final reverse = ReverseBehavior<int>.mirror();
 
       final resolved = TweenActBase.resolveMotion<int>(
@@ -56,7 +62,10 @@ void main() {
         Keyframe(2, motion: m2),
       ], motion: CueMotion.none);
 
-      final context = ActContext(motion: defaultMotion, reverseMotion: reverseMotion);
+      final context = ActContext(
+        motion: defaultMotion,
+        reverseMotion: reverseMotion,
+      );
       final reverse = ReverseBehavior<int>.mirror();
 
       final resolved = TweenActBase.resolveMotion<int>(
@@ -78,7 +87,10 @@ void main() {
         FKeyframe(2, at: 1.0),
       ], duration: const Duration(milliseconds: 500));
 
-      final context = ActContext(motion: defaultMotion, reverseMotion: reverseMotion);
+      final context = ActContext(
+        motion: defaultMotion,
+        reverseMotion: reverseMotion,
+      );
       final reverse = ReverseBehavior<int>.mirror();
 
       final resolved = TweenActBase.resolveMotion<int>(
@@ -93,26 +105,32 @@ void main() {
       expect(resolved.motion, isA<CueMotion>());
     });
 
-    test('with FractionalKeyframes no duration uses context motion baseDuration', () {
-      final frames = FractionalKeyframes<int>([
-        FKeyframe(1, at: 0.0),
-        FKeyframe(2, at: 1.0),
-      ], duration: null);
+    test(
+      'with FractionalKeyframes no duration uses context motion baseDuration',
+      () {
+        final frames = FractionalKeyframes<int>([
+          FKeyframe(1, at: 0.0),
+          FKeyframe(2, at: 1.0),
+        ], duration: null);
 
-      final context = ActContext(motion: defaultMotion, reverseMotion: reverseMotion);
-      final reverse = ReverseBehavior<int>.mirror();
+        final context = ActContext(
+          motion: defaultMotion,
+          reverseMotion: reverseMotion,
+        );
+        final reverse = ReverseBehavior<int>.mirror();
 
-      final resolved = TweenActBase.resolveMotion<int>(
-        context,
-        motion: null,
-        delay: Duration.zero,
-        reverse: reverse,
-        frames: frames,
-        includeFirstFrame: false,
-      );
+        final resolved = TweenActBase.resolveMotion<int>(
+          context,
+          motion: null,
+          delay: Duration.zero,
+          reverse: reverse,
+          frames: frames,
+          includeFirstFrame: false,
+        );
 
-      expect(resolved.motion, isA<CueMotion>());
-    });
+        expect(resolved.motion, isA<CueMotion>());
+      },
+    );
 
     test('reverse frames with MotionKeyframes', () {
       final m1 = CueMotion.linear(const Duration(milliseconds: 100));
@@ -122,8 +140,13 @@ void main() {
         Keyframe(2, motion: m2),
       ], motion: CueMotion.none);
 
-      final context = ActContext(motion: defaultMotion, reverseMotion: reverseMotion);
-      final reverse = ReverseBehavior<int>.mirror(motion: CueMotion.linear(const Duration(milliseconds: 150)));
+      final context = ActContext(
+        motion: defaultMotion,
+        reverseMotion: reverseMotion,
+      );
+      final reverse = ReverseBehavior<int>.mirror(
+        motion: CueMotion.linear(const Duration(milliseconds: 150)),
+      );
       reverse.frames?.reversed;
 
       final resolved = TweenActBase.resolveMotion<int>(
@@ -145,7 +168,10 @@ void main() {
         FKeyframe(2, at: 1.0),
       ], duration: const Duration(milliseconds: 500));
 
-      final context = ActContext(motion: defaultMotion, reverseMotion: reverseMotion);
+      final context = ActContext(
+        motion: defaultMotion,
+        reverseMotion: reverseMotion,
+      );
       final revFrames = frames.reversed;
       final reverse = KFReverseBehavior<int>.to(revFrames);
 
@@ -208,7 +234,10 @@ void main() {
     });
 
     test('uses provided motion over context motion', () {
-      final context = ActContext(motion: defaultMotion, reverseMotion: reverseMotion);
+      final context = ActContext(
+        motion: defaultMotion,
+        reverseMotion: reverseMotion,
+      );
       final customMotion = CueMotion.linear(const Duration(milliseconds: 300));
       final reverse = ReverseBehavior<double>.mirror();
 
@@ -224,9 +253,16 @@ void main() {
     });
 
     test('uses reverse.motion when provided', () {
-      final context = ActContext(motion: defaultMotion, reverseMotion: reverseMotion);
-      final customReverseMotion = CueMotion.linear(const Duration(milliseconds: 400));
-      final reverse = ReverseBehavior<double>.mirror(motion: customReverseMotion);
+      final context = ActContext(
+        motion: defaultMotion,
+        reverseMotion: reverseMotion,
+      );
+      final customReverseMotion = CueMotion.linear(
+        const Duration(milliseconds: 400),
+      );
+      final reverse = ReverseBehavior<double>.mirror(
+        motion: customReverseMotion,
+      );
 
       final resolved = TweenActBase.resolveMotion<double>(
         context,
@@ -240,7 +276,10 @@ void main() {
     });
 
     test('fallback to provided motion when no reverse motion set', () {
-      final context = ActContext(motion: defaultMotion, reverseMotion: reverseMotion);
+      final context = ActContext(
+        motion: defaultMotion,
+        reverseMotion: reverseMotion,
+      );
       final reverse = ReverseBehavior<double>.mirror();
 
       final resolved = TweenActBase.resolveMotion<double>(
@@ -255,21 +294,27 @@ void main() {
       expect(resolved.reverseMotion, equals(defaultMotion));
     });
 
-    test('fallback to context reverseMotion when no motion and no reverse motion set', () {
-      final context = ActContext(motion: defaultMotion, reverseMotion: reverseMotion);
-      final reverse = ReverseBehavior<double>.mirror();
+    test(
+      'fallback to context reverseMotion when no motion and no reverse motion set',
+      () {
+        final context = ActContext(
+          motion: defaultMotion,
+          reverseMotion: reverseMotion,
+        );
+        final reverse = ReverseBehavior<double>.mirror();
 
-      final resolved = TweenActBase.resolveMotion<double>(
-        context,
-        motion: null,
-        delay: Duration.zero,
-        reverse: reverse,
-        frames: null,
-      );
+        final resolved = TweenActBase.resolveMotion<double>(
+          context,
+          motion: null,
+          delay: Duration.zero,
+          reverse: reverse,
+          frames: null,
+        );
 
-      // When no motion is provided, fall back to context.reverseMotion
-      expect(resolved.reverseMotion, equals(reverseMotion));
-    });
+        // When no motion is provided, fall back to context.reverseMotion
+        expect(resolved.reverseMotion, equals(reverseMotion));
+      },
+    );
   });
 
   group('ReverseBehaviorBase', () {
@@ -350,7 +395,10 @@ void main() {
   group('TweenActBase.resolveTween', () {
     final defaultMotion = CueMotion.linear(const Duration(milliseconds: 100));
     final reverseMotion = CueMotion.linear(const Duration(milliseconds: 200));
-    final context = ActContext(motion: defaultMotion, reverseMotion: reverseMotion);
+    final context = ActContext(
+      motion: defaultMotion,
+      reverseMotion: reverseMotion,
+    );
 
     test('with null keyframes and from != to returns TweenAnimtable', () {
       final act = CueTweenBuildHelper<int>(
@@ -368,22 +416,25 @@ void main() {
       expect(result, isA<TweenAnimtable<int>>());
     });
 
-    test('with null keyframes and from == to returns AlwaysStoppedAnimatable', () {
-      final act = CueTweenBuildHelper<int>(
-        from: 5,
-        to: 10,
-        tweenBuilder: (f, t) => Tween(begin: f, end: t),
-      );
-      final result = act.resolveTween(
-        context,
-        from: 5,
-        to: 10,
-        keyframes: null,
-      );
+    test(
+      'with null keyframes and from == to returns AlwaysStoppedAnimatable',
+      () {
+        final act = CueTweenBuildHelper<int>(
+          from: 5,
+          to: 10,
+          tweenBuilder: (f, t) => Tween(begin: f, end: t),
+        );
+        final result = act.resolveTween(
+          context,
+          from: 5,
+          to: 10,
+          keyframes: null,
+        );
 
-      // effectiveFrom = transform(5) = 10, to = 10, so they're equal
-      expect(result, isA<TweenAnimtable<int>>());
-    });
+        // effectiveFrom = transform(5) = 10, to = 10, so they're equal
+        expect(result, isA<TweenAnimtable<int>>());
+      },
+    );
 
     test('with null keyframes uses implicitFrom when from is null', () {
       final act = CueTweenBuildHelper<int>(
@@ -423,36 +474,39 @@ void main() {
       expect(result, isA<SegmentedAnimtable<int>>());
     });
 
-    test('with MotionKeyframes and forReverse=true passes flag to Phase resolver', () {
-      final frames = MotionKeyframes<int>([
-        Keyframe(10),
-        Keyframe(20),
-      ], motion: .linear(100.ms));
+    test(
+      'with MotionKeyframes and forReverse=true passes flag to Phase resolver',
+      () {
+        final frames = MotionKeyframes<int>([
+          Keyframe(10),
+          Keyframe(20),
+        ], motion: .linear(100.ms));
 
-      final act = CueTweenBuildHelper<int>(
-        from: 10,
-        to: 20,
-        tweenBuilder: (f, t) => Tween(begin: f, end: t),
-      );
-      final resultForward = act.resolveTween(
-        context,
-        from: null,
-        to: null,
-        forReverse: false,
-        keyframes: frames,
-      );
+        final act = CueTweenBuildHelper<int>(
+          from: 10,
+          to: 20,
+          tweenBuilder: (f, t) => Tween(begin: f, end: t),
+        );
+        final resultForward = act.resolveTween(
+          context,
+          from: null,
+          to: null,
+          forReverse: false,
+          keyframes: frames,
+        );
 
-      final resultReverse = act.resolveTween(
-        context,
-        from: null,
-        to: null,
-        forReverse: true,
-        keyframes: frames,
-      );
+        final resultReverse = act.resolveTween(
+          context,
+          from: null,
+          to: null,
+          forReverse: true,
+          keyframes: frames,
+        );
 
-      expect(resultForward, isA<SegmentedAnimtable<int>>());
-      expect(resultReverse, isA<SegmentedAnimtable<int>>());
-    });
+        expect(resultForward, isA<SegmentedAnimtable<int>>());
+        expect(resultReverse, isA<SegmentedAnimtable<int>>());
+      },
+    );
 
     test('with FractionalKeyframes returns SegmentedAnimtable', () {
       final frames = FractionalKeyframes<int>([
@@ -514,27 +568,30 @@ void main() {
       expect(result, isA<TweenAnimtable<int>>());
     });
 
-    test('with multiple MotionKeyframes segments creates multiple segments', () {
-      final frames = MotionKeyframes<int>([
-        Keyframe(10),
-        Keyframe(20),
-        Keyframe(30),
-      ], motion: .linear(100.ms));
+    test(
+      'with multiple MotionKeyframes segments creates multiple segments',
+      () {
+        final frames = MotionKeyframes<int>([
+          Keyframe(10),
+          Keyframe(20),
+          Keyframe(30),
+        ], motion: .linear(100.ms));
 
-      final act = CueTweenBuildHelper<int>(
-        from: 10,
-        to: 30,
-        tweenBuilder: (f, t) => Tween(begin: f, end: t),
-      );
-      final result = act.resolveTween(
-        context,
-        from: null,
-        to: null,
-        keyframes: frames,
-      );
+        final act = CueTweenBuildHelper<int>(
+          from: 10,
+          to: 30,
+          tweenBuilder: (f, t) => Tween(begin: f, end: t),
+        );
+        final result = act.resolveTween(
+          context,
+          from: null,
+          to: null,
+          keyframes: frames,
+        );
 
-      expect(result, isA<SegmentedAnimtable<int>>());
-    });
+        expect(result, isA<SegmentedAnimtable<int>>());
+      },
+    );
 
     test('initialKeyframe is used correctly in Phase resolution', () {
       final frames = MotionKeyframes<int>([
@@ -582,12 +639,7 @@ void main() {
       );
 
       expect(
-        () => act.resolveTween(
-          context,
-          from: null,
-          to: null,
-          keyframes: null,
-        ),
+        () => act.resolveTween(context, from: null, to: null, keyframes: null),
         throwsA(isA<TypeError>()),
       );
     });

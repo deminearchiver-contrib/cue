@@ -83,7 +83,10 @@ void main() {
 
     test('DecoratedBoxAct with color creates valid instance', () {
       const act = DecoratedBoxAct(
-        color: AnimatableValue<Color>(from: Color(0xFF000000), to: Color(0xFFFFFFFF)),
+        color: AnimatableValue<Color>(
+          from: Color(0xFF000000),
+          to: Color(0xFFFFFFFF),
+        ),
       );
       expect(act.color, isNotNull);
     });
@@ -160,10 +163,16 @@ void main() {
 
     test('DecoratedBoxAct with different color not equal', () {
       const a = DecoratedBoxAct(
-        color: AnimatableValue<Color>(from: Color(0xFF000000), to: Color(0xFFFFFFFF)),
+        color: AnimatableValue<Color>(
+          from: Color(0xFF000000),
+          to: Color(0xFFFFFFFF),
+        ),
       );
       const b = DecoratedBoxAct(
-        color: AnimatableValue<Color>(from: Color(0xFFFF0000), to: Color(0xFFFFFFFF)),
+        color: AnimatableValue<Color>(
+          from: Color(0xFFFF0000),
+          to: Color(0xFFFFFFFF),
+        ),
       );
       expect(a, isNot(equals(b)));
     });

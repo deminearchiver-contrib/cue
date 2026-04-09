@@ -9,7 +9,9 @@ void main() {
 
   final motion = CueMotion.linear(300.ms);
   final actContext = ActContext(motion: motion, reverseMotion: motion);
-  final track = CueTrackImpl(TrackConfig(motion: motion, reverseMotion: motion));
+  final track = CueTrackImpl(
+    TrackConfig(motion: motion, reverseMotion: motion),
+  );
   final timeline = CueTimelineImpl.fromMotion(motion);
 
   group('TransformAct', () {
@@ -49,10 +51,7 @@ void main() {
 
       test('accepts origin', () {
         final origin = const Offset(50, 50);
-        final act = TransformAct(
-          to: Matrix4.identity(),
-          origin: origin,
-        );
+        final act = TransformAct(to: Matrix4.identity(), origin: origin);
         expect(act.origin, origin);
       });
 
@@ -83,7 +82,9 @@ void main() {
     });
 
     group('apply', () {
-      testWidgets('wraps child in AnimatedBuilder with Transform', (tester) async {
+      testWidgets('wraps child in AnimatedBuilder with Transform', (
+        tester,
+      ) async {
         final to = Matrix4.translationValues(100, 0, 0);
         final act = TransformAct(to: to);
 
@@ -228,7 +229,9 @@ void main() {
     });
 
     group('apply', () {
-      testWidgets('wraps child in AnimatedBuilder with Transform', (tester) async {
+      testWidgets('wraps child in AnimatedBuilder with Transform', (
+        tester,
+      ) async {
         final act = SkewAct(from: Skew.zero, to: Skew(x: 0.1, y: 0.1));
 
         final (animtable, _) = act.buildTweens(actContext);

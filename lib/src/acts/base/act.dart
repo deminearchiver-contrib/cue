@@ -689,7 +689,11 @@ abstract class Act {
   /// reflects the current playback position. Should return a widget that
   /// applies the animated value — e.g. a [Transform], [Opacity], or
   /// [ClipRRect] — wrapping [child].
-  Widget applyInternal(BuildContext context, covariant CueAnimation<Object?> animation, Widget child);
+  Widget applyInternal(
+    BuildContext context,
+    covariant CueAnimation<Object?> animation,
+    Widget child,
+  );
 }
 
 /// Resolved animation context passed to an [Act] when building its animation.
@@ -779,7 +783,8 @@ class ActKey {
 
   @override
   bool operator ==(Object other) =>
-      identical(this, other) || other is ActKey && runtimeType == other.runtimeType && key == other.key;
+      identical(this, other) ||
+      other is ActKey && runtimeType == other.runtimeType && key == other.key;
 
   @override
   int get hashCode => key.hashCode;

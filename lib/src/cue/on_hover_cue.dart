@@ -39,7 +39,13 @@ class OnHoverCue extends SelfAnimatedCue {
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties.add(DiagnosticsProperty<MouseCursor>('cursor', cursor, defaultValue: MouseCursor.defer));
+    properties.add(
+      DiagnosticsProperty<MouseCursor>(
+        'cursor',
+        cursor,
+        defaultValue: MouseCursor.defer,
+      ),
+    );
     properties.add(FlagProperty('opaque', value: opaque, ifTrue: 'opaque'));
   }
 

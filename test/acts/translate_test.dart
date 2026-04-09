@@ -10,7 +10,9 @@ void main() {
 
   final motion = CueMotion.linear(300.ms);
   final actContext = ActContext(motion: motion, reverseMotion: motion);
-  final track = CueTrackImpl(TrackConfig(motion: motion, reverseMotion: motion));
+  final track = CueTrackImpl(
+    TrackConfig(motion: motion, reverseMotion: motion),
+  );
   final timeline = CueTimelineImpl.fromMotion(motion);
 
   group('TranslateAct', () {
@@ -181,7 +183,11 @@ void main() {
             textDirection: TextDirection.ltr,
             child: Builder(
               builder: (context) {
-                return animtableAct.apply(context, animation, const Text('Test'));
+                return animtableAct.apply(
+                  context,
+                  animation,
+                  const Text('Test'),
+                );
               },
             ),
           ),
@@ -195,10 +201,7 @@ void main() {
 
   group('TranslateTransition', () {
     testWidgets('applies translation via Transform.translate', (tester) async {
-      final controller = AnimationController(
-        vsync: tester,
-        value: 0.5,
-      );
+      final controller = AnimationController(vsync: tester, value: 0.5);
       final animation = Tween<Offset>(
         begin: Offset.zero,
         end: const Offset(100, 50),
@@ -217,10 +220,7 @@ void main() {
     });
 
     testWidgets('uses animation value for offset', (tester) async {
-      final controller = AnimationController(
-        vsync: tester,
-        value: 0.5,
-      );
+      final controller = AnimationController(vsync: tester, value: 0.5);
       final animation = Tween<Offset>(
         begin: Offset.zero,
         end: const Offset(100, 50),
@@ -240,10 +240,7 @@ void main() {
     });
 
     testWidgets('respects transformHitTests parameter', (tester) async {
-      final controller = AnimationController(
-        vsync: tester,
-        value: 0.5,
-      );
+      final controller = AnimationController(vsync: tester, value: 0.5);
       final animation = Tween<Offset>(
         begin: Offset.zero,
         end: const Offset(100, 50),

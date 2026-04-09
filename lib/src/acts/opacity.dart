@@ -119,7 +119,11 @@ class OpacityAct extends TweenAct<double> {
   }) : super.keyframed(from: 1.0);
 
   @override
-  Widget apply(BuildContext context, Animation<double> animation, Widget child) {
+  Widget apply(
+    BuildContext context,
+    Animation<double> animation,
+    Widget child,
+  ) {
     return FadeTransition(opacity: animation, child: child);
   }
 }

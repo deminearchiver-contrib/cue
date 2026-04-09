@@ -45,7 +45,9 @@ class OnScrollVisibleCue extends Cue {
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties.add(FlagProperty('enabled', value: enabled, ifFalse: 'disabled'));
+    properties.add(
+      FlagProperty('enabled', value: enabled, ifFalse: 'disabled'),
+    );
   }
 
   @override
@@ -53,14 +55,18 @@ class OnScrollVisibleCue extends Cue {
 }
 
 /// State class for [OnScrollVisibleCue].
-class OnScrollVisibleCueState extends CueState<OnScrollVisibleCue> with SingleTickerProviderStateMixin {
+class OnScrollVisibleCueState extends CueState<OnScrollVisibleCue>
+    with SingleTickerProviderStateMixin {
   @override
   String get debugName => 'OnScrollVisibleCue';
 
   @override
   CueController get controller => _controller;
 
-  late final CueController _controller = CueController(vsync: this, motion: .linear(Duration(milliseconds: 500)));
+  late final CueController _controller = CueController(
+    vsync: this,
+    motion: .linear(Duration(milliseconds: 500)),
+  );
   ScrollPosition? _scrollPosition;
   double? _cachedRevealedOffset;
 
@@ -83,7 +89,9 @@ class OnScrollVisibleCueState extends CueState<OnScrollVisibleCue> with SingleTi
   void _subscribeToScrollPosition() {
     final position = Scrollable.maybeOf(context)?.position;
     if (position == null) {
-      throw FlutterError('Cue.onScrollVisible must be used inside a scrollable widget');
+      throw FlutterError(
+        'Cue.onScrollVisible must be used inside a scrollable widget',
+      );
     }
     if (_scrollPosition != position) {
       _scrollPosition?.removeListener(_trackViiblity);
@@ -118,7 +126,9 @@ class OnScrollVisibleCueState extends CueState<OnScrollVisibleCue> with SingleTi
   void _trackViiblity() async {
     if (!mounted) return;
     final renderObject = context.findRenderObject();
-    if (renderObject is! RenderBox || !renderObject.attached || !renderObject.hasSize) {
+    if (renderObject is! RenderBox ||
+        !renderObject.attached ||
+        !renderObject.hasSize) {
       _controller.setProgress(1.0, forward: true);
       return;
     }
@@ -132,11 +142,16 @@ class OnScrollVisibleCueState extends CueState<OnScrollVisibleCue> with SingleTi
     final scrollOffset = _scrollPosition!.pixels;
     final viewportDimension = _scrollPosition!.viewportDimension;
 
-    final itemExtent = _scrollPosition!.axis == Axis.horizontal ? renderSize.width : renderSize.height;
+    final itemExtent = _scrollPosition!.axis == Axis.horizontal
+        ? renderSize.width
+        : renderSize.height;
 
     // Compute how many pixels of the widget overlap with the viewport
     final visibleStart = math.max(revealedOffset, scrollOffset);
-    final visibleEnd = math.min(revealedOffset + itemExtent, scrollOffset + viewportDimension);
+    final visibleEnd = math.min(
+      revealedOffset + itemExtent,
+      scrollOffset + viewportDimension,
+    );
     final visibleExtent = visibleEnd - visibleStart;
 
     final visibleFraction = itemExtent > 0 ? (visibleExtent / itemExtent) : 0.0;

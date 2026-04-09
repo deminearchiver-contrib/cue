@@ -212,7 +212,11 @@ class SizedBoxAct extends DeferredTweenAct<Size> {
   }
 
   @override
-  Widget apply(BuildContext context, covariant DeferredCueAnimation<Size> animation, Widget child) {
+  Widget apply(
+    BuildContext context,
+    covariant DeferredCueAnimation<Size> animation,
+    Widget child,
+  ) {
     return _AnimatedSizedBox(
       driver: animation,
       width: width,
@@ -236,7 +240,8 @@ class SizedBoxAct extends DeferredTweenAct<Size> {
           reverse == other.reverse;
 
   @override
-  int get hashCode => Object.hash(super.hashCode, width, height, alignment, frames, reverse);
+  int get hashCode =>
+      Object.hash(super.hashCode, width, height, alignment, frames, reverse);
 }
 
 class _AnimatedSizedBox extends SingleChildRenderObjectWidget {
@@ -356,7 +361,10 @@ class _AnimtableRenderConstrainedBox extends RenderConstrainedBox {
 
   double _normalize(double? value, double maxDimention) {
     if (value == null || value.isInfinite) {
-      assert(maxDimention.isFinite, 'You can not use double.infinity on an unconstrained axis');
+      assert(
+        maxDimention.isFinite,
+        'You can not use double.infinity on an unconstrained axis',
+      );
       return maxDimention;
     }
     return value;
@@ -431,7 +439,9 @@ class _AnimtableRenderConstrainedBox extends RenderConstrainedBox {
 
     final animatedConstrains = BoxConstraints.tightFor(
       width: animatedSize?.width.isFinite == true ? animatedSize?.width : null,
-      height: animatedSize?.height.isFinite == true ? animatedSize?.height : null,
+      height: animatedSize?.height.isFinite == true
+          ? animatedSize?.height
+          : null,
     );
 
     child!.layout(animatedConstrains, parentUsesSize: true);
@@ -448,7 +458,8 @@ class _AnimtableRenderConstrainedBox extends RenderConstrainedBox {
 }
 
 class _SizeTween extends Tween<Size> {
-  _SizeTween({required Size begin, required Size end}) : super(begin: begin, end: end);
+  _SizeTween({required Size begin, required Size end})
+    : super(begin: begin, end: end);
 
   @override
   Size lerp(double t) {

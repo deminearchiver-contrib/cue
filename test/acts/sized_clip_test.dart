@@ -100,12 +100,15 @@ void main() {
       expect(geometry.useSuperEllipse, isFalse);
     });
 
-    test('superEllipse constructor creates with border radius and superEllipse', () {
-      const radius = BorderRadius.all(Radius.circular(10));
-      const geometry = ClipGeometry.superEllipse(radius);
-      expect(geometry.borderRadius, equals(radius));
-      expect(geometry.useSuperEllipse, isTrue);
-    });
+    test(
+      'superEllipse constructor creates with border radius and superEllipse',
+      () {
+        const radius = BorderRadius.all(Radius.circular(10));
+        const geometry = ClipGeometry.superEllipse(radius);
+        expect(geometry.borderRadius, equals(radius));
+        expect(geometry.useSuperEllipse, isTrue);
+      },
+    );
 
     test('equality same values are equal', () {
       const radius = BorderRadius.all(Radius.circular(10));
@@ -193,7 +196,10 @@ void main() {
       final frames = Keyframes<NSize>([
         Keyframe(NSize.square(100.0)),
       ], motion: CueMotion.linear(300.ms));
-      final act = SizedClipAct.keyframed(frames: frames, alignment: Alignment.center);
+      final act = SizedClipAct.keyframed(
+        frames: frames,
+        alignment: Alignment.center,
+      );
       expect(act.alignment, equals(Alignment.center));
     });
 
@@ -253,7 +259,9 @@ void main() {
 
     group('apply with different configurations', () {
       testWidgets('renders with basic configuration', (tester) async {
-        final track = CueTrackImpl(TrackConfig(motion: motion, reverseMotion: motion));
+        final track = CueTrackImpl(
+          TrackConfig(motion: motion, reverseMotion: motion),
+        );
         final timeline = CueTimelineImpl.fromMotion(motion);
 
         const act = SizedClipAct(
@@ -273,7 +281,11 @@ void main() {
             textDirection: TextDirection.ltr,
             child: Builder(
               builder: (context) {
-                return act.apply(context, animation, const SizedBox(width: 100, height: 100, child: Text('Clip')));
+                return act.apply(
+                  context,
+                  animation,
+                  const SizedBox(width: 100, height: 100, child: Text('Clip')),
+                );
               },
             ),
           ),
@@ -284,7 +296,9 @@ void main() {
       });
 
       testWidgets('renders with alignment variations', (tester) async {
-        final track = CueTrackImpl(TrackConfig(motion: motion, reverseMotion: motion));
+        final track = CueTrackImpl(
+          TrackConfig(motion: motion, reverseMotion: motion),
+        );
         final timeline = CueTimelineImpl.fromMotion(motion);
 
         for (final alignment in [
@@ -310,7 +324,11 @@ void main() {
               textDirection: TextDirection.ltr,
               child: Builder(
                 builder: (context) {
-                  return act.apply(context, animation, const SizedBox(width: 50, height: 50, child: Text('Test')));
+                  return act.apply(
+                    context,
+                    animation,
+                    const SizedBox(width: 50, height: 50, child: Text('Test')),
+                  );
                 },
               ),
             ),
@@ -321,10 +339,16 @@ void main() {
       });
 
       testWidgets('renders with different clip behaviors', (tester) async {
-        final track = CueTrackImpl(TrackConfig(motion: motion, reverseMotion: motion));
+        final track = CueTrackImpl(
+          TrackConfig(motion: motion, reverseMotion: motion),
+        );
         final timeline = CueTimelineImpl.fromMotion(motion);
 
-        for (final clipBehavior in [Clip.hardEdge, Clip.antiAlias, Clip.antiAliasWithSaveLayer]) {
+        for (final clipBehavior in [
+          Clip.hardEdge,
+          Clip.antiAlias,
+          Clip.antiAliasWithSaveLayer,
+        ]) {
           final act = SizedClipAct(
             from: NSize.square(100),
             to: NSize.square(200),
@@ -343,7 +367,11 @@ void main() {
               textDirection: TextDirection.ltr,
               child: Builder(
                 builder: (context) {
-                  return act.apply(context, animation, const SizedBox(width: 100, height: 100));
+                  return act.apply(
+                    context,
+                    animation,
+                    const SizedBox(width: 100, height: 100),
+                  );
                 },
               ),
             ),
@@ -354,7 +382,9 @@ void main() {
       });
 
       testWidgets('renders with rect clip geometry', (tester) async {
-        final track = CueTrackImpl(TrackConfig(motion: motion, reverseMotion: motion));
+        final track = CueTrackImpl(
+          TrackConfig(motion: motion, reverseMotion: motion),
+        );
         final timeline = CueTimelineImpl.fromMotion(motion);
 
         const act = SizedClipAct(
@@ -375,7 +405,11 @@ void main() {
             textDirection: TextDirection.ltr,
             child: Builder(
               builder: (context) {
-                return act.apply(context, animation, const SizedBox(width: 100, height: 100));
+                return act.apply(
+                  context,
+                  animation,
+                  const SizedBox(width: 100, height: 100),
+                );
               },
             ),
           ),
@@ -385,7 +419,9 @@ void main() {
       });
 
       testWidgets('renders with rrect clip geometry', (tester) async {
-        final track = CueTrackImpl(TrackConfig(motion: motion, reverseMotion: motion));
+        final track = CueTrackImpl(
+          TrackConfig(motion: motion, reverseMotion: motion),
+        );
         final timeline = CueTimelineImpl.fromMotion(motion);
 
         const radius = BorderRadius.all(Radius.circular(12));
@@ -407,7 +443,11 @@ void main() {
             textDirection: TextDirection.ltr,
             child: Builder(
               builder: (context) {
-                return act.apply(context, animation, const SizedBox(width: 100, height: 100));
+                return act.apply(
+                  context,
+                  animation,
+                  const SizedBox(width: 100, height: 100),
+                );
               },
             ),
           ),
@@ -417,7 +457,9 @@ void main() {
       });
 
       testWidgets('renders with superEllipse clip geometry', (tester) async {
-        final track = CueTrackImpl(TrackConfig(motion: motion, reverseMotion: motion));
+        final track = CueTrackImpl(
+          TrackConfig(motion: motion, reverseMotion: motion),
+        );
         final timeline = CueTimelineImpl.fromMotion(motion);
 
         const radius = BorderRadius.all(Radius.circular(12));
@@ -439,7 +481,11 @@ void main() {
             textDirection: TextDirection.ltr,
             child: Builder(
               builder: (context) {
-                return act.apply(context, animation, const SizedBox(width: 100, height: 100));
+                return act.apply(
+                  context,
+                  animation,
+                  const SizedBox(width: 100, height: 100),
+                );
               },
             ),
           ),
@@ -449,7 +495,9 @@ void main() {
       });
 
       testWidgets('renders with keyframed animation', (tester) async {
-        final track = CueTrackImpl(TrackConfig(motion: motion, reverseMotion: motion));
+        final track = CueTrackImpl(
+          TrackConfig(motion: motion, reverseMotion: motion),
+        );
         final timeline = CueTimelineImpl.fromMotion(motion);
 
         final frames = Keyframes<NSize>([
@@ -470,7 +518,11 @@ void main() {
             textDirection: TextDirection.ltr,
             child: Builder(
               builder: (context) {
-                return act.apply(context, animation, const SizedBox(width: 100, height: 100));
+                return act.apply(
+                  context,
+                  animation,
+                  const SizedBox(width: 100, height: 100),
+                );
               },
             ),
           ),
@@ -480,7 +532,9 @@ void main() {
       });
 
       testWidgets('renders at progress 0', (tester) async {
-        final track = CueTrackImpl(TrackConfig(motion: motion, reverseMotion: motion));
+        final track = CueTrackImpl(
+          TrackConfig(motion: motion, reverseMotion: motion),
+        );
         final timeline = CueTimelineImpl.fromMotion(motion);
 
         const act = SizedClipAct(
@@ -500,7 +554,11 @@ void main() {
             textDirection: TextDirection.ltr,
             child: Builder(
               builder: (context) {
-                return act.apply(context, animation, const SizedBox(width: 100, height: 100));
+                return act.apply(
+                  context,
+                  animation,
+                  const SizedBox(width: 100, height: 100),
+                );
               },
             ),
           ),
@@ -510,7 +568,9 @@ void main() {
       });
 
       testWidgets('renders at progress 1', (tester) async {
-        final track = CueTrackImpl(TrackConfig(motion: motion, reverseMotion: motion));
+        final track = CueTrackImpl(
+          TrackConfig(motion: motion, reverseMotion: motion),
+        );
         final timeline = CueTimelineImpl.fromMotion(motion);
 
         const act = SizedClipAct(
@@ -530,7 +590,11 @@ void main() {
             textDirection: TextDirection.ltr,
             child: Builder(
               builder: (context) {
-                return act.apply(context, animation, const SizedBox(width: 100, height: 100));
+                return act.apply(
+                  context,
+                  animation,
+                  const SizedBox(width: 100, height: 100),
+                );
               },
             ),
           ),
@@ -540,13 +604,12 @@ void main() {
       });
 
       testWidgets('renders with NSize.childSize', (tester) async {
-        final track = CueTrackImpl(TrackConfig(motion: motion, reverseMotion: motion));
+        final track = CueTrackImpl(
+          TrackConfig(motion: motion, reverseMotion: motion),
+        );
         final timeline = CueTimelineImpl.fromMotion(motion);
 
-        const act = SizedClipAct(
-          from: NSize.childSize,
-          to: NSize.childSize,
-        );
+        const act = SizedClipAct(from: NSize.childSize, to: NSize.childSize);
 
         track.setProgress(0.5);
         final animation = DeferredCueAnimation<Size?>(
@@ -560,7 +623,11 @@ void main() {
             textDirection: TextDirection.ltr,
             child: Builder(
               builder: (context) {
-                return act.apply(context, animation, const SizedBox(width: 150, height: 150));
+                return act.apply(
+                  context,
+                  animation,
+                  const SizedBox(width: 150, height: 150),
+                );
               },
             ),
           ),
@@ -570,13 +637,12 @@ void main() {
       });
 
       testWidgets('renders with NSize.width only', (tester) async {
-        final track = CueTrackImpl(TrackConfig(motion: motion, reverseMotion: motion));
+        final track = CueTrackImpl(
+          TrackConfig(motion: motion, reverseMotion: motion),
+        );
         final timeline = CueTimelineImpl.fromMotion(motion);
 
-        const act = SizedClipAct(
-          from: NSize.width(100),
-          to: NSize.width(200),
-        );
+        const act = SizedClipAct(from: NSize.width(100), to: NSize.width(200));
 
         track.setProgress(0.5);
         final animation = DeferredCueAnimation<Size?>(
@@ -590,7 +656,11 @@ void main() {
             textDirection: TextDirection.ltr,
             child: Builder(
               builder: (context) {
-                return act.apply(context, animation, const SizedBox(width: 100, height: 100));
+                return act.apply(
+                  context,
+                  animation,
+                  const SizedBox(width: 100, height: 100),
+                );
               },
             ),
           ),
@@ -600,7 +670,9 @@ void main() {
       });
 
       testWidgets('renders with NSize.height only', (tester) async {
-        final track = CueTrackImpl(TrackConfig(motion: motion, reverseMotion: motion));
+        final track = CueTrackImpl(
+          TrackConfig(motion: motion, reverseMotion: motion),
+        );
         final timeline = CueTimelineImpl.fromMotion(motion);
 
         const act = SizedClipAct(
@@ -620,7 +692,11 @@ void main() {
             textDirection: TextDirection.ltr,
             child: Builder(
               builder: (context) {
-                return act.apply(context, animation, const SizedBox(width: 100, height: 100));
+                return act.apply(
+                  context,
+                  animation,
+                  const SizedBox(width: 100, height: 100),
+                );
               },
             ),
           ),
@@ -630,13 +706,12 @@ void main() {
       });
 
       testWidgets('renders with NSize.infinity', (tester) async {
-        final track = CueTrackImpl(TrackConfig(motion: motion, reverseMotion: motion));
+        final track = CueTrackImpl(
+          TrackConfig(motion: motion, reverseMotion: motion),
+        );
         final timeline = CueTimelineImpl.fromMotion(motion);
 
-        const act = SizedClipAct(
-          from: NSize.infinity,
-          to: NSize.infinity,
-        );
+        const act = SizedClipAct(from: NSize.infinity, to: NSize.infinity);
 
         track.setProgress(0.5);
         final animation = DeferredCueAnimation<Size?>(
@@ -653,7 +728,11 @@ void main() {
               height: 200,
               child: Builder(
                 builder: (context) {
-                  return act.apply(context, animation, const SizedBox(width: 100, height: 100));
+                  return act.apply(
+                    context,
+                    animation,
+                    const SizedBox(width: 100, height: 100),
+                  );
                 },
               ),
             ),
@@ -664,7 +743,9 @@ void main() {
       });
 
       testWidgets('render object updates on property changes', (tester) async {
-        final track = CueTrackImpl(TrackConfig(motion: motion, reverseMotion: motion));
+        final track = CueTrackImpl(
+          TrackConfig(motion: motion, reverseMotion: motion),
+        );
         final timeline = CueTimelineImpl.fromMotion(motion);
 
         const act1 = SizedClipAct(
@@ -685,7 +766,11 @@ void main() {
             textDirection: TextDirection.ltr,
             child: Builder(
               builder: (context) {
-                return act1.apply(context, animation, const SizedBox(width: 100, height: 100));
+                return act1.apply(
+                  context,
+                  animation,
+                  const SizedBox(width: 100, height: 100),
+                );
               },
             ),
           ),
@@ -704,7 +789,11 @@ void main() {
             textDirection: TextDirection.ltr,
             child: Builder(
               builder: (context) {
-                return act2.apply(context, animation, const SizedBox(width: 100, height: 100));
+                return act2.apply(
+                  context,
+                  animation,
+                  const SizedBox(width: 100, height: 100),
+                );
               },
             ),
           ),
@@ -714,7 +803,9 @@ void main() {
       });
 
       testWidgets('render object updates clipGeometry', (tester) async {
-        final track = CueTrackImpl(TrackConfig(motion: motion, reverseMotion: motion));
+        final track = CueTrackImpl(
+          TrackConfig(motion: motion, reverseMotion: motion),
+        );
         final timeline = CueTimelineImpl.fromMotion(motion);
 
         const act1 = SizedClipAct(
@@ -735,7 +826,11 @@ void main() {
             textDirection: TextDirection.ltr,
             child: Builder(
               builder: (context) {
-                return act1.apply(context, animation, const SizedBox(width: 100, height: 100));
+                return act1.apply(
+                  context,
+                  animation,
+                  const SizedBox(width: 100, height: 100),
+                );
               },
             ),
           ),
@@ -755,7 +850,11 @@ void main() {
             textDirection: TextDirection.ltr,
             child: Builder(
               builder: (context) {
-                return act2.apply(context, animation, const SizedBox(width: 100, height: 100));
+                return act2.apply(
+                  context,
+                  animation,
+                  const SizedBox(width: 100, height: 100),
+                );
               },
             ),
           ),
@@ -765,7 +864,9 @@ void main() {
       });
 
       testWidgets('render object updates clipBehavior', (tester) async {
-        final track = CueTrackImpl(TrackConfig(motion: motion, reverseMotion: motion));
+        final track = CueTrackImpl(
+          TrackConfig(motion: motion, reverseMotion: motion),
+        );
         final timeline = CueTimelineImpl.fromMotion(motion);
 
         const act1 = SizedClipAct(
@@ -786,7 +887,11 @@ void main() {
             textDirection: TextDirection.ltr,
             child: Builder(
               builder: (context) {
-                return act1.apply(context, animation, const SizedBox(width: 100, height: 100));
+                return act1.apply(
+                  context,
+                  animation,
+                  const SizedBox(width: 100, height: 100),
+                );
               },
             ),
           ),
@@ -805,7 +910,11 @@ void main() {
             textDirection: TextDirection.ltr,
             child: Builder(
               builder: (context) {
-                return act2.apply(context, animation, const SizedBox(width: 100, height: 100));
+                return act2.apply(
+                  context,
+                  animation,
+                  const SizedBox(width: 100, height: 100),
+                );
               },
             ),
           ),
@@ -815,14 +924,13 @@ void main() {
       });
 
       testWidgets('renders with different child sizes', (tester) async {
-        final track = CueTrackImpl(TrackConfig(motion: motion, reverseMotion: motion));
+        final track = CueTrackImpl(
+          TrackConfig(motion: motion, reverseMotion: motion),
+        );
         final timeline = CueTimelineImpl.fromMotion(motion);
 
         for (final size in [50.0, 100.0, 200.0, 300.0]) {
-          const act = SizedClipAct(
-            from: NSize.childSize,
-            to: NSize.childSize,
-          );
+          const act = SizedClipAct(from: NSize.childSize, to: NSize.childSize);
 
           track.setProgress(0.5);
           final animation = DeferredCueAnimation<Size?>(
@@ -839,7 +947,11 @@ void main() {
                   return act.apply(
                     context,
                     animation,
-                    SizedBox(width: size, height: size, child: const Text('Sized')),
+                    SizedBox(
+                      width: size,
+                      height: size,
+                      child: const Text('Sized'),
+                    ),
                   );
                 },
               ),

@@ -36,7 +36,9 @@ class _ControlledCue extends Cue {
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties.add(DiagnosticsProperty<CueController>('controller', controller));
+    properties.add(
+      DiagnosticsProperty<CueController>('controller', controller),
+    );
   }
 
   @override

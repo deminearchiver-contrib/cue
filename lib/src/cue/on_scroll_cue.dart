@@ -43,7 +43,8 @@ class OnScrollCue extends Cue {
   State<StatefulWidget> createState() => _OnScrollCueState();
 }
 
-class _OnScrollCueState extends CueState<OnScrollCue> with SingleTickerProviderStateMixin {
+class _OnScrollCueState extends CueState<OnScrollCue>
+    with SingleTickerProviderStateMixin {
   @override
   String get debugName => 'OnScrollCue';
 
@@ -67,7 +68,9 @@ class _OnScrollCueState extends CueState<OnScrollCue> with SingleTickerProviderS
   void _subscribeToScrollPosition() {
     final position = Scrollable.maybeOf(context)?.position;
     if (position == null) {
-      throw FlutterError('Cue.onScroll must be used inside a scrollable widget');
+      throw FlutterError(
+        'Cue.onScroll must be used inside a scrollable widget',
+      );
     }
     if (_scrollPosition != position) {
       _scrollPosition?.removeListener(_trackProgress);
@@ -88,7 +91,9 @@ class _OnScrollCueState extends CueState<OnScrollCue> with SingleTickerProviderS
   void _trackProgress() {
     if (!mounted) return;
     final renderObject = context.findRenderObject();
-    if (renderObject is! RenderBox || !renderObject.attached || !renderObject.hasSize) {
+    if (renderObject is! RenderBox ||
+        !renderObject.attached ||
+        !renderObject.hasSize) {
       return;
     }
 
@@ -98,7 +103,9 @@ class _OnScrollCueState extends CueState<OnScrollCue> with SingleTickerProviderS
 
     final viewportDimension = _scrollPosition!.viewportDimension;
     final childSize = renderObject.size;
-    final childExtent = _scrollPosition!.axis == Axis.horizontal ? childSize.width : childSize.height;
+    final childExtent = _scrollPosition!.axis == Axis.horizontal
+        ? childSize.width
+        : childSize.height;
 
     // The scroll range during which the child travels through the viewport.
     // Starts when child's leading edge enters the viewport bottom.
@@ -108,7 +115,9 @@ class _OnScrollCueState extends CueState<OnScrollCue> with SingleTickerProviderS
     final scrollOffset = _scrollPosition!.pixels;
     final entryScrollOffset = revealedOffset - viewportDimension;
 
-    final rawProgress = scrollRange > 0 ? (scrollOffset - entryScrollOffset) / scrollRange : 0.0;
+    final rawProgress = scrollRange > 0
+        ? (scrollOffset - entryScrollOffset) / scrollRange
+        : 0.0;
     final progress = rawProgress.clamp(0.0, 1.0);
 
     if (_firstFrame && progress != 0.0 && progress != 1.0) {

@@ -9,7 +9,9 @@ void main() {
 
   final motion = CueMotion.linear(300.ms);
   final actContext = ActContext(motion: motion, reverseMotion: motion);
-  final track = CueTrackImpl(TrackConfig(motion: motion, reverseMotion: motion));
+  final track = CueTrackImpl(
+    TrackConfig(motion: motion, reverseMotion: motion),
+  );
   final timeline = CueTimelineImpl.fromMotion(motion);
 
   group('OpacityAct', () {
@@ -157,7 +159,9 @@ void main() {
           ),
         );
 
-        final fadeTransition = tester.widget<FadeTransition>(find.byType(FadeTransition));
+        final fadeTransition = tester.widget<FadeTransition>(
+          find.byType(FadeTransition),
+        );
         expect(fadeTransition.opacity, animation);
       });
 
@@ -245,8 +249,14 @@ void main() {
       });
 
       test('different reverse values are not equal', () {
-        const act1 = OpacityAct(to: 0.0, reverse: ReverseBehavior<double>.mirror());
-        const act2 = OpacityAct(to: 0.0, reverse: ReverseBehavior<double>.none());
+        const act1 = OpacityAct(
+          to: 0.0,
+          reverse: ReverseBehavior<double>.mirror(),
+        );
+        const act2 = OpacityAct(
+          to: 0.0,
+          reverse: ReverseBehavior<double>.none(),
+        );
         expect(act1, isNot(act2));
       });
     });

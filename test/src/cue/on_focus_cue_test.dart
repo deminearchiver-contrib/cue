@@ -7,9 +7,7 @@ void main() {
   group('OnFocusCue', () {
     testWidgets('creates state with default motion', (tester) async {
       await tester.pumpWidget(
-        MaterialApp(
-          home: Cue.onFocus(child: const SizedBox()),
-        ),
+        MaterialApp(home: Cue.onFocus(child: const SizedBox())),
       );
 
       final widget = tester.widget<OnFocusCue>(find.byType(OnFocusCue));
@@ -18,19 +16,21 @@ void main() {
 
     testWidgets('builds with Focus widget', (tester) async {
       await tester.pumpWidget(
-        MaterialApp(
-          home: Cue.onFocus(child: const SizedBox()),
-        ),
+        MaterialApp(home: Cue.onFocus(child: const SizedBox())),
       );
 
-      expect(find.descendant(of: find.byType(OnFocusCue), matching: find.byType(Focus)), findsOneWidget);
+      expect(
+        find.descendant(
+          of: find.byType(OnFocusCue),
+          matching: find.byType(Focus),
+        ),
+        findsOneWidget,
+      );
     });
 
     testWidgets('debugName is OnFocusCue', (tester) async {
       await tester.pumpWidget(
-        MaterialApp(
-          home: Cue.onFocus(child: const SizedBox()),
-        ),
+        MaterialApp(home: Cue.onFocus(child: const SizedBox())),
       );
 
       final state = tester.state(find.byType(OnFocusCue)) as dynamic;
@@ -47,7 +47,10 @@ void main() {
         ),
       );
 
-      final focusFinder = find.descendant(of: find.byType(OnFocusCue), matching: find.byType(Focus));
+      final focusFinder = find.descendant(
+        of: find.byType(OnFocusCue),
+        matching: find.byType(Focus),
+      );
       final focusWidget = tester.widget<Focus>(focusFinder);
 
       focusWidget.focusNode!.requestFocus();
@@ -67,7 +70,10 @@ void main() {
         ),
       );
 
-      final focusFinder = find.descendant(of: find.byType(OnFocusCue), matching: find.byType(Focus));
+      final focusFinder = find.descendant(
+        of: find.byType(OnFocusCue),
+        matching: find.byType(Focus),
+      );
       final focusWidget = tester.widget<Focus>(focusFinder);
 
       focusWidget.focusNode!.requestFocus();
@@ -113,7 +119,8 @@ void main() {
         ),
       );
 
-      final state = tester.state(find.byType(OnFocusCue)) as SelfAnimatedCueState;
+      final state =
+          tester.state(find.byType(OnFocusCue)) as SelfAnimatedCueState;
       final track = state.controller.timeline.obtainDefaultTrack().$1;
       expect(track.motion, equals(motion));
     });
@@ -131,7 +138,8 @@ void main() {
         ),
       );
 
-      final state = tester.state(find.byType(OnFocusCue)) as SelfAnimatedCueState;
+      final state =
+          tester.state(find.byType(OnFocusCue)) as SelfAnimatedCueState;
       final track = state.controller.timeline.obtainDefaultTrack().$1;
       expect(track.motion, equals(motion));
     });

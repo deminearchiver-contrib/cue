@@ -13,10 +13,7 @@ class _TestSimulation extends Simulation {
   bool isDone(double time) => time >= 1.0;
 }
 
-CueController _createController({
-  CueMotion? motion,
-  CueMotion? reverseMotion,
-}) {
+CueController _createController({CueMotion? motion, CueMotion? reverseMotion}) {
   final controller = CueController(
     vsync: TestVSync(),
     motion: motion ?? CueMotion.linear(300.ms),
@@ -105,7 +102,10 @@ void main() {
           reverseMotion: reverseMotion,
         );
 
-        expect(controller.reverseDuration, equals(const Duration(milliseconds: 600)));
+        expect(
+          controller.reverseDuration,
+          equals(const Duration(milliseconds: 600)),
+        );
       });
 
       test('setting duration throws UnsupportedError', () {
@@ -211,10 +211,7 @@ void main() {
         final motion = CueMotion.linear(300.ms);
         final controller = _createController(motion: motion);
 
-        final animation = controller.tweenTrack<double>(
-          from: 0.0,
-          to: 100.0,
-        );
+        final animation = controller.tweenTrack<double>(from: 0.0, to: 100.0);
 
         expect(animation, isNotNull);
         expect(animation.parent, isNotNull);
@@ -225,10 +222,7 @@ void main() {
         final motion = CueMotion.linear(300.ms);
         final controller = _createController(motion: motion);
 
-        final animation = controller.tweenTrack<double>(
-          from: 0.0,
-          to: 100.0,
-        );
+        final animation = controller.tweenTrack<double>(from: 0.0, to: 100.0);
 
         controller.setProgress(0.5);
         expect(animation.value, equals(50.0));
@@ -261,7 +255,10 @@ void main() {
           to: 1.0,
         );
 
-        expect(animation.parent.config.reverseType, equals(ReverseBehaviorType.exclusive));
+        expect(
+          animation.parent.config.reverseType,
+          equals(ReverseBehaviorType.exclusive),
+        );
       });
 
       test('creates animation with reverseTo behavior', () {
@@ -367,7 +364,10 @@ void main() {
         final motion = CueMotion.linear(300.ms);
         final controller = _createController(motion: motion);
 
-        expect(controller.view, same(controller.timeline.obtainDefaultTrack().$1));
+        expect(
+          controller.view,
+          same(controller.timeline.obtainDefaultTrack().$1),
+        );
       });
     });
 
@@ -584,10 +584,7 @@ void main() {
           () => controller.animateTo(-0.1),
           throwsA(isA<AssertionError>()),
         );
-        expect(
-          () => controller.animateTo(1.1),
-          throwsA(isA<AssertionError>()),
-        );
+        expect(() => controller.animateTo(1.1), throwsA(isA<AssertionError>()));
       });
 
       test('animateTo respects forward parameter', () async {
@@ -704,10 +701,7 @@ void main() {
       test('animation drives tween correctly through full lifecycle', () {
         final controller = _createController(motion: CueMotion.linear(100.ms));
 
-        final animation = controller.tweenTrack<double>(
-          from: 0.0,
-          to: 200.0,
-        );
+        final animation = controller.tweenTrack<double>(from: 0.0, to: 200.0);
 
         controller.setProgress(0.0);
         expect(animation.value, closeTo(0.0, 0.0001));
@@ -835,7 +829,8 @@ void main() {
 
         final animation = controller.keyframedTrack<double>(
           frames: frames,
-          tweenBuilder: ({double? begin, double? end}) => Tween<double>(begin: begin ?? 0, end: end ?? 100),
+          tweenBuilder: ({double? begin, double? end}) =>
+              Tween<double>(begin: begin ?? 0, end: end ?? 100),
         );
 
         expect(animation, isA<CueAnimation<double>>());

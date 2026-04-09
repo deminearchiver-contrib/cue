@@ -173,7 +173,11 @@ class TransformAct extends TweenAct<Matrix4> {
   }
 
   @override
-  Widget apply(BuildContext context, Animation<Matrix4> animation, Widget child) {
+  Widget apply(
+    BuildContext context,
+    Animation<Matrix4> animation,
+    Widget child,
+  ) {
     return AnimatedBuilder(
       animation: animation,
       child: child,
@@ -375,7 +379,11 @@ class SkewAct extends TweenActBase<Skew, Matrix4> {
   }
 
   @override
-  Widget apply(BuildContext context, Animation<Matrix4> animation, Widget child) {
+  Widget apply(
+    BuildContext context,
+    Animation<Matrix4> animation,
+    Widget child,
+  ) {
     return AnimatedBuilder(
       animation: animation,
       child: child,
@@ -413,7 +421,11 @@ class Skew {
 
   @override
   bool operator ==(Object other) =>
-      identical(this, other) || other is Skew && runtimeType == other.runtimeType && x == other.x && y == other.y;
+      identical(this, other) ||
+      other is Skew &&
+          runtimeType == other.runtimeType &&
+          x == other.x &&
+          y == other.y;
   @override
   int get hashCode => Object.hash(x, y);
 }

@@ -9,7 +9,9 @@ void main() {
 
   final motion = CueMotion.linear(300.ms);
   final actContext = ActContext(motion: motion, reverseMotion: motion);
-  final track = CueTrackImpl(TrackConfig(motion: motion, reverseMotion: motion));
+  final track = CueTrackImpl(
+    TrackConfig(motion: motion, reverseMotion: motion),
+  );
   final timeline = CueTimelineImpl.fromMotion(motion);
 
   group('AlignAct', () {
@@ -25,10 +27,7 @@ void main() {
     });
 
     test('constructor with custom from and to', () {
-      const act = AlignAct(
-        from: Alignment.topLeft,
-        to: Alignment.bottomRight,
-      );
+      const act = AlignAct(from: Alignment.topLeft, to: Alignment.bottomRight);
       expect(act.from, equals(Alignment.topLeft));
       expect(act.to, equals(Alignment.bottomRight));
     });
@@ -79,7 +78,10 @@ void main() {
 
     test('createSingleTween returns AlignmentTween', () {
       const act = AlignAct();
-      final tween = act.createSingleTween(Alignment.topLeft, Alignment.bottomRight);
+      final tween = act.createSingleTween(
+        Alignment.topLeft,
+        Alignment.bottomRight,
+      );
 
       expect(tween, isA<AlignmentTween>());
       expect((tween as AlignmentTween).begin, equals(Alignment.topLeft));
@@ -102,7 +104,8 @@ void main() {
         Directionality(
           textDirection: TextDirection.ltr,
           child: Builder(
-            builder: (context) => act.apply(context, animation, const SizedBox()),
+            builder: (context) =>
+                act.apply(context, animation, const SizedBox()),
           ),
         ),
       );
@@ -127,7 +130,8 @@ void main() {
         Directionality(
           textDirection: TextDirection.ltr,
           child: Builder(
-            builder: (context) => act.apply(context, animation, const SizedBox()),
+            builder: (context) =>
+                act.apply(context, animation, const SizedBox()),
           ),
         ),
       );
@@ -147,10 +151,7 @@ void main() {
         to: Alignment.bottomRight,
         delay: Duration(milliseconds: 100),
       );
-      const act3 = AlignAct(
-        from: Alignment.topLeft,
-        to: Alignment.center,
-      );
+      const act3 = AlignAct(from: Alignment.topLeft, to: Alignment.center);
 
       expect(act1, equals(act2));
       expect(act1, isNot(equals(act3)));
@@ -176,10 +177,7 @@ void main() {
 
   group('AlignAct with ReverseBehavior', () {
     test('constructor with mirror reverse (default)', () {
-      const act = AlignAct(
-        from: Alignment.topLeft,
-        to: Alignment.bottomRight,
-      );
+      const act = AlignAct(from: Alignment.topLeft, to: Alignment.bottomRight);
       expect(act.reverse.type, equals(ReverseBehaviorType.mirror));
     });
 
@@ -199,7 +197,10 @@ void main() {
         reverse: ReverseBehavior.to(Alignment.center),
       );
       expect(act.reverse.type, equals(ReverseBehaviorType.to));
-      expect((act.reverse as ReverseBehavior<AlignmentGeometry?>).to, equals(Alignment.center));
+      expect(
+        (act.reverse as ReverseBehavior<AlignmentGeometry?>).to,
+        equals(Alignment.center),
+      );
     });
 
     test('constructor with none reverse', () {

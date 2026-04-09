@@ -298,8 +298,11 @@ class ActorState extends State<Actor> {
       final (act, actContext) = entry;
       final existing = _animations[act.key];
 
-      if (existing?.act == act && actContext.hasSameMotion(existing?.context)) continue;
-      final implicitFrom = scope.reanimateFromCurrent ? _animationSnapshots[act.key] : null;
+      if (existing?.act == act && actContext.hasSameMotion(existing?.context))
+        continue;
+      final implicitFrom = scope.reanimateFromCurrent
+          ? _animationSnapshots[act.key]
+          : null;
       final animation = act.buildAnimation(
         scope.controller.timeline,
         actContext.copyWith(
@@ -336,7 +339,10 @@ class ActorState extends State<Actor> {
           act.resolve(
             ActContext(
               motion: widget.motion ?? mainConfig.motion,
-              reverseMotion: widget.reverseMotion ?? widget.motion ?? mainConfig.reverseMotion,
+              reverseMotion:
+                  widget.reverseMotion ??
+                  widget.motion ??
+                  mainConfig.reverseMotion,
               delay: widget.delay,
               reverseDelay: widget.reverseDelay,
             ),
@@ -361,7 +367,9 @@ class ActorState extends State<Actor> {
     final scope = CueScope.of(context);
     if (_cachedScope?.controller != scope.controller) {
       _eventsDisposer?.call();
-      _eventsDisposer = scope.controller.addEventListener<TimelineEvent>((_) => _onWillAnimate());
+      _eventsDisposer = scope.controller.addEventListener<TimelineEvent>(
+        (_) => _onWillAnimate(),
+      );
     }
     if (_cachedScope == null || scope.updateShouldNotify(_cachedScope!)) {
       _resolveActs(scope.defaultConfig);

@@ -92,14 +92,19 @@ class IndexedCue extends Cue {
   State<StatefulWidget> createState() => _IndexedCueState();
 }
 
-class _IndexedCueState extends CueState<IndexedCue> with SingleTickerProviderStateMixin {
-  late final _controller = CueController(vsync: this, motion: const .linear(Duration(milliseconds: 500)));
+class _IndexedCueState extends CueState<IndexedCue>
+    with SingleTickerProviderStateMixin {
+  late final _controller = CueController(
+    vsync: this,
+    motion: const .linear(Duration(milliseconds: 500)),
+  );
 
   @override
   String get debugName => 'IndexedCue';
 
   @override
-  String get _debugId => '$debugName-${widget.controller.hashCode}-${widget.index}';
+  String get _debugId =>
+      '$debugName-${widget.controller.hashCode}-${widget.index}';
 
   Listenable get listenable => widget.controller.tickListenable;
 
@@ -125,7 +130,8 @@ class _IndexedCueState extends CueState<IndexedCue> with SingleTickerProviderSta
   @override
   void didUpdateWidget(covariant IndexedCue oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (widget.controller != oldWidget.controller || listenable != oldWidget.controller.tickListenable) {
+    if (widget.controller != oldWidget.controller ||
+        listenable != oldWidget.controller.tickListenable) {
       listenable.removeListener(_updateAnimation);
       listenable.addListener(_updateAnimation);
       _updateAnimation();
@@ -197,9 +203,13 @@ mixin IndexedCueController implements Listenable {
   /// all other indices return `0.0`.
   double valueFor(int targetIndex) {
     if (!animateAll && isAnimating) {
-      final isRelevant = targetIndex == lastSettledIndex || targetIndex == destinationIndex;
+      final isRelevant =
+          targetIndex == lastSettledIndex || targetIndex == destinationIndex;
       if (!isRelevant) return 0.0;
-      return calculateOffsetFor(targetIndex, isDestination: targetIndex == destinationIndex);
+      return calculateOffsetFor(
+        targetIndex,
+        isDestination: targetIndex == destinationIndex,
+      );
     }
     return calculateOffsetFor(targetIndex);
   }
@@ -228,10 +238,15 @@ mixin IndexedCueController implements Listenable {
 
     // Normalize progress across the full travel distance so active and
     // destination indexes animate in parallel regardless of page distance.
-    final totalDistance = (destinationIndex - lastSettledIndex).abs().toDouble();
+    final totalDistance = (destinationIndex - lastSettledIndex)
+        .abs()
+        .toDouble();
     if (totalDistance <= 1.0) return (1.0 - distance).clamp(0.0, 1.0);
 
-    final progress = ((globalOffset - lastSettledIndex) / (destinationIndex - lastSettledIndex)).clamp(0.0, 1.0);
+    final progress =
+        ((globalOffset - lastSettledIndex) /
+                (destinationIndex - lastSettledIndex))
+            .clamp(0.0, 1.0);
     return isDestination ? progress : 1.0 - progress;
   }
 }
@@ -269,10 +284,16 @@ class CuePageController extends PageController with IndexedCueController {
   int get lastSettledIndex => _lastSettledIndex;
 
   @override
-  Future<void> animateToPage(int page, {required Duration duration, required Curve curve}) {
+  Future<void> animateToPage(
+    int page, {
+    required Duration duration,
+    required Curve curve,
+  }) {
     _destination = page;
     _isAnimating = true;
-    return super.animateToPage(page, duration: duration, curve: curve).whenComplete(() => _isAnimating = false);
+    return super
+        .animateToPage(page, duration: duration, curve: curve)
+        .whenComplete(() => _isAnimating = false);
   }
 
   @override
@@ -301,7 +322,10 @@ class CuePageController extends PageController with IndexedCueController {
   }
 
   void _listenToSettledIndex() {
-    assert(hasClients, 'Controller must be attached to a ScrollPosition to track settled index.');
+    assert(
+      hasClients,
+      'Controller must be attached to a ScrollPosition to track settled index.',
+    );
     if (!position.isScrollingNotifier.value) {
       _lastSettledIndex = globalOffset.round();
     }
@@ -447,27 +471,20 @@ class CueIndexController with ChangeNotifier, IndexedCueController {
     // below handles that case for the *new* future as well (e.g. when jumpTo
     // or dispose is called while this animation is in flight).
     return _animationController
-        .animateTo(
-          index.toDouble(),
-          duration: duration,
-          curve: curve,
-        )
+        .animateTo(index.toDouble(), duration: duration, curve: curve)
         .orCancel
         .then((_) {
           _currentIndex = index;
           _lastSettledIndex = index;
           notifyListeners();
         })
-        .catchError(
-          (Object _) {
-            // Animation was cancelled (e.g. jumpTo, stop, or dispose was called).
-            // Snap internal state to the nearest integer at the current position.
-            _currentIndex = _animationController.value.round();
-            _lastSettledIndex = _currentIndex;
-            _destinationIndex = _currentIndex;
-          },
-          test: (e) => e is TickerCanceled,
-        );
+        .catchError((Object _) {
+          // Animation was cancelled (e.g. jumpTo, stop, or dispose was called).
+          // Snap internal state to the nearest integer at the current position.
+          _currentIndex = _animationController.value.round();
+          _lastSettledIndex = _currentIndex;
+          _destinationIndex = _currentIndex;
+        }, test: (e) => e is TickerCanceled);
   }
 
   /// Stops the current animation at its current position.

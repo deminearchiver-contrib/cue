@@ -75,10 +75,13 @@ abstract class CueMotion {
   /// Starts from `0.0` when [forward] is `true`, from `1.0` otherwise.
   /// [phase] defaults to the first phase going forward, and the last phase
   /// going in reverse.
-  CueSimulation buildBase({bool forward = true, int? phase}) => switch (forward) {
-    true => build(SimulationBuildData.forward(phase: phase ?? 0)),
-    false => build(SimulationBuildData.reverse(phase: phase ?? totalPhases - 1)),
-  };
+  CueSimulation buildBase({bool forward = true, int? phase}) =>
+      switch (forward) {
+        true => build(SimulationBuildData.forward(phase: phase ?? 0)),
+        false => build(
+          SimulationBuildData.reverse(phase: phase ?? totalPhases - 1),
+        ),
+      };
 
   /// Creates a delayed version of this motion with the given delay.
   @internal
@@ -88,10 +91,14 @@ abstract class CueMotion {
   const factory CueMotion.linear(Duration duration) = TimedMotion;
 
   /// {@macro cue.motion.threshold}
-  const factory CueMotion.threshold(Duration duration, {required double breakpoint}) = _ThresholdMotion;
+  const factory CueMotion.threshold(
+    Duration duration, {
+    required double breakpoint,
+  }) = _ThresholdMotion;
 
   /// {@macro cue.motion.curved}
-  const factory CueMotion.curved(Duration duration, {required Curve curve}) = TimedMotion.curved;
+  const factory CueMotion.curved(Duration duration, {required Curve curve}) =
+      TimedMotion.curved;
 
   /// {@macro cue.motion.ease_in}
   const factory CueMotion.easeIn(Duration duration) = TimedMotion.easeIn;
@@ -103,13 +110,16 @@ abstract class CueMotion {
   const factory CueMotion.easeInOut(Duration duration) = TimedMotion.easeInOut;
 
   /// {@macro cue.motion.ease_out_back}
-  const factory CueMotion.easeOutBack(Duration duration) = TimedMotion.easeOutBack;
+  const factory CueMotion.easeOutBack(Duration duration) =
+      TimedMotion.easeOutBack;
 
   /// {@macro cue.motion.ease_in_back}
-  const factory CueMotion.easeInBack(Duration duration) = TimedMotion.easeInBack;
+  const factory CueMotion.easeInBack(Duration duration) =
+      TimedMotion.easeInBack;
 
   /// {@macro cue.motion.fast_out_slow_in}
-  const factory CueMotion.fastOutSlowIn(Duration duration) = TimedMotion.fastOutSlowIn;
+  const factory CueMotion.fastOutSlowIn(Duration duration) =
+      TimedMotion.fastOutSlowIn;
 
   /// A zero-duration motion that resolves immediately — useful as a no-op
   /// placeholder when a [CueMotion] is required but no animation is wanted.
@@ -121,10 +131,7 @@ abstract class CueMotion {
   static const CueMotion defaultTime = TimedMotion(Duration(milliseconds: 300));
 
   /// {@macro cue.motion.spring}
-  factory CueMotion.spring({
-    Duration duration,
-    double bounce,
-  }) = Spring;
+  factory CueMotion.spring({Duration duration, double bounce}) = Spring;
 
   /// {@macro cue.motion.smooth}
   const factory CueMotion.smooth({
@@ -400,7 +407,8 @@ class TimedMotion extends CueMotion {
   /// )
   /// ```
   /// {@endtemplate}
-  const TimedMotion.fastOutSlowIn(this.baseDuration) : curve = Curves.fastOutSlowIn;
+  const TimedMotion.fastOutSlowIn(this.baseDuration)
+    : curve = Curves.fastOutSlowIn;
 
   /// {@template cue.motion.threshold}
   /// A timed motion that jumps instantly to the end value once the animation
@@ -422,7 +430,10 @@ class TimedMotion extends CueMotion {
   /// )
   /// ```
   /// {@endtemplate}
-  const factory TimedMotion.threshold(Duration duration, {required double breakpoint}) = _ThresholdMotion;
+  const factory TimedMotion.threshold(
+    Duration duration, {
+    required double breakpoint,
+  }) = _ThresholdMotion;
 
   @override
   final Duration baseDuration;
@@ -441,7 +452,8 @@ class TimedMotion extends CueMotion {
   @override
   CueSimulation build(SimulationBuildData data) {
     return CurvedSimulation(
-      baseDuration: baseDuration.inMilliseconds / Duration.millisecondsPerSecond,
+      baseDuration:
+          baseDuration.inMilliseconds / Duration.millisecondsPerSecond,
       curve: curve,
       from: data.startValue,
       to: data.endValue,
@@ -502,7 +514,9 @@ class SegmentedMotion extends CueMotion {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is SegmentedMotion && runtimeType == other.runtimeType && listEquals(motions, other.motions);
+      other is SegmentedMotion &&
+          runtimeType == other.runtimeType &&
+          listEquals(motions, other.motions);
 
   @override
   int get hashCode => Object.hashAll(motions);
@@ -539,7 +553,9 @@ class DelayedMotion extends CueMotion {
     double delaySeconds = delay.inMilliseconds / Duration.millisecondsPerSecond;
     if (data.startProgress case final progress?) {
       final totalDuration = delaySeconds + baseSim.duration;
-      final elapsedTime = data.forward ? progress * totalDuration : (1.0 - progress) * totalDuration;
+      final elapsedTime = data.forward
+          ? progress * totalDuration
+          : (1.0 - progress) * totalDuration;
       delaySeconds = (delaySeconds - elapsedTime).clamp(0.0, double.infinity);
     }
     return DelayedSimulation(base: baseSim, delay: delaySeconds);
@@ -548,7 +564,10 @@ class DelayedMotion extends CueMotion {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is DelayedMotion && runtimeType == other.runtimeType && base == other.base && delay == other.delay;
+      other is DelayedMotion &&
+          runtimeType == other.runtimeType &&
+          base == other.base &&
+          delay == other.delay;
 
   @override
   int get hashCode => Object.hash(base, delay);

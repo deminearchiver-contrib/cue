@@ -182,10 +182,7 @@ class _RotateLayoutTranstion extends SingleChildRenderObjectWidget {
   final Animation<double> animation;
 
   /// Creates the layout rotation widget.
-  const _RotateLayoutTranstion({
-    required this.animation,
-    required super.child,
-  });
+  const _RotateLayoutTranstion({required this.animation, required super.child});
 
   @override
   _RenderRotateLayout createRenderObject(BuildContext context) {

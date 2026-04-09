@@ -173,7 +173,11 @@ class AxisClipAct extends TweenAct<double> implements ClipAct {
        super.tween(from: fromFactor, to: toFactor);
 
   @override
-  Widget apply(BuildContext context, Animation<double> animation, Widget child) {
+  Widget apply(
+    BuildContext context,
+    Animation<double> animation,
+    Widget child,
+  ) {
     final directionality = Directionality.of(context);
     final effectiveAlignment = alignment.resolve(directionality);
     return AnimatedBuilder(
@@ -182,8 +186,12 @@ class AxisClipAct extends TweenAct<double> implements ClipAct {
         return ClipRect(
           child: Align(
             alignment: effectiveAlignment,
-            widthFactor: _axis == Axis.horizontal ? animation.value.clamp(0, 1) : null,
-            heightFactor: _axis == Axis.vertical ? animation.value.clamp(0, 1) : null,
+            widthFactor: _axis == Axis.horizontal
+                ? animation.value.clamp(0, 1)
+                : null,
+            heightFactor: _axis == Axis.vertical
+                ? animation.value.clamp(0, 1)
+                : null,
             child: child,
           ),
         );
@@ -249,7 +257,8 @@ class PathClipAct extends TweenAct<double> implements ClipAct {
     Widget child,
   ) {
     final directionality = Directionality.of(context);
-    final effectiveAlignment = alignment?.resolve(directionality) ?? Alignment.topLeft;
+    final effectiveAlignment =
+        alignment?.resolve(directionality) ?? Alignment.topLeft;
     final effectiveBorderRadius = borderRadius?.resolve(directionality);
 
     return AnimatedBuilder(
@@ -287,7 +296,8 @@ class PathClipAct extends TweenAct<double> implements ClipAct {
   }
 
   @override
-  int get hashCode => Object.hash(super.hashCode, borderRadius, alignment, useSuperellipse);
+  int get hashCode =>
+      Object.hash(super.hashCode, borderRadius, alignment, useSuperellipse);
 }
 
 /// Custom clipper that creates an expanding path clip.

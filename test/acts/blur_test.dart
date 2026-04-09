@@ -9,7 +9,9 @@ void main() {
 
   final motion = CueMotion.linear(300.ms);
   final actContext = ActContext(motion: motion, reverseMotion: motion);
-  final track = CueTrackImpl(TrackConfig(motion: motion, reverseMotion: motion));
+  final track = CueTrackImpl(
+    TrackConfig(motion: motion, reverseMotion: motion),
+  );
   final timeline = CueTimelineImpl.fromMotion(motion);
 
   group('BlurAct', () {
@@ -48,9 +50,7 @@ void main() {
     });
 
     test('focus constructor with custom values', () {
-      const act = BlurAct.focus(
-        from: 20.0,
-      );
+      const act = BlurAct.focus(from: 20.0);
       expect(act.from, equals(20.0));
     });
 
@@ -172,7 +172,8 @@ void main() {
         Directionality(
           textDirection: TextDirection.ltr,
           child: Builder(
-            builder: (context) => act.apply(context, animation, const SizedBox()),
+            builder: (context) =>
+                act.apply(context, animation, const SizedBox()),
           ),
         ),
       );
@@ -196,18 +197,29 @@ void main() {
         Directionality(
           textDirection: TextDirection.ltr,
           child: Builder(
-            builder: (context) => act.apply(context, animation, const SizedBox()),
+            builder: (context) =>
+                act.apply(context, animation, const SizedBox()),
           ),
         ),
       );
 
-      final imageFiltered = tester.widget<ImageFiltered>(find.byType(ImageFiltered));
+      final imageFiltered = tester.widget<ImageFiltered>(
+        find.byType(ImageFiltered),
+      );
       expect(imageFiltered.imageFilter, isNotNull);
     });
 
     test('equality', () {
-      const act1 = BlurAct(from: 0.0, to: 10.0, delay: Duration(milliseconds: 100));
-      const act2 = BlurAct(from: 0.0, to: 10.0, delay: Duration(milliseconds: 100));
+      const act1 = BlurAct(
+        from: 0.0,
+        to: 10.0,
+        delay: Duration(milliseconds: 100),
+      );
+      const act2 = BlurAct(
+        from: 0.0,
+        to: 10.0,
+        delay: Duration(milliseconds: 100),
+      );
       const act3 = BlurAct(from: 0.0, to: 5.0);
 
       expect(act1, equals(act2));
@@ -285,7 +297,10 @@ void main() {
         FKeyframe(0.0, at: 0.0),
         FKeyframe(10.0, at: 1.0),
       ]);
-      final act = BackdropBlurAct.keyframed(frames: frames, blendMode: BlendMode.screen);
+      final act = BackdropBlurAct.keyframed(
+        frames: frames,
+        blendMode: BlendMode.screen,
+      );
       expect(act.blendMode, equals(BlendMode.screen));
     });
 
@@ -305,7 +320,8 @@ void main() {
         Directionality(
           textDirection: TextDirection.ltr,
           child: Builder(
-            builder: (context) => act.apply(context, animation, const SizedBox()),
+            builder: (context) =>
+                act.apply(context, animation, const SizedBox()),
           ),
         ),
       );
@@ -329,18 +345,25 @@ void main() {
         Directionality(
           textDirection: TextDirection.ltr,
           child: Builder(
-            builder: (context) => act.apply(context, animation, const SizedBox()),
+            builder: (context) =>
+                act.apply(context, animation, const SizedBox()),
           ),
         ),
       );
 
-      final backdropFilter = tester.widget<BackdropFilter>(find.byType(BackdropFilter));
+      final backdropFilter = tester.widget<BackdropFilter>(
+        find.byType(BackdropFilter),
+      );
       expect(backdropFilter.blendMode, equals(BlendMode.srcOver));
       expect(backdropFilter.filter, isNotNull);
     });
 
     testWidgets('apply uses custom blendMode', (tester) async {
-      const act = BackdropBlurAct(from: 0.0, to: 10.0, blendMode: BlendMode.multiply);
+      const act = BackdropBlurAct(
+        from: 0.0,
+        to: 10.0,
+        blendMode: BlendMode.multiply,
+      );
       final (animtable, _) = act.buildTweens(actContext);
 
       track.setProgress(0.5);
@@ -355,18 +378,29 @@ void main() {
         Directionality(
           textDirection: TextDirection.ltr,
           child: Builder(
-            builder: (context) => act.apply(context, animation, const SizedBox()),
+            builder: (context) =>
+                act.apply(context, animation, const SizedBox()),
           ),
         ),
       );
 
-      final backdropFilter = tester.widget<BackdropFilter>(find.byType(BackdropFilter));
+      final backdropFilter = tester.widget<BackdropFilter>(
+        find.byType(BackdropFilter),
+      );
       expect(backdropFilter.blendMode, equals(BlendMode.multiply));
     });
 
     test('equality', () {
-      const act1 = BackdropBlurAct(from: 0.0, to: 10.0, delay: Duration(milliseconds: 100));
-      const act2 = BackdropBlurAct(from: 0.0, to: 10.0, delay: Duration(milliseconds: 100));
+      const act1 = BackdropBlurAct(
+        from: 0.0,
+        to: 10.0,
+        delay: Duration(milliseconds: 100),
+      );
+      const act2 = BackdropBlurAct(
+        from: 0.0,
+        to: 10.0,
+        delay: Duration(milliseconds: 100),
+      );
       const act3 = BackdropBlurAct(from: 0.0, to: 5.0);
 
       expect(act1, equals(act2));

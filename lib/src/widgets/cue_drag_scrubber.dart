@@ -95,15 +95,37 @@ class CueDragScrubber extends StatefulWidget {
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties.add(DoubleProperty('distance', distance));
-    properties.add(EnumProperty<Axis>('axis', axis, defaultValue: Axis.vertical));
     properties.add(
-      EnumProperty<CueDragReleaseMode>('releaseMode', releaseMode, defaultValue: CueDragReleaseMode.fling),
+      EnumProperty<Axis>('axis', axis, defaultValue: Axis.vertical),
     );
     properties.add(
-      EnumProperty<CueScrubDirection>('scrubDirection', scrubDirection, defaultValue: CueScrubDirection.auto),
+      EnumProperty<CueDragReleaseMode>(
+        'releaseMode',
+        releaseMode,
+        defaultValue: CueDragReleaseMode.fling,
+      ),
     );
-    properties.add(FlagProperty('forceLinearScrubing', value: forceLinearScrubing, ifTrue: 'forceLinearScrubing'));
-    properties.add(DiagnosticsProperty<CueController>('controller', controller, defaultValue: null));
+    properties.add(
+      EnumProperty<CueScrubDirection>(
+        'scrubDirection',
+        scrubDirection,
+        defaultValue: CueScrubDirection.auto,
+      ),
+    );
+    properties.add(
+      FlagProperty(
+        'forceLinearScrubing',
+        value: forceLinearScrubing,
+        ifTrue: 'forceLinearScrubing',
+      ),
+    );
+    properties.add(
+      DiagnosticsProperty<CueController>(
+        'controller',
+        controller,
+        defaultValue: null,
+      ),
+    );
   }
 
   @override
@@ -119,9 +141,12 @@ class _CueDragScrubberState extends State<CueDragScrubber> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    final controller = widget.controller ?? CueScope.maybeOf(context)?.controller;
+    final controller =
+        widget.controller ?? CueScope.maybeOf(context)?.controller;
     if (controller == null) {
-      throw FlutterError('CueDragScrubber requires either a controller prop or a CueScope ancestor.');
+      throw FlutterError(
+        'CueDragScrubber requires either a controller prop or a CueScope ancestor.',
+      );
     }
     if (_controller != controller) {
       _controller?.removeStatusListener(_handleAnimationStatus);
@@ -160,7 +185,10 @@ class _CueDragScrubberState extends State<CueDragScrubber> {
     final controller = _controller!;
     final delta = _primaryOffset(d.localPosition) - _startOffset;
     final sign = _scrubForward ? 1.0 : -1.0;
-    final progress = (_startProgress + sign * delta / widget.distance).clamp(0.0, 1.0);
+    final progress = (_startProgress + sign * delta / widget.distance).clamp(
+      0.0,
+      1.0,
+    );
     controller.setProgress(
       progress,
       forward: _scrubForward,

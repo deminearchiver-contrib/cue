@@ -9,7 +9,9 @@ void main() {
 
   final motion = CueMotion.linear(300.ms);
   final actContext = ActContext(motion: motion, reverseMotion: motion);
-  final track = CueTrackImpl(TrackConfig(motion: motion, reverseMotion: motion));
+  final track = CueTrackImpl(
+    TrackConfig(motion: motion, reverseMotion: motion),
+  );
   final timeline = CueTimelineImpl.fromMotion(motion);
   group('ColorTintAct', () {
     group('key', () {
@@ -112,7 +114,9 @@ void main() {
     });
 
     group('apply', () {
-      testWidgets('wraps child in ColorFiltered with correct values', (tester) async {
+      testWidgets('wraps child in ColorFiltered with correct values', (
+        tester,
+      ) async {
         const act = ColorTintAct(from: Colors.red, to: Colors.blue);
 
         final (animtable, _) = act.buildTweens(actContext);
@@ -165,7 +169,9 @@ void main() {
           ),
         );
 
-        final colorFiltered = tester.widget<ColorFiltered>(find.byType(ColorFiltered));
+        final colorFiltered = tester.widget<ColorFiltered>(
+          find.byType(ColorFiltered),
+        );
         expect(colorFiltered.colorFilter, isA<ColorFilter>());
       });
 
@@ -189,7 +195,9 @@ void main() {
           ),
         );
 
-        var colorFiltered = tester.widget<ColorFiltered>(find.byType(ColorFiltered));
+        var colorFiltered = tester.widget<ColorFiltered>(
+          find.byType(ColorFiltered),
+        );
         var colorFilter = colorFiltered.colorFilter;
         expect(colorFilter, isNotNull);
 
@@ -202,7 +210,9 @@ void main() {
           ),
         );
 
-        colorFiltered = tester.widget<ColorFiltered>(find.byType(ColorFiltered));
+        colorFiltered = tester.widget<ColorFiltered>(
+          find.byType(ColorFiltered),
+        );
         colorFilter = colorFiltered.colorFilter;
         expect(colorFilter, isNotNull);
       });
@@ -224,7 +234,9 @@ void main() {
           ),
         );
 
-        final colorFiltered = tester.widget<ColorFiltered>(find.byType(ColorFiltered));
+        final colorFiltered = tester.widget<ColorFiltered>(
+          find.byType(ColorFiltered),
+        );
         expect(colorFiltered.colorFilter, isNotNull);
       });
     });
@@ -250,28 +262,60 @@ void main() {
       });
 
       test('different blendMode are equal (blendMode not in equality)', () {
-        const act1 = ColorTintAct(from: Colors.red, to: Colors.blue, blendMode: BlendMode.srcIn);
-        const act2 = ColorTintAct(from: Colors.red, to: Colors.blue, blendMode: BlendMode.multiply);
+        const act1 = ColorTintAct(
+          from: Colors.red,
+          to: Colors.blue,
+          blendMode: BlendMode.srcIn,
+        );
+        const act2 = ColorTintAct(
+          from: Colors.red,
+          to: Colors.blue,
+          blendMode: BlendMode.multiply,
+        );
         expect(act1, act2);
       });
 
       test('different motion values are not equal', () {
         final motion1 = CueMotion.linear(300.ms);
         final motion2 = CueMotion.linear(500.ms);
-        final act1 = ColorTintAct(from: Colors.red, to: Colors.blue, motion: motion1);
-        final act2 = ColorTintAct(from: Colors.red, to: Colors.blue, motion: motion2);
+        final act1 = ColorTintAct(
+          from: Colors.red,
+          to: Colors.blue,
+          motion: motion1,
+        );
+        final act2 = ColorTintAct(
+          from: Colors.red,
+          to: Colors.blue,
+          motion: motion2,
+        );
         expect(act1, isNot(act2));
       });
 
       test('different delay values are not equal', () {
-        const act1 = ColorTintAct(from: Colors.red, to: Colors.blue, delay: Duration(milliseconds: 100));
-        const act2 = ColorTintAct(from: Colors.red, to: Colors.blue, delay: Duration(milliseconds: 200));
+        const act1 = ColorTintAct(
+          from: Colors.red,
+          to: Colors.blue,
+          delay: Duration(milliseconds: 100),
+        );
+        const act2 = ColorTintAct(
+          from: Colors.red,
+          to: Colors.blue,
+          delay: Duration(milliseconds: 200),
+        );
         expect(act1, isNot(act2));
       });
 
       test('different reverse values are not equal', () {
-        const act1 = ColorTintAct(from: Colors.red, to: Colors.blue, reverse: ReverseBehavior<Color?>.mirror());
-        const act2 = ColorTintAct(from: Colors.red, to: Colors.blue, reverse: ReverseBehavior<Color?>.none());
+        const act1 = ColorTintAct(
+          from: Colors.red,
+          to: Colors.blue,
+          reverse: ReverseBehavior<Color?>.mirror(),
+        );
+        const act2 = ColorTintAct(
+          from: Colors.red,
+          to: Colors.blue,
+          reverse: ReverseBehavior<Color?>.none(),
+        );
         expect(act1, isNot(act2));
       });
     });

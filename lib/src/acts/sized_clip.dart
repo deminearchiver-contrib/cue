@@ -253,10 +253,23 @@ class SizedClipAct extends DeferredTweenAct<Size?> {
           _reverse == other._reverse;
 
   @override
-  int get hashCode => Object.hash(alignment, clipBehavior, from, to, delay, _reverse, frames, clipGeometry);
+  int get hashCode => Object.hash(
+    alignment,
+    clipBehavior,
+    from,
+    to,
+    delay,
+    _reverse,
+    frames,
+    clipGeometry,
+  );
 
   @override
-  Widget apply(BuildContext context, DeferredCueAnimation<Size?> animation, Widget child) {
+  Widget apply(
+    BuildContext context,
+    DeferredCueAnimation<Size?> animation,
+    Widget child,
+  ) {
     return _AnimatedSizeClip(
       driver: animation,
       from: from,
@@ -425,9 +438,13 @@ class _RenderAnimatedSizeClip extends RenderAligningShiftedBox {
       case (null, _):
         _clipGeometryHandler = _ClipRectGeometry();
       case (final borderRadius, false):
-        _clipGeometryHandler = _ClipRRectGeometry(borderRadius!.resolve(textDirection));
+        _clipGeometryHandler = _ClipRRectGeometry(
+          borderRadius!.resolve(textDirection),
+        );
       case (final borderRadius, true):
-        _clipGeometryHandler = _ClipSuperEllipseGeometry(borderRadius!.resolve(textDirection));
+        _clipGeometryHandler = _ClipSuperEllipseGeometry(
+          borderRadius!.resolve(textDirection),
+        );
     }
   }
 
@@ -497,7 +514,10 @@ class _RenderAnimatedSizeClip extends RenderAligningShiftedBox {
     double resolveAxis(double? value, double max, double child) {
       if (value == null) return child;
       if (value.isInfinite) {
-        assert(max.isFinite, 'Max constraint must be finite when using infinity for axis');
+        assert(
+          max.isFinite,
+          'Max constraint must be finite when using infinity for axis',
+        );
         return max;
       }
       return value;
@@ -533,7 +553,9 @@ class _RenderAnimatedSizeClip extends RenderAligningShiftedBox {
 
   void _buildAnimationIfNeeded(Size maxConstrains, Size childSize) {
     // Check if we need to rebuild the animation
-    if (_driver.hasAnimatable && _lastConstraintSize == maxConstrains && _lastChildNaturalSize == childSize) {
+    if (_driver.hasAnimatable &&
+        _lastConstraintSize == maxConstrains &&
+        _lastChildNaturalSize == childSize) {
       return; // Animation is already built and neither constraints nor child size changed
     }
 
@@ -546,8 +568,12 @@ class _RenderAnimatedSizeClip extends RenderAligningShiftedBox {
     final builder = CueTweenBuildHelper<Size?>(
       from: _resolveSize(_from, maxConstrains, childSize),
       to: _resolveSize(_to, maxConstrains, childSize),
-      frames: _frames?.mapValues((v) => _resolveSize(v, maxConstrains, childSize)),
-      reverse: _reverse.mapValues((v) => _resolveSize(v, maxConstrains, childSize)),
+      frames: _frames?.mapValues(
+        (v) => _resolveSize(v, maxConstrains, childSize),
+      ),
+      reverse: _reverse.mapValues(
+        (v) => _resolveSize(v, maxConstrains, childSize),
+      ),
       tweenBuilder: (begin, end) => SizeTween(begin: begin, end: end),
     );
 
@@ -580,7 +606,10 @@ class _RenderAnimatedSizeClip extends RenderAligningShiftedBox {
       return;
     }
 
-    child!.layout(_addintionalConstrains.enforce(constraints), parentUsesSize: true);
+    child!.layout(
+      _addintionalConstrains.enforce(constraints),
+      parentUsesSize: true,
+    );
 
     // Build animation based on current constraints and child natural size
     _buildAnimationIfNeeded(constraints.biggest, child!.size);
@@ -595,14 +624,17 @@ class _RenderAnimatedSizeClip extends RenderAligningShiftedBox {
     // Align the child within our bounds
     alignChild();
     // Check if child is larger than our animated size (causes overflow)
-    if (constrainedMaxSize.width > size.width || constrainedMaxSize.height > size.height) {
+    if (constrainedMaxSize.width > size.width ||
+        constrainedMaxSize.height > size.height) {
       _hasVisualOverflow = true;
     }
   }
 
   @override
   void paint(PaintingContext context, Offset offset) {
-    if (child != null && (_hasVisualOverflow || _clipGeometry.borderRadius != null) && _clipBehavior != Clip.none) {
+    if (child != null &&
+        (_hasVisualOverflow || _clipGeometry.borderRadius != null) &&
+        _clipBehavior != Clip.none) {
       // When allowOverflow is true, always clip the overflow
       final Rect rect = Offset.zero & size;
       _clipGeometryHandler.push(
@@ -663,7 +695,8 @@ class _ClipRectGeometry extends _ClipGeometryHandler<ClipRectLayer> {
 
   @override
   bool operator ==(Object other) =>
-      identical(this, other) || other is _ClipRectGeometry && runtimeType == other.runtimeType;
+      identical(this, other) ||
+      other is _ClipRectGeometry && runtimeType == other.runtimeType;
   @override
   int get hashCode => runtimeType.hashCode;
 }
@@ -696,13 +729,16 @@ class _ClipRRectGeometry extends _ClipGeometryHandler<ClipRRectLayer> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is _ClipRRectGeometry && runtimeType == other.runtimeType && borderRadius == other.borderRadius;
+      other is _ClipRRectGeometry &&
+          runtimeType == other.runtimeType &&
+          borderRadius == other.borderRadius;
 
   @override
   int get hashCode => Object.hash(runtimeType, borderRadius);
 }
 
-class _ClipSuperEllipseGeometry extends _ClipGeometryHandler<ClipRSuperellipseLayer> {
+class _ClipSuperEllipseGeometry
+    extends _ClipGeometryHandler<ClipRSuperellipseLayer> {
   final BorderRadius borderRadius;
 
   _ClipSuperEllipseGeometry(this.borderRadius);
@@ -730,7 +766,9 @@ class _ClipSuperEllipseGeometry extends _ClipGeometryHandler<ClipRSuperellipseLa
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is _ClipSuperEllipseGeometry && runtimeType == other.runtimeType && borderRadius == other.borderRadius;
+      other is _ClipSuperEllipseGeometry &&
+          runtimeType == other.runtimeType &&
+          borderRadius == other.borderRadius;
 
   @override
   int get hashCode => Object.hash(runtimeType, borderRadius);
@@ -748,10 +786,12 @@ class ClipGeometry {
   const ClipGeometry.rect() : borderRadius = null, useSuperEllipse = false;
 
   /// Creates a rounded rectangle clip geometry.
-  const ClipGeometry.rrect(BorderRadiusGeometry this.borderRadius) : useSuperEllipse = false;
+  const ClipGeometry.rrect(BorderRadiusGeometry this.borderRadius)
+    : useSuperEllipse = false;
 
   /// Creates a super-ellipse clip geometry for smoother rounded corners.
-  const ClipGeometry.superEllipse(BorderRadiusGeometry this.borderRadius) : useSuperEllipse = true;
+  const ClipGeometry.superEllipse(BorderRadiusGeometry this.borderRadius)
+    : useSuperEllipse = true;
 
   @override
   bool operator ==(Object other) =>
@@ -820,7 +860,11 @@ class NSize {
 
   @override
   bool operator ==(Object other) =>
-      identical(this, other) || other is NSize && runtimeType == other.runtimeType && w == other.w && h == other.h;
+      identical(this, other) ||
+      other is NSize &&
+          runtimeType == other.runtimeType &&
+          w == other.w &&
+          h == other.h;
 
   @override
   int get hashCode => Object.hash(w, h);

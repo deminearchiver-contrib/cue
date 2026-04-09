@@ -363,12 +363,17 @@ class _TranslateOffset extends TweenAct<Offset> implements TranslateAct {
   }) : super.keyframed(from: Offset.zero);
 
   @override
-  Widget apply(BuildContext context, CueAnimation<Offset> animation, Widget child) {
+  Widget apply(
+    BuildContext context,
+    CueAnimation<Offset> animation,
+    Widget child,
+  ) {
     return TranslateTransition(offset: animation, child: child);
   }
 }
 
-class _AxisTranslate extends TweenActBase<double, Offset> implements TranslateAct {
+class _AxisTranslate extends TweenActBase<double, Offset>
+    implements TranslateAct {
   @override
   final ActKey key = const ActKey('Translate');
 
@@ -417,13 +422,18 @@ class _AxisTranslate extends TweenActBase<double, Offset> implements TranslateAc
   }
 
   @override
-  Widget apply(BuildContext context, CueAnimation<Offset> animation, Widget child) {
+  Widget apply(
+    BuildContext context,
+    CueAnimation<Offset> animation,
+    Widget child,
+  ) {
     return TranslateTransition(offset: animation, child: child);
   }
 
   @override
   bool operator ==(Object other) {
-    return identical(this, other) || other is _AxisTranslate && super == (other) && _axis == other._axis;
+    return identical(this, other) ||
+        other is _AxisTranslate && super == (other) && _axis == other._axis;
   }
 
   @override
@@ -459,7 +469,8 @@ class TranslateTransition extends AnimatedWidget {
   }
 }
 
-class _TranslateFromGlobalAct extends DeferredTweenAct<Offset> implements TranslateAct {
+class _TranslateFromGlobalAct extends DeferredTweenAct<Offset>
+    implements TranslateAct {
   @override
   final ActKey key = const ActKey('Translate');
 
@@ -497,7 +508,11 @@ class _TranslateFromGlobalAct extends DeferredTweenAct<Offset> implements Transl
        rect = null;
 
   @override
-  Widget apply(BuildContext context, DeferredCueAnimation<Offset> animation, Widget child) {
+  Widget apply(
+    BuildContext context,
+    DeferredCueAnimation<Offset> animation,
+    Widget child,
+  ) {
     return _TranslateFromGlobalTransition(
       driver: animation,
       globalOffset: offset,
@@ -551,7 +566,10 @@ class _TranslateFromGlobalTransition extends SingleChildRenderObjectWidget {
   }
 
   @override
-  void updateRenderObject(BuildContext context, _RenderTranslateFromGlobal renderObject) {
+  void updateRenderObject(
+    BuildContext context,
+    _RenderTranslateFromGlobal renderObject,
+  ) {
     renderObject
       ..driver = driver
       ..globalOffset = globalOffset
@@ -655,7 +673,9 @@ class _RenderTranslateFromGlobal extends RenderProxyBox {
       beginOffset = global - targetGlobal;
     } else {
       final rect = _globalRect ?? _rectFor(_globalKey!);
-      final alignment = _alignment!.resolve(_textDirection ?? TextDirection.ltr);
+      final alignment = _alignment!.resolve(
+        _textDirection ?? TextDirection.ltr,
+      );
       final targetRect = alignment.inscribe(renderBox.size, rect);
       beginOffset = targetRect.topLeft - targetGlobal;
     }

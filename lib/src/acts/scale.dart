@@ -275,9 +275,14 @@ class ScaleAct extends TweenAct<double> {
   }) : super.keyframed(from: 1.0);
 
   @override
-  Widget apply(BuildContext context, Animation<double> animation, Widget child) {
+  Widget apply(
+    BuildContext context,
+    Animation<double> animation,
+    Widget child,
+  ) {
     final directionality = Directionality.maybeOf(context);
-    final effectiveAlignment = alignment?.resolve(directionality) ?? Alignment.center;
+    final effectiveAlignment =
+        alignment?.resolve(directionality) ?? Alignment.center;
     return ScaleTransition(
       scale: animation,
       alignment: effectiveAlignment,
@@ -466,7 +471,11 @@ class StretchAct extends TweenActBase<Stretch, Matrix4> {
   }
 
   @override
-  Widget apply(BuildContext context, Animation<Matrix4> animation, Widget child) {
+  Widget apply(
+    BuildContext context,
+    Animation<Matrix4> animation,
+    Widget child,
+  ) {
     return AnimatedBuilder(
       animation: animation,
       builder: (context, child) {
@@ -483,7 +492,9 @@ class StretchAct extends TweenActBase<Stretch, Matrix4> {
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
-    return other is StretchAct && super == other && other.alignment == alignment;
+    return other is StretchAct &&
+        super == other &&
+        other.alignment == alignment;
   }
 
   @override
@@ -570,7 +581,11 @@ class Stretch {
 
   @override
   bool operator ==(Object other) =>
-      identical(this, other) || other is Stretch && runtimeType == other.runtimeType && x == other.x && y == other.y;
+      identical(this, other) ||
+      other is Stretch &&
+          runtimeType == other.runtimeType &&
+          x == other.x &&
+          y == other.y;
 
   @override
   int get hashCode => Object.hash(x, y);

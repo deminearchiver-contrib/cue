@@ -9,7 +9,9 @@ void main() {
 
   final motion = CueMotion.linear(300.ms);
   final actContext = ActContext(motion: motion, reverseMotion: motion);
-  final track = CueTrackImpl(TrackConfig(motion: motion, reverseMotion: motion));
+  final track = CueTrackImpl(
+    TrackConfig(motion: motion, reverseMotion: motion),
+  );
   final timeline = CueTimelineImpl.fromMotion(motion);
 
   group('FractionalSizeAct', () {
@@ -46,7 +48,10 @@ void main() {
 
       test('constructor accepts alignment', () {
         const act = FractionalSizeAct(
-          alignment: AnimatableValue(from: Alignment.topLeft, to: Alignment.bottomRight),
+          alignment: AnimatableValue(
+            from: Alignment.topLeft,
+            to: Alignment.bottomRight,
+          ),
         );
         expect(act.alignment?.from, Alignment.topLeft);
         expect(act.alignment?.to, Alignment.bottomRight);
@@ -77,7 +82,10 @@ void main() {
           delay: Duration(milliseconds: 100),
           widthFactor: AnimatableValue(from: 0.5, to: 1.0),
           heightFactor: AnimatableValue(from: 0.3, to: 0.8),
-          alignment: AnimatableValue(from: Alignment.topLeft, to: Alignment.bottomRight),
+          alignment: AnimatableValue(
+            from: Alignment.topLeft,
+            to: Alignment.bottomRight,
+          ),
           reverse: reverse,
         );
         expect(act.motion, motion);
@@ -164,7 +172,10 @@ void main() {
       test('creates animtable with alignment', () {
         const act = FractionalSizeAct(
           widthFactor: AnimatableValue(from: 0.5, to: 1.0),
-          alignment: AnimatableValue(from: Alignment.topLeft, to: Alignment.bottomRight),
+          alignment: AnimatableValue(
+            from: Alignment.topLeft,
+            to: Alignment.bottomRight,
+          ),
         );
 
         final (animtable, _) = act.buildTweens(actContext);
@@ -175,7 +186,10 @@ void main() {
         const act = FractionalSizeAct(
           widthFactor: AnimatableValue(from: 0.5, to: 1.0),
           heightFactor: AnimatableValue(from: 0.3, to: 0.8),
-          alignment: AnimatableValue(from: Alignment.topLeft, to: Alignment.bottomRight),
+          alignment: AnimatableValue(
+            from: Alignment.topLeft,
+            to: Alignment.bottomRight,
+          ),
         );
 
         final (animtable, _) = act.buildTweens(actContext);
@@ -251,7 +265,9 @@ void main() {
           ),
         );
 
-        final sizedBox = tester.widget<FractionallySizedBox>(find.byType(FractionallySizedBox));
+        final sizedBox = tester.widget<FractionallySizedBox>(
+          find.byType(FractionallySizedBox),
+        );
         expect(sizedBox.widthFactor, 0.5);
       });
 
@@ -281,7 +297,9 @@ void main() {
           ),
         );
 
-        final sizedBox = tester.widget<FractionallySizedBox>(find.byType(FractionallySizedBox));
+        final sizedBox = tester.widget<FractionallySizedBox>(
+          find.byType(FractionallySizedBox),
+        );
         expect(sizedBox.widthFactor, 1.0);
       });
 
@@ -311,7 +329,9 @@ void main() {
           ),
         );
 
-        final sizedBox = tester.widget<FractionallySizedBox>(find.byType(FractionallySizedBox));
+        final sizedBox = tester.widget<FractionallySizedBox>(
+          find.byType(FractionallySizedBox),
+        );
         expect(sizedBox.widthFactor, 0.5);
       });
 
@@ -342,7 +362,9 @@ void main() {
           ),
         );
 
-        final sizedBox = tester.widget<FractionallySizedBox>(find.byType(FractionallySizedBox));
+        final sizedBox = tester.widget<FractionallySizedBox>(
+          find.byType(FractionallySizedBox),
+        );
         expect(sizedBox.widthFactor, 0.75);
         expect(sizedBox.heightFactor, 0.75);
       });
@@ -373,7 +395,9 @@ void main() {
           ),
         );
 
-        final sizedBox = tester.widget<FractionallySizedBox>(find.byType(FractionallySizedBox));
+        final sizedBox = tester.widget<FractionallySizedBox>(
+          find.byType(FractionallySizedBox),
+        );
         expect(sizedBox.alignment, Alignment.center);
       });
 
@@ -403,7 +427,9 @@ void main() {
           ),
         );
 
-        final sizedBox = tester.widget<FractionallySizedBox>(find.byType(FractionallySizedBox));
+        final sizedBox = tester.widget<FractionallySizedBox>(
+          find.byType(FractionallySizedBox),
+        );
         expect(sizedBox.heightFactor, 0.5);
       });
 
@@ -433,14 +459,19 @@ void main() {
           ),
         );
 
-        final sizedBox = tester.widget<FractionallySizedBox>(find.byType(FractionallySizedBox));
+        final sizedBox = tester.widget<FractionallySizedBox>(
+          find.byType(FractionallySizedBox),
+        );
         expect(sizedBox.heightFactor, 1.0);
       });
 
       testWidgets('applies alignment at progress 0', (tester) async {
         const act = FractionalSizeAct(
           widthFactor: AnimatableValue(from: 0.5, to: 1.0),
-          alignment: AnimatableValue(from: Alignment.topLeft, to: Alignment.bottomRight),
+          alignment: AnimatableValue(
+            from: Alignment.topLeft,
+            to: Alignment.bottomRight,
+          ),
         );
 
         final (animtable, _) = act.buildTweens(actContext);
@@ -464,14 +495,19 @@ void main() {
           ),
         );
 
-        final sizedBox = tester.widget<FractionallySizedBox>(find.byType(FractionallySizedBox));
+        final sizedBox = tester.widget<FractionallySizedBox>(
+          find.byType(FractionallySizedBox),
+        );
         expect(sizedBox.alignment, Alignment.topLeft);
       });
 
       testWidgets('applies alignment at progress 1', (tester) async {
         const act = FractionalSizeAct(
           widthFactor: AnimatableValue(from: 0.5, to: 1.0),
-          alignment: AnimatableValue(from: Alignment.topLeft, to: Alignment.bottomRight),
+          alignment: AnimatableValue(
+            from: Alignment.topLeft,
+            to: Alignment.bottomRight,
+          ),
         );
 
         final (animtable, _) = act.buildTweens(actContext);
@@ -495,7 +531,9 @@ void main() {
           ),
         );
 
-        final sizedBox = tester.widget<FractionallySizedBox>(find.byType(FractionallySizedBox));
+        final sizedBox = tester.widget<FractionallySizedBox>(
+          find.byType(FractionallySizedBox),
+        );
         expect(sizedBox.alignment, Alignment.bottomRight);
       });
     });
@@ -504,7 +542,10 @@ void main() {
       test('resolve returns ActContext with motion', () {
         final motion = CueMotion.linear(500.ms);
         final act = FractionalSizeAct(motion: motion);
-        final context = ActContext(motion: CueMotion.linear(300.ms), reverseMotion: CueMotion.linear(300.ms));
+        final context = ActContext(
+          motion: CueMotion.linear(300.ms),
+          reverseMotion: CueMotion.linear(300.ms),
+        );
 
         final resolved = act.resolve(context);
         expect(resolved, isNotNull);
@@ -512,7 +553,10 @@ void main() {
 
       test('resolve returns ActContext with delay', () {
         final act = FractionalSizeAct(delay: Duration(milliseconds: 100));
-        final context = ActContext(motion: CueMotion.linear(300.ms), reverseMotion: CueMotion.linear(300.ms));
+        final context = ActContext(
+          motion: CueMotion.linear(300.ms),
+          reverseMotion: CueMotion.linear(300.ms),
+        );
 
         final resolved = act.resolve(context);
         expect(resolved, isNotNull);
@@ -524,7 +568,10 @@ void main() {
           Keyframe(FractionalSize(widthFactor: 1.0)),
         ], motion: .linear(300.ms));
         final act = FractionalSizeAct.keyframed(frames: frames);
-        final context = ActContext(motion: CueMotion.linear(300.ms), reverseMotion: CueMotion.linear(300.ms));
+        final context = ActContext(
+          motion: CueMotion.linear(300.ms),
+          reverseMotion: CueMotion.linear(300.ms),
+        );
 
         final resolved = act.resolve(context);
         expect(resolved, isNotNull);
@@ -565,10 +612,16 @@ void main() {
 
       test('different alignment values are not equal', () {
         const act1 = FractionalSizeAct(
-          alignment: AnimatableValue(from: Alignment.topLeft, to: Alignment.center),
+          alignment: AnimatableValue(
+            from: Alignment.topLeft,
+            to: Alignment.center,
+          ),
         );
         const act2 = FractionalSizeAct(
-          alignment: AnimatableValue(from: Alignment.bottomRight, to: Alignment.center),
+          alignment: AnimatableValue(
+            from: Alignment.bottomRight,
+            to: Alignment.center,
+          ),
         );
         expect(act1, isNot(act2));
       });

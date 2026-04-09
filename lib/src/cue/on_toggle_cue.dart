@@ -47,8 +47,21 @@ class OnToggleCue extends SelfAnimatedCue {
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties.add(FlagProperty('toggled', value: toggled, ifTrue: 'toggled', ifFalse: 'not toggled'));
-    properties.add(FlagProperty('skipFirstAnimation', value: skipFirstAnimation, ifTrue: 'skipFirstAnimation'));
+    properties.add(
+      FlagProperty(
+        'toggled',
+        value: toggled,
+        ifTrue: 'toggled',
+        ifFalse: 'not toggled',
+      ),
+    );
+    properties.add(
+      FlagProperty(
+        'skipFirstAnimation',
+        value: skipFirstAnimation,
+        ifTrue: 'skipFirstAnimation',
+      ),
+    );
   }
 
   @override

@@ -47,7 +47,10 @@ class SlackStyleFab extends StatelessWidget {
           elevation: 0,
           shape: RoundedSuperellipseBorder(
             borderRadius: BorderRadius.circular(32),
-            side: BorderSide(color: theme.primaryColor.withValues(alpha: .2), width: .4),
+            side: BorderSide(
+              color: theme.primaryColor.withValues(alpha: .2),
+              width: .4,
+            ),
           ),
           child: Actor(
             acts: [
@@ -90,8 +93,16 @@ class SlackStyleFab extends StatelessWidget {
                           color: theme.colorScheme.onPrimary,
                         ),
                       ),
-                      title: Text('Huddle', style: theme.textTheme.titleMedium?.copyWith(height: 1.2)),
-                      subtitle: Text('Start an audio or video chat', style: theme.textTheme.bodySmall),
+                      title: Text(
+                        'Huddle',
+                        style: theme.textTheme.titleMedium?.copyWith(
+                          height: 1.2,
+                        ),
+                      ),
+                      subtitle: Text(
+                        'Start an audio or video chat',
+                        style: theme.textTheme.bodySmall,
+                      ),
                     ),
                   ),
                   Actor(
@@ -115,11 +126,7 @@ class SlackStyleFab extends StatelessWidget {
                         mainAxisAlignment: .center,
                         children: [
                           Actor(
-                            acts: [
-                              .focus(),
-                              .fadeIn(),
-                              .clipWidth(),
-                            ],
+                            acts: [.focus(), .fadeIn(), .clipWidth()],
                             child: Row(
                               mainAxisSize: .min,
                               mainAxisAlignment: .center,

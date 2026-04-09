@@ -101,7 +101,11 @@ class ParallaxAct extends DeferredTweenAct<Offset> {
   }
 
   @override
-  Widget apply(BuildContext context, covariant DeferredCueAnimation<Offset> animation, Widget child) {
+  Widget apply(
+    BuildContext context,
+    covariant DeferredCueAnimation<Offset> animation,
+    Widget child,
+  ) {
     return _AnimatedParallax(
       driver: animation,
       slide: slide,
@@ -218,8 +222,12 @@ class _ParallaxRenderTransform extends RenderProxyBox {
   void _buildAnimationIfNeeded(Size childSize, BoxConstraints constraints) {
     if (_driver.hasAnimatable && _lastChildSize == childSize) return;
 
-    final parentMain = _axis == Axis.horizontal ? constraints.maxWidth : constraints.maxHeight;
-    final childMain = _axis == Axis.horizontal ? childSize.width : childSize.height;
+    final parentMain = _axis == Axis.horizontal
+        ? constraints.maxWidth
+        : constraints.maxHeight;
+    final childMain = _axis == Axis.horizontal
+        ? childSize.width
+        : childSize.height;
 
     // Avoid division by zero in pathological layouts
     if (childMain == 0) {
@@ -249,15 +257,14 @@ class _ParallaxRenderTransform extends RenderProxyBox {
       tweenBuilder: (begin, end) => Tween<Offset>(begin: begin, end: end),
     );
 
-    final (animatable, reverseAnimatable) = builder.buildTweens(_driver.context);
+    final (animatable, reverseAnimatable) = builder.buildTweens(
+      _driver.context,
+    );
 
     _driver.setAnimatable(
       reverseAnimatable == null
           ? animatable
-          : DualAnimatable(
-              forward: animatable,
-              reverse: reverseAnimatable,
-            ),
+          : DualAnimatable(forward: animatable, reverse: reverseAnimatable),
     );
     _lastChildSize = childSize;
   }

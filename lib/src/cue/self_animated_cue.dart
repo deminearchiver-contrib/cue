@@ -46,9 +46,21 @@ abstract class SelfAnimatedCue extends Cue {
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties.add(DiagnosticsProperty<CueMotion>('motion', motion));
-    properties.add(DiagnosticsProperty<CueMotion>('reverseMotion', reverseMotion, defaultValue: null));
+    properties.add(
+      DiagnosticsProperty<CueMotion>(
+        'reverseMotion',
+        reverseMotion,
+        defaultValue: null,
+      ),
+    );
     properties.add(FlagProperty('repeat', value: repeat, ifTrue: 'repeat'));
-    properties.add(FlagProperty('reverseOnRepeat', value: reverseOnRepeat, ifTrue: 'reverseOnRepeat'));
+    properties.add(
+      FlagProperty(
+        'reverseOnRepeat',
+        value: reverseOnRepeat,
+        ifTrue: 'reverseOnRepeat',
+      ),
+    );
     properties.add(IntProperty('repeatCount', repeatCount, defaultValue: null));
   }
 }
@@ -60,7 +72,9 @@ abstract class SelfAnimatedCue extends Cue {
 ///
 /// Subclasses override [onControllerReady] to start their animation logic
 /// once the controller has been initialised.
-abstract class SelfAnimatedCueState<T extends SelfAnimatedCue> extends CueState<T> with SingleTickerProviderStateMixin {
+abstract class SelfAnimatedCueState<T extends SelfAnimatedCue>
+    extends CueState<T>
+    with SingleTickerProviderStateMixin {
   @override
   late final CueController controller;
 
@@ -109,7 +123,8 @@ abstract class SelfAnimatedCueState<T extends SelfAnimatedCue> extends CueState<
   @override
   void didUpdateWidget(covariant T oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (oldWidget.motion != motion || oldWidget.reverseMotion != reverseMotion) {
+    if (oldWidget.motion != motion ||
+        oldWidget.reverseMotion != reverseMotion) {
       controller.rebuildTimeline(motion, reverseMotion: reverseMotion);
     }
     if (oldWidget.onEnd != widget.onEnd) {
@@ -124,11 +139,16 @@ abstract class SelfAnimatedCueState<T extends SelfAnimatedCue> extends CueState<
     super.didChangeDependencies();
     if (kDebugMode) {
       final devToolScope = CueDebugTools.maybeOf(context);
-      final isDevToolControlled = devToolScope?.activeTargetId == _debugId && devToolScope?.isMinimized == false;
+      final isDevToolControlled =
+          devToolScope?.activeTargetId == _debugId &&
+          devToolScope?.isMinimized == false;
       if (!_devToolControlled && isDevToolControlled) {
         controller.stop();
       } else if (_devToolControlled && !isDevToolControlled && widget.repeat) {
-        controller.repeat(reverse: widget.reverseOnRepeat, count: widget.repeatCount);
+        controller.repeat(
+          reverse: widget.reverseOnRepeat,
+          count: widget.repeatCount,
+        );
       }
       _devToolControlled = isDevToolControlled;
     }

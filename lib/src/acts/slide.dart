@@ -350,44 +350,20 @@ class _SlideEffect extends TweenAct<Offset> implements SlideAct {
   }) : super.tween();
 
   /// Slides up from bottom (y=100%) to center position.
-  const _SlideEffect.fromBottom({
-    super.motion,
-    super.reverse,
-    super.delay,
-  }) : super.tween(
-         from: const Offset(0, 1),
-         to: Offset.zero,
-       );
+  const _SlideEffect.fromBottom({super.motion, super.reverse, super.delay})
+    : super.tween(from: const Offset(0, 1), to: Offset.zero);
 
   /// Slides down from top (y=-100%) to center position.
-  const _SlideEffect.fromTop({
-    super.motion,
-    super.reverse,
-    super.delay,
-  }) : super.tween(
-         from: const Offset(0, -1),
-         to: Offset.zero,
-       );
+  const _SlideEffect.fromTop({super.motion, super.reverse, super.delay})
+    : super.tween(from: const Offset(0, -1), to: Offset.zero);
 
   /// Slides from leading edge (x=-100% in LTR) to center position.
-  const _SlideEffect.fromLeading({
-    super.motion,
-    super.reverse,
-    super.delay,
-  }) : super.tween(
-         from: const Offset(-1, 0),
-         to: Offset.zero,
-       );
+  const _SlideEffect.fromLeading({super.motion, super.reverse, super.delay})
+    : super.tween(from: const Offset(-1, 0), to: Offset.zero);
 
   /// Slides from trailing edge (x=100% in LTR) to center position.
-  const _SlideEffect.fromTrailing({
-    super.motion,
-    super.reverse,
-    super.delay,
-  }) : super.tween(
-         from: const Offset(1, 0),
-         to: Offset.zero,
-       );
+  const _SlideEffect.fromTrailing({super.motion, super.reverse, super.delay})
+    : super.tween(from: const Offset(1, 0), to: Offset.zero);
 
   /// Animates through multiple sliding keyframes.
   const _SlideEffect.keyframed({
@@ -397,12 +373,17 @@ class _SlideEffect extends TweenAct<Offset> implements SlideAct {
   }) : super.keyframed(from: Offset.zero);
 
   @override
-  Widget apply(BuildContext context, Animation<Offset> animation, Widget child) {
+  Widget apply(
+    BuildContext context,
+    Animation<Offset> animation,
+    Widget child,
+  ) {
     return SlideTransition(position: animation, child: child);
   }
 }
 
-class _AxisSlideEffect extends TweenActBase<double, Offset> implements SlideAct {
+class _AxisSlideEffect extends TweenActBase<double, Offset>
+    implements SlideAct {
   @override
   final ActKey key = const ActKey('Slide');
 
@@ -456,7 +437,11 @@ class _AxisSlideEffect extends TweenActBase<double, Offset> implements SlideAct 
   }
 
   @override
-  Widget apply(BuildContext context, Animation<Offset> animation, Widget child) {
+  Widget apply(
+    BuildContext context,
+    Animation<Offset> animation,
+    Widget child,
+  ) {
     return SlideTransition(position: animation, child: child);
   }
 

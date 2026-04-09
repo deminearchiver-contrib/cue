@@ -58,8 +58,14 @@ void main() {
         Keyframe.key(NSize(w: 100, h: 100)),
       ], motion: .none);
 
-      final a = SizedClipAct.keyframed(frames: frames, delay: Duration(milliseconds: 100));
-      final b = SizedClipAct.keyframed(frames: frames, delay: Duration(milliseconds: 200));
+      final a = SizedClipAct.keyframed(
+        frames: frames,
+        delay: Duration(milliseconds: 100),
+      );
+      final b = SizedClipAct.keyframed(
+        frames: frames,
+        delay: Duration(milliseconds: 200),
+      );
       expect(a, isNot(equals(b)));
     });
 
@@ -111,7 +117,9 @@ void main() {
       expect(rrect.borderRadius, isNotNull);
       expect(rrect.useSuperEllipse, isFalse);
 
-      const superEllipse = ClipGeometry.superEllipse(BorderRadius.all(Radius.circular(10)));
+      const superEllipse = ClipGeometry.superEllipse(
+        BorderRadius.all(Radius.circular(10)),
+      );
       expect(superEllipse.borderRadius, isNotNull);
       expect(superEllipse.useSuperEllipse, isTrue);
     });
@@ -130,22 +138,27 @@ void main() {
 
     test('SizedClipAct with different clipGeometry not equal', () {
       const a = SizedClipAct(clipGeometry: ClipGeometry.rect());
-      const b = SizedClipAct(clipGeometry: ClipGeometry.rrect(BorderRadius.all(Radius.circular(10))));
+      const b = SizedClipAct(
+        clipGeometry: ClipGeometry.rrect(BorderRadius.all(Radius.circular(10))),
+      );
       expect(a, isNot(equals(b)));
     });
 
     test('SizedClipAct hashCode consistency', () {
-      const a = SizedClipAct(from: NSize(w: 100, h: 100), to: NSize(w: 200, h: 200));
-      const b = SizedClipAct(from: NSize(w: 100, h: 100), to: NSize(w: 200, h: 200));
+      const a = SizedClipAct(
+        from: NSize(w: 100, h: 100),
+        to: NSize(w: 200, h: 200),
+      );
+      const b = SizedClipAct(
+        from: NSize(w: 100, h: 100),
+        to: NSize(w: 200, h: 200),
+      );
       expect(a.hashCode, equals(b.hashCode));
     });
 
     testWidgets('SizedClipAct renders with widget actor', (tester) async {
       final motion = CueMotion.linear(100.ms);
-      final controller = CueController(
-        vsync: TestVSync(),
-        motion: motion,
-      );
+      final controller = CueController(vsync: TestVSync(), motion: motion);
 
       addTearDown(controller.dispose);
 
@@ -168,12 +181,11 @@ void main() {
       expect(find.byType(Actor), findsOneWidget);
     });
 
-    testWidgets('SizedClipAct with keyframed renders correctly', (tester) async {
+    testWidgets('SizedClipAct with keyframed renders correctly', (
+      tester,
+    ) async {
       final motion = CueMotion.linear(100.ms);
-      final controller = CueController(
-        vsync: TestVSync(),
-        motion: motion,
-      );
+      final controller = CueController(vsync: TestVSync(), motion: motion);
 
       addTearDown(controller.dispose);
 
@@ -200,12 +212,11 @@ void main() {
       expect(find.byType(Actor), findsOneWidget);
     });
 
-    testWidgets('SizedClipAct with custom alignment renders correctly', (tester) async {
+    testWidgets('SizedClipAct with custom alignment renders correctly', (
+      tester,
+    ) async {
       final motion = CueMotion.linear(100.ms);
-      final controller = CueController(
-        vsync: TestVSync(),
-        motion: motion,
-      );
+      final controller = CueController(vsync: TestVSync(), motion: motion);
 
       addTearDown(controller.dispose);
 
@@ -228,12 +239,11 @@ void main() {
       expect(find.text('Clipped'), findsOneWidget);
     });
 
-    testWidgets('SizedClipAct with custom clipBehavior renders correctly', (tester) async {
+    testWidgets('SizedClipAct with custom clipBehavior renders correctly', (
+      tester,
+    ) async {
       final motion = CueMotion.linear(100.ms);
-      final controller = CueController(
-        vsync: TestVSync(),
-        motion: motion,
-      );
+      final controller = CueController(vsync: TestVSync(), motion: motion);
 
       addTearDown(controller.dispose);
 
@@ -256,12 +266,11 @@ void main() {
       expect(find.text('Clipped'), findsOneWidget);
     });
 
-    testWidgets('SizedClipAct with rounded corner clip renders correctly', (tester) async {
+    testWidgets('SizedClipAct with rounded corner clip renders correctly', (
+      tester,
+    ) async {
       final motion = CueMotion.linear(100.ms);
-      final controller = CueController(
-        vsync: TestVSync(),
-        motion: motion,
-      );
+      final controller = CueController(vsync: TestVSync(), motion: motion);
 
       addTearDown(controller.dispose);
 
@@ -273,9 +282,7 @@ void main() {
               body: SizedClipActor(
                 from: NSize(w: 100, h: 100),
                 to: NSize(w: 200, h: 200),
-                clipGeometry: ClipGeometry.rrect(
-                  BorderRadius.circular(12),
-                ),
+                clipGeometry: ClipGeometry.rrect(BorderRadius.circular(12)),
                 child: const Text('Clipped'),
               ),
             ),
@@ -310,7 +317,8 @@ void main() {
       // If this fails, an AssertionError is thrown with the message on line 16
 
       final testAct = _TestDeferredTweenAct();
-      final wrongAnimation = AlwaysStoppedAnimation<double>(0.5) as Animation<Object?>;
+      final wrongAnimation =
+          AlwaysStoppedAnimation<double>(0.5) as Animation<Object?>;
 
       // We can't easily test this without a real BuildContext, so we verify
       // that the code path exists by checking the act is properly constructed
@@ -318,13 +326,12 @@ void main() {
       expect(wrongAnimation, isA<Animation>());
     });
 
-    testWidgets('DeferredTweenAct.build throws with non-DeferredCueAnimation', (tester) async {
+    testWidgets('DeferredTweenAct.build throws with non-DeferredCueAnimation', (
+      tester,
+    ) async {
       final act = _TestDeferredTweenAct();
       final motion = CueMotion.linear(100.ms);
-      final controller = CueController(
-        vsync: TestVSync(),
-        motion: motion,
-      );
+      final controller = CueController(vsync: TestVSync(), motion: motion);
 
       addTearDown(controller.dispose);
 
@@ -339,7 +346,11 @@ void main() {
             );
             // The following line should trigger the assertion in DeferredTweenAct.build
             // because animation is CueAnimation<Offset>, not DeferredCueAnimation<double>
-            act.applyInternal(context, animation as Animation<Object?>, const SizedBox());
+            act.applyInternal(
+              context,
+              animation as Animation<Object?>,
+              const SizedBox(),
+            );
             return const SizedBox();
           },
         ),

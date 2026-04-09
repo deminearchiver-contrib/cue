@@ -85,7 +85,8 @@ typedef ValueTransformer<R, T> = R Function(ActContext context, T value);
 ///   double transform(_, double degrees) => degrees * pi / 180; // degrees to radians
 /// }
 /// ```
-abstract class TweenActBase<T extends Object?, R extends Object?> extends AnimtableAct<T, R> {
+abstract class TweenActBase<T extends Object?, R extends Object?>
+    extends AnimtableAct<T, R> {
   /// The initial animated value for this tween.
   ///
   /// In tween mode, `from` is the start value. If not provided, the current
@@ -111,7 +112,14 @@ abstract class TweenActBase<T extends Object?, R extends Object?> extends Animta
 
   /// Creates a tween act base with optional [from], [to], [frames], [motion], [delay], and [reverse].
   @internal
-  const TweenActBase({this.from, this.to, this.frames, super.motion, super.delay, required super.reverse});
+  const TweenActBase({
+    this.from,
+    this.to,
+    this.frames,
+    super.motion,
+    super.delay,
+    required super.reverse,
+  });
 
   /// Constructs a tween act with `from` and `to` values.
   const TweenActBase.tween({
@@ -181,7 +189,9 @@ abstract class TweenActBase<T extends Object?, R extends Object?> extends Animta
     bool includeFirstFrame = false,
   }) {
     CueMotion? framesMotion = switch (frames) {
-      MotionKeyframes<T> m => SegmentedMotion(m.extractMotion(includeFirst: includeFirstFrame)),
+      MotionKeyframes<T> m => SegmentedMotion(
+        m.extractMotion(includeFirst: includeFirstFrame),
+      ),
       FractionalKeyframes<T> m => SegmentedMotion(
         m.extractMotion(
           includeFirst: includeFirstFrame,
@@ -192,7 +202,9 @@ abstract class TweenActBase<T extends Object?, R extends Object?> extends Animta
     };
 
     CueMotion? reverseFramesMotion = switch (reverse.frames?.reversed) {
-      MotionKeyframes<T> m => SegmentedMotion(m.extractMotion(includeFirst: true)),
+      MotionKeyframes<T> m => SegmentedMotion(
+        m.extractMotion(includeFirst: true),
+      ),
       FractionalKeyframes<T> m => SegmentedMotion(
         m.extractMotion(
           includeFirst: true,
@@ -206,7 +218,11 @@ abstract class TweenActBase<T extends Object?, R extends Object?> extends Animta
     final reverseDelay = reverse.delay + context.reverseDelay;
 
     CueMotion forwardMotion = framesMotion ?? motion ?? context.motion;
-    CueMotion reverseMotion = reverseFramesMotion ?? reverse.motion ?? motion ?? context.reverseMotion;
+    CueMotion reverseMotion =
+        reverseFramesMotion ??
+        reverse.motion ??
+        motion ??
+        context.reverseMotion;
 
     if (forwardDelay != Duration.zero) {
       forwardMotion = forwardMotion.delayed(forwardDelay);
@@ -214,7 +230,10 @@ abstract class TweenActBase<T extends Object?, R extends Object?> extends Animta
     if (reverseDelay != Duration.zero) {
       reverseMotion = reverseMotion.delayed(reverseDelay);
     }
-    return context.copyWith(motion: forwardMotion, reverseMotion: reverseMotion);
+    return context.copyWith(
+      motion: forwardMotion,
+      reverseMotion: reverseMotion,
+    );
   }
 
   /// Resolves the final [ActContext] for this act by calling [resolveMotion].
@@ -269,17 +288,23 @@ abstract class TweenActBase<T extends Object?, R extends Object?> extends Animta
           forReverse: forReverse,
           transform: (v) => transform(context, v),
         ),
-        FractionalKeyframes<T>(:final frames) => Phase.resolveFractionalFrames<T, R>(
-          frames,
-          from: iniitalkeyframe,
-          forReverse: forReverse,
-          transform: (v) => transform(context, v),
-        ),
+        FractionalKeyframes<T>(:final frames) =>
+          Phase.resolveFractionalFrames<T, R>(
+            frames,
+            from: iniitalkeyframe,
+            forReverse: forReverse,
+            transform: (v) => transform(context, v),
+          ),
       };
-      return SegmentedAnimtable([for (final phase in phases) createSingleTween(phase.begin, phase.end)]);
+      return SegmentedAnimtable([
+        for (final phase in phases) createSingleTween(phase.begin, phase.end),
+      ]);
     } else {
       final effectiveFrom = implicitFrom ?? transform(context, from as T);
-      assert(effectiveFrom != null && to != null, 'From and to values must be provided when not using keyframes');
+      assert(
+        effectiveFrom != null && to != null,
+        'From and to values must be provided when not using keyframes',
+      );
       if (effectiveFrom == to) {
         return ConstantAnimtable<R>(effectiveFrom);
       } else {
@@ -393,8 +418,7 @@ enum ReverseBehaviorType {
   /// Forward animates to `to`, reverse animates to a custom target
   /// value or keyframes sequence.
   /// Can specify separate motion/delay for reverse.
-  to
-  ;
+  to;
 
   /// Whether this type requires a separate reverse animatable.
   bool get needsReverseTween => this == ReverseBehaviorType.to;
@@ -422,10 +446,12 @@ enum ReverseBehaviorType {
 /// themselves via [MotionKeyframes] or [FractionalKeyframes].
 class KFReverseBehavior<T> extends ReverseBehaviorBase<T> {
   /// Play forward keyframes in reverse (default for keyframed acts).
-  const KFReverseBehavior.mirror({super.delay}) : super._(type: ReverseBehaviorType.mirror);
+  const KFReverseBehavior.mirror({super.delay})
+    : super._(type: ReverseBehaviorType.mirror);
 
   /// Forward and reverse keyframes are swapped.
-  const KFReverseBehavior.exclusive() : super._(type: ReverseBehaviorType.exclusive);
+  const KFReverseBehavior.exclusive()
+    : super._(type: ReverseBehaviorType.exclusive);
 
   /// No reverse animation.
   const KFReverseBehavior.none() : super._(type: ReverseBehaviorType.none);
@@ -456,13 +482,15 @@ class ReverseBehavior<T> extends ReverseBehaviorBase<T> {
   /// Parameters:
   /// - `motion`: custom motion for reverse (overrides act/context motion)
   /// - `delay`: custom delay for reverse (added to context reverse delay)
-  const ReverseBehavior.mirror({super.motion, super.delay}) : super._(type: ReverseBehaviorType.mirror);
+  const ReverseBehavior.mirror({super.motion, super.delay})
+    : super._(type: ReverseBehaviorType.mirror);
 
   /// Forward and reverse targets are swapped.
   ///
   /// Forward animates to `to`, reverse animates to `from`. No custom motion
   /// or delay can be set — they use `from` and `to` as-is.
-  const ReverseBehavior.exclusive() : super._(type: ReverseBehaviorType.exclusive);
+  const ReverseBehavior.exclusive()
+    : super._(type: ReverseBehaviorType.exclusive);
 
   /// No reverse animation.
   ///
@@ -478,7 +506,8 @@ class ReverseBehavior<T> extends ReverseBehaviorBase<T> {
   /// - `to`: the target value for reverse
   /// - `motion`: custom motion for reverse (overrides act/context motion)
   /// - `delay`: custom delay for reverse (added to context reverse delay)
-  const ReverseBehavior.to(T to, {super.motion, super.delay}) : super._(type: ReverseBehaviorType.to, to: to);
+  const ReverseBehavior.to(T to, {super.motion, super.delay})
+    : super._(type: ReverseBehaviorType.to, to: to);
 }
 
 /// Base class for reverse behavior, shared by tween and keyframed acts.
@@ -636,10 +665,7 @@ class AnimatableValue<T> {
   final T to;
 
   /// Creates an animatable value with explicit [from] and [to] values.
-  const AnimatableValue({
-    required this.from,
-    required this.to,
-  });
+  const AnimatableValue({required this.from, required this.to});
 
   /// Creates a fixed value that doesn't animate (from and to are the same).
   const AnimatableValue.fixed(T value) : from = value, to = value;
@@ -663,7 +689,13 @@ class AnimatableValue<T> {
 
 @internal
 class CueTweenBuildHelper<T extends Object?> extends TweenAct<T> {
-  CueTweenBuildHelper({super.reverse, super.from, super.to, super.frames, required this.tweenBuilder});
+  CueTweenBuildHelper({
+    super.reverse,
+    super.from,
+    super.to,
+    super.frames,
+    required this.tweenBuilder,
+  });
 
   final Animatable<T> Function(T from, T to) tweenBuilder;
 
@@ -673,7 +705,11 @@ class CueTweenBuildHelper<T extends Object?> extends TweenAct<T> {
   }
 
   @override
-  Widget apply(BuildContext context, covariant CueAnimation<T> animation, Widget child) {
+  Widget apply(
+    BuildContext context,
+    covariant CueAnimation<T> animation,
+    Widget child,
+  ) {
     throw UnimplementedError(
       'TempTweenBuilder is a utility class for building tweens and should not be used directly in the widget tree.',
     );

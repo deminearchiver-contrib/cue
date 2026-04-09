@@ -71,7 +71,8 @@ class FractionalSizeAct extends AnimtableAct<FractionalSize, FractionalSize> {
     this.widthFactor,
     this.heightFactor,
     this.alignment = const AnimatableValue.fixed(Alignment.center),
-    ReverseBehavior<FractionalSize> super.reverse = const ReverseBehavior.mirror(),
+    ReverseBehavior<FractionalSize> super.reverse =
+        const ReverseBehavior.mirror(),
   }) : frames = null;
 
   /// {@template act.fractional_size.keyframed}
@@ -107,13 +108,18 @@ class FractionalSizeAct extends AnimtableAct<FractionalSize, FractionalSize> {
   const FractionalSizeAct.keyframed({
     required Keyframes<FractionalSize> this.frames,
     super.delay,
-    ReverseBehavior<FractionalSize> super.reverse = const ReverseBehavior.mirror(),
+    ReverseBehavior<FractionalSize> super.reverse =
+        const ReverseBehavior.mirror(),
   }) : widthFactor = null,
        heightFactor = null,
        alignment = null;
 
   @override
-  Widget apply(BuildContext context, Animation<FractionalSize> animation, Widget child) {
+  Widget apply(
+    BuildContext context,
+    Animation<FractionalSize> animation,
+    Widget child,
+  ) {
     return AnimatedBuilder(
       animation: animation,
       child: child,
@@ -130,7 +136,9 @@ class FractionalSizeAct extends AnimtableAct<FractionalSize, FractionalSize> {
   }
 
   @override
-  (CueAnimtable<FractionalSize>, CueAnimtable<FractionalSize>?) buildTweens(ActContext context) {
+  (CueAnimtable<FractionalSize>, CueAnimtable<FractionalSize>?) buildTweens(
+    ActContext context,
+  ) {
     final builder = CueTweenBuildHelper<FractionalSize>(
       from: FractionalSize(
         widthFactor: widthFactor?.from,
@@ -172,7 +180,8 @@ class FractionalSizeAct extends AnimtableAct<FractionalSize, FractionalSize> {
           frames == other.frames;
 
   @override
-  int get hashCode => Object.hash(super.hashCode, widthFactor, heightFactor, alignment, frames);
+  int get hashCode =>
+      Object.hash(super.hashCode, widthFactor, heightFactor, alignment, frames);
 }
 
 /// Data class representing fractional sizing state.

@@ -91,12 +91,19 @@ class PaddingAct extends TweenAct<EdgeInsetsGeometry> {
   }) : super.keyframed(from: EdgeInsets.zero);
 
   @override
-  Animatable<EdgeInsetsGeometry> createSingleTween(EdgeInsetsGeometry from, EdgeInsetsGeometry to) {
+  Animatable<EdgeInsetsGeometry> createSingleTween(
+    EdgeInsetsGeometry from,
+    EdgeInsetsGeometry to,
+  ) {
     return EdgeInsetsGeometryTween(begin: from, end: to);
   }
 
   @override
-  Widget apply(BuildContext context, CueAnimation<EdgeInsetsGeometry> animation, Widget child) {
+  Widget apply(
+    BuildContext context,
+    CueAnimation<EdgeInsetsGeometry> animation,
+    Widget child,
+  ) {
     return AnimatedBuilder(
       animation: animation,
       builder: (context, child) {

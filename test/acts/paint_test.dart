@@ -11,7 +11,9 @@ void main() {
 
   final motion = CueMotion.linear(300.ms);
   final actContext = ActContext(motion: motion, reverseMotion: motion);
-  final track = CueTrackImpl(TrackConfig(motion: motion, reverseMotion: motion));
+  final track = CueTrackImpl(
+    TrackConfig(motion: motion, reverseMotion: motion),
+  );
   final timeline = CueTimelineImpl.fromMotion(motion);
 
   group('PaintAct', () {
@@ -141,12 +143,16 @@ void main() {
           ),
         );
 
-        final customPaint = tester.widget<CustomPaint>(find.byType(CustomPaint));
+        final customPaint = tester.widget<CustomPaint>(
+          find.byType(CustomPaint),
+        );
         expect(customPaint.painter, isNotNull);
         expect(customPaint.foregroundPainter, isNull);
       });
 
-      testWidgets('uses foregroundPainter when paintOnTop is true', (tester) async {
+      testWidgets('uses foregroundPainter when paintOnTop is true', (
+        tester,
+      ) async {
         final act = PaintAct(
           painter: Painter.paint((canvas, size, progress) {}),
           paintOnTop: true,
@@ -173,7 +179,9 @@ void main() {
           ),
         );
 
-        final customPaint = tester.widget<CustomPaint>(find.byType(CustomPaint));
+        final customPaint = tester.widget<CustomPaint>(
+          find.byType(CustomPaint),
+        );
         expect(customPaint.painter, isNull);
         expect(customPaint.foregroundPainter, isNotNull);
       });
@@ -200,10 +208,7 @@ void main() {
   group('PaintActor', () {
     test('creates PaintAct with correct values', () {
       final painter = Painter.paint((canvas, size, progress) {});
-      final actor = PaintActor(
-        painter: painter,
-        child: const SizedBox(),
-      );
+      final actor = PaintActor(painter: painter, child: const SizedBox());
       final act = actor.act as PaintAct;
       expect(act.painter, painter);
       expect(act.paintOnTop, false);

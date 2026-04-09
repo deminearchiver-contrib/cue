@@ -109,7 +109,11 @@ class ColorTintAct extends TweenAct<Color?> {
   }
 
   @override
-  Widget apply(BuildContext context, Animation<Color?> animation, Widget child) {
+  Widget apply(
+    BuildContext context,
+    Animation<Color?> animation,
+    Widget child,
+  ) {
     return AnimatedBuilder(
       animation: animation,
       child: child,

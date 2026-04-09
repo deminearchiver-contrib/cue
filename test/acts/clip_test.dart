@@ -511,8 +511,14 @@ void main() {
 
     test('pathClipAct equality', () {
       final radius = BorderRadius.circular(10);
-      final act1 = PathClipAct(borderRadius: radius, alignment: Alignment.center);
-      final act2 = PathClipAct(borderRadius: radius, alignment: Alignment.center);
+      final act1 = PathClipAct(
+        borderRadius: radius,
+        alignment: Alignment.center,
+      );
+      final act2 = PathClipAct(
+        borderRadius: radius,
+        alignment: Alignment.center,
+      );
       final act3 = PathClipAct(borderRadius: radius, useSuperellipse: true);
 
       expect(act1, equals(act2));
@@ -641,7 +647,9 @@ void main() {
 
   group('apply methods', () {
     testWidgets('PathClipAct apply creates ClipPath widget', (tester) async {
-      const act = PathClipAct(borderRadius: BorderRadius.all(Radius.circular(10)));
+      const act = PathClipAct(
+        borderRadius: BorderRadius.all(Radius.circular(10)),
+      );
 
       await tester.pumpWidget(
         Directionality(
@@ -662,7 +670,9 @@ void main() {
       expect(find.byType(SizedBox), findsOneWidget);
     });
 
-    testWidgets('AxisClipAct horizontal apply creates ClipRect widget', (tester) async {
+    testWidgets('AxisClipAct horizontal apply creates ClipRect widget', (
+      tester,
+    ) async {
       const act = AxisClipAct.horizontal();
 
       await tester.pumpWidget(
@@ -684,7 +694,9 @@ void main() {
       expect(find.byType(Align), findsOneWidget);
     });
 
-    testWidgets('AxisClipAct vertical apply creates ClipRect widget', (tester) async {
+    testWidgets('AxisClipAct vertical apply creates ClipRect widget', (
+      tester,
+    ) async {
       const act = AxisClipAct.vertical();
 
       await tester.pumpWidget(
@@ -706,7 +718,9 @@ void main() {
       expect(find.byType(Align), findsOneWidget);
     });
 
-    testWidgets('PathClipAct circular apply creates ClipPath widget', (tester) async {
+    testWidgets('PathClipAct circular apply creates ClipPath widget', (
+      tester,
+    ) async {
       const act = PathClipAct.circular();
 
       await tester.pumpWidget(
@@ -728,7 +742,9 @@ void main() {
       expect(find.byType(Align), findsOneWidget);
     });
 
-    testWidgets('AxisClipAct horizontal with different alignment', (tester) async {
+    testWidgets('AxisClipAct horizontal with different alignment', (
+      tester,
+    ) async {
       const act = AxisClipAct.horizontal(alignment: Alignment.center);
 
       await tester.pumpWidget(
@@ -749,7 +765,9 @@ void main() {
       expect(find.byType(ClipRect), findsOneWidget);
     });
 
-    testWidgets('AxisClipAct vertical with different alignment', (tester) async {
+    testWidgets('AxisClipAct vertical with different alignment', (
+      tester,
+    ) async {
       const act = AxisClipAct.vertical(alignment: Alignment.topCenter);
 
       await tester.pumpWidget(

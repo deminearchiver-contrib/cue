@@ -32,7 +32,11 @@ abstract class DeferredTweenAct<T extends Object?> extends AnimtableAct<T, T> {
   });
 
   @override
-  Widget applyInternal(BuildContext context, covariant Animation<Object?> animation, Widget child) {
+  Widget applyInternal(
+    BuildContext context,
+    covariant Animation<Object?> animation,
+    Widget child,
+  ) {
     assert(
       animation is DeferredCueAnimation<T>,
       'Expected animation of type DeferredCueAnimation<$T>, but got ${animation.runtimeType}',
@@ -41,7 +45,11 @@ abstract class DeferredTweenAct<T extends Object?> extends AnimtableAct<T, T> {
   }
 
   @override
-  Widget apply(BuildContext context, covariant DeferredCueAnimation<T> animation, Widget child);
+  Widget apply(
+    BuildContext context,
+    covariant DeferredCueAnimation<T> animation,
+    Widget child,
+  );
 
   @override
   (CueAnimtable<T>, CueAnimtable<T>?) buildTweens(ActContext context) {
@@ -51,13 +59,20 @@ abstract class DeferredTweenAct<T extends Object?> extends AnimtableAct<T, T> {
   }
 
   @override
-  DeferredCueAnimation<T> buildAnimation(CueTimeline timline, ActContext context) {
+  DeferredCueAnimation<T> buildAnimation(
+    CueTimeline timline,
+    ActContext context,
+  ) {
     final trackConfig = TrackConfig(
       motion: context.motion,
       reverseMotion: context.reverseMotion,
       reverseType: reverse.type,
     );
     final (track, token) = timline.obtainTrack(trackConfig);
-    return DeferredCueAnimation<T>(parent: track, token: token, context: context);
+    return DeferredCueAnimation<T>(
+      parent: track,
+      token: token,
+      context: context,
+    );
   }
 }

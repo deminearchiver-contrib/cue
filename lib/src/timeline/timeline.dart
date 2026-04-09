@@ -26,7 +26,8 @@ import 'package:flutter/material.dart';
 /// timeline.release(token1);
 /// timeline.release(token2);
 /// ```
-class CueTimelineImpl extends CueTimeline with AnimationLocalStatusListenersMixin {
+class CueTimelineImpl extends CueTimeline
+    with AnimationLocalStatusListenersMixin {
   /// Default track configuration used when timeline is created.
   /// Always present and cannot be removed from the timeline.
   @override
@@ -41,14 +42,18 @@ class CueTimelineImpl extends CueTimeline with AnimationLocalStatusListenersMixi
 
   /// Creates a timeline implementation with the given default track config.
   CueTimelineImpl(this.defaultConfig) {
-    _tracks = {
-      defaultConfig: TrackEntry(buildTrack(defaultConfig)),
-    };
+    _tracks = {defaultConfig: TrackEntry(buildTrack(defaultConfig))};
   }
 
   /// Creates a timeline from a single motion (forward and reverse use the same).
-  factory CueTimelineImpl.fromMotion(CueMotion motion, {CueMotion? reverseMotion}) {
-    final config = TrackConfig(motion: motion, reverseMotion: reverseMotion ?? motion);
+  factory CueTimelineImpl.fromMotion(
+    CueMotion motion, {
+    CueMotion? reverseMotion,
+  }) {
+    final config = TrackConfig(
+      motion: motion,
+      reverseMotion: reverseMotion ?? motion,
+    );
     return CueTimelineImpl(config);
   }
 
@@ -90,12 +95,14 @@ class CueTimelineImpl extends CueTimeline with AnimationLocalStatusListenersMixi
   /// Maximum forward duration across all tracks (in seconds).
   /// Cached until tracks are added/removed.
   @override
-  double get forwardDuration => _forwardDuration ??= _calculateForwardDuration();
+  double get forwardDuration =>
+      _forwardDuration ??= _calculateForwardDuration();
 
   /// Maximum reverse duration across all tracks (in seconds).
   /// Cached until tracks are added/removed.
   @override
-  double get reverseDuration => _reverseDuration ??= _calculateReverseDuration();
+  double get reverseDuration =>
+      _reverseDuration ??= _calculateReverseDuration();
 
   /// Resets timeline to initial state (progress 0, status dismissed).
   /// Clears repeat configuration and updates all tracks to progress 0.
@@ -170,8 +177,12 @@ class CueTimelineImpl extends CueTimeline with AnimationLocalStatusListenersMixi
     final isForward = status.isForwardOrCompleted;
     var longest = tracks.values.first;
     for (final entry in tracks.values) {
-      if ((isForward ? entry.track.forwardDuration : entry.track.reverseDuration) >
-          (isForward ? longest.track.forwardDuration : longest.track.reverseDuration)) {
+      if ((isForward
+              ? entry.track.forwardDuration
+              : entry.track.reverseDuration) >
+          (isForward
+              ? longest.track.forwardDuration
+              : longest.track.reverseDuration)) {
         longest = entry;
       }
     }
@@ -184,7 +195,11 @@ class CueTimelineImpl extends CueTimeline with AnimationLocalStatusListenersMixi
   /// Shorter tracks will complete before longer tracks.
   /// Clears any active repeat configuration.
   @override
-  void setProgress(double value, {bool forward = true, bool forceLinear = false}) {
+  void setProgress(
+    double value, {
+    bool forward = true,
+    bool forceLinear = false,
+  }) {
     _repeatConfig = null;
     if (forward) {
       _setForwardProgress(value, forceLinear: forceLinear);
@@ -198,7 +213,8 @@ class CueTimelineImpl extends CueTimeline with AnimationLocalStatusListenersMixi
     final timelineDuration = forwardDuration;
     for (final entry in tracks.entries) {
       final track = entry.value.track;
-      final normalized = (value * timelineDuration / track.forwardDuration).clamp(0.0, 1.0);
+      final normalized = (value * timelineDuration / track.forwardDuration)
+          .clamp(0.0, 1.0);
       track.setProgress(normalized, forward: true, forceLinear: forceLinear);
     }
   }
@@ -209,7 +225,11 @@ class CueTimelineImpl extends CueTimeline with AnimationLocalStatusListenersMixi
       final track = entry.value.track;
       final idleRatio = (1.0 - (track.reverseDuration / timelineDuration));
       final adjustedValue = (value - idleRatio);
-      final normalized = (adjustedValue / (track.reverseDuration / timelineDuration)).clamp(0.0, 1.0);
+      final normalized =
+          (adjustedValue / (track.reverseDuration / timelineDuration)).clamp(
+            0.0,
+            1.0,
+          );
       track.setProgress(normalized, forward: false, forceLinear: forceLinear);
     }
   }
@@ -259,7 +279,12 @@ class CueTimelineImpl extends CueTimeline with AnimationLocalStatusListenersMixi
   /// [target] - Optional target progress
   /// [velocity] - Optional starting velocity
   @override
-  void prepare({required bool forward, double? from, double? target, double? velocity}) {
+  void prepare({
+    required bool forward,
+    double? from,
+    double? target,
+    double? velocity,
+  }) {
     _repeatConfig = null;
     _cycleOffset = 0.0;
     fireEvent(TimelinePrepareEvent(forward));
@@ -267,7 +292,12 @@ class CueTimelineImpl extends CueTimeline with AnimationLocalStatusListenersMixi
     _prepareInternal(forward, from, target, velocity);
   }
 
-  void _prepareInternal(bool forward, [double? from, double? target, double? velocity]) {
+  void _prepareInternal(
+    bool forward, [
+    double? from,
+    double? target,
+    double? velocity,
+  ]) {
     for (final entry in tracks.values) {
       entry.track.prepare(
         forward: forward,
@@ -379,9 +409,15 @@ class CueTimelineImpl extends CueTimeline with AnimationLocalStatusListenersMixi
 /// Defines the interface for managing and coordinating animation tracks.
 /// Subclasses handle the actual track management, progress synchronization,
 /// and animation lifecycle.
-abstract class CueTimeline extends Simulation with EventNotifier<TimelineEvent> {
+abstract class CueTimeline extends Simulation
+    with EventNotifier<TimelineEvent> {
   /// Prepares timeline for animation playback.
-  void prepare({required bool forward, double? from, double? target, double? velocity});
+  void prepare({
+    required bool forward,
+    double? from,
+    double? target,
+    double? velocity,
+  });
 
   /// Prepares timeline for repeating animations.
   void prepareForRepeat(RepeatConfig config);
@@ -390,7 +426,11 @@ abstract class CueTimeline extends Simulation with EventNotifier<TimelineEvent> 
   void willAnimate({required bool forward});
 
   /// Sets timeline progress (0-1).
-  void setProgress(double value, {bool forward = true, bool forceLinear = false});
+  void setProgress(
+    double value, {
+    bool forward = true,
+    bool forceLinear = false,
+  });
 
   /// Resets timeline to initial state.
   void reset();
@@ -495,12 +535,7 @@ class RepeatConfig {
   final double? from;
 
   /// Creates a RepeatConfig with the specified settings.
-  RepeatConfig({
-    this.count,
-    required this.reverse,
-    this.target,
-    this.from,
-  });
+  RepeatConfig({this.count, required this.reverse, this.target, this.from});
 
   /// Creates a copy with updated cycle count.
   /// Used internally to track remaining cycles.

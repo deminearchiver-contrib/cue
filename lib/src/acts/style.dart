@@ -167,7 +167,11 @@ class TextStyleAct extends TweenAct<TextStyle> {
   }
 
   @override
-  Widget apply(BuildContext context, Animation<TextStyle> animation, Widget child) {
+  Widget apply(
+    BuildContext context,
+    Animation<TextStyle> animation,
+    Widget child,
+  ) {
     return DefaultTextStyleTransition(style: animation, child: child);
   }
 }
@@ -312,19 +316,23 @@ class IconThemeAct extends TweenAct<IconThemeData> {
   }) : super.keyframed();
 
   @override
-  Animatable<IconThemeData> createSingleTween(IconThemeData from, IconThemeData to) {
+  Animatable<IconThemeData> createSingleTween(
+    IconThemeData from,
+    IconThemeData to,
+  ) {
     return _IconThemeDataTween(begin: from, end: to);
   }
 
   @override
-  Widget apply(BuildContext context, Animation<IconThemeData> animation, Widget child) {
+  Widget apply(
+    BuildContext context,
+    Animation<IconThemeData> animation,
+    Widget child,
+  ) {
     return AnimatedBuilder(
       animation: animation,
       builder: (context, child) {
-        return IconTheme(
-          data: animation.value,
-          child: child!,
-        );
+        return IconTheme(data: animation.value, child: child!);
       },
       child: child,
     );

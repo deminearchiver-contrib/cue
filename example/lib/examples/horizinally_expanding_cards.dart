@@ -5,25 +5,30 @@ class HorizontallyExpandingCards extends StatefulWidget {
   const HorizontallyExpandingCards({super.key});
 
   @override
-  State<HorizontallyExpandingCards> createState() => _HorizontallyExpandingCardsState();
+  State<HorizontallyExpandingCards> createState() =>
+      _HorizontallyExpandingCardsState();
 }
 
 const cardsInfo = <({String title, String imageUrl})>[
   (
     title: 'Elegant',
-    imageUrl: 'https://images.pexels.com/photos/261181/pexels-photo-261181.jpeg',
+    imageUrl:
+        'https://images.pexels.com/photos/261181/pexels-photo-261181.jpeg',
   ),
   (
     title: 'Awesome',
-    imageUrl: 'https://images.pexels.com/photos/1166209/pexels-photo-1166209.jpeg',
+    imageUrl:
+        'https://images.pexels.com/photos/1166209/pexels-photo-1166209.jpeg',
   ),
   (
     title: 'Glamorous',
-    imageUrl: 'https://images.pexels.com/photos/313032/pexels-photo-313032.jpeg',
+    imageUrl:
+        'https://images.pexels.com/photos/313032/pexels-photo-313032.jpeg',
   ),
 ];
 
-class _HorizontallyExpandingCardsState extends State<HorizontallyExpandingCards> {
+class _HorizontallyExpandingCardsState
+    extends State<HorizontallyExpandingCards> {
   int _expandedIndex = 0;
 
   @override
@@ -48,7 +53,9 @@ class _HorizontallyExpandingCardsState extends State<HorizontallyExpandingCards>
                     child: Card(
                       margin: .zero,
                       elevation: 0,
-                      shape: RoundedSuperellipseBorder(borderRadius: .circular(20)),
+                      shape: RoundedSuperellipseBorder(
+                        borderRadius: .circular(20),
+                      ),
                       clipBehavior: .antiAlias,
                       child: Actor(
                         acts: [
@@ -60,7 +67,10 @@ class _HorizontallyExpandingCardsState extends State<HorizontallyExpandingCards>
                         child: DecoratedBox(
                           decoration: BoxDecoration(
                             image: DecorationImage(
-                              colorFilter: ColorFilter.mode(Colors.black.withValues(alpha: .3), .color),
+                              colorFilter: ColorFilter.mode(
+                                Colors.black.withValues(alpha: .3),
+                                .color,
+                              ),
                               image: NetworkImage(cardsInfo[i].imageUrl),
                               fit: .cover,
                               opacity: .8,
@@ -82,8 +92,14 @@ class _HorizontallyExpandingCardsState extends State<HorizontallyExpandingCards>
                                 children: [
                                   Actor(
                                     acts: [
-                                      .align(from: .bottomCenter, to: .bottomLeft),
-                                      .rotateLayout(from: -1, unit: .quarterTurns),
+                                      .align(
+                                        from: .bottomCenter,
+                                        to: .bottomLeft,
+                                      ),
+                                      .rotateLayout(
+                                        from: -1,
+                                        unit: .quarterTurns,
+                                      ),
                                     ],
                                     child: Text(
                                       cardsInfo[i].title,

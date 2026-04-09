@@ -13,7 +13,8 @@ import 'package:flutter/material.dart';
 ///
 /// **Custom tweens**: Pass a [TweenBuilder] for types that need custom tween logic
 /// (e.g., `ColorTween.new` for colors).
-class CueValueAnimator<T> extends Animation<T> with AnimationWithParentMixin<double> {
+class CueValueAnimator<T> extends Animation<T>
+    with AnimationWithParentMixin<double> {
   /// Internal controller managing the animation timeline.
   final CueController _controller;
 
@@ -67,7 +68,9 @@ class CueValueAnimator<T> extends Animation<T> with AnimationWithParentMixin<dou
   /// Starts from the current value and runs the animation forward from 0.
   void animateTo(T newTarget, {double? velocity}) {
     final currentValue = _animatable.evaluate(_track);
-    _animatable = TweenAnimtable<T>(_tweenBuilder(begin: currentValue, end: newTarget));
+    _animatable = TweenAnimtable<T>(
+      _tweenBuilder(begin: currentValue, end: newTarget),
+    );
     _controller.forward(from: 0.0, velocity: velocity);
   }
 

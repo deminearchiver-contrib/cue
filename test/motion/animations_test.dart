@@ -130,10 +130,7 @@ void main() {
       final config = TrackConfig(motion: motion, reverseMotion: motion);
       track = CueTrackImpl(config);
       token = ReleaseToken(config, timeline);
-      context = ActContext(
-        motion: motion,
-        reverseMotion: motion,
-      );
+      context = ActContext(motion: motion, reverseMotion: motion);
     });
 
     test('stores parent, context, and token', () {

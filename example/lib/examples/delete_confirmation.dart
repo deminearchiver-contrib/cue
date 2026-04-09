@@ -50,11 +50,7 @@ class DeleteConfirmationDialog extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Actor(
-                        acts: [
-                          .fadeIn(),
-                          .scale(from: .5),
-                          .blur(from: 10),
-                        ],
+                        acts: [.fadeIn(), .scale(from: .5), .blur(from: 10)],
                         child: Padding(
                           padding: const EdgeInsets.fromLTRB(16, 16, 16, 16),
                           child: Column(
@@ -69,7 +65,9 @@ class DeleteConfirmationDialog extends StatelessWidget {
                                 'This action cannot be undone.',
                                 textAlign: .center,
                                 style: theme.textTheme.bodyMedium?.copyWith(
-                                  color: theme.colorScheme.onSurface.withValues(alpha: .5),
+                                  color: theme.colorScheme.onSurface.withValues(
+                                    alpha: .5,
+                                  ),
                                 ),
                               ),
                             ],
@@ -79,7 +77,9 @@ class DeleteConfirmationDialog extends StatelessWidget {
                       TextButton.icon(
                         onPressed: () {},
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: theme.colorScheme.error.withValues(alpha: .05),
+                          backgroundColor: theme.colorScheme.error.withValues(
+                            alpha: .05,
+                          ),
                           foregroundColor: theme.colorScheme.error,
                           padding: .symmetric(horizontal: 20.0, vertical: 12.0),
                           shape: RoundedRectangleBorder(

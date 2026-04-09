@@ -8,7 +8,9 @@ void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
   final motion = CueMotion.linear(300.ms);
   final actContext = ActContext(motion: motion, reverseMotion: motion);
-  final track = CueTrackImpl(TrackConfig(motion: motion, reverseMotion: motion));
+  final track = CueTrackImpl(
+    TrackConfig(motion: motion, reverseMotion: motion),
+  );
   final timeline = CueTimelineImpl.fromMotion(motion);
 
   group('PathMotionAct', () {
@@ -83,10 +85,7 @@ void main() {
       });
 
       test('accepts startAngle', () {
-        final act = PathMotionAct.circular(
-          radius: 50,
-          startAngle: 90,
-        );
+        final act = PathMotionAct.circular(radius: 50, startAngle: 90);
         expect(act.path, isNotNull);
       });
 
@@ -106,10 +105,7 @@ void main() {
 
     group('arc constructor', () {
       test('requires radius and sweepAngle', () {
-        final act = PathMotionAct.arc(
-          radius: 50,
-          sweepAngle: 90,
-        );
+        final act = PathMotionAct.arc(radius: 50, sweepAngle: 90);
         expect(act.path, isNotNull);
       });
 
@@ -198,10 +194,7 @@ void main() {
         final emptyPath = Path();
         final act = PathMotionAct(path: emptyPath);
 
-        expect(
-          () => act.buildTweens(actContext),
-          throwsException,
-        );
+        expect(() => act.buildTweens(actContext), throwsException);
       });
 
       test('throws error on path with multiple metrics', () {
@@ -211,10 +204,7 @@ void main() {
           ..lineTo(300, 0);
         final act = PathMotionAct(path: multiPath);
 
-        expect(
-          () => act.buildTweens(actContext),
-          throwsException,
-        );
+        expect(() => act.buildTweens(actContext), throwsException);
       });
 
       test('creates tween for valid linear path', () {
@@ -234,10 +224,7 @@ void main() {
       });
 
       test('creates tween for arc path', () {
-        final act = PathMotionAct.arc(
-          radius: 50,
-          sweepAngle: 180,
-        );
+        final act = PathMotionAct.arc(radius: 50, sweepAngle: 180);
         final (animatable, reverseAnimatable) = act.buildTweens(actContext);
         expect(animatable, isNotNull);
         expect(reverseAnimatable, isNull);
@@ -272,10 +259,7 @@ void main() {
       });
 
       testWidgets('renders with autoRotate enabled', (tester) async {
-        final act = PathMotionAct.circular(
-          radius: 50,
-          autoRotate: true,
-        );
+        final act = PathMotionAct.circular(radius: 50, autoRotate: true);
 
         final (animatable, _) = act.buildTweens(actContext);
         track.setProgress(0.5);
@@ -305,10 +289,7 @@ void main() {
 
       testWidgets('renders with custom alignment', (tester) async {
         final path = Path()..lineTo(100, 0);
-        final act = PathMotionAct(
-          path: path,
-          alignment: Alignment.topLeft,
-        );
+        final act = PathMotionAct(path: path, alignment: Alignment.topLeft);
 
         final (animatable, _) = act.buildTweens(actContext);
         track.setProgress(0.5);

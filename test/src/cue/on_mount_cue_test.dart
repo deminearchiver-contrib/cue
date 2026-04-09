@@ -9,9 +9,7 @@ void main() {
   group('OnMountCue', () {
     testWidgets('creates state with default motion', (tester) async {
       await tester.pumpWidget(
-        MaterialApp(
-          home: Cue.onMount(child: const SizedBox()),
-        ),
+        MaterialApp(home: Cue.onMount(child: const SizedBox())),
       );
 
       final state = tester.state<OnMountCueState>(find.byType(OnMountCue));
@@ -33,9 +31,7 @@ void main() {
 
     testWidgets('forwards on mount when repeat is false', (tester) async {
       await tester.pumpWidget(
-        MaterialApp(
-          home: Cue.onMount(repeat: false, child: const SizedBox()),
-        ),
+        MaterialApp(home: Cue.onMount(repeat: false, child: const SizedBox())),
       );
 
       final state = tester.state<OnMountCueState>(find.byType(OnMountCue));
@@ -76,7 +72,10 @@ void main() {
 
       final state = tester.state<OnMountCueState>(find.byType(OnMountCue));
       expect(state.widget.reverseMotion, equals(reverseMotion));
-      expect(state.controller.timeline.obtainDefaultTrack().$1.reverseMotion, equals(reverseMotion));
+      expect(
+        state.controller.timeline.obtainDefaultTrack().$1.reverseMotion,
+        equals(reverseMotion),
+      );
     });
 
     testWidgets('onEnd callback is wired up', (tester) async {
@@ -95,11 +94,11 @@ void main() {
       expect(endValue, isNotNull);
     });
 
-    testWidgets('didUpdateWidget restarts animation on repeat change', (tester) async {
+    testWidgets('didUpdateWidget restarts animation on repeat change', (
+      tester,
+    ) async {
       await tester.pumpWidget(
-        MaterialApp(
-          home: Cue.onMount(repeat: false, child: const SizedBox()),
-        ),
+        MaterialApp(home: Cue.onMount(repeat: false, child: const SizedBox())),
       );
 
       final state1 = tester.state<OnMountCueState>(find.byType(OnMountCue));
@@ -107,7 +106,11 @@ void main() {
 
       await tester.pumpWidget(
         MaterialApp(
-          home: Cue.onMount(repeat: true, repeatCount: 2, child: const SizedBox()),
+          home: Cue.onMount(
+            repeat: true,
+            repeatCount: 2,
+            child: const SizedBox(),
+          ),
         ),
       );
 
@@ -116,32 +119,37 @@ void main() {
       expect(state2.widget.repeatCount, 2);
     });
 
-    testWidgets('didUpdateWidget restarts animation on reverseOnRepeat change', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Cue.onMount(
-            repeat: true,
-            reverseOnRepeat: false,
-            child: const SizedBox(),
+    testWidgets(
+      'didUpdateWidget restarts animation on reverseOnRepeat change',
+      (tester) async {
+        await tester.pumpWidget(
+          MaterialApp(
+            home: Cue.onMount(
+              repeat: true,
+              reverseOnRepeat: false,
+              child: const SizedBox(),
+            ),
           ),
-        ),
-      );
+        );
 
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Cue.onMount(
-            repeat: true,
-            reverseOnRepeat: true,
-            child: const SizedBox(),
+        await tester.pumpWidget(
+          MaterialApp(
+            home: Cue.onMount(
+              repeat: true,
+              reverseOnRepeat: true,
+              child: const SizedBox(),
+            ),
           ),
-        ),
-      );
+        );
 
-      final state = tester.state<OnMountCueState>(find.byType(OnMountCue));
-      expect(state.widget.reverseOnRepeat, isTrue);
-    });
+        final state = tester.state<OnMountCueState>(find.byType(OnMountCue));
+        expect(state.widget.reverseOnRepeat, isTrue);
+      },
+    );
 
-    testWidgets('didUpdateWidget calls forward when repeat changes to false', (tester) async {
+    testWidgets('didUpdateWidget calls forward when repeat changes to false', (
+      tester,
+    ) async {
       // Start with repeat=true and reverseOnRepeat=true
       await tester.pumpWidget(
         MaterialApp(

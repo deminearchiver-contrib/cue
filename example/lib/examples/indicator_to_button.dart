@@ -40,10 +40,15 @@ class _IndicatorToButtonState extends State<IndicatorToButton> {
                     ),
                   ],
                   child: Card(
-                    margin: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
+                    margin: const EdgeInsets.symmetric(
+                      horizontal: 4,
+                      vertical: 2,
+                    ),
                     elevation: .2,
                     clipBehavior: .antiAlias,
-                    shape: RoundedSuperellipseBorder(borderRadius: .circular(32)),
+                    shape: RoundedSuperellipseBorder(
+                      borderRadius: .circular(32),
+                    ),
                     child: Actor(
                       acts: [.parallax(slide: .3, axis: .horizontal)],
                       child: Image.network(
@@ -95,7 +100,10 @@ class _IndicatorToButtonState extends State<IndicatorToButton> {
                                         Text(
                                           'Let’s Go',
                                           textAlign: TextAlign.center,
-                                          style: TextStyle(color: colors.surface, fontSize: 15),
+                                          style: TextStyle(
+                                            color: colors.surface,
+                                            fontSize: 15,
+                                          ),
                                         ),
                                         SizedBox(width: 6),
                                         Icon(

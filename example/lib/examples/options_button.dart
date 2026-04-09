@@ -34,9 +34,7 @@ class OptionsButton extends StatelessWidget {
             child: Center(
               child: Material(
                 color: theme.colorScheme.surfaceContainer,
-                shape: RoundedSuperellipseBorder(
-                  borderRadius: .circular(32),
-                ),
+                shape: RoundedSuperellipseBorder(borderRadius: .circular(32)),
                 elevation: 1,
                 child: Actor(
                   acts: [.sizedClip(from: .size(rect.size))],
@@ -48,7 +46,9 @@ class OptionsButton extends StatelessWidget {
                         acts: [
                           .translateFromGlobal(offset: rect.topLeft),
                           .textStyle(
-                            from: labelStyle.copyWith(color: theme.primaryColor),
+                            from: labelStyle.copyWith(
+                              color: theme.primaryColor,
+                            ),
                             to: labelStyle.copyWith(fontSize: 22),
                           ),
                         ],

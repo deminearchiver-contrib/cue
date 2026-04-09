@@ -179,7 +179,11 @@ void main() {
       // Should NOT advance to phase 0
       t = 0.7;
       sim.x(t);
-      expect(sim.phase, equals(1), reason: 'Should not advance past endPhase in reverse');
+      expect(
+        sim.phase,
+        equals(1),
+        reason: 'Should not advance past endPhase in reverse',
+      );
     });
 
     test('endPhase = 2 stops at phase 2 (reverse)', () {
@@ -287,7 +291,11 @@ void main() {
       // Advance past phase 0 (100ms)
       t = 0.11;
       sim.x(t);
-      expect(sim.phase, equals(1), reason: 'Should advance to phase 1 after phase 0 completes');
+      expect(
+        sim.phase,
+        equals(1),
+        reason: 'Should advance to phase 1 after phase 0 completes',
+      );
 
       // Complete phase 1 (200ms)
       t = 0.35;
@@ -312,7 +320,10 @@ void main() {
               )
               as SegmentedSimulation;
 
-      expect(sim.endPhase, equals(1)); // should default to last phase (motions.length - 1)
+      expect(
+        sim.endPhase,
+        equals(1),
+      ); // should default to last phase (motions.length - 1)
       expect(sim.duration, closeTo(0.3, 0.001)); // both phases
     });
 
@@ -337,24 +348,27 @@ void main() {
       expect(sim.duration, closeTo(0.3, 0.001));
     });
 
-    test('valueAtProgress works regardless of endPhase (uses seekable segments)', () {
-      // valueAtProgress uses pre-built seekable segments which always span 0→1,
-      // so endPhase should not affect it
-      final motions = create3SegmentMotion();
-      final sim = SegmentedSimulation(
-        motions: motions,
-        forward: true,
-        velocity: 0.0,
-        initialPhase: 0,
-        startValue: 0.0,
-        endPhase: 1, // runtime stops at phase 1
-      );
+    test(
+      'valueAtProgress works regardless of endPhase (uses seekable segments)',
+      () {
+        // valueAtProgress uses pre-built seekable segments which always span 0→1,
+        // so endPhase should not affect it
+        final motions = create3SegmentMotion();
+        final sim = SegmentedSimulation(
+          motions: motions,
+          forward: true,
+          velocity: 0.0,
+          initialPhase: 0,
+          startValue: 0.0,
+          endPhase: 1, // runtime stops at phase 1
+        );
 
-      // But valueAtProgress can still query phase 2's value
-      final (value, phase) = sim.valueAtProgress(0.9);
-      expect(phase, equals(2)); // phase 2 exists in seekable segments
-      expect(value, greaterThan(0.5)); // should be close to 1.0
-    });
+        // But valueAtProgress can still query phase 2's value
+        final (value, phase) = sim.valueAtProgress(0.9);
+        expect(phase, equals(2)); // phase 2 exists in seekable segments
+        expect(value, greaterThan(0.5)); // should be close to 1.0
+      },
+    );
 
     test('endValue targets mid-phase value correctly', () {
       final motions = create3SegmentMotion();
@@ -387,7 +401,11 @@ void main() {
 
       expect(sim.isDone(t), isTrue);
       expect(sim.phase, equals(1));
-      expect(sim.x(t), closeTo(0.5, 0.01), reason: 'Should settle at endValue 0.5');
+      expect(
+        sim.x(t),
+        closeTo(0.5, 0.01),
+        reason: 'Should settle at endValue 0.5',
+      );
     });
 
     test('endValue via SimulationBuildData', () {
@@ -417,7 +435,11 @@ void main() {
 
       expect(sim.isDone(t), isTrue);
       expect(sim.phase, equals(1));
-      expect(sim.x(t), closeTo(0.7, 0.01), reason: 'Should settle at endValue 0.7');
+      expect(
+        sim.x(t),
+        closeTo(0.7, 0.01),
+        reason: 'Should settle at endValue 0.7',
+      );
     });
 
     test('endPhase with spring segments (physics-based)', () {
@@ -443,7 +465,11 @@ void main() {
       final bouncyDuration = const Spring.bouncy().baseDuration;
       expect(
         sim.duration,
-        closeTo((smoothDuration + bouncyDuration).inMilliseconds / Duration.millisecondsPerSecond, 0.01),
+        closeTo(
+          (smoothDuration + bouncyDuration).inMilliseconds /
+              Duration.millisecondsPerSecond,
+          0.01,
+        ),
       );
 
       // Run simulation
@@ -455,7 +481,11 @@ void main() {
       }
 
       expect(sim.isDone(t), isTrue, reason: 'Should settle at endPhase 1');
-      expect(sim.phase, equals(1), reason: 'Should stop at phase 1, not advance to phase 2');
+      expect(
+        sim.phase,
+        equals(1),
+        reason: 'Should stop at phase 1, not advance to phase 2',
+      );
     });
   });
 }

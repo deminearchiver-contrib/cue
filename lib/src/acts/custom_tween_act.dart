@@ -18,7 +18,8 @@ class CustomTweenAct<T extends Object?> extends TweenAct<T> {
   final ActKey key = const ActKey('TweenActor');
 
   /// The widget builder function that receives the animated value.
-  final Widget Function(BuildContext context, CueAnimation<T> animation) builder;
+  final Widget Function(BuildContext context, CueAnimation<T> animation)
+  builder;
 
   /// Optional custom tween builder for types without [Lerpable] support.
   final Animatable<T>? tweenBuilder;
@@ -105,7 +106,11 @@ class CustomTweenAct<T extends Object?> extends TweenAct<T> {
   }
 
   @override
-  Widget apply(BuildContext context, covariant CueAnimation<T> animation, Widget child) {
+  Widget apply(
+    BuildContext context,
+    covariant CueAnimation<T> animation,
+    Widget child,
+  ) {
     return builder(context, animation);
   }
 
@@ -129,7 +134,8 @@ class CustomTweenAct<T extends Object?> extends TweenAct<T> {
 /// in [Actor] for better readability.
 class TweenActor<T extends Object?> extends SingleActorBase<T> {
   /// The widget builder function that receives the animated value.
-  final Widget Function(BuildContext context, CueAnimation<T> animation) builder;
+  final Widget Function(BuildContext context, CueAnimation<T> animation)
+  builder;
 
   /// Optional custom tween builder for types without [Lerpable] support.
   final Animatable<T>? tweenBuilder;

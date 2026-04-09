@@ -28,10 +28,7 @@ void main() {
       test('creates with different forward and reverse motions', () {
         const forward = CueMotion.none;
         const reverse = CueMotion.defaultTime;
-        const config = TrackConfig(
-          motion: forward,
-          reverseMotion: reverse,
-        );
+        const config = TrackConfig(motion: forward, reverseMotion: reverse);
 
         expect(config.motion, equals(forward));
         expect(config.reverseMotion, equals(reverse));
@@ -128,15 +125,27 @@ void main() {
       });
 
       test('different motion is not equal', () {
-        const a = TrackConfig(motion: CueMotion.none, reverseMotion: CueMotion.none);
-        const b = TrackConfig(motion: CueMotion.defaultTime, reverseMotion: CueMotion.none);
+        const a = TrackConfig(
+          motion: CueMotion.none,
+          reverseMotion: CueMotion.none,
+        );
+        const b = TrackConfig(
+          motion: CueMotion.defaultTime,
+          reverseMotion: CueMotion.none,
+        );
 
         expect(a, isNot(equals(b)));
       });
 
       test('different reverseMotion is not equal', () {
-        const a = TrackConfig(motion: CueMotion.none, reverseMotion: CueMotion.none);
-        const b = TrackConfig(motion: CueMotion.none, reverseMotion: CueMotion.defaultTime);
+        const a = TrackConfig(
+          motion: CueMotion.none,
+          reverseMotion: CueMotion.none,
+        );
+        const b = TrackConfig(
+          motion: CueMotion.none,
+          reverseMotion: CueMotion.defaultTime,
+        );
 
         expect(a, isNot(equals(b)));
       });
@@ -183,8 +192,14 @@ void main() {
       });
 
       test('different motion produces different hashCode', () {
-        const a = TrackConfig(motion: CueMotion.none, reverseMotion: CueMotion.none);
-        const b = TrackConfig(motion: CueMotion.defaultTime, reverseMotion: CueMotion.none);
+        const a = TrackConfig(
+          motion: CueMotion.none,
+          reverseMotion: CueMotion.none,
+        );
+        const b = TrackConfig(
+          motion: CueMotion.defaultTime,
+          reverseMotion: CueMotion.none,
+        );
 
         expect(a.hashCode, isNot(equals(b.hashCode)));
       });

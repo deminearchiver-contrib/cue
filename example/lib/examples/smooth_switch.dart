@@ -84,10 +84,16 @@ class _SmoothSwitchState extends State<SmoothSwitch> {
                       child: Center(
                         child: DecoratedBoxActor(
                           color: .tween(thumbColor, trackColor),
-                          borderRadius: .tween(.circular(width * .2), .circular(width * .2)),
+                          borderRadius: .tween(
+                            .circular(width * .2),
+                            .circular(width * .2),
+                          ),
                           motion: .linear(duration * .5),
                           delay: duration * .5,
-                          child: SizedBox(width: width * .08, height: width * .22),
+                          child: SizedBox(
+                            width: width * .08,
+                            height: width * .22,
+                          ),
                         ),
                       ),
                     ),

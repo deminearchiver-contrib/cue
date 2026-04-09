@@ -66,7 +66,10 @@ class OnMountCueState extends SelfAnimatedCueState<OnMountCue> {
   @override
   void onControllerReady() async {
     if (widget.repeat) {
-      controller.repeat(reverse: widget.reverseOnRepeat, count: widget.repeatCount);
+      controller.repeat(
+        reverse: widget.reverseOnRepeat,
+        count: widget.repeatCount,
+      );
     } else {
       controller.forward();
     }
@@ -80,7 +83,10 @@ class OnMountCueState extends SelfAnimatedCueState<OnMountCue> {
         widget.repeatCount != oldWidget.repeatCount) {
       controller.stop();
       if (widget.repeat) {
-        controller.repeat(reverse: widget.reverseOnRepeat, count: widget.repeatCount);
+        controller.repeat(
+          reverse: widget.reverseOnRepeat,
+          count: widget.repeatCount,
+        );
       } else {
         controller.forward();
       }

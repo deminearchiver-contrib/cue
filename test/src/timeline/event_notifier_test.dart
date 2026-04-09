@@ -42,7 +42,10 @@ void main() {
     test('dispose prevents further listeners and events', () {
       final notifier = MyNotifier();
       notifier.dispose();
-      expect(() => notifier.addEventListener((_) {}), throwsA(isA<AssertionError>()));
+      expect(
+        () => notifier.addEventListener((_) {}),
+        throwsA(isA<AssertionError>()),
+      );
       expect(() => notifier.fireEvent('x'), throwsA(isA<AssertionError>()));
     });
 

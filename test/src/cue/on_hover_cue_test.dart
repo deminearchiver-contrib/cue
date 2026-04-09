@@ -10,9 +10,7 @@ void main() {
   group('OnHoverCue', () {
     testWidgets('creates state with default cursor', (tester) async {
       await tester.pumpWidget(
-        MaterialApp(
-          home: Cue.onHover(child: const SizedBox()),
-        ),
+        MaterialApp(home: Cue.onHover(child: const SizedBox())),
       );
 
       final widget = tester.widget<OnHoverCue>(find.byType(OnHoverCue));
@@ -35,9 +33,7 @@ void main() {
 
     testWidgets('default opaque is false', (tester) async {
       await tester.pumpWidget(
-        MaterialApp(
-          home: Cue.onHover(child: const SizedBox()),
-        ),
+        MaterialApp(home: Cue.onHover(child: const SizedBox())),
       );
 
       final widget = tester.widget<OnHoverCue>(find.byType(OnHoverCue));
@@ -46,19 +42,21 @@ void main() {
 
     testWidgets('builds with MouseRegion', (tester) async {
       await tester.pumpWidget(
-        MaterialApp(
-          home: Cue.onHover(child: const SizedBox()),
-        ),
+        MaterialApp(home: Cue.onHover(child: const SizedBox())),
       );
 
-      expect(find.descendant(of: find.byType(OnHoverCue), matching: find.byType(MouseRegion)), findsOneWidget);
+      expect(
+        find.descendant(
+          of: find.byType(OnHoverCue),
+          matching: find.byType(MouseRegion),
+        ),
+        findsOneWidget,
+      );
     });
 
     testWidgets('debugName is OnHoverCue', (tester) async {
       await tester.pumpWidget(
-        MaterialApp(
-          home: Cue.onHover(child: const SizedBox()),
-        ),
+        MaterialApp(home: Cue.onHover(child: const SizedBox())),
       );
 
       final state = tester.state(find.byType(OnHoverCue)) as dynamic;
@@ -124,7 +122,8 @@ void main() {
         ),
       );
 
-      final state = tester.state(find.byType(OnHoverCue)) as SelfAnimatedCueState;
+      final state =
+          tester.state(find.byType(OnHoverCue)) as SelfAnimatedCueState;
       final track = state.controller.timeline.obtainDefaultTrack().$1;
       expect(track.motion, equals(motion));
     });

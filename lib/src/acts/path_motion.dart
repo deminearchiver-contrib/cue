@@ -119,10 +119,7 @@ class PathMotionAct extends AnimtableAct<Matrix4, Matrix4> {
     super.motion,
     super.delay,
   }) : _startAngle = startAngle,
-       path = Path()
-         ..addOval(
-           Rect.fromCircle(center: center, radius: radius),
-         ),
+       path = Path()..addOval(Rect.fromCircle(center: center, radius: radius)),
        super(reverse: const ReverseBehavior.mirror());
 
   /// {@template act.path_motion.arc}
@@ -164,7 +161,11 @@ class PathMotionAct extends AnimtableAct<Matrix4, Matrix4> {
   }
 
   @override
-  Widget apply(BuildContext context, covariant CueAnimation<Matrix4> animation, Widget child) {
+  Widget apply(
+    BuildContext context,
+    covariant CueAnimation<Matrix4> animation,
+    Widget child,
+  ) {
     return AnimatedBuilder(
       animation: animation,
       child: child,
@@ -180,7 +181,9 @@ class PathMotionAct extends AnimtableAct<Matrix4, Matrix4> {
   }
 
   @override
-  (CueAnimtable<Matrix4>, CueAnimtable<Matrix4>?) buildTweens(ActContext context) {
+  (CueAnimtable<Matrix4>, CueAnimtable<Matrix4>?) buildTweens(
+    ActContext context,
+  ) {
     final metrics = path.computeMetrics().toList();
     if (metrics.isEmpty) {
       throw Exception('Path must have one metric');
@@ -212,7 +215,15 @@ class PathMotionAct extends AnimtableAct<Matrix4, Matrix4> {
   }
 
   @override
-  int get hashCode => Object.hash(super.hashCode, path, autoRotate, alignment, _startAngle, motion, delay);
+  int get hashCode => Object.hash(
+    super.hashCode,
+    path,
+    autoRotate,
+    alignment,
+    _startAngle,
+    motion,
+    delay,
+  );
 }
 
 /// Internal animatable that computes positions and rotations along a path.

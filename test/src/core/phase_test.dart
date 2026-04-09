@@ -12,7 +12,10 @@ void main() {
 
     test('single fractional keyframe returns constant phase', () {
       final frames = [FKeyframe.key(100.0, at: 0.0)];
-      final phases = Phase.resolveFractionalFrames<double, double>(frames, transform: (v) => v);
+      final phases = Phase.resolveFractionalFrames<double, double>(
+        frames,
+        transform: (v) => v,
+      );
       expect(phases, [const Phase(begin: 100.0, end: 100.0)]);
     });
 
@@ -21,7 +24,10 @@ void main() {
         FKeyframe.key(0.0, at: 0.0),
         FKeyframe.key(100.0, at: 1.0),
       ];
-      final phases = Phase.resolveFractionalFrames<double, double>(frames, transform: (v) => v);
+      final phases = Phase.resolveFractionalFrames<double, double>(
+        frames,
+        transform: (v) => v,
+      );
       expect(phases, [const Phase(begin: 0.0, end: 100.0)]);
     });
 
@@ -31,7 +37,10 @@ void main() {
         FKeyframe.key(20.0, at: 0.0),
         FKeyframe.key(30.0, at: 1.0),
       ];
-      final phases = Phase.resolveFractionalFrames<double, double>(frames, transform: (v) => v);
+      final phases = Phase.resolveFractionalFrames<double, double>(
+        frames,
+        transform: (v) => v,
+      );
       // First time 0.0 should use last value 20.0 -> phase: 20 -> 30
       expect(phases, [const Phase(begin: 20.0, end: 30.0)]);
     });
@@ -39,17 +48,26 @@ void main() {
 
   group('Phase.resolveMotionFrames', () {
     test('empty list returns empty', () {
-      final phases = Phase.resolveMotionFrames<double, double>([], transform: (v) => v);
+      final phases = Phase.resolveMotionFrames<double, double>(
+        [],
+        transform: (v) => v,
+      );
       expect(phases, isEmpty);
     });
 
     test('motion keyframes produce phases preserving order', () {
       final frames = [
         Keyframe.key(0.0, motion: CueMotion.none),
-        Keyframe.key(50.0, motion: CueMotion.linear(const Duration(milliseconds: 100))),
+        Keyframe.key(
+          50.0,
+          motion: CueMotion.linear(const Duration(milliseconds: 100)),
+        ),
         Keyframe.key(100.0, motion: CueMotion.none),
       ];
-      final phases = Phase.resolveMotionFrames<double, double>(frames, transform: (v) => v);
+      final phases = Phase.resolveMotionFrames<double, double>(
+        frames,
+        transform: (v) => v,
+      );
       expect(phases, [
         const Phase(begin: 0.0, end: 50.0),
         const Phase(begin: 50.0, end: 100.0),
@@ -58,7 +76,11 @@ void main() {
 
     test('from value is respected when provided', () {
       final frames = [Keyframe.key(10.0, motion: CueMotion.none)];
-      final phases = Phase.resolveMotionFrames<double, double>(frames, from: 0.0, transform: (v) => v);
+      final phases = Phase.resolveMotionFrames<double, double>(
+        frames,
+        from: 0.0,
+        transform: (v) => v,
+      );
       expect(phases, [const Phase(begin: 0.0, end: 10.0)]);
     });
   });
@@ -87,7 +109,10 @@ void main() {
     test('different value or motion are not equal', () {
       const a = Keyframe.key(42, motion: CueMotion.none);
       const b = Keyframe.key(43, motion: CueMotion.none);
-      const c = Keyframe.key(42, motion: CueMotion.linear(Duration(milliseconds: 1)));
+      const c = Keyframe.key(
+        42,
+        motion: CueMotion.linear(Duration(milliseconds: 1)),
+      );
       expect(a, isNot(equals(b)));
       expect(a, isNot(equals(c)));
     });
@@ -112,8 +137,14 @@ void main() {
 
   group('MotionKeyframes and FractionalKeyframes equality', () {
     test('identical MotionKeyframes are equal', () {
-      final a = MotionKeyframes([Keyframe.key(1), Keyframe.key(2)], motion: .none);
-      final b = MotionKeyframes([Keyframe.key(1), Keyframe.key(2)], motion: .none);
+      final a = MotionKeyframes([
+        Keyframe.key(1),
+        Keyframe.key(2),
+      ], motion: .none);
+      final b = MotionKeyframes([
+        Keyframe.key(1),
+        Keyframe.key(2),
+      ], motion: .none);
       expect(a, equals(b));
     });
     test('different MotionKeyframes are not equal', () {
@@ -122,8 +153,14 @@ void main() {
       expect(a, isNot(equals(b)));
     });
     test('identical FractionalKeyframes are equal', () {
-      final a = FractionalKeyframes([FKeyframe.key(1, at: 0.1), FKeyframe.key(2, at: 0.2)]);
-      final b = FractionalKeyframes([FKeyframe.key(1, at: 0.1), FKeyframe.key(2, at: 0.2)]);
+      final a = FractionalKeyframes([
+        FKeyframe.key(1, at: 0.1),
+        FKeyframe.key(2, at: 0.2),
+      ]);
+      final b = FractionalKeyframes([
+        FKeyframe.key(1, at: 0.1),
+        FKeyframe.key(2, at: 0.2),
+      ]);
       expect(a, equals(b));
     });
     test('different FractionalKeyframes are not equal', () {
@@ -132,8 +169,12 @@ void main() {
       expect(a, isNot(equals(b)));
     });
     test('FractionalKeyframes with different durations are not equal', () {
-      final a = FractionalKeyframes([FKeyframe.key(1, at: 0.1)], duration: Duration(seconds: 1));
-      final b = FractionalKeyframes([FKeyframe.key(1, at: 0.1)], duration: Duration(seconds: 2));
+      final a = FractionalKeyframes([
+        FKeyframe.key(1, at: 0.1),
+      ], duration: Duration(seconds: 1));
+      final b = FractionalKeyframes([
+        FKeyframe.key(1, at: 0.1),
+      ], duration: Duration(seconds: 2));
       expect(a, isNot(equals(b)));
     });
 
@@ -144,8 +185,12 @@ void main() {
     });
 
     test('Keyframes.fractional factory equality for FractionalKeyframes', () {
-      final a = Keyframes.fractional([FKeyframe.key(1, at: 0.1)], duration: const Duration(milliseconds: 100));
-      final b = FractionalKeyframes([FKeyframe.key(1, at: 0.1)], duration: const Duration(milliseconds: 100));
+      final a = Keyframes.fractional([
+        FKeyframe.key(1, at: 0.1),
+      ], duration: const Duration(milliseconds: 100));
+      final b = FractionalKeyframes([
+        FKeyframe.key(1, at: 0.1),
+      ], duration: const Duration(milliseconds: 100));
       expect(a, equals(b));
     });
 
@@ -181,7 +226,10 @@ void main() {
 
   group('Additional Phase tests', () {
     test('Keyframe copyWith and toString', () {
-      final k = Keyframe(5, motion: CueMotion.linear(const Duration(milliseconds: 10)));
+      final k = Keyframe(
+        5,
+        motion: CueMotion.linear(const Duration(milliseconds: 10)),
+      );
       final k2 = k.copyWith(value: 6);
       expect(k2.value, equals(6));
       expect(k.toString(), contains('Keyframe'));
@@ -194,7 +242,10 @@ void main() {
 
       final frames = MotionKeyframes([
         Keyframe(1),
-        Keyframe(2, motion: CueMotion.linear(const Duration(milliseconds: 100))),
+        Keyframe(
+          2,
+          motion: CueMotion.linear(const Duration(milliseconds: 100)),
+        ),
       ], motion: CueMotion.none);
       final motions = frames.extractMotion();
       expect(motions.length, equals(1));
@@ -208,16 +259,16 @@ void main() {
         FKeyframe(4, at: 1.0),
       ], duration: const Duration(milliseconds: 1000));
 
-      final motions = frames.extractMotion(includeFirst: true, duration: const Duration(milliseconds: 1000));
+      final motions = frames.extractMotion(
+        includeFirst: true,
+        duration: const Duration(milliseconds: 1000),
+      );
       // includeFirst true should produce motions for first time + intervals
       expect(motions.isNotEmpty, isTrue);
     });
 
     test('resolveFractionalFrames with forReverse adds from at end', () {
-      final frames = [
-        FKeyframe('x', at: 0.2),
-        FKeyframe('y', at: 0.8),
-      ];
+      final frames = [FKeyframe('x', at: 0.2), FKeyframe('y', at: 0.8)];
       final resolved = Phase.resolveFractionalFrames<String, String>(
         frames,
         from: 'from',
@@ -230,7 +281,12 @@ void main() {
 
     test('resolveMotionFrames forReverse appends from correctly', () {
       final frames = [Keyframe(10, motion: CueMotion.none)];
-      final phases = Phase.resolveMotionFrames<int, int>(frames, from: 0, forReverse: true, transform: (v) => v);
+      final phases = Phase.resolveMotionFrames<int, int>(
+        frames,
+        from: 0,
+        forReverse: true,
+        transform: (v) => v,
+      );
       // when forReverse true and from provided, function appends from at end producing one phase: 10 -> 0
       expect(phases.length, equals(1));
       expect(phases.first.begin, equals(10));

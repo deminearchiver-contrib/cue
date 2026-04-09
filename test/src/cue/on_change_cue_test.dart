@@ -8,10 +8,7 @@ void main() {
     testWidgets('creates with default skipFirstAnimation true', (tester) async {
       await tester.pumpWidget(
         MaterialApp(
-          home: Cue.onChange(
-            value: 'initial',
-            child: const SizedBox(),
-          ),
+          home: Cue.onChange(value: 'initial', child: const SizedBox()),
         ),
       );
 
@@ -109,7 +106,9 @@ void main() {
       expect(state.controller.status, equals(statusBefore));
     });
 
-    testWidgets('reanimateFromCurrent returns fromCurrentValue', (tester) async {
+    testWidgets('reanimateFromCurrent returns fromCurrentValue', (
+      tester,
+    ) async {
       await tester.pumpWidget(
         MaterialApp(
           home: Cue.onChange(
@@ -127,10 +126,7 @@ void main() {
     testWidgets('reanimateFromCurrent is false by default', (tester) async {
       await tester.pumpWidget(
         MaterialApp(
-          home: Cue.onChange(
-            value: 'test',
-            child: const SizedBox(),
-          ),
+          home: Cue.onChange(value: 'test', child: const SizedBox()),
         ),
       );
 
@@ -161,7 +157,8 @@ void main() {
         ),
       );
 
-      final state = tester.state(find.byType(OnChangeCue)) as SelfAnimatedCueState;
+      final state =
+          tester.state(find.byType(OnChangeCue)) as SelfAnimatedCueState;
       final track = state.controller.timeline.obtainDefaultTrack().$1;
       expect(track.motion, equals(motion));
     });

@@ -23,7 +23,14 @@ class ImageGridModal extends StatelessWidget {
         ),
         itemCount: 12,
         itemBuilder: (context, index) {
-          final titles = ['Beach', 'Mountain', 'City', 'Forest', 'Desert', 'Lake'];
+          final titles = [
+            'Beach',
+            'Mountain',
+            'City',
+            'Forest',
+            'Desert',
+            'Lake',
+          ];
           final title = titles[index % titles.length];
           return _ImageCard(imageId: index, title: title);
         },
@@ -80,11 +87,7 @@ class _ImageCard extends StatelessWidget {
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    const Icon(
-                      Iconsax.heart,
-                      color: Colors.white,
-                      size: 14,
-                    ),
+                    const Icon(Iconsax.heart, color: Colors.white, size: 14),
                     const SizedBox(width: 6),
                     Text(
                       title,
@@ -160,15 +163,16 @@ class _ImageModalContent extends StatelessWidget {
             child: Actor(
               delay: 100.ms,
               reverseMotion: .spatialFast(),
-              acts: [
-                .fadeIn(),
-                .slideY(from: -0.2),
-              ],
+              acts: [.fadeIn(), .slideY(from: -0.2)],
               child: Row(
                 children: [
                   IconButton(
                     onPressed: () => Navigator.of(context).pop(),
-                    icon: const Icon(Iconsax.close_circle, color: Colors.white, size: 32),
+                    icon: const Icon(
+                      Iconsax.close_circle,
+                      color: Colors.white,
+                      size: 32,
+                    ),
                   ),
                   const Spacer(),
                   Container(
@@ -177,7 +181,11 @@ class _ImageModalContent extends StatelessWidget {
                       color: Colors.white.withValues(alpha: 0.2),
                       borderRadius: BorderRadius.circular(12),
                     ),
-                    child: const Icon(Iconsax.heart, color: Colors.white, size: 20),
+                    child: const Icon(
+                      Iconsax.heart,
+                      color: Colors.white,
+                      size: 20,
+                    ),
                   ),
                   const SizedBox(width: 8),
                   Container(
@@ -186,7 +194,11 @@ class _ImageModalContent extends StatelessWidget {
                       color: Colors.white.withValues(alpha: 0.2),
                       borderRadius: BorderRadius.circular(12),
                     ),
-                    child: const Icon(Iconsax.share, color: Colors.white, size: 20),
+                    child: const Icon(
+                      Iconsax.share,
+                      color: Colors.white,
+                      size: 20,
+                    ),
                   ),
                 ],
               ),
@@ -198,10 +210,7 @@ class _ImageModalContent extends StatelessWidget {
           right: 20,
           bottom: 50,
           child: Actor(
-            acts: [
-              .slideY(from: 1),
-              .fadeIn(),
-            ],
+            acts: [.slideY(from: 1), .fadeIn()],
             delay: 200.ms,
             child: Container(
               padding: const EdgeInsets.all(20),
@@ -236,7 +245,10 @@ class _ImageModalContent extends StatelessWidget {
                     ),
                   ),
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 20,
+                      vertical: 12,
+                    ),
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(16),

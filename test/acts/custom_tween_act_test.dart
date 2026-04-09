@@ -328,29 +328,32 @@ void main() {
       expect((actor.to as AnimatedValues).blur, equals(10.0));
     });
 
-    test('createSingleTween handles multiple Lerpable property interpolations', () {
-      const from = AnimatedValues(
-        scale: 1.0,
-        opacity: 0.0,
-        offset: Offset.zero,
-        rotation: 0.0,
-        blur: 0.0,
-      );
-      const to = AnimatedValues(
-        scale: 2.0,
-        opacity: 1.0,
-        offset: Offset(100, 100),
-        rotation: 1.0,
-        blur: 10.0,
-      );
+    test(
+      'createSingleTween handles multiple Lerpable property interpolations',
+      () {
+        const from = AnimatedValues(
+          scale: 1.0,
+          opacity: 0.0,
+          offset: Offset.zero,
+          rotation: 0.0,
+          blur: 0.0,
+        );
+        const to = AnimatedValues(
+          scale: 2.0,
+          opacity: 1.0,
+          offset: Offset(100, 100),
+          rotation: 1.0,
+          blur: 10.0,
+        );
 
-      final mid = from.lerpTo(to, 0.5);
-      expect(mid.scale, closeTo(1.5, 0.01));
-      expect(mid.opacity, closeTo(0.5, 0.01));
-      expect(mid.offset, equals(const Offset(50, 50)));
-      expect(mid.rotation, closeTo(0.5, 0.01));
-      expect(mid.blur, closeTo(5.0, 0.01));
-    });
+        final mid = from.lerpTo(to, 0.5);
+        expect(mid.scale, closeTo(1.5, 0.01));
+        expect(mid.opacity, closeTo(0.5, 0.01));
+        expect(mid.offset, equals(const Offset(50, 50)));
+        expect(mid.rotation, closeTo(0.5, 0.01));
+        expect(mid.blur, closeTo(5.0, 0.01));
+      },
+    );
   });
 
   group('CustomTweenAct createSingleTween', () {
@@ -391,7 +394,8 @@ void main() {
         builder: (context, animation) => const SizedBox(),
       );
 
-      final tween = act.createSingleTween(from, to) as InlineFnTween<AnimatedValues>;
+      final tween =
+          act.createSingleTween(from, to) as InlineFnTween<AnimatedValues>;
       final midpoint = tween.lerp(0.5);
 
       expect(midpoint.scale, closeTo(1.5, 0.01));
@@ -419,7 +423,8 @@ void main() {
         builder: (context, animation) => const SizedBox(),
       );
 
-      final tween = act.createSingleTween(from, to) as InlineFnTween<AnimatedValues>;
+      final tween =
+          act.createSingleTween(from, to) as InlineFnTween<AnimatedValues>;
       expect(tween.begin, equals(from));
       expect(tween.end, equals(to));
     });
@@ -444,7 +449,8 @@ void main() {
 
   group('CustomTweenAct equality', () {
     test('two instances with same parameters are equal', () {
-      SizedBox builder(BuildContext context, CueAnimation<double> animation) => const SizedBox();
+      SizedBox builder(BuildContext context, CueAnimation<double> animation) =>
+          const SizedBox();
 
       final act1 = CustomTweenAct<double>(
         from: 0.0,
@@ -509,7 +515,8 @@ void main() {
     });
 
     test('instances with different from values are not equal', () {
-      SizedBox builder(BuildContext context, CueAnimation<double> animation) => const SizedBox();
+      SizedBox builder(BuildContext context, CueAnimation<double> animation) =>
+          const SizedBox();
 
       final act1 = CustomTweenAct<double>(
         from: 0.0,
@@ -527,7 +534,8 @@ void main() {
     });
 
     test('instances with different to values are not equal', () {
-      SizedBox builder(BuildContext context, CueAnimation<double> animation) => const SizedBox();
+      SizedBox builder(BuildContext context, CueAnimation<double> animation) =>
+          const SizedBox();
 
       final act1 = CustomTweenAct<double>(
         from: 0.0,
@@ -561,7 +569,8 @@ void main() {
     });
 
     test('hashCode is equal for equal instances', () {
-      SizedBox builder(BuildContext context, CueAnimation<double> animation) => const SizedBox();
+      SizedBox builder(BuildContext context, CueAnimation<double> animation) =>
+          const SizedBox();
 
       final act1 = CustomTweenAct<double>(
         from: 0.0,

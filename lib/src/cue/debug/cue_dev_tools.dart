@@ -5,7 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 
 class CueDebugTools extends StatefulWidget {
-  const CueDebugTools({super.key, required this.child, this.alignment = Alignment.bottomLeft});
+  const CueDebugTools({
+    super.key,
+    required this.child,
+    this.alignment = Alignment.bottomLeft,
+  });
 
   final Widget child;
   final AlignmentGeometry alignment;
@@ -27,9 +31,12 @@ class CueDebugTools extends StatefulWidget {
   }
 
   static DebugDataProvider of(BuildContext context) {
-    final scope = context.dependOnInheritedWidgetOfExactType<DebugDataProvider>();
+    final scope = context
+        .dependOnInheritedWidgetOfExactType<DebugDataProvider>();
     if (scope == null) {
-      throw Exception('No CueDebugTools found in context. Make sure to wrap your widget tree with CueDebugTools.');
+      throw Exception(
+        'No CueDebugTools found in context. Make sure to wrap your widget tree with CueDebugTools.',
+      );
     }
     return scope;
   }
@@ -39,7 +46,8 @@ class CueDebugTools extends StatefulWidget {
   }
 }
 
-class _CueDebugToolsState extends State<CueDebugTools> with SingleTickerProviderStateMixin {
+class _CueDebugToolsState extends State<CueDebugTools>
+    with SingleTickerProviderStateMixin {
   late final _overlayData = ValueNotifier<_OverlayData>(
     _OverlayData(
       isLooping: false,
@@ -59,7 +67,9 @@ class _CueDebugToolsState extends State<CueDebugTools> with SingleTickerProvider
   void didUpdateWidget(covariant CueDebugTools oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (widget.alignment != oldWidget.alignment) {
-      _overlayData.value = _overlayData.value.copyWith(alignment: widget.alignment);
+      _overlayData.value = _overlayData.value.copyWith(
+        alignment: widget.alignment,
+      );
     }
   }
 
@@ -82,7 +92,11 @@ class _CueDebugToolsState extends State<CueDebugTools> with SingleTickerProvider
     }
   }
 
-  VoidCallback attachDebugTarget(BuildContext context, {required String id, required CueController controller}) {
+  VoidCallback attachDebugTarget(
+    BuildContext context, {
+    required String id,
+    required CueController controller,
+  }) {
     void deattachCallback() {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         timeDilation = 1.0;
@@ -95,7 +109,8 @@ class _CueDebugToolsState extends State<CueDebugTools> with SingleTickerProvider
       });
     }
 
-    if (_overlayData.value.activeTargetId == id && _overlayData.value.controller == controller) {
+    if (_overlayData.value.activeTargetId == id &&
+        _overlayData.value.controller == controller) {
       return deattachCallback;
     }
 
@@ -215,7 +230,10 @@ class _DebugOverlayState extends State<_DebugOverlay> {
             final maxOffset = isBottomAligned ? 0.0 : screenHeight - 240;
 
             _dataNotifier.value = _data.copyWith(
-              verticalOffset: (_data.verticalOffset + details.delta.dy).clamp(minOffset, maxOffset),
+              verticalOffset: (_data.verticalOffset + details.delta.dy).clamp(
+                minOffset,
+                maxOffset,
+              ),
             );
           },
           child: Transform.translate(
@@ -231,7 +249,10 @@ class _DebugOverlayState extends State<_DebugOverlay> {
                 child: SafeArea(
                   minimum: .only(top: 16),
                   child: IconTheme(
-                    data: theme.iconTheme.copyWith(color: theme.colorScheme.primary, size: 20),
+                    data: theme.iconTheme.copyWith(
+                      color: theme.colorScheme.primary,
+                      size: 20,
+                    ),
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 10),
                       child: Material(
@@ -242,7 +263,9 @@ class _DebugOverlayState extends State<_DebugOverlay> {
                             _dataNotifier.value.isMinimized ? 32 : 16,
                           ),
                           side: BorderSide(
-                            color: theme.colorScheme.onSurface.withValues(alpha: .52),
+                            color: theme.colorScheme.onSurface.withValues(
+                              alpha: .52,
+                            ),
                             width: .5,
                           ),
                         ),
@@ -262,9 +285,12 @@ class _DebugOverlayState extends State<_DebugOverlay> {
                                       minimumSize: .square(40),
                                     ),
                                     icon: Icon(Icons.play_circle),
-                                    onPressed: _data.activeTargetId != null && _data.activeTargetId!.isNotEmpty
+                                    onPressed:
+                                        _data.activeTargetId != null &&
+                                            _data.activeTargetId!.isNotEmpty
                                         ? () {
-                                            _dataNotifier.value = _data.copyWith(isMinimized: false);
+                                            _dataNotifier.value = _data
+                                                .copyWith(isMinimized: false);
                                           }
                                         : null,
                                     padding: EdgeInsets.zero,
@@ -276,24 +302,31 @@ class _DebugOverlayState extends State<_DebugOverlay> {
                                   padding: const .fromLTRB(8, 4, 8, 8),
                                   child: Column(
                                     mainAxisSize: MainAxisSize.min,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Row(
                                         children: [
                                           IconButton(
                                             icon: Icon(
-                                              (_controller?.isAnimating ?? false) && _data.forward
-                                                  ? Icons.pause_circle_outline_rounded
-                                                  : Icons.play_circle_outline_rounded,
+                                              (_controller?.isAnimating ??
+                                                          false) &&
+                                                      _data.forward
+                                                  ? Icons
+                                                        .pause_circle_outline_rounded
+                                                  : Icons
+                                                        .play_circle_outline_rounded,
                                             ),
                                             style: IconButton.styleFrom(
                                               iconSize: 28,
                                               foregroundColor: !_data.forward
-                                                  ? theme.colorScheme.primary.withValues(alpha: .4)
+                                                  ? theme.colorScheme.primary
+                                                        .withValues(alpha: .4)
                                                   : theme.colorScheme.primary,
                                             ),
                                             onPressed: () {
-                                              _dataNotifier.value = _data.copyWith(forward: true);
+                                              _dataNotifier.value = _data
+                                                  .copyWith(forward: true);
                                               _togglePlayPause();
                                             },
                                             padding: EdgeInsets.zero,
@@ -321,16 +354,34 @@ class _DebugOverlayState extends State<_DebugOverlay> {
                                                 SizedBox(width: 4),
                                                 Builder(
                                                   builder: (context) {
-                                                    final duration = _data.forward
-                                                        ? _controller?.timeline.forwardDuration ?? 0
-                                                        : _controller?.timeline.reverseDuration ?? 0;
+                                                    final duration =
+                                                        _data.forward
+                                                        ? _controller
+                                                                  ?.timeline
+                                                                  .forwardDuration ??
+                                                              0
+                                                        : _controller
+                                                                  ?.timeline
+                                                                  .reverseDuration ??
+                                                              0;
 
-                                                    final progress = _data.forward
-                                                        ? _controller?.value ?? 0
-                                                        : 1 - (_controller?.value ?? 0);
-                                                    final durationInSeconds = duration * progress;
-                                                    final durationInMs = durationInSeconds * 1000;
-                                                    final maxChars = (duration * 1000).toStringAsFixed(0).length;
+                                                    final progress =
+                                                        _data.forward
+                                                        ? _controller?.value ??
+                                                              0
+                                                        : 1 -
+                                                              (_controller
+                                                                      ?.value ??
+                                                                  0);
+                                                    final durationInSeconds =
+                                                        duration * progress;
+                                                    final durationInMs =
+                                                        durationInSeconds *
+                                                        1000;
+                                                    final maxChars =
+                                                        (duration * 1000)
+                                                            .toStringAsFixed(0)
+                                                            .length;
                                                     return Text(
                                                       '${durationInMs.toStringAsFixed(0).padLeft(maxChars, '0')}ms',
                                                       style: const TextStyle(
@@ -348,26 +399,31 @@ class _DebugOverlayState extends State<_DebugOverlay> {
                                           ),
 
                                           IconButton(
-                                            style: IconButton.styleFrom(tapTargetSize: .shrinkWrap),
+                                            style: IconButton.styleFrom(
+                                              tapTargetSize: .shrinkWrap,
+                                            ),
                                             onPressed: _toggleSlowMode,
                                             icon: Icon(
                                               Icons.alarm_rounded,
                                               color: _data.isSlowMode
                                                   ? Colors.blue
-                                                  : IconTheme.of(context).color?.withValues(alpha: .4),
+                                                  : IconTheme.of(context).color
+                                                        ?.withValues(alpha: .4),
                                             ),
                                           ),
                                           IconButton(
                                             style: IconButton.styleFrom(
-                                              tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                                              tapTargetSize:
+                                                  MaterialTapTargetSize
+                                                      .shrinkWrap,
                                             ),
                                             icon: Icon(
                                               Icons.change_circle_outlined,
-                                              color:
-                                                  IconTheme.of(
-                                                    context,
-                                                  ).color?.withValues(
-                                                    alpha: _data.isLooping ? 1 : .4,
+                                              color: IconTheme.of(context).color
+                                                  ?.withValues(
+                                                    alpha: _data.isLooping
+                                                        ? 1
+                                                        : .4,
                                                   ),
                                             ),
                                             onPressed: _toggleLoop,
@@ -377,15 +433,16 @@ class _DebugOverlayState extends State<_DebugOverlay> {
                                           SizedBox(width: 8),
                                           IconButton(
                                             style: IconButton.styleFrom(
-                                              tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                                              tapTargetSize:
+                                                  MaterialTapTargetSize
+                                                      .shrinkWrap,
                                             ),
                                             icon: Icon(
                                               Icons.remove_circle_outline,
                                             ),
                                             onPressed: () {
-                                              _dataNotifier.value = _data.copyWith(
-                                                isMinimized: true,
-                                              );
+                                              _dataNotifier.value = _data
+                                                  .copyWith(isMinimized: true);
                                               timeDilation = 1.0;
                                             },
                                             padding: EdgeInsets.zero,
@@ -403,19 +460,25 @@ class _DebugOverlayState extends State<_DebugOverlay> {
                                             icon: Transform.flip(
                                               flipX: true,
                                               child: Icon(
-                                                (_controller?.isAnimating ?? false) && !_data.forward
-                                                    ? Icons.pause_circle_outline_rounded
-                                                    : Icons.play_circle_outline_rounded,
+                                                (_controller?.isAnimating ??
+                                                            false) &&
+                                                        !_data.forward
+                                                    ? Icons
+                                                          .pause_circle_outline_rounded
+                                                    : Icons
+                                                          .play_circle_outline_rounded,
                                               ),
                                             ),
                                             style: IconButton.styleFrom(
                                               iconSize: 28,
                                               foregroundColor: _data.forward
-                                                  ? theme.colorScheme.primary.withValues(alpha: .4)
+                                                  ? theme.colorScheme.primary
+                                                        .withValues(alpha: .4)
                                                   : theme.colorScheme.primary,
                                             ),
                                             onPressed: () {
-                                              _dataNotifier.value = _data.copyWith(forward: false);
+                                              _dataNotifier.value = _data
+                                                  .copyWith(forward: false);
                                               _togglePlayPause();
                                             },
                                             padding: EdgeInsets.zero,
@@ -426,24 +489,40 @@ class _DebugOverlayState extends State<_DebugOverlay> {
                                       Container(
                                         padding: const .fromLTRB(0, 12, 0, 4),
                                         decoration: BoxDecoration(
-                                          color: theme.colorScheme.surfaceContainer,
+                                          color: theme
+                                              .colorScheme
+                                              .surfaceContainer,
                                           borderRadius: .circular(10),
                                         ),
                                         child: SliderTheme(
                                           data: SliderThemeData(
-                                            trackShape: _TimelineTickMarkShape(start: 0, end: 1, horizontalPadding: 20),
-                                            tickMarkShape: SliderTickMarkShape.noTickMark,
-                                            inactiveTrackColor: Theme.of(
-                                              context,
-                                            ).colorScheme.onSurface.withValues(alpha: .6),
-                                            thumbShape: _NeedleThumb(height: 56, horizontalPadding: 20),
+                                            trackShape: _TimelineTickMarkShape(
+                                              start: 0,
+                                              end: 1,
+                                              horizontalPadding: 20,
+                                            ),
+                                            tickMarkShape:
+                                                SliderTickMarkShape.noTickMark,
+                                            inactiveTrackColor:
+                                                Theme.of(context)
+                                                    .colorScheme
+                                                    .onSurface
+                                                    .withValues(alpha: .6),
+                                            thumbShape: _NeedleThumb(
+                                              height: 56,
+                                              horizontalPadding: 20,
+                                            ),
                                           ),
                                           child: Slider(
                                             padding: EdgeInsets.zero,
                                             value: _controller?.value ?? 0,
                                             activeColor: Colors.transparent,
-                                            thumbColor: theme.colorScheme.primary,
-                                            overlayColor: WidgetStatePropertyAll(Colors.transparent),
+                                            thumbColor:
+                                                theme.colorScheme.primary,
+                                            overlayColor:
+                                                WidgetStatePropertyAll(
+                                                  Colors.transparent,
+                                                ),
                                             onChanged: _onSliderChanged,
                                           ),
                                         ),
@@ -475,7 +554,8 @@ class _NeedleThumb extends SliderComponentShape {
   const _NeedleThumb({this.height = 60, this.horizontalPadding = 16});
 
   @override
-  Size getPreferredSize(bool isEnabled, bool isDiscrete) => Size(height, height);
+  Size getPreferredSize(bool isEnabled, bool isDiscrete) =>
+      Size(height, height);
 
   @override
   void paint(
@@ -492,7 +572,10 @@ class _NeedleThumb extends SliderComponentShape {
     required double textScaleFactor,
     required Size sizeWithOverflow,
   }) {
-    final size = Size(parentBox.size.width - (2 * horizontalPadding), parentBox.size.height);
+    final size = Size(
+      parentBox.size.width - (2 * horizontalPadding),
+      parentBox.size.height,
+    );
     final canvas = context.canvas;
     final progressX = horizontalPadding + value * size.width;
     final color = sliderTheme.thumbColor ?? Colors.purple;
@@ -521,7 +604,11 @@ class _TimelineTickMarkShape extends SliderTrackShape {
   final double end;
   final double horizontalPadding;
 
-  const _TimelineTickMarkShape({required this.start, required this.end, this.horizontalPadding = 16});
+  const _TimelineTickMarkShape({
+    required this.start,
+    required this.end,
+    this.horizontalPadding = 16,
+  });
 
   @override
   Rect getPreferredRect({
@@ -564,7 +651,9 @@ class _TimelineTickMarkShape extends SliderTrackShape {
 
     final size = parentBox.size;
     final canvas = context.canvas;
-    final color = sliderTheme.inactiveTrackColor?.withValues(alpha: .6) ?? Colors.grey.withValues(alpha: .6);
+    final color =
+        sliderTheme.inactiveTrackColor?.withValues(alpha: .6) ??
+        Colors.grey.withValues(alpha: .6);
 
     final tickPaint = Paint()
       ..color = color
@@ -591,12 +680,10 @@ class _TimelineTickMarkShape extends SliderTrackShape {
 
       // draw small labels for every full tick
       if (isFullTick) {
-        final labelValue = (start + (i / count) * (end - start)).toStringAsFixed(1);
+        final labelValue = (start + (i / count) * (end - start))
+            .toStringAsFixed(1);
         final textPainter = TextPainter(
-          text: TextSpan(
-            text: labelValue,
-            style: labelStyle,
-          ),
+          text: TextSpan(text: labelValue, style: labelStyle),
           textDirection: TextDirection.ltr,
         )..layout();
         textPainter.paint(
@@ -698,6 +785,7 @@ class DebugDataProvider extends InheritedWidget {
   final String? activeTargetId;
   @override
   bool updateShouldNotify(covariant DebugDataProvider oldWidget) {
-    return isMinimized != oldWidget.isMinimized || activeTargetId != oldWidget.activeTargetId;
+    return isMinimized != oldWidget.isMinimized ||
+        activeTargetId != oldWidget.activeTargetId;
   }
 }

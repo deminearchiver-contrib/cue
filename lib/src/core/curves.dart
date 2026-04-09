@@ -16,11 +16,7 @@ class BoundedCurve extends Curve {
   final double max;
 
   /// Creates a bounded curve with the specified [curve] and optional [min] and [max] bounds.
-  const BoundedCurve({
-    required this.curve,
-    this.min = 0.0,
-    this.max = 1.0,
-  });
+  const BoundedCurve({required this.curve, this.min = 0.0, this.max = 1.0});
 
   @override
   double transform(double t) {

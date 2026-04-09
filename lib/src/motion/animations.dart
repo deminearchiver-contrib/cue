@@ -13,7 +13,8 @@ import 'package:flutter/widgets.dart';
 /// - [DeferredCueAnimation]: Deferred animatable setup, used when values need
 ///   normalization before tween building (e.g., animating to `infinity` requires
 ///   normalizing to actual constraints).
-abstract class CueAnimation<T> extends Animation<T> with AnimationWithParentMixin<double> {
+abstract class CueAnimation<T> extends Animation<T>
+    with AnimationWithParentMixin<double> {
   /// The animation track from the Cue timeline.
   @override
   final CueTrack parent;
@@ -40,7 +41,8 @@ abstract class CueAnimation<T> extends Animation<T> with AnimationWithParentMixi
 
   /// Whether the animation is in reverse or dismissed state.
   bool get isReverseOrDismissed =>
-      parent.status == AnimationStatus.reverse || parent.status == AnimationStatus.dismissed;
+      parent.status == AnimationStatus.reverse ||
+      parent.status == AnimationStatus.dismissed;
 
   /// The animatable driver that interpolates values.
   CueAnimtable<T> get animtable;
@@ -68,7 +70,11 @@ class CueAnimationImpl<T> extends CueAnimation<T> {
   final ReleaseToken token;
 
   /// Creates a standard animation.
-  CueAnimationImpl({required super.parent, required this.token, required this.animtable});
+  CueAnimationImpl({
+    required super.parent,
+    required this.token,
+    required this.animtable,
+  });
 }
 
 /// Maps a [CueAnimtable] by transforming its evaluated values.

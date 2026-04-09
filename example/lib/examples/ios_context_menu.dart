@@ -23,7 +23,10 @@ class IosContextMenu extends StatelessWidget {
               elevation: 0,
               shape: RoundedSuperellipseBorder(
                 borderRadius: BorderRadius.circular(20),
-                side: BorderSide(color: theme.dividerColor.withValues(alpha: .3), width: 1),
+                side: BorderSide(
+                  color: theme.dividerColor.withValues(alpha: .3),
+                  width: 1,
+                ),
               ),
               margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               child: Image.network(
@@ -49,7 +52,8 @@ class IosContextMenu extends StatelessWidget {
           builder: (context, rect) {
             // this is a lazy way to determine whether to show the menu in the top or bottom half of the screen.
             // could be better done by calculating trigger height + menu height + emojis-bar hight + spacing.
-            final showInTopHalf = rect.center.dy < MediaQuery.sizeOf(context).height / 2;
+            final showInTopHalf =
+                rect.center.dy < MediaQuery.sizeOf(context).height / 2;
             return SafeArea(
               bottom: false,
               child: Padding(
@@ -70,22 +74,43 @@ class IosContextMenu extends StatelessWidget {
                             .slide(from: Offset(0, -2)),
                           ],
                           child: Card(
-                            margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
+                            margin: const EdgeInsets.symmetric(
+                              horizontal: 16,
+                              vertical: 0,
+                            ),
                             color: theme.cardColor.withValues(alpha: .8),
                             shape: RoundedSuperellipseBorder(
                               borderRadius: BorderRadius.circular(20),
-                              side: BorderSide(color: theme.dividerColor.withValues(alpha: .3), width: .5),
+                              side: BorderSide(
+                                color: theme.dividerColor.withValues(alpha: .3),
+                                width: .5,
+                              ),
                             ),
                             child: Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12),
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 16.0,
+                                vertical: 12,
+                              ),
                               child: Column(
                                 mainAxisSize: .min,
                                 children: [
-                                  _OptionTile(title: 'Attach Sticker', icon: Iconsax.sticker),
+                                  _OptionTile(
+                                    title: 'Attach Sticker',
+                                    icon: Iconsax.sticker,
+                                  ),
                                   Divider(thickness: .5, indent: 2),
-                                  _OptionTile(title: 'Copy', icon: Iconsax.copy),
-                                  _OptionTile(title: 'Share', icon: Iconsax.export),
-                                  _OptionTile(title: 'More', icon: Iconsax.more_2),
+                                  _OptionTile(
+                                    title: 'Copy',
+                                    icon: Iconsax.copy,
+                                  ),
+                                  _OptionTile(
+                                    title: 'Share',
+                                    icon: Iconsax.export,
+                                  ),
+                                  _OptionTile(
+                                    title: 'More',
+                                    icon: Iconsax.more_2,
+                                  ),
                                 ],
                               ),
                             ),
@@ -94,23 +119,33 @@ class IosContextMenu extends StatelessWidget {
                       ),
                       SizedBox(height: 4),
                       Actor(
-                        acts: [.translateFromGlobal(offset: rect.topLeft - const Offset(0, 24 + 4))],
+                        acts: [
+                          .translateFromGlobal(
+                            offset: rect.topLeft - const Offset(0, 24 + 4),
+                          ),
+                        ],
                         child: Column(
                           crossAxisAlignment: .start,
                           children: [
                             Actor(
-                              acts: [
-                                .fadeIn(),
-                                .slideY(from: 2),
-                              ],
+                              acts: [.fadeIn(), .slideY(from: 2)],
                               child: Card(
                                 clipBehavior: Clip.antiAlias,
                                 color: theme.cardColor.withValues(alpha: .80),
-                                margin: const EdgeInsets.only(right: 16, left: 16, bottom: 4),
+                                margin: const EdgeInsets.only(
+                                  right: 16,
+                                  left: 16,
+                                  bottom: 4,
+                                ),
                                 elevation: 0,
                                 shape: RoundedSuperellipseBorder(
                                   borderRadius: BorderRadius.circular(32),
-                                  side: BorderSide(color: theme.dividerColor.withValues(alpha: .3), width: .5),
+                                  side: BorderSide(
+                                    color: theme.dividerColor.withValues(
+                                      alpha: .3,
+                                    ),
+                                    width: .5,
+                                  ),
                                 ),
                                 child: Actor(
                                   acts: [
@@ -124,7 +159,9 @@ class IosContextMenu extends StatelessWidget {
                                   ],
                                   child: ListView(
                                     scrollDirection: Axis.horizontal,
-                                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 16.0,
+                                    ),
                                     children: [
                                       for (var i = 0; i < emojis.length; i++)
                                         Center(
@@ -134,11 +171,22 @@ class IosContextMenu extends StatelessWidget {
                                             reverseMotion: .snappy(),
                                             acts: [
                                               .scale(from: .5),
-                                              .rotate(from: -50, delay: 10.ms * i),
+                                              .rotate(
+                                                from: -50,
+                                                delay: 10.ms * i,
+                                              ),
                                             ],
                                             child: Padding(
-                                              padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                                              child: Text(emojis[i], style: const TextStyle(fontSize: 34)),
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                    horizontal: 10.0,
+                                                  ),
+                                              child: Text(
+                                                emojis[i],
+                                                style: const TextStyle(
+                                                  fontSize: 34,
+                                                ),
+                                              ),
                                             ),
                                           ),
                                         ),

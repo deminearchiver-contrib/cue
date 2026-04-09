@@ -9,7 +9,9 @@ void main() {
 
   final motion = CueMotion.linear(300.ms);
   final actContext = ActContext(motion: motion, reverseMotion: motion);
-  final track = CueTrackImpl(TrackConfig(motion: motion, reverseMotion: motion));
+  final track = CueTrackImpl(
+    TrackConfig(motion: motion, reverseMotion: motion),
+  );
   final timeline = CueTimelineImpl.fromMotion(motion);
 
   group('TextStyleAct', () {
@@ -214,11 +216,7 @@ void main() {
             textDirection: TextDirection.ltr,
             child: Builder(
               builder: (context) {
-                return act.apply(
-                  context,
-                  animation,
-                  const Icon(Icons.star),
-                );
+                return act.apply(context, animation, const Icon(Icons.star));
               },
             ),
           ),
@@ -248,11 +246,7 @@ void main() {
             textDirection: TextDirection.ltr,
             child: Builder(
               builder: (context) {
-                return act.apply(
-                  context,
-                  animation,
-                  const Icon(Icons.star),
-                );
+                return act.apply(context, animation, const Icon(Icons.star));
               },
             ),
           ),

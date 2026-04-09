@@ -64,7 +64,9 @@ void main() {
 
     test('ClipAct with different motion not equal', () {
       const a = ClipAct.circular(motion: CueMotion.none);
-      const b = ClipAct.circular(motion: CueMotion.linear(Duration(milliseconds: 200)));
+      const b = ClipAct.circular(
+        motion: CueMotion.linear(Duration(milliseconds: 200)),
+      );
       expect(a, isNot(equals(b)));
     });
 
@@ -110,10 +112,7 @@ void main() {
     });
 
     test('PathMotionAct.arc creates valid instance', () {
-      final act = PathMotionAct.arc(
-        radius: 50,
-        sweepAngle: 180,
-      );
+      final act = PathMotionAct.arc(radius: 50, sweepAngle: 180);
       expect(act.key, equals(const ActKey('PathMotionAct')));
       expect(act.autoRotate, isFalse);
       expect(act.alignment, equals(Alignment.center));
@@ -133,7 +132,10 @@ void main() {
 
     test('PathMotionAct with motion creates valid instance', () {
       final path = Path()..addRect(Rect.fromLTWH(0, 0, 100, 100));
-      final act = PathMotionAct(path: path, motion: CueMotion.linear(Duration(milliseconds: 300)));
+      final act = PathMotionAct(
+        path: path,
+        motion: CueMotion.linear(Duration(milliseconds: 300)),
+      );
       expect(act.motion, equals(CueMotion.linear(Duration(milliseconds: 300))));
     });
 
@@ -202,7 +204,10 @@ void main() {
         motion: CueMotion.linear(Duration(milliseconds: 300)),
         builder: (context, animation) => Container(),
       );
-      expect(actor.motion, equals(CueMotion.linear(Duration(milliseconds: 300))));
+      expect(
+        actor.motion,
+        equals(CueMotion.linear(Duration(milliseconds: 300))),
+      );
     });
 
     test('TweenActor with delay creates valid instance', () {

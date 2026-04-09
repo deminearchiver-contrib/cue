@@ -197,7 +197,11 @@ class RotateAct extends TweenAct<double> {
   }
 
   @override
-  Widget apply(BuildContext context, Animation<double> animation, Widget child) {
+  Widget apply(
+    BuildContext context,
+    Animation<double> animation,
+    Widget child,
+  ) {
     return MatrixTransition(
       animation: animation,
       alignment: alignment.resolve(Directionality.maybeOf(context)),
@@ -330,10 +334,7 @@ class Rotate3DAct extends TweenAct<Rotation3D> {
     this.perspective = 0.001,
     super.delay,
   }) : unit = Rotate3DUnit.degrees,
-       super.tween(
-         from: Rotation3D.zero,
-         to: const Rotation3D(y: 180),
-       );
+       super.tween(from: Rotation3D.zero, to: const Rotation3D(y: 180));
 
   /// {@template act.rotate3d.flipY}
   /// Animates a 180° vertical flip with depth (3D flip effect).
@@ -355,10 +356,7 @@ class Rotate3DAct extends TweenAct<Rotation3D> {
     this.perspective = 0.001,
     super.delay,
   }) : unit = Rotate3DUnit.degrees,
-       super.tween(
-         from: Rotation3D.zero,
-         to: const Rotation3D(x: 180),
-       );
+       super.tween(from: Rotation3D.zero, to: const Rotation3D(x: 180));
 
   /// {@template act.rotate3d.keyframed}
   /// Animates through multiple 3D rotation keyframes.
@@ -423,7 +421,11 @@ class Rotate3DAct extends TweenAct<Rotation3D> {
   }
 
   @override
-  Widget apply(BuildContext context, Animation<Rotation3D> animation, Widget child) {
+  Widget apply(
+    BuildContext context,
+    Animation<Rotation3D> animation,
+    Widget child,
+  ) {
     return AnimatedBuilder(
       animation: animation,
       builder: (context, child) {
@@ -476,11 +478,7 @@ class Rotation3D {
   /// Creates a 3D rotation with x, y, and z angles.
   ///
   /// All values default to 0 (no rotation). Specify only the axes you need.
-  const Rotation3D({
-    this.x = 0,
-    this.y = 0,
-    this.z = 0,
-  });
+  const Rotation3D({this.x = 0, this.y = 0, this.z = 0});
 
   /// Zero rotation (no rotation on any axis).
   static const zero = Rotation3D();
@@ -491,7 +489,11 @@ class Rotation3D {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is Rotation3D && runtimeType == other.runtimeType && x == other.x && y == other.y && z == other.z;
+      other is Rotation3D &&
+          runtimeType == other.runtimeType &&
+          x == other.x &&
+          y == other.y &&
+          z == other.z;
 
   @override
   int get hashCode => Object.hash(x, y, z);

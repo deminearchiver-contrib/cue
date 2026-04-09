@@ -125,7 +125,9 @@ void main() {
 
       expect(find.text('motion dialog'), findsOneWidget);
     });
-    testWidgets('barrierDismissible allows closing by tapping barrier', (tester) async {
+    testWidgets('barrierDismissible allows closing by tapping barrier', (
+      tester,
+    ) async {
       await tester.pumpWidget(
         MaterialApp(
           home: Builder(
@@ -147,7 +149,9 @@ void main() {
       expect(find.text('dismissible'), findsOneWidget);
 
       // Dismiss by popping navigator
-      final navigator = tester.state<NavigatorState>(find.byType(Navigator).last);
+      final navigator = tester.state<NavigatorState>(
+        find.byType(Navigator).last,
+      );
       navigator.pop();
       await tester.pumpAndSettle();
 
@@ -157,17 +161,13 @@ void main() {
 
   group('CueModalRouteMixin', () {
     test('barrierCurve returns BoundedCurve', () {
-      final route = _TestCueModalRoute(
-        motion: CueMotion.linear(300.ms),
-      );
+      final route = _TestCueModalRoute(motion: CueMotion.linear(300.ms));
 
       expect(route.barrierCurve, isA<BoundedCurve>());
     });
 
     test('createSimulation returns null', () {
-      final route = _TestCueModalRoute(
-        motion: CueMotion.linear(300.ms),
-      );
+      final route = _TestCueModalRoute(motion: CueMotion.linear(300.ms));
 
       expect(route.createSimulation(forward: true), isNull);
       expect(route.createSimulation(forward: false), isNull);
@@ -202,7 +202,8 @@ void main() {
   });
 }
 
-class _TestCueModalRoute extends RawDialogRoute<void> with CueModalRouteMixin<void> {
+class _TestCueModalRoute extends RawDialogRoute<void>
+    with CueModalRouteMixin<void> {
   @override
   final CueMotion motion;
 

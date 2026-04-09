@@ -11,10 +11,7 @@ void main() {
     late CueController controller;
 
     setUp(() {
-      controller = CueController(
-        vsync: TestVSync(),
-        motion: motion,
-      );
+      controller = CueController(vsync: TestVSync(), motion: motion);
     });
 
     tearDown(() {
@@ -27,10 +24,7 @@ void main() {
           home: Cue(
             controller: controller,
             child: const Scaffold(
-              body: Actor(
-                acts: [],
-                child: Text('Hello'),
-              ),
+              body: Actor(acts: [], child: Text('Hello')),
             ),
           ),
         ),
@@ -45,10 +39,7 @@ void main() {
           home: Cue(
             controller: controller,
             child: const Scaffold(
-              body: Actor(
-                acts: [ScaleAct()],
-                child: Text('Hello'),
-              ),
+              body: Actor(acts: [ScaleAct()], child: Text('Hello')),
             ),
           ),
         ),
@@ -65,10 +56,7 @@ void main() {
             controller: controller,
             child: const Scaffold(
               body: Actor(
-                acts: [
-                  ScaleAct(),
-                  OpacityAct(from: 1.0, to: 0.5),
-                ],
+                acts: [ScaleAct(), OpacityAct(from: 1.0, to: 0.5)],
                 child: Text('Hello'),
               ),
             ),
@@ -79,7 +67,9 @@ void main() {
       expect(find.text('Hello'), findsOneWidget);
     });
 
-    testWidgets('animation setup works with different act types', (tester) async {
+    testWidgets('animation setup works with different act types', (
+      tester,
+    ) async {
       await tester.pumpWidget(
         MaterialApp(
           home: Cue(
@@ -90,11 +80,7 @@ void main() {
                   ScaleAct(from: 1.0, to: 2.0),
                   OpacityAct(from: 1.0, to: 0.5),
                 ],
-                child: SizedBox(
-                  width: 100,
-                  height: 100,
-                  child: Text('Hello'),
-                ),
+                child: SizedBox(width: 100, height: 100, child: Text('Hello')),
               ),
             ),
           ),
@@ -112,9 +98,7 @@ void main() {
         MaterialApp(
           home: Cue(
             controller: controller,
-            child: Scaffold(
-              body: _StatefulActorWidget(key: key),
-            ),
+            child: Scaffold(body: _StatefulActorWidget(key: key)),
           ),
         ),
       );
@@ -134,9 +118,7 @@ void main() {
         MaterialApp(
           home: Cue(
             controller: controller,
-            child: Scaffold(
-              body: _StatefulMotionWidget(key: key),
-            ),
+            child: Scaffold(body: _StatefulMotionWidget(key: key)),
           ),
         ),
       );
@@ -156,9 +138,7 @@ void main() {
         MaterialApp(
           home: Cue(
             controller: controller,
-            child: Scaffold(
-              body: _StatefulDelayWidget(key: key),
-            ),
+            child: Scaffold(body: _StatefulDelayWidget(key: key)),
           ),
         ),
       );
@@ -178,9 +158,7 @@ void main() {
         MaterialApp(
           home: Cue(
             controller: controller,
-            child: Scaffold(
-              body: _StatefulReverseDelayWidget(key: key),
-            ),
+            child: Scaffold(body: _StatefulReverseDelayWidget(key: key)),
           ),
         ),
       );
@@ -200,9 +178,7 @@ void main() {
         MaterialApp(
           home: Cue(
             controller: controller,
-            child: Scaffold(
-              body: _StatefulReverseMotionWidget(key: key),
-            ),
+            child: Scaffold(body: _StatefulReverseMotionWidget(key: key)),
           ),
         ),
       );
@@ -215,16 +191,16 @@ void main() {
       expect(find.text('Hello'), findsOneWidget);
     });
 
-    testWidgets('handles animation removal when acts list changes', (tester) async {
+    testWidgets('handles animation removal when acts list changes', (
+      tester,
+    ) async {
       final key = GlobalKey<_StatefulRemoveActWidgetState>();
 
       await tester.pumpWidget(
         MaterialApp(
           home: Cue(
             controller: controller,
-            child: Scaffold(
-              body: _StatefulRemoveActWidget(key: key),
-            ),
+            child: Scaffold(body: _StatefulRemoveActWidget(key: key)),
           ),
         ),
       );
@@ -248,11 +224,7 @@ void main() {
                   ScaleAct(from: 1.0, to: 2.0),
                   OpacityAct(from: 1.0, to: 0.5),
                 ],
-                child: SizedBox(
-                  width: 100,
-                  height: 100,
-                  child: Text('Hello'),
-                ),
+                child: SizedBox(width: 100, height: 100, child: Text('Hello')),
               ),
             ),
           ),
@@ -264,7 +236,9 @@ void main() {
       expect(find.byType(Transform), findsWidgets);
     });
 
-    testWidgets('throws error when multiple acts of same type are used', (tester) async {
+    testWidgets('throws error when multiple acts of same type are used', (
+      tester,
+    ) async {
       // Pump widget that should trigger duplicate acts error
       await tester.pumpWidget(
         MaterialApp(
@@ -276,11 +250,7 @@ void main() {
                   ScaleAct(from: 1.0, to: 2.0),
                   ScaleAct(from: 0.5, to: 1.5),
                 ],
-                child: SizedBox(
-                  width: 100,
-                  height: 100,
-                  child: Text('Hello'),
-                ),
+                child: SizedBox(width: 100, height: 100, child: Text('Hello')),
               ),
             ),
           ),
@@ -301,11 +271,7 @@ void main() {
         MaterialApp(
           home: Cue(
             controller: controller,
-            child: Scaffold(
-              body: const Text('Hello').act(
-                [const ScaleAct()],
-              ),
-            ),
+            child: Scaffold(body: const Text('Hello').act([const ScaleAct()])),
           ),
         ),
       );
@@ -320,10 +286,7 @@ void main() {
           home: Cue(
             controller: controller,
             child: Scaffold(
-              body: const Text('Hello').act(
-                [const ScaleAct()],
-                motion: motion,
-              ),
+              body: const Text('Hello').act([const ScaleAct()], motion: motion),
             ),
           ),
         ),
@@ -338,10 +301,9 @@ void main() {
           home: Cue(
             controller: controller,
             child: Scaffold(
-              body: const Text('Hello').act(
-                [const ScaleAct()],
-                delay: const Duration(milliseconds: 100),
-              ),
+              body: const Text('Hello').act([
+                const ScaleAct(),
+              ], delay: const Duration(milliseconds: 100)),
             ),
           ),
         ),
@@ -356,10 +318,9 @@ void main() {
           home: Cue(
             controller: controller,
             child: Scaffold(
-              body: const Text('Hello').act(
-                [const ScaleAct()],
-                reverseMotion: motion,
-              ),
+              body: const Text(
+                'Hello',
+              ).act([const ScaleAct()], reverseMotion: motion),
             ),
           ),
         ),
@@ -394,10 +355,7 @@ void main() {
     late CueController controller;
 
     setUp(() {
-      controller = CueController(
-        vsync: TestVSync(),
-        motion: motion,
-      );
+      controller = CueController(vsync: TestVSync(), motion: motion);
     });
 
     tearDown(() {
@@ -410,11 +368,7 @@ void main() {
           home: Cue(
             controller: controller,
             child: Scaffold(
-              body: ScaleActor(
-                from: 1.0,
-                to: 1.5,
-                child: const Text('Hello'),
-              ),
+              body: ScaleActor(from: 1.0, to: 1.5, child: const Text('Hello')),
             ),
           ),
         ),
@@ -531,7 +485,9 @@ void main() {
       expect(find.text('Hello'), findsOneWidget);
     });
 
-    testWidgets('keyframed constructor with delay and reverseDelay', (tester) async {
+    testWidgets('keyframed constructor with delay and reverseDelay', (
+      tester,
+    ) async {
       final frames = FractionalKeyframes<double>([
         FKeyframe(1.0, at: 0.0),
         FKeyframe(1.5, at: 1.0),
@@ -580,18 +536,18 @@ void main() {
       expect(find.text('Hello'), findsOneWidget);
     });
 
-    testWidgets('getters return correct values from constructor', (tester) async {
-      final actor = ScaleActor(
-        from: 1.0,
-        to: 2.0,
-        child: const SizedBox(),
-      );
+    testWidgets('getters return correct values from constructor', (
+      tester,
+    ) async {
+      final actor = ScaleActor(from: 1.0, to: 2.0, child: const SizedBox());
 
       expect(actor.from, equals(1.0));
       expect(actor.to, equals(2.0));
     });
 
-    testWidgets('getters return null for keyframed constructor', (tester) async {
+    testWidgets('getters return null for keyframed constructor', (
+      tester,
+    ) async {
       final frames = FractionalKeyframes<double>([
         FKeyframe(1.0, at: 0.0),
         FKeyframe(2.0, at: 1.0),
@@ -633,10 +589,7 @@ class ScaleActor extends SingleActorBase<double> {
 
   @override
   Act get act {
-    return ScaleAct(
-      from: from ?? 1.0,
-      to: to ?? 1.0,
-    );
+    return ScaleAct(from: from ?? 1.0, to: to ?? 1.0);
   }
 }
 
@@ -660,7 +613,9 @@ class _StatefulActorWidgetState extends State<_StatefulActorWidget> {
   @override
   Widget build(BuildContext context) {
     return Actor(
-      acts: showSecondAct ? const [ScaleAct(), OpacityAct(from: 1.0, to: 0.5)] : const [ScaleAct()],
+      acts: showSecondAct
+          ? const [ScaleAct(), OpacityAct(from: 1.0, to: 0.5)]
+          : const [ScaleAct()],
       child: const Text('Hello'),
     );
   }
@@ -737,10 +692,12 @@ class _StatefulReverseDelayWidget extends StatefulWidget {
   const _StatefulReverseDelayWidget({super.key});
 
   @override
-  State<_StatefulReverseDelayWidget> createState() => _StatefulReverseDelayWidgetState();
+  State<_StatefulReverseDelayWidget> createState() =>
+      _StatefulReverseDelayWidgetState();
 }
 
-class _StatefulReverseDelayWidgetState extends State<_StatefulReverseDelayWidget> {
+class _StatefulReverseDelayWidgetState
+    extends State<_StatefulReverseDelayWidget> {
   late Duration currentReverseDelay;
 
   @override
@@ -770,10 +727,12 @@ class _StatefulReverseMotionWidget extends StatefulWidget {
   const _StatefulReverseMotionWidget({super.key});
 
   @override
-  State<_StatefulReverseMotionWidget> createState() => _StatefulReverseMotionWidgetState();
+  State<_StatefulReverseMotionWidget> createState() =>
+      _StatefulReverseMotionWidgetState();
 }
 
-class _StatefulReverseMotionWidgetState extends State<_StatefulReverseMotionWidget> {
+class _StatefulReverseMotionWidgetState
+    extends State<_StatefulReverseMotionWidget> {
   late CueMotion? currentReverseMotion;
 
   @override
@@ -803,7 +762,8 @@ class _StatefulRemoveActWidget extends StatefulWidget {
   const _StatefulRemoveActWidget({super.key});
 
   @override
-  State<_StatefulRemoveActWidget> createState() => _StatefulRemoveActWidgetState();
+  State<_StatefulRemoveActWidget> createState() =>
+      _StatefulRemoveActWidgetState();
 }
 
 class _StatefulRemoveActWidgetState extends State<_StatefulRemoveActWidget> {
@@ -818,7 +778,9 @@ class _StatefulRemoveActWidgetState extends State<_StatefulRemoveActWidget> {
   @override
   Widget build(BuildContext context) {
     return Actor(
-      acts: hasMultipleActs ? const [ScaleAct(), OpacityAct(from: 1.0, to: 0.5)] : const [ScaleAct()],
+      acts: hasMultipleActs
+          ? const [ScaleAct(), OpacityAct(from: 1.0, to: 0.5)]
+          : const [ScaleAct()],
       child: const Text('Hello'),
     );
   }

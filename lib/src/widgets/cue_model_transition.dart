@@ -10,7 +10,8 @@ typedef ShowModalFunction<T extends Object> = Future<T?> Function();
 ///
 /// `context` is the modal's build context (inside the pushed route).
 /// `triggerRect` is the trigger widget's bounding box in global coordinates.
-typedef ModalContentBuilder = Widget Function(BuildContext context, Rect triggerRect);
+typedef ModalContentBuilder =
+    Widget Function(BuildContext context, Rect triggerRect);
 
 /// A hero-like expand transition that morphs any widget into a full modal.
 ///
@@ -179,7 +180,8 @@ class CueModalTransition extends StatefulWidget {
   ///   child: Icon(Icons.add),
   /// ),
   /// ```
-  final Widget Function(BuildContext context, ShowModalFunction showDialog) triggerBuilder;
+  final Widget Function(BuildContext context, ShowModalFunction showDialog)
+  triggerBuilder;
 
   /// Anchors the modal to the same point on the trigger.
   ///
@@ -227,15 +229,55 @@ class CueModalTransition extends StatefulWidget {
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties.add(DiagnosticsProperty<CueMotion>('motion', motion));
-    properties.add(DiagnosticsProperty<CueMotion>('reverseMotion', reverseMotion, defaultValue: null));
-    properties.add(DiagnosticsProperty<AlignmentGeometry>('alignment', alignment, defaultValue: null));
-    properties.add(ColorProperty('barrierColor', barrierColor, defaultValue: const Color(0x80000000)));
-    properties.add(StringProperty('barrierLabel', barrierLabel, defaultValue: 'ModalTransition'));
-    properties.add(FlagProperty('barrierDismissible', value: barrierDismissible, ifFalse: 'not dismissible'));
     properties.add(
-      FlagProperty('hideTriggerOnTransition', value: hideTriggerOnTransition, ifTrue: 'hideTriggerOnTransition'),
+      DiagnosticsProperty<CueMotion>(
+        'reverseMotion',
+        reverseMotion,
+        defaultValue: null,
+      ),
     );
-    properties.add(FlagProperty('useRootNavigator', value: useRootNavigator, ifFalse: 'local navigator'));
+    properties.add(
+      DiagnosticsProperty<AlignmentGeometry>(
+        'alignment',
+        alignment,
+        defaultValue: null,
+      ),
+    );
+    properties.add(
+      ColorProperty(
+        'barrierColor',
+        barrierColor,
+        defaultValue: const Color(0x80000000),
+      ),
+    );
+    properties.add(
+      StringProperty(
+        'barrierLabel',
+        barrierLabel,
+        defaultValue: 'ModalTransition',
+      ),
+    );
+    properties.add(
+      FlagProperty(
+        'barrierDismissible',
+        value: barrierDismissible,
+        ifFalse: 'not dismissible',
+      ),
+    );
+    properties.add(
+      FlagProperty(
+        'hideTriggerOnTransition',
+        value: hideTriggerOnTransition,
+        ifTrue: 'hideTriggerOnTransition',
+      ),
+    );
+    properties.add(
+      FlagProperty(
+        'useRootNavigator',
+        value: useRootNavigator,
+        ifFalse: 'local navigator',
+      ),
+    );
   }
 
   @override
@@ -257,7 +299,8 @@ class _CueModalTransitionState extends State<CueModalTransition> {
         builder: (context, child) {
           return Visibility.maintain(
             key: _triggerKey,
-            visible: _openModalKey.value == null || !widget.hideTriggerOnTransition,
+            visible:
+                _openModalKey.value == null || !widget.hideTriggerOnTransition,
             child: child!,
           );
         },
@@ -267,7 +310,8 @@ class _CueModalTransitionState extends State<CueModalTransition> {
 
   @optionalTypeArgs
   Future<T?> _showModel<T extends Object>() {
-    final renderBox = _triggerKey.currentContext?.findRenderObject() as RenderBox?;
+    final renderBox =
+        _triggerKey.currentContext?.findRenderObject() as RenderBox?;
     final triggerOffset = renderBox?.localToGlobal(Offset.zero) ?? Offset.zero;
     final triggerRect = triggerOffset & (renderBox?.size ?? Size.zero);
     final modalKey = Object();
@@ -304,7 +348,10 @@ class _CueModalTransitionState extends State<CueModalTransition> {
       },
     );
 
-    return Navigator.of(context, rootNavigator: widget.useRootNavigator).push<T>(model);
+    return Navigator.of(
+      context,
+      rootNavigator: widget.useRootNavigator,
+    ).push<T>(model);
   }
 }
 
@@ -391,6 +438,7 @@ class _ModalPositionDelegate extends SingleChildLayoutDelegate {
 
   @override
   bool shouldRelayout(_ModalPositionDelegate oldDelegate) {
-    return triggerRect != oldDelegate.triggerRect || alignment != oldDelegate.alignment;
+    return triggerRect != oldDelegate.triggerRect ||
+        alignment != oldDelegate.alignment;
   }
 }

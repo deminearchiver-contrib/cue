@@ -153,7 +153,10 @@ void main() {
         0.0,
         samplingStepSize: 1 / 120,
       );
-      expect(refDuration(sim, stepSize: 1 / 120), closeTo(sim.duration, 1 / 120));
+      expect(
+        refDuration(sim, stepSize: 1 / 120),
+        closeTo(sim.duration, 1 / 120),
+      );
     });
 
     test('critically damped @ 120fps: 0->1', () {
@@ -164,7 +167,10 @@ void main() {
         0.0,
         samplingStepSize: 1 / 120,
       );
-      expect(refDuration(sim, stepSize: 1 / 120), closeTo(sim.duration, 1 / 120));
+      expect(
+        refDuration(sim, stepSize: 1 / 120),
+        closeTo(sim.duration, 1 / 120),
+      );
     });
 
     test('overdamped @ 120fps: 0->1', () {
@@ -175,7 +181,10 @@ void main() {
         0.0,
         samplingStepSize: 1 / 120,
       );
-      expect(refDuration(sim, stepSize: 1 / 120), closeTo(sim.duration, 1 / 120));
+      expect(
+        refDuration(sim, stepSize: 1 / 120),
+        closeTo(sim.duration, 1 / 120),
+      );
     });
 
     // Different frame rates: 144 fps = 1/144
@@ -187,7 +196,10 @@ void main() {
         0.0,
         samplingStepSize: 1 / 144,
       );
-      expect(refDuration(sim, stepSize: 1 / 144), closeTo(sim.duration, 1 / 144));
+      expect(
+        refDuration(sim, stepSize: 1 / 144),
+        closeTo(sim.duration, 1 / 144),
+      );
     });
 
     test('critically damped @ 144fps: 0->1', () {
@@ -198,7 +210,10 @@ void main() {
         0.0,
         samplingStepSize: 1 / 144,
       );
-      expect(refDuration(sim, stepSize: 1 / 144), closeTo(sim.duration, 1 / 144));
+      expect(
+        refDuration(sim, stepSize: 1 / 144),
+        closeTo(sim.duration, 1 / 144),
+      );
     });
 
     test('overdamped @ 144fps: 0->1', () {
@@ -209,7 +224,10 @@ void main() {
         0.0,
         samplingStepSize: 1 / 144,
       );
-      expect(refDuration(sim, stepSize: 1 / 144), closeTo(sim.duration, 1 / 144));
+      expect(
+        refDuration(sim, stepSize: 1 / 144),
+        closeTo(sim.duration, 1 / 144),
+      );
     });
 
     // Complex combinations
@@ -221,7 +239,10 @@ void main() {
         3.0,
         samplingStepSize: 1 / 120,
       );
-      expect(refDuration(sim, stepSize: 1 / 120), closeTo(sim.duration, 1 / 120));
+      expect(
+        refDuration(sim, stepSize: 1 / 120),
+        closeTo(sim.duration, 1 / 120),
+      );
     });
 
     test('underdamped: high stiffness', () {
@@ -320,7 +341,10 @@ void main() {
       );
       final delayed = DelayedSimulation(base: springCue, delay: 0.3);
 
-      expect(refDuration(delayed, stepSize: 1 / 90), closeTo(delayed.duration, 1 / 90));
+      expect(
+        refDuration(delayed, stepSize: 1 / 90),
+        closeTo(delayed.duration, 1 / 90),
+      );
     });
 
     test('critically damped delayed @ 120fps', () {
@@ -333,7 +357,10 @@ void main() {
       );
       final delayed = DelayedSimulation(base: springCue, delay: 0.5);
 
-      expect(refDuration(delayed, stepSize: 1 / 120), closeTo(delayed.duration, 1 / 120));
+      expect(
+        refDuration(delayed, stepSize: 1 / 120),
+        closeTo(delayed.duration, 1 / 120),
+      );
     });
 
     test('overdamped delayed @ 144fps', () {
@@ -346,7 +373,10 @@ void main() {
       );
       final delayed = DelayedSimulation(base: springCue, delay: 0.2);
 
-      expect(refDuration(delayed, stepSize: 1 / 144), closeTo(delayed.duration, 1 / 144));
+      expect(
+        refDuration(delayed, stepSize: 1 / 144),
+        closeTo(delayed.duration, 1 / 144),
+      );
     });
 
     // Very small and very large delays
@@ -385,7 +415,10 @@ void main() {
       );
       final delayed = DelayedSimulation(base: springCue, delay: 0.6);
 
-      expect(refDuration(delayed, stepSize: 1 / 120), closeTo(delayed.duration, 1 / 120));
+      expect(
+        refDuration(delayed, stepSize: 1 / 120),
+        closeTo(delayed.duration, 1 / 120),
+      );
     });
 
     // Delayed spring with reverse direction
@@ -543,10 +576,7 @@ void main() {
 
     // Ease in curve
     test('easeIn curve', () {
-      final motion = CueMotion.curved(
-        300.ms,
-        curve: Curves.easeIn,
-      );
+      final motion = CueMotion.curved(300.ms, curve: Curves.easeIn);
       final curved = motion.build(SimulationBuildData.forward(startValue: 0.0));
 
       expect(refDuration(curved), closeTo(curved.duration, 1 / 60));
@@ -554,10 +584,7 @@ void main() {
 
     // Ease out curve
     test('easeOut curve', () {
-      final motion = CueMotion.curved(
-        300.ms,
-        curve: Curves.easeOut,
-      );
+      final motion = CueMotion.curved(300.ms, curve: Curves.easeOut);
       final curved = motion.build(SimulationBuildData.forward(startValue: 0.0));
 
       expect(refDuration(curved), closeTo(curved.duration, 1 / 60));
@@ -565,10 +592,7 @@ void main() {
 
     // Ease in-out curve
     test('easeInOut curve', () {
-      final motion = CueMotion.curved(
-        300.ms,
-        curve: Curves.easeInOut,
-      );
+      final motion = CueMotion.curved(300.ms, curve: Curves.easeInOut);
       final curved = motion.build(SimulationBuildData.forward(startValue: 0.0));
 
       expect(refDuration(curved), closeTo(curved.duration, 1 / 60));
@@ -576,10 +600,7 @@ void main() {
 
     // Elastic curve
     test('elasticIn curve', () {
-      final motion = CueMotion.curved(
-        500.ms,
-        curve: Curves.elasticIn,
-      );
+      final motion = CueMotion.curved(500.ms, curve: Curves.elasticIn);
       final curved = motion.build(SimulationBuildData.forward(startValue: 0.0));
 
       expect(refDuration(curved), closeTo(curved.duration, 1 / 60));
@@ -587,10 +608,7 @@ void main() {
 
     // Bounce curve
     test('bounceOut curve', () {
-      final motion = CueMotion.curved(
-        400.ms,
-        curve: Curves.bounceOut,
-      );
+      final motion = CueMotion.curved(400.ms, curve: Curves.bounceOut);
       final curved = motion.build(SimulationBuildData.forward(startValue: 0.0));
 
       expect(refDuration(curved), closeTo(curved.duration, 1 / 60));
@@ -615,10 +633,7 @@ void main() {
 
     // Different starting values
     test('curved motion with non-zero start value', () {
-      final motion = CueMotion.curved(
-        300.ms,
-        curve: Curves.easeOut,
-      );
+      final motion = CueMotion.curved(300.ms, curve: Curves.easeOut);
       final curved = motion.build(SimulationBuildData.forward(startValue: 0.5));
 
       expect(refDuration(curved), closeTo(curved.duration, 1 / 60));
@@ -658,10 +673,7 @@ void main() {
 
     // Delayed curved motion
     test('delayed curved motion', () {
-      final motion = CueMotion.curved(
-        300.ms,
-        curve: Curves.easeOut,
-      );
+      final motion = CueMotion.curved(300.ms, curve: Curves.easeOut);
       final curved = motion.build(SimulationBuildData.forward(startValue: 0.0));
       final delayed = DelayedSimulation(base: curved, delay: .5);
 
@@ -670,10 +682,7 @@ void main() {
 
     // Delayed + delayed curved motion
     test('double delayed curved motion', () {
-      final motion = CueMotion.curved(
-        300.ms,
-        curve: Curves.easeInOut,
-      );
+      final motion = CueMotion.curved(300.ms, curve: Curves.easeInOut);
       final curved = motion.build(SimulationBuildData.forward(startValue: 0.0));
       final delayed1 = DelayedSimulation(base: curved, delay: 0.3);
       final delayed2 = DelayedSimulation(base: delayed1, delay: 0.2);
@@ -727,9 +736,7 @@ void main() {
         TimedMotion(Duration(milliseconds: 200)),
         TimedMotion(Duration(milliseconds: 300)),
       ]);
-      final sim = motion.build(
-        SimulationBuildData.forward(startValue: 0.0),
-      );
+      final sim = motion.build(SimulationBuildData.forward(startValue: 0.0));
       final derivative = sim.dx(0.1);
       expect(derivative, isNotNull);
     });
@@ -739,9 +746,7 @@ void main() {
         TimedMotion(Duration(milliseconds: 200)),
         TimedMotion(Duration(milliseconds: 300)),
       ]);
-      final sim = motion.build(
-        SimulationBuildData.reverse(startValue: 1.0),
-      );
+      final sim = motion.build(SimulationBuildData.reverse(startValue: 1.0));
       final derivative = sim.dx(0.1);
       expect(derivative, isNotNull);
     });
@@ -753,9 +758,7 @@ void main() {
         TimedMotion(Duration.zero),
         TimedMotion(Duration.zero),
       ]);
-      final sim = motion.build(
-        SimulationBuildData.forward(startValue: 0.0),
-      );
+      final sim = motion.build(SimulationBuildData.forward(startValue: 0.0));
       final (value, phase) = sim.valueAtProgress(0.5);
       expect(value, isNotNull);
       expect(phase, equals(0));

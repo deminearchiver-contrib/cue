@@ -34,7 +34,11 @@ abstract class AnimtableAct<T extends Object?, R extends Object?> extends Act {
   final ReverseBehaviorBase<T> reverse;
 
   /// Creates an animatable act with optional [motion], [delay], and [reverse] behavior.
-  const AnimtableAct({this.motion, this.delay = Duration.zero, required this.reverse});
+  const AnimtableAct({
+    this.motion,
+    this.delay = Duration.zero,
+    required this.reverse,
+  });
 
   /// Builds the forward and optional reverse [CueAnimtable]s for this act.
   ///
@@ -76,13 +80,21 @@ abstract class AnimtableAct<T extends Object?, R extends Object?> extends Act {
     CueAnimtable<R> effectiveAnimatable = reverseAnimtable == null
         ? animtable
         : DualAnimatable(forward: animtable, reverse: reverseAnimtable);
-    return CueAnimationImpl<R>(parent: track, token: token, animtable: effectiveAnimatable);
+    return CueAnimationImpl<R>(
+      parent: track,
+      token: token,
+      animtable: effectiveAnimatable,
+    );
   }
 
   /// Delegates to [apply] after asserting that [animation] has the expected
   /// type `CueAnimation<R>`.
   @override
-  Widget applyInternal(BuildContext context, covariant CueAnimation<Object?> animation, Widget child) {
+  Widget applyInternal(
+    BuildContext context,
+    covariant CueAnimation<Object?> animation,
+    Widget child,
+  ) {
     assert(
       animation is CueAnimation<R>,
       'Expected animation of type CueAnimation<$R>, but got ${animation.runtimeType}',
@@ -94,13 +106,20 @@ abstract class AnimtableAct<T extends Object?, R extends Object?> extends Act {
   ///
   /// This is the rendering entry-point for concrete act subclasses —
   /// implement this instead of overriding [applyInternal].
-  Widget apply(BuildContext context, covariant CueAnimation<R> animation, Widget child);
+  Widget apply(
+    BuildContext context,
+    covariant CueAnimation<R> animation,
+    Widget child,
+  );
 
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
     if (other.runtimeType != runtimeType) return false;
-    return other is AnimtableAct<R, T> && other.motion == motion && other.delay == delay && other.reverse == reverse;
+    return other is AnimtableAct<R, T> &&
+        other.motion == motion &&
+        other.delay == delay &&
+        other.reverse == reverse;
   }
 
   @override

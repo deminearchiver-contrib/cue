@@ -69,7 +69,8 @@ class _ProgressCue extends Cue {
   State<StatefulWidget> createState() => _ProgressCueState();
 }
 
-class _ProgressCueState extends CueState<_ProgressCue> with SingleTickerProviderStateMixin {
+class _ProgressCueState extends CueState<_ProgressCue>
+    with SingleTickerProviderStateMixin {
   late final _controller = CueController(vsync: this, motion: .linear(500.ms));
 
   @override
@@ -91,7 +92,10 @@ class _ProgressCueState extends CueState<_ProgressCue> with SingleTickerProvider
 
   void _updateAnimation() {
     final progress = widget.progress();
-    final value = ((progress - widget.min) / (widget.max - widget.min)).clamp(0.0, 1.0);
+    final value = ((progress - widget.min) / (widget.max - widget.min)).clamp(
+      0.0,
+      1.0,
+    );
     _controller.setProgress(value, forward: true);
   }
 

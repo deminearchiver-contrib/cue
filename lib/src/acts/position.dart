@@ -157,12 +157,18 @@ class PositionAct extends TweenAct<Position> {
   }
 
   @override
-  Widget apply(BuildContext context, Animation<Position> animation, Widget child) {
+  Widget apply(
+    BuildContext context,
+    Animation<Position> animation,
+    Widget child,
+  ) {
     return AnimatedBuilder(
       animation: animation,
       child: child,
       builder: (context, child) {
-        final pos = _relativeTo == null ? animation.value : animation.value._relative(_relativeTo);
+        final pos = _relativeTo == null
+            ? animation.value
+            : animation.value._relative(_relativeTo);
         return Positioned.directional(
           textDirection: Directionality.of(context),
           top: pos.top,
@@ -181,7 +187,9 @@ class PositionAct extends TweenAct<Position> {
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
     if (other.runtimeType != runtimeType) return false;
-    return other is PositionAct && super == other && other._relativeTo == _relativeTo;
+    return other is PositionAct &&
+        super == other &&
+        other._relativeTo == _relativeTo;
   }
 
   @override
@@ -249,47 +257,41 @@ class Position {
        height = null;
 
   /// Creates a position from STEB values (start, top, end, bottom).
-  const Position.fromSTEB(this.start, this.top, this.end, this.bottom) : width = null, height = null;
+  const Position.fromSTEB(this.start, this.top, this.end, this.bottom)
+    : width = null,
+      height = null;
 
   /// {@template position.top_start}
   /// Positions from the top-start corner.
   ///
   /// Useful for fixed corners like top-left.
   /// {@endtemplate}
-  const Position.topStart({
-    double top = 0,
-    double start = 0,
-  }) : this(top: top, start: start);
+  const Position.topStart({double top = 0, double start = 0})
+    : this(top: top, start: start);
 
   /// {@template position.top_end}
   /// Positions from the top-end corner.
   ///
   /// Opposite horizontal direction, useful for RTL layouts.
   /// {@endtemplate}
-  const Position.topEnd({
-    double top = 0,
-    double end = 0,
-  }) : this(top: top, end: end);
+  const Position.topEnd({double top = 0, double end = 0})
+    : this(top: top, end: end);
 
   /// {@template position.bottom_start}
   /// Positions from the bottom-start corner.
   ///
   /// Useful for bottom-aligned elements.
   /// {@endtemplate}
-  const Position.bottomStart({
-    double bottom = 0,
-    double start = 0,
-  }) : this(bottom: bottom, start: start);
+  const Position.bottomStart({double bottom = 0, double start = 0})
+    : this(bottom: bottom, start: start);
 
   /// {@template position.bottom_end}
   /// Positions from the bottom-end corner.
   ///
   /// Useful for bottom-right alignment in LTR layouts.
   /// {@endtemplate}
-  const Position.bottomEnd({
-    double bottom = 0,
-    double end = 0,
-  }) : this(bottom: bottom, end: end);
+  const Position.bottomEnd({double bottom = 0, double end = 0})
+    : this(bottom: bottom, end: end);
 
   Position _relative(Size size) {
     return Position(

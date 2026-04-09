@@ -9,10 +9,15 @@ void main() {
 
   final motion = CueMotion.linear(300.ms);
   final actContext = ActContext(motion: motion, reverseMotion: motion);
-  final track = CueTrackImpl(TrackConfig(motion: motion, reverseMotion: motion));
+  final track = CueTrackImpl(
+    TrackConfig(motion: motion, reverseMotion: motion),
+  );
   final timeline = CueTimelineImpl.fromMotion(motion);
 
-  DeferredCueAnimation<Size> createDeferredAnimation(CueTrackImpl track, ActContext ctx) {
+  DeferredCueAnimation<Size> createDeferredAnimation(
+    CueTrackImpl track,
+    ActContext ctx,
+  ) {
     return DeferredCueAnimation<Size>(
       parent: track,
       token: ReleaseToken(track.config, timeline),
@@ -91,7 +96,10 @@ void main() {
         final frames = Keyframes<Size>([
           Keyframe(const Size(100, 100)),
         ], motion: CueMotion.linear(100.ms));
-        final act = SizedBoxAct.keyframed(frames: frames, alignment: Alignment.bottomRight);
+        final act = SizedBoxAct.keyframed(
+          frames: frames,
+          alignment: Alignment.bottomRight,
+        );
         expect(act.alignment, Alignment.bottomRight);
       });
 
@@ -128,7 +136,11 @@ void main() {
             child: Center(
               child: Builder(
                 builder: (context) {
-                  return act.apply(context, animation, const Text('Width Test'));
+                  return act.apply(
+                    context,
+                    animation,
+                    const Text('Width Test'),
+                  );
                 },
               ),
             ),
@@ -152,7 +164,11 @@ void main() {
             child: Center(
               child: Builder(
                 builder: (context) {
-                  return act.apply(context, animation, const Text('Height Test'));
+                  return act.apply(
+                    context,
+                    animation,
+                    const Text('Height Test'),
+                  );
                 },
               ),
             ),
@@ -265,14 +281,22 @@ void main() {
       });
 
       test('different widths are not equal', () {
-        final act1 = SizedBoxAct(width: AnimatableValue(from: 100.0, to: 200.0));
-        final act2 = SizedBoxAct(width: AnimatableValue(from: 150.0, to: 250.0));
+        final act1 = SizedBoxAct(
+          width: AnimatableValue(from: 100.0, to: 200.0),
+        );
+        final act2 = SizedBoxAct(
+          width: AnimatableValue(from: 150.0, to: 250.0),
+        );
         expect(act1, isNot(act2));
       });
 
       test('different heights are not equal', () {
-        final act1 = SizedBoxAct(height: AnimatableValue(from: 100.0, to: 200.0));
-        final act2 = SizedBoxAct(height: AnimatableValue(from: 150.0, to: 250.0));
+        final act1 = SizedBoxAct(
+          height: AnimatableValue(from: 100.0, to: 200.0),
+        );
+        final act2 = SizedBoxAct(
+          height: AnimatableValue(from: 150.0, to: 250.0),
+        );
         expect(act1, isNot(act2));
       });
 
@@ -352,7 +376,11 @@ void main() {
             textDirection: TextDirection.ltr,
             child: Builder(
               builder: (context) {
-                return act.apply(context, animation, const SizedBox(width: 50, height: 50));
+                return act.apply(
+                  context,
+                  animation,
+                  const SizedBox(width: 50, height: 50),
+                );
               },
             ),
           ),
@@ -375,7 +403,11 @@ void main() {
             textDirection: TextDirection.ltr,
             child: Builder(
               builder: (context) {
-                return act.apply(context, animation, const SizedBox(width: 50, height: 50));
+                return act.apply(
+                  context,
+                  animation,
+                  const SizedBox(width: 50, height: 50),
+                );
               },
             ),
           ),
@@ -383,9 +415,7 @@ void main() {
 
         await tester.pump();
 
-        await tester.pumpWidget(
-          Container(),
-        );
+        await tester.pumpWidget(Container());
       });
 
       testWidgets('performLayout with null child', (tester) async {
@@ -452,7 +482,9 @@ void main() {
         }
       });
 
-      testWidgets('updates render object when properties change', (tester) async {
+      testWidgets('updates render object when properties change', (
+        tester,
+      ) async {
         final width1 = AnimatableValue(from: 100.0, to: 200.0);
         final act1 = SizedBoxAct(width: width1, alignment: Alignment.center);
 
@@ -464,7 +496,11 @@ void main() {
             textDirection: TextDirection.ltr,
             child: Builder(
               builder: (context) {
-                return act1.apply(context, animation, const Text('Update Test'));
+                return act1.apply(
+                  context,
+                  animation,
+                  const Text('Update Test'),
+                );
               },
             ),
           ),
@@ -480,7 +516,11 @@ void main() {
             textDirection: TextDirection.ltr,
             child: Builder(
               builder: (context) {
-                return act2.apply(context, animation, const Text('Update Test'));
+                return act2.apply(
+                  context,
+                  animation,
+                  const Text('Update Test'),
+                );
               },
             ),
           ),
@@ -501,7 +541,11 @@ void main() {
             textDirection: TextDirection.ltr,
             child: Builder(
               builder: (context) {
-                return act.apply(context, animation, const SizedBox(width: 50, height: 50));
+                return act.apply(
+                  context,
+                  animation,
+                  const SizedBox(width: 50, height: 50),
+                );
               },
             ),
           ),
@@ -517,7 +561,11 @@ void main() {
             textDirection: TextDirection.ltr,
             child: Builder(
               builder: (context) {
-                return act2.apply(context, animation, const SizedBox(width: 50, height: 50));
+                return act2.apply(
+                  context,
+                  animation,
+                  const SizedBox(width: 50, height: 50),
+                );
               },
             ),
           ),
@@ -538,7 +586,11 @@ void main() {
             textDirection: TextDirection.ltr,
             child: Builder(
               builder: (context) {
-                return act.apply(context, animation, const SizedBox(width: 50, height: 50));
+                return act.apply(
+                  context,
+                  animation,
+                  const SizedBox(width: 50, height: 50),
+                );
               },
             ),
           ),
@@ -554,7 +606,11 @@ void main() {
             textDirection: TextDirection.ltr,
             child: Builder(
               builder: (context) {
-                return act2.apply(context, animation, const SizedBox(width: 50, height: 50));
+                return act2.apply(
+                  context,
+                  animation,
+                  const SizedBox(width: 50, height: 50),
+                );
               },
             ),
           ),
@@ -693,7 +749,9 @@ void main() {
         await tester.pump();
       });
 
-      testWidgets('alignment setter prevents unnecessary repaints', (tester) async {
+      testWidgets('alignment setter prevents unnecessary repaints', (
+        tester,
+      ) async {
         final width = AnimatableValue(from: 100.0, to: 200.0);
         final act = SizedBoxAct(width: width, alignment: Alignment.center);
 

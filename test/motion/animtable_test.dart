@@ -189,7 +189,10 @@ void main() {
     });
 
     test('transform with curved animatable', () {
-      final segment = Tween(begin: 0.0, end: 1.0).chain(CurveTween(curve: Curves.easeIn));
+      final segment = Tween(
+        begin: 0.0,
+        end: 1.0,
+      ).chain(CurveTween(curve: Curves.easeIn));
 
       final value = segment.transform(0.5);
       expect(value, lessThan(0.5));

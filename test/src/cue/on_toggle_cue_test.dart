@@ -7,7 +7,9 @@ void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
   group('OnToggleCue', () {
-    testWidgets('skipFirstAnimation sets value to 1.0 when toggled is true', (tester) async {
+    testWidgets('skipFirstAnimation sets value to 1.0 when toggled is true', (
+      tester,
+    ) async {
       await tester.pumpWidget(
         MaterialApp(
           home: Cue.onToggle(
@@ -18,11 +20,14 @@ void main() {
         ),
       );
 
-      final state = tester.state(find.byType(OnToggleCue)) as SelfAnimatedCueState;
+      final state =
+          tester.state(find.byType(OnToggleCue)) as SelfAnimatedCueState;
       expect(state.controller.value, equals(1.0));
     });
 
-    testWidgets('skipFirstAnimation sets value to 0.0 when toggled is false', (tester) async {
+    testWidgets('skipFirstAnimation sets value to 0.0 when toggled is false', (
+      tester,
+    ) async {
       await tester.pumpWidget(
         MaterialApp(
           home: Cue.onToggle(
@@ -33,11 +38,14 @@ void main() {
         ),
       );
 
-      final state = tester.state(find.byType(OnToggleCue)) as SelfAnimatedCueState;
+      final state =
+          tester.state(find.byType(OnToggleCue)) as SelfAnimatedCueState;
       expect(state.controller.value, equals(0.0));
     });
 
-    testWidgets('without skipFirstAnimation starts forward when toggled', (tester) async {
+    testWidgets('without skipFirstAnimation starts forward when toggled', (
+      tester,
+    ) async {
       await tester.pumpWidget(
         MaterialApp(
           home: Cue.onToggle(
@@ -53,7 +61,9 @@ void main() {
       expect(state.controller.status, equals(AnimationStatus.forward));
     });
 
-    testWidgets('without skipFirstAnimation starts reverse when not toggled', (tester) async {
+    testWidgets('without skipFirstAnimation starts reverse when not toggled', (
+      tester,
+    ) async {
       await tester.pumpWidget(
         MaterialApp(
           home: Cue.onToggle(
@@ -64,7 +74,8 @@ void main() {
           ),
         ),
       );
-      final state = tester.state(find.byType(OnToggleCue)) as SelfAnimatedCueState;
+      final state =
+          tester.state(find.byType(OnToggleCue)) as SelfAnimatedCueState;
       expect(state.controller.status, equals(AnimationStatus.reverse));
     });
 
@@ -122,7 +133,9 @@ void main() {
       expect(state.controller.status, equals(AnimationStatus.reverse));
     });
 
-    testWidgets('toggling same value does not restart animation', (tester) async {
+    testWidgets('toggling same value does not restart animation', (
+      tester,
+    ) async {
       await tester.pumpWidget(
         MaterialApp(
           home: Cue.onToggle(
@@ -154,10 +167,7 @@ void main() {
     testWidgets('debugName is ToggledCue', (tester) async {
       await tester.pumpWidget(
         MaterialApp(
-          home: Cue.onToggle(
-            toggled: false,
-            child: const SizedBox(),
-          ),
+          home: Cue.onToggle(toggled: false, child: const SizedBox()),
         ),
       );
 
@@ -177,7 +187,8 @@ void main() {
         ),
       );
 
-      final state = tester.state(find.byType(OnToggleCue)) as SelfAnimatedCueState;
+      final state =
+          tester.state(find.byType(OnToggleCue)) as SelfAnimatedCueState;
       final track = state.controller.timeline.obtainDefaultTrack().$1;
       expect(track.motion, equals(motion));
     });

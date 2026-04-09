@@ -60,10 +60,7 @@ class DualAnimatable<T> extends CueAnimtable<T> {
   ///
   /// - [forward]: Evaluates when [CueTrack.isReverseOrDismissed] is `false`.
   /// - [reverse]: Evaluates when [CueTrack.isReverseOrDismissed] is `true`.
-  DualAnimatable({
-    required this.forward,
-    required this.reverse,
-  });
+  DualAnimatable({required this.forward, required this.reverse});
 
   @override
   T evaluate(CueTrack track) {

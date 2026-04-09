@@ -31,7 +31,9 @@ void main() {
       expect(scope.reanimateFromCurrent, isFalse);
     });
 
-    testWidgets('of() throws assert when no CueScope in context', (tester) async {
+    testWidgets('of() throws assert when no CueScope in context', (
+      tester,
+    ) async {
       await tester.pumpWidget(
         MaterialApp(
           home: Builder(
@@ -47,7 +49,9 @@ void main() {
       );
     });
 
-    testWidgets('updateShouldNotify returns true when controller changes', (tester) async {
+    testWidgets('updateShouldNotify returns true when controller changes', (
+      tester,
+    ) async {
       final controller1 = CueController(
         vsync: tester,
         motion: CueMotion.linear(300.ms),
@@ -73,29 +77,34 @@ void main() {
       expect(scope1.updateShouldNotify(scope2), isTrue);
     });
 
-    testWidgets('updateShouldNotify returns true when reanimateFromCurrent changes', (tester) async {
-      final controller = CueController(
-        vsync: tester,
-        motion: CueMotion.linear(300.ms),
-      );
+    testWidgets(
+      'updateShouldNotify returns true when reanimateFromCurrent changes',
+      (tester) async {
+        final controller = CueController(
+          vsync: tester,
+          motion: CueMotion.linear(300.ms),
+        );
 
-      final scope1 = CueScope(
-        controller: controller,
-        defaultConfig: controller.timeline.defaultConfig,
-        reanimateFromCurrent: false,
-        child: const SizedBox(),
-      );
-      final scope2 = CueScope(
-        controller: controller,
-        defaultConfig: controller.timeline.defaultConfig,
-        reanimateFromCurrent: true,
-        child: const SizedBox(),
-      );
+        final scope1 = CueScope(
+          controller: controller,
+          defaultConfig: controller.timeline.defaultConfig,
+          reanimateFromCurrent: false,
+          child: const SizedBox(),
+        );
+        final scope2 = CueScope(
+          controller: controller,
+          defaultConfig: controller.timeline.defaultConfig,
+          reanimateFromCurrent: true,
+          child: const SizedBox(),
+        );
 
-      expect(scope1.updateShouldNotify(scope2), isTrue);
-    });
+        expect(scope1.updateShouldNotify(scope2), isTrue);
+      },
+    );
 
-    testWidgets('updateShouldNotify returns false when nothing changes', (tester) async {
+    testWidgets('updateShouldNotify returns false when nothing changes', (
+      tester,
+    ) async {
       final controller = CueController(
         vsync: tester,
         motion: CueMotion.linear(300.ms),

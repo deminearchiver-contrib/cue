@@ -183,7 +183,8 @@ class CardAct extends AnimtableAct<CardProps, CardProps> {
   const CardAct.keyframed({
     required Keyframes<CardProps> this.frames,
     super.delay,
-    KFReverseBehavior<CardProps> super.reverse = const KFReverseBehavior.mirror(),
+    KFReverseBehavior<CardProps> super.reverse =
+        const KFReverseBehavior.mirror(),
   }) : color = null,
        shadowColor = const AnimatableValue.fixed(Color(0xFF000000)),
        surfaceTintColor = null,
@@ -196,7 +197,9 @@ class CardAct extends AnimtableAct<CardProps, CardProps> {
        semanticContainer = true;
 
   @override
-  (CueAnimtable<CardProps>, CueAnimtable<CardProps>?) buildTweens(ActContext context) {
+  (CueAnimtable<CardProps>, CueAnimtable<CardProps>?) buildTweens(
+    ActContext context,
+  ) {
     final from = CardProps(
       elevation: elevation?.from,
       color: color?.from,
@@ -220,19 +223,27 @@ class CardAct extends AnimtableAct<CardProps, CardProps> {
       to: to,
       frames: frames,
       reverse: reverse,
-      tweenBuilder: (begin, end) => _CardPropsProxyTween(begin: begin, end: end),
+      tweenBuilder: (begin, end) =>
+          _CardPropsProxyTween(begin: begin, end: end),
     );
     return builder.buildTweens(context);
   }
 
   @override
-  Widget apply(BuildContext context, covariant Animation<CardProps> animation, Widget child) {
+  Widget apply(
+    BuildContext context,
+    covariant Animation<CardProps> animation,
+    Widget child,
+  ) {
     final textDirection = Directionality.maybeOf(context);
 
     // Local function closes over textDirection, avoiding repeated argument passing.
-    ({ShapeBorderClipper clipper, _ShapeBorderPainter? painter, bool hasBorderStroke}) resolveShape(
-      CardProps props,
-    ) {
+    ({
+      ShapeBorderClipper clipper,
+      _ShapeBorderPainter? painter,
+      bool hasBorderStroke,
+    })
+    resolveShape(CardProps props) {
       final resolvedShape =
           props.shape ??
           (props.borderRadius != null
@@ -240,15 +251,21 @@ class CardAct extends AnimtableAct<CardProps, CardProps> {
               : const RoundedRectangleBorder());
       final hasBorderStroke = !resolvedShape.preferPaintInterior;
       return (
-        clipper: ShapeBorderClipper(shape: resolvedShape, textDirection: textDirection),
-        painter: hasBorderStroke ? _ShapeBorderPainter(resolvedShape, textDirection) : null,
+        clipper: ShapeBorderClipper(
+          shape: resolvedShape,
+          textDirection: textDirection,
+        ),
+        painter: hasBorderStroke
+            ? _ShapeBorderPainter(resolvedShape, textDirection)
+            : null,
         hasBorderStroke: hasBorderStroke,
       );
     }
 
     // When shape/borderRadius is constant (not animating), pre-build the shape
     // objects once outside the builder to avoid per-frame allocations.
-    final isShapeConstant = (shape?.isConstant ?? true) && (borderRadius?.isConstant ?? true);
+    final isShapeConstant =
+        (shape?.isConstant ?? true) && (borderRadius?.isConstant ?? true);
     final cached = isShapeConstant ? resolveShape(animation.value) : null;
     final CardThemeData cardTheme = CardTheme.of(context);
     return Semantics(
@@ -258,8 +275,10 @@ class CardAct extends AnimtableAct<CardProps, CardProps> {
         child: Semantics(explicitChildNodes: !semanticContainer, child: child),
         builder: (context, child) {
           final props = animation.value;
-          final (:clipper, :painter, :hasBorderStroke) = cached ?? resolveShape(props);
-          final effectiveElevation = props.elevation ?? cardTheme.elevation ?? 1.0;
+          final (:clipper, :painter, :hasBorderStroke) =
+              cached ?? resolveShape(props);
+          final effectiveElevation =
+              props.elevation ?? cardTheme.elevation ?? 1.0;
           return Padding(
             padding: props.margin ?? cardTheme.margin ?? EdgeInsets.zero,
             child: PhysicalShape(
@@ -270,7 +289,10 @@ class CardAct extends AnimtableAct<CardProps, CardProps> {
                 props.surfaceTintColor ?? cardTheme.surfaceTintColor,
                 effectiveElevation,
               ),
-              shadowColor: props.shadowColor ?? cardTheme.shadowColor ?? const Color(0xFF000000),
+              shadowColor:
+                  props.shadowColor ??
+                  cardTheme.shadowColor ??
+                  const Color(0xFF000000),
               clipBehavior: clipBehavior,
               child: hasBorderStroke
                   ? CustomPaint(
@@ -423,7 +445,11 @@ class CardProps {
       color: Color.lerp(a.color, b.color, t),
       shadowColor: Color.lerp(a.shadowColor, b.shadowColor, t),
       surfaceTintColor: Color.lerp(a.surfaceTintColor, b.surfaceTintColor, t),
-      borderRadius: BorderRadiusGeometry.lerp(a.borderRadius, b.borderRadius, t),
+      borderRadius: BorderRadiusGeometry.lerp(
+        a.borderRadius,
+        b.borderRadius,
+        t,
+      ),
       shape: ShapeBorder.lerp(a.shape, b.shape, t),
       margin: EdgeInsetsGeometry.lerp(a.margin, b.margin, t),
     );

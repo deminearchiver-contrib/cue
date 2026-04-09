@@ -103,10 +103,7 @@ void main() {
 
     testWidgets('asserts length > 0', (tester) async {
       expect(
-        () => CueIndexController(
-          length: 0,
-          vsync: const _TestTickerProvider(),
-        ),
+        () => CueIndexController(length: 0, vsync: const _TestTickerProvider()),
         throwsA(isA<AssertionError>()),
       );
     });
@@ -147,15 +144,9 @@ void main() {
         ),
       );
 
-      expect(
-        () => controller.animateTo(-1),
-        throwsA(isA<AssertionError>()),
-      );
+      expect(() => controller.animateTo(-1), throwsA(isA<AssertionError>()));
 
-      expect(
-        () => controller.animateTo(3),
-        throwsA(isA<AssertionError>()),
-      );
+      expect(() => controller.animateTo(3), throwsA(isA<AssertionError>()));
     });
 
     testWidgets('asserts jumpTo index in range', (tester) async {
@@ -174,15 +165,9 @@ void main() {
         ),
       );
 
-      expect(
-        () => controller.jumpTo(-1),
-        throwsA(isA<AssertionError>()),
-      );
+      expect(() => controller.jumpTo(-1), throwsA(isA<AssertionError>()));
 
-      expect(
-        () => controller.jumpTo(3),
-        throwsA(isA<AssertionError>()),
-      );
+      expect(() => controller.jumpTo(3), throwsA(isA<AssertionError>()));
     });
 
     testWidgets('tickListenable returns animationController', (tester) async {
@@ -206,7 +191,9 @@ void main() {
   });
 
   group('IndexedCueController mixin', () {
-    testWidgets('valueFor returns correct value for non-animating', (tester) async {
+    testWidgets('valueFor returns correct value for non-animating', (
+      tester,
+    ) async {
       late CueIndexController controller;
       await tester.pumpWidget(
         MaterialApp(
@@ -234,7 +221,9 @@ void main() {
       expect(controller.valueFor(3), equals(0.0));
     });
 
-    testWidgets('calculateOffsetFor computes distance-based offset', (tester) async {
+    testWidgets('calculateOffsetFor computes distance-based offset', (
+      tester,
+    ) async {
       late CueIndexController controller;
       await tester.pumpWidget(
         MaterialApp(
@@ -510,7 +499,9 @@ void main() {
       expect(controller.valueFor(3), 0.0);
     });
 
-    testWidgets('valueFor with animateAll=false during animation', (tester) async {
+    testWidgets('valueFor with animateAll=false during animation', (
+      tester,
+    ) async {
       late CueIndexController controller;
       await tester.pumpWidget(
         MaterialApp(
@@ -589,10 +580,7 @@ void main() {
         MaterialApp(
           home: StatefulBuilder(
             builder: (context, setState) {
-              controller = CuePageController(
-                initialPage: 0,
-                animateAll: true,
-              );
+              controller = CuePageController(initialPage: 0, animateAll: true);
               return const SizedBox();
             },
           ),
@@ -703,7 +691,9 @@ void main() {
       expect(wasAnimating, isFalse);
     });
 
-    testWidgets('globalOffset with no clients returns initialPage', (tester) async {
+    testWidgets('globalOffset with no clients returns initialPage', (
+      tester,
+    ) async {
       late CuePageController controller;
       await tester.pumpWidget(
         MaterialApp(
@@ -881,7 +871,9 @@ void main() {
       expect(controller.previousIndex, 1);
     });
 
-    testWidgets('animateTo sets destinationIndex and sets isAnimating', (tester) async {
+    testWidgets('animateTo sets destinationIndex and sets isAnimating', (
+      tester,
+    ) async {
       late CueTabController controller;
       await tester.pumpWidget(
         MaterialApp(
@@ -923,7 +915,9 @@ void main() {
       expect(controller.globalOffset, 1.0);
     });
 
-    testWidgets('tickListenable returns animation when available', (tester) async {
+    testWidgets('tickListenable returns animation when available', (
+      tester,
+    ) async {
       late CueTabController controller;
       await tester.pumpWidget(
         MaterialApp(
@@ -944,7 +938,9 @@ void main() {
       expect(listenable1, isNotNull);
     });
 
-    testWidgets('destinationIndex when indexIsChanging is false', (tester) async {
+    testWidgets('destinationIndex when indexIsChanging is false', (
+      tester,
+    ) async {
       late CueTabController controller;
       await tester.pumpWidget(
         MaterialApp(

@@ -109,7 +109,9 @@ void main() {
 
       expect(widget.hideTriggerOnTransition, isFalse);
     });
-    testWidgets('hideTriggerOnTransition hides trigger when modal is open', (tester) async {
+    testWidgets('hideTriggerOnTransition hides trigger when modal is open', (
+      tester,
+    ) async {
       await tester.pumpWidget(
         MaterialApp(
           home: CueModalTransition(
@@ -125,7 +127,9 @@ void main() {
 
       // Trigger is visible
       expect(find.text('trigger'), findsOneWidget);
-      final visibilityBefore = tester.widget<Visibility>(find.byType(Visibility).first);
+      final visibilityBefore = tester.widget<Visibility>(
+        find.byType(Visibility).first,
+      );
       expect(visibilityBefore.visible, isTrue);
 
       // Open modal
@@ -133,33 +137,40 @@ void main() {
       await tester.pumpAndSettle();
 
       // Trigger Visibility should be hidden (maintain=false means invisible)
-      final visibilityAfter = tester.widget<Visibility>(find.byType(Visibility).first);
+      final visibilityAfter = tester.widget<Visibility>(
+        find.byType(Visibility).first,
+      );
       expect(visibilityAfter.visible, isFalse);
       expect(find.text('modal'), findsOneWidget);
     });
-    testWidgets('trigger remains visible when hideTriggerOnTransition is false', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: CueModalTransition(
-            hideTriggerOnTransition: false,
-            triggerBuilder: (context, showDialog) => ElevatedButton(
-              onPressed: showDialog,
-              child: const Text('trigger'),
+    testWidgets(
+      'trigger remains visible when hideTriggerOnTransition is false',
+      (tester) async {
+        await tester.pumpWidget(
+          MaterialApp(
+            home: CueModalTransition(
+              hideTriggerOnTransition: false,
+              triggerBuilder: (context, showDialog) => ElevatedButton(
+                onPressed: showDialog,
+                child: const Text('trigger'),
+              ),
+              builder: (context, rect) => const Text('modal'),
             ),
-            builder: (context, rect) => const Text('modal'),
           ),
-        ),
-      );
+        );
 
-      // Open modal
-      await tester.tap(find.text('trigger'));
-      await tester.pumpAndSettle();
+        // Open modal
+        await tester.tap(find.text('trigger'));
+        await tester.pumpAndSettle();
 
-      // Trigger should still be visible
-      final visibility = tester.widget<Visibility>(find.byType(Visibility).first);
-      expect(visibility.visible, isTrue);
-      expect(find.text('modal'), findsOneWidget);
-    });
+        // Trigger should still be visible
+        final visibility = tester.widget<Visibility>(
+          find.byType(Visibility).first,
+        );
+        expect(visibility.visible, isTrue);
+        expect(find.text('modal'), findsOneWidget);
+      },
+    );
 
     testWidgets('builder receives triggerRect', (tester) async {
       Rect? capturedRect;

@@ -36,14 +36,21 @@ mixin CueModalRouteMixin<T extends Object?> on ModalRoute<T> {
   final _isCurrentNotifer = ValueNotifier<bool>(true);
 
   @override
-  Widget buildPage(BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation) {
+  Widget buildPage(
+    BuildContext context,
+    Animation<double> animation,
+    Animation<double> secondaryAnimation,
+  ) {
     return Cue(
       controller: (controller as CueController),
       child: ListenableBuilder(
         listenable: _isCurrentNotifer,
         child: super.buildPage(context, animation, secondaryAnimation),
         builder: (context, child) {
-          return Visibility.maintain(visible: _isCurrentNotifer.value, child: child!);
+          return Visibility.maintain(
+            visible: _isCurrentNotifer.value,
+            child: child!,
+          );
         },
       ),
     );

@@ -49,12 +49,12 @@ class CueController extends AnimationController {
     required super.vsync,
     required CueMotion motion,
     CueMotion? reverseMotion,
-  }) : assert(value >= 0.0 && value <= 1.0, 'The initial value must be between 0.0 and 1.0. Received: $value'),
+  }) : assert(
+         value >= 0.0 && value <= 1.0,
+         'The initial value must be between 0.0 and 1.0. Received: $value',
+       ),
        _timeline = CueTimelineImpl(
-         TrackConfig(
-           motion: motion,
-           reverseMotion: reverseMotion ?? motion,
-         ),
+         TrackConfig(motion: motion, reverseMotion: reverseMotion ?? motion),
        )..setProgress(value, forward: value > 0.0),
        super.unbounded();
 
@@ -67,14 +67,15 @@ class CueController extends AnimationController {
   ///
   /// Cue widgets call this automatically when their motion input changes.
   /// Only call this manually if managing tracks outside of Cue widgets.
-  void rebuildTimeline(CueMotion newMotion, {CueMotion? reverseMotion, bool keepProgress = true}) {
+  void rebuildTimeline(
+    CueMotion newMotion, {
+    CueMotion? reverseMotion,
+    bool keepProgress = true,
+  }) {
     final progress = keepProgress ? _timeline.progress : null;
     _timeline.dispose();
     _timeline = CueTimelineImpl(
-      TrackConfig(
-        motion: newMotion,
-        reverseMotion: reverseMotion ?? newMotion,
-      ),
+      TrackConfig(motion: newMotion, reverseMotion: reverseMotion ?? newMotion),
     );
     if (progress != null) {
       _timeline.setProgress(progress, forward: progress > 0.0);
@@ -149,7 +150,8 @@ class CueController extends AnimationController {
       to: to,
       reverse: reverse,
       tweenBuilder: (from, to) {
-        return tweenBuilder?.call(begin: from, end: to) ?? Tween<T>(begin: from, end: to);
+        return tweenBuilder?.call(begin: from, end: to) ??
+            Tween<T>(begin: from, end: to);
       },
     );
 
@@ -200,7 +202,8 @@ class CueController extends AnimationController {
       frames: frames,
       reverse: reverse,
       tweenBuilder: (from, to) {
-        return tweenBuilder?.call(begin: from, end: to) ?? Tween(begin: from, end: to);
+        return tweenBuilder?.call(begin: from, end: to) ??
+            Tween(begin: from, end: to);
       },
     );
 
@@ -240,14 +243,16 @@ class CueController extends AnimationController {
   /// The forward animation duration, derived from the timeline's forward motion.
   @override
   Duration get duration {
-    final microseconds = _timeline.forwardDuration * Duration.microsecondsPerSecond;
+    final microseconds =
+        _timeline.forwardDuration * Duration.microsecondsPerSecond;
     return Duration(microseconds: microseconds.round());
   }
 
   /// The reverse animation duration, derived from the timeline's reverse motion.
   @override
   Duration get reverseDuration {
-    final microseconds = _timeline.reverseDuration * Duration.microsecondsPerSecond;
+    final microseconds =
+        _timeline.reverseDuration * Duration.microsecondsPerSecond;
     return Duration(microseconds: microseconds.round());
   }
 
@@ -267,8 +272,15 @@ class CueController extends AnimationController {
   ///   which motion (forward or reverse) is used for track evaluation.
   /// - [forceLinear]: Bypasses curves/physics for direct linear interpolation.
   ///   Use this for drag-based scrubbing where you want raw positional control.
-  void setProgress(double newValue, {bool forward = true, bool forceLinear = false}) {
-    assert(newValue >= 0.0 && newValue <= 1.0, 'The animation value must be between 0.0 and 1.0. Received: $newValue');
+  void setProgress(
+    double newValue, {
+    bool forward = true,
+    bool forceLinear = false,
+  }) {
+    assert(
+      newValue >= 0.0 && newValue <= 1.0,
+      'The animation value must be between 0.0 and 1.0. Received: $newValue',
+    );
     timeline.setProgress(newValue, forward: forward, forceLinear: forceLinear);
     super.value = newValue;
   }
@@ -289,7 +301,9 @@ class CueController extends AnimationController {
   /// Subscribes to Cue-specific [TimelineEvent]s from the timeline.
   ///
   /// Returns an [EventDisposer] to cancel the subscription.
-  EventDisposer addEventListener<T extends TimelineEvent>(ValueChanged<T> listener) {
+  EventDisposer addEventListener<T extends TimelineEvent>(
+    ValueChanged<T> listener,
+  ) {
     return timeline.addEventListener<T>(listener);
   }
 
@@ -324,7 +338,10 @@ class CueController extends AnimationController {
   TickerFuture forward({double? from, double? velocity}) {
     _timeline.willAnimate(forward: true);
     if (from != null) {
-      assert(from >= 0.0 && from <= 1.0, 'The "from" value must be between 0.0 and 1.0. Received: $from');
+      assert(
+        from >= 0.0 && from <= 1.0,
+        'The "from" value must be between 0.0 and 1.0. Received: $from',
+      );
     }
     _timeline.prepare(forward: true, from: from, velocity: velocity);
     return super.animateWith(_timeline);
@@ -338,7 +355,10 @@ class CueController extends AnimationController {
   TickerFuture reverse({double? from, double? velocity}) {
     _timeline.willAnimate(forward: false);
     if (from != null) {
-      assert(from >= 0.0 && from <= 1.0, 'The "from" value must be between 0.0 and 1.0. Received: $from');
+      assert(
+        from >= 0.0 && from <= 1.0,
+        'The "from" value must be between 0.0 and 1.0. Received: $from',
+      );
     }
     _timeline.prepare(forward: false, from: from, velocity: velocity);
     return super.animateBackWith(_timeline);
@@ -347,13 +367,17 @@ class CueController extends AnimationController {
   /// Not supported. Use [forward] to drive the Cue timeline.
   @override
   TickerFuture animateWith(Simulation simulation) {
-    throw UnsupportedError('animateWith is not supported by CueController. Use forward instead.');
+    throw UnsupportedError(
+      'animateWith is not supported by CueController. Use forward instead.',
+    );
   }
 
   /// Not supported. Use [reverse] to drive the Cue timeline.
   @override
   TickerFuture animateBackWith(Simulation simulation) {
-    throw UnsupportedError('animateBackWith is not supported by CueController. Use reverse instead.');
+    throw UnsupportedError(
+      'animateBackWith is not supported by CueController. Use reverse instead.',
+    );
   }
 
   /// Resets the animation to 0 and stops any in-flight animation.
@@ -375,18 +399,35 @@ class CueController extends AnimationController {
   /// physics-based animations as first-class—duration is always derived from
   /// the motion, not set externally.
   @override
-  TickerFuture repeat({double? min, double? max, bool reverse = false, int? count, Duration? period}) {
+  TickerFuture repeat({
+    double? min,
+    double? max,
+    bool reverse = false,
+    int? count,
+    Duration? period,
+  }) {
     if (period != null) {
       throw UnsupportedError(
         'CueController does not support time-based repetition because physics-based animations are first-class. You may only specify count and reverse parameters. Received: period: $period',
       );
     }
-    assert(min == null || (min >= 0.0 && min <= 1.0), 'The "min" value must be between 0.0 and 1.0. Received: $min');
-    assert(max == null || (max >= 0.0 && max <= 1.0), 'The "max" value must be between 0.0 and 1.0. Received: $max');
+    assert(
+      min == null || (min >= 0.0 && min <= 1.0),
+      'The "min" value must be between 0.0 and 1.0. Received: $min',
+    );
+    assert(
+      max == null || (max >= 0.0 && max <= 1.0),
+      'The "max" value must be between 0.0 and 1.0. Received: $max',
+    );
 
-    assert(count == null || count > 0, 'The "count" value must be greater than 0. Received: $count');
+    assert(
+      count == null || count > 0,
+      'The "count" value must be greater than 0. Received: $count',
+    );
     _timeline.willAnimate(forward: true);
-    _timeline.prepareForRepeat(RepeatConfig(reverse: reverse, count: count, from: min, target: max));
+    _timeline.prepareForRepeat(
+      RepeatConfig(reverse: reverse, count: count, from: min, target: max),
+    );
     return super.animateWith(_timeline);
   }
 
@@ -399,7 +440,12 @@ class CueController extends AnimationController {
   /// are **ignored**. Motion characteristics are configured per track via [CueMotion],
   /// not through this method.
   @override
-  TickerFuture animateTo(double target, {bool? forward, Duration? duration, Curve curve = Curves.linear}) {
+  TickerFuture animateTo(
+    double target, {
+    bool? forward,
+    Duration? duration,
+    Curve curve = Curves.linear,
+  }) {
     if (duration != null || curve != Curves.linear) {
       assert(() {
         debugPrint(
@@ -408,7 +454,10 @@ class CueController extends AnimationController {
         return true;
       }());
     }
-    assert(target >= 0.0 && target <= 1.0, 'The target value must be between 0.0 and 1.0. Received: $target');
+    assert(
+      target >= 0.0 && target <= 1.0,
+      'The target value must be between 0.0 and 1.0. Received: $target',
+    );
     if (target == value) {
       return TickerFuture.complete();
     }
@@ -442,14 +491,24 @@ class CueController extends AnimationController {
     );
     final forward = velocity > 0.0;
     final tolarence = Tolerance(velocity: double.infinity, distance: 0.01);
-    final double target = velocity < 0.0 ? 0.0 - tolarence.distance : 1.0 + tolarence.distance;
-    final AnimationBehavior behavior = animationBehavior ?? this.animationBehavior;
+    final double target = velocity < 0.0
+        ? 0.0 - tolarence.distance
+        : 1.0 + tolarence.distance;
+    final AnimationBehavior behavior =
+        animationBehavior ?? this.animationBehavior;
     final double scale = switch (behavior) {
       // This is arbitrary (it was chosen because it worked for the drawer widget).
-      AnimationBehavior.normal when SemanticsBinding.instance.disableAnimations => 200.0,
+      AnimationBehavior.normal
+          when SemanticsBinding.instance.disableAnimations =>
+        200.0,
       AnimationBehavior.normal || AnimationBehavior.preserve => 1.0,
     };
-    final simulation = SpringSimulation(springDescription, value, target, velocity * scale)..tolerance = tolarence;
+    final simulation = SpringSimulation(
+      springDescription,
+      value,
+      target,
+      velocity * scale,
+    )..tolerance = tolarence;
     assert(
       simulation.type != SpringType.underDamped,
       'The specified spring simulation is of type SpringType.underDamped.\n'
@@ -457,12 +516,15 @@ class CueController extends AnimationController {
       'Consider specifying a different springDescription, or use animateWith() '
       'with an explicit SpringSimulation if an underdamped spring is intentional.',
     );
-    void listener() => timeline.setProgress(value.clamp(0, 1), forward: forward);
+    void listener() =>
+        timeline.setProgress(value.clamp(0, 1), forward: forward);
     addListener(listener);
     if (forward) {
-      return super.animateWith(simulation)..whenComplete(() => removeListener(listener));
+      return super.animateWith(simulation)
+        ..whenComplete(() => removeListener(listener));
     } else {
-      return super.animateBackWith(simulation)..whenComplete(() => removeListener(listener));
+      return super.animateBackWith(simulation)
+        ..whenComplete(() => removeListener(listener));
     }
   }
 }
