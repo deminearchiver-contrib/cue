@@ -81,7 +81,7 @@ class _BigCard extends StatelessWidget {
           fit: StackFit.expand,
           children: [
             Image.network(
-              "https://picsum.photos/id/${index + 120}/800/600",
+              "https://picsum.photos/id/${index + 160}/800/600",
               fit: BoxFit.cover,
               errorBuilder: (context, error, stackTrace) =>
                   Container(color: Colors.red),

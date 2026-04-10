@@ -15,11 +15,11 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const CueApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class CueApp extends StatelessWidget {
+  const CueApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       builder: (context, child) {
         if (kDebugMode) {
-          return CueDebugTools(child: child!);
+          // return CueDebugTools(child: child!);
         }
         return child!;
       },
