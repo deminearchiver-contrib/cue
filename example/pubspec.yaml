@@ -9,12 +9,31 @@ environment:
   flutter: ">=3.41.0"
 
 dependencies:
+  # SDK dependencies
   flutter:
     sdk: flutter
+
+  # Git dependencies
+  layout:
+    git:
+      url: https://github.com/deminearchiver/dart-flutter-packages.git
+      ref: 75956d8aeeb5e62b3ead35492134b09df9d8a125
+      path: packages/layout
+  material:
+    git:
+      url: https://github.com/deminearchiver/dart-flutter-packages.git
+      ref: 75956d8aeeb5e62b3ead35492134b09df9d8a125
+      path: packages/material
+
+  # Path dependencies
   cue:
     path: ..
+
+  # Hosted dependencies
   cupertino_icons: ^1.0.9
   iconsax: ^0.0.8
+  libmonet: ^2.0.0-dev.13
+  material_symbols_icons: ^4.2928.1
 
 dev_dependencies:
   flutter_test:

@@ -57,7 +57,7 @@ mixin CueModalRouteMixin<T extends Object?> on ModalRoute<T> {
   }
 
   @override
-  void didChangeNext(Route? nextRoute) {
+  void didChangeNext(Route<Object?>? nextRoute) {
     super.didChangeNext(nextRoute);
     if (hideOnPushNext && nextRoute is CueModalRouteMixin) {
       _isCurrentNotifer.value = false;
@@ -65,7 +65,7 @@ mixin CueModalRouteMixin<T extends Object?> on ModalRoute<T> {
   }
 
   @override
-  void dispose() async {
+  void dispose() {
     if (onAnimationStatusChanged != null) {
       onAnimationStatusChanged!.call(AnimationStatus.dismissed);
       controller?.removeStatusListener(onAnimationStatusChanged!);
